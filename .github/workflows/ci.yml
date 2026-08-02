@@ -1,0 +1,131 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+env:
+  DOTNET_NOLOGO: true
+  DOTNET_CLI_TELEMETRY_OPTOUT: true
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+
+jobs:
+  build:
+    name: build (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, macos-latest, ubuntu-latest]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Verify generated localization files are current
+        shell: pwsh
+        run: |
+          ./build/generate-localization.ps1
+          $changed = git status --porcelain -- src/GitVault.Localization
+          if ($changed) {
+            Write-Error "Generated localization files are stale. Run build/generate-localization.ps1 and commit the result.`n$changed"
+            exit 1
+          }
+
+      - name: Restore
+        run: dotnet restore GitVault.sln
+
+      - name: Build
+        run: dotnet build GitVault.sln --configuration Release --no-restore
+
+      - name: Test
+        run: >
+          dotnet test GitVault.sln --configuration Release --no-build
+          --logger "trx;LogFileName=test-results.trx"
+          --collect:"XPlat Code Coverage"
+          --results-directory ./artifacts/coverage
+
+      - name: Enforce coverage thresholds
+        shell: pwsh
+        run: ./build/check-coverage.ps1
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results-${{ matrix.os }}
+          path: ./artifacts/coverage
+          if-no-files-found: warn
+
+  publish:
+    name: publish (${{ matrix.rid }})
+    needs: build
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { os: windows-latest, rid: win-x64 }
+          - { os: windows-latest, rid: win-arm64 }
+          - { os: macos-latest, rid: osx-x64 }
+          - { os: macos-latest, rid: osx-arm64 }
+          - { os: ubuntu-latest, rid: linux-x64 }
+          - { os: ubuntu-latest, rid: linux-arm64 }
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Publish self-contained single file
+        run: >
+          dotnet publish src/GitVault.App/GitVault.App.csproj
+          --configuration Release
+          --runtime ${{ matrix.rid }}
+          --self-contained true
+          -p:PublishSingleFile=true
+          -p:IncludeNativeLibrariesForSelfExtract=true
+          -p:PublishTrimmed=false
+          -p:InvariantGlobalization=false
+          --output ./artifacts/${{ matrix.rid }}
+
+      - name: Package (Windows)
+        if: startsWith(matrix.rid, 'win-')
+        shell: pwsh
+        run: ./build/windows/pack.ps1 -Runtime ${{ matrix.rid }}
+
+      - name: Package (macOS)
+        if: startsWith(matrix.rid, 'osx-')
+        run: |
+          chmod +x ./build/macos/pack.sh
+          ./build/macos/pack.sh ${{ matrix.rid }}
+
+      - name: Package (Linux)
+        if: startsWith(matrix.rid, 'linux-')
+        run: |
+          chmod +x ./build/linux/pack.sh
+          ./build/linux/pack.sh ${{ matrix.rid }}
+
+      - name: Upload build
+        uses: actions/upload-artifact@v4
+        with:
+          name: gitvault-${{ matrix.rid }}
+          path: ./artifacts/${{ matrix.rid }}
+          if-no-files-found: error
+
+      - name: Upload installers
+        uses: actions/upload-artifact@v4
+        with:
+          name: gitvault-installers-${{ matrix.rid }}
+          path: ./artifacts/installers
+          # Signing does not run in CI, so some platforms produce only an archive.
+          if-no-files-found: warn

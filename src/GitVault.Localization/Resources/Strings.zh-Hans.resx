@@ -1,0 +1,938 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!--
+    GENERATED FILE - do not edit by hand.
+    Source: build/loc/strings.json    Generator: build/generate-localization.ps1
+  -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="App_Title" xml:space="preserve">
+    <value>GitVault</value>
+  </data>
+  <data name="App_Subtitle" xml:space="preserve">
+    <value>Git 账户、密钥与凭据</value>
+  </data>
+  <data name="App_WindowTitle" xml:space="preserve">
+    <value>{0} — {1}</value>
+  </data>
+  <data name="Nav_Dashboard" xml:space="preserve">
+    <value>概览</value>
+  </data>
+  <data name="Nav_Identities" xml:space="preserve">
+    <value>身份</value>
+  </data>
+  <data name="Nav_Keys" xml:space="preserve">
+    <value>SSH 密钥</value>
+  </data>
+  <data name="Nav_Agents" xml:space="preserve">
+    <value>SSH 代理</value>
+  </data>
+  <data name="Nav_Credentials" xml:space="preserve">
+    <value>凭据</value>
+  </data>
+  <data name="Nav_Clients" xml:space="preserve">
+    <value>客户端</value>
+  </data>
+  <data name="Nav_Profiles" xml:space="preserve">
+    <value>身份配置</value>
+  </data>
+  <data name="Nav_Repositories" xml:space="preserve">
+    <value>仓库</value>
+  </data>
+  <data name="Nav_Settings" xml:space="preserve">
+    <value>设置</value>
+  </data>
+  <data name="Nav_Logs" xml:space="preserve">
+    <value>日志</value>
+  </data>
+  <data name="Common_Rescan" xml:space="preserve">
+    <value>重新扫描</value>
+  </data>
+  <data name="Common_Search" xml:space="preserve">
+    <value>搜索</value>
+  </data>
+  <data name="Common_Cancel" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="Common_Ok" xml:space="preserve">
+    <value>确定</value>
+  </data>
+  <data name="Common_Close" xml:space="preserve">
+    <value>关闭</value>
+  </data>
+  <data name="Common_Copy" xml:space="preserve">
+    <value>复制</value>
+  </data>
+  <data name="Common_Apply" xml:space="preserve">
+    <value>应用</value>
+  </data>
+  <data name="Common_Working" xml:space="preserve">
+    <value>处理中…</value>
+  </data>
+  <data name="Common_NoData" xml:space="preserve">
+    <value>暂无数据</value>
+  </data>
+  <data name="Common_Details" xml:space="preserve">
+    <value>详情</value>
+  </data>
+  <data name="Common_WhatDoesThisMean" xml:space="preserve">
+    <value>这是什么意思？</value>
+  </data>
+  <data name="Common_Yes" xml:space="preserve">
+    <value>是</value>
+  </data>
+  <data name="Common_No" xml:space="preserve">
+    <value>否</value>
+  </data>
+  <data name="Common_Never" xml:space="preserve">
+    <value>从未</value>
+  </data>
+  <data name="Common_ListSeparator" xml:space="preserve">
+    <value>、</value>
+  </data>
+  <data name="Dashboard_Title" xml:space="preserve">
+    <value>概览</value>
+  </data>
+  <data name="Dashboard_Subtitle" xml:space="preserve">
+    <value>GitVault 在本机发现的全部内容</value>
+  </data>
+  <data name="Dashboard_Card_Identities" xml:space="preserve">
+    <value>身份</value>
+  </data>
+  <data name="Dashboard_Card_Keys" xml:space="preserve">
+    <value>SSH 密钥</value>
+  </data>
+  <data name="Dashboard_Card_Agents" xml:space="preserve">
+    <value>代理</value>
+  </data>
+  <data name="Dashboard_Card_Credentials" xml:space="preserve">
+    <value>凭据</value>
+  </data>
+  <data name="Dashboard_Card_Clients" xml:space="preserve">
+    <value>客户端</value>
+  </data>
+  <data name="Dashboard_ActiveIdentity" xml:space="preserve">
+    <value>当前全局身份</value>
+  </data>
+  <data name="Dashboard_NoScanYet" xml:space="preserve">
+    <value>尚未执行扫描</value>
+  </data>
+  <data name="Dashboard_FixAllSafe" xml:space="preserve">
+    <value>修复所有可安全处理的问题</value>
+  </data>
+  <data name="Dashboard_Warnings" xml:space="preserve">
+    <value>健康检查警告</value>
+  </data>
+  <data name="Dashboard_ScanDuration" xml:space="preserve">
+    <value>扫描在 {0} 毫秒内完成</value>
+  </data>
+  <data name="Dashboard_ProbeMatrix" xml:space="preserve">
+    <value>探测状态</value>
+  </data>
+  <data name="Dashboard_Env_Os" xml:space="preserve">
+    <value>操作系统</value>
+  </data>
+  <data name="Dashboard_Env_Cpu" xml:space="preserve">
+    <value>架构</value>
+  </data>
+  <data name="Dashboard_Env_AppData" xml:space="preserve">
+    <value>GitVault 数据目录</value>
+  </data>
+  <data name="Dashboard_Env_Git" xml:space="preserve">
+    <value>Git 可执行文件</value>
+  </data>
+  <data name="Dashboard_Env_GitPathAndVersion" xml:space="preserve">
+    <value>{0}（版本 {1}）</value>
+  </data>
+  <data name="Dashboard_Scanning" xml:space="preserve">
+    <value>正在扫描…</value>
+  </data>
+  <data name="Identities_Title" xml:space="preserve">
+    <value>身份</value>
+  </data>
+  <data name="Identities_Column_Name" xml:space="preserve">
+    <value>姓名</value>
+  </data>
+  <data name="Identities_Column_Email" xml:space="preserve">
+    <value>电子邮件</value>
+  </data>
+  <data name="Identities_Column_Source" xml:space="preserve">
+    <value>来源</value>
+  </data>
+  <data name="Identities_Column_Hosts" xml:space="preserve">
+    <value>主机</value>
+  </data>
+  <data name="Identities_Column_Scope" xml:space="preserve">
+    <value>作用域</value>
+  </data>
+  <data name="Identities_Column_Confidence" xml:space="preserve">
+    <value>可信度</value>
+  </data>
+  <data name="Identities_Column_SigningKey" xml:space="preserve">
+    <value>签名密钥</value>
+  </data>
+  <data name="Identities_Empty" xml:space="preserve">
+    <value>未找到身份</value>
+  </data>
+  <data name="Identities_Effective_Title" xml:space="preserve">
+    <value>对当前用户生效</value>
+  </data>
+  <data name="Identities_Effective_Key" xml:space="preserve">
+    <value>配置项</value>
+  </data>
+  <data name="Identities_Effective_Value" xml:space="preserve">
+    <value>值</value>
+  </data>
+  <data name="Identities_Effective_WinningScope" xml:space="preserve">
+    <value>设置于</value>
+  </data>
+  <data name="Identities_Effective_Unset" xml:space="preserve">
+    <value>未设置</value>
+  </data>
+  <data name="Identities_Effective_OverriddenIn" xml:space="preserve">
+    <value>覆盖 {0}</value>
+  </data>
+  <data name="Identities_Detail_Occurrences" xml:space="preserve">
+    <value>出现于</value>
+  </data>
+  <data name="Scope_System" xml:space="preserve">
+    <value>系统</value>
+  </data>
+  <data name="Scope_Global" xml:space="preserve">
+    <value>全局</value>
+  </data>
+  <data name="Scope_Local" xml:space="preserve">
+    <value>仓库</value>
+  </data>
+  <data name="Scope_Worktree" xml:space="preserve">
+    <value>工作树</value>
+  </data>
+  <data name="Scope_Command" xml:space="preserve">
+    <value>命令行</value>
+  </data>
+  <data name="Scope_Unknown" xml:space="preserve">
+    <value>未知</value>
+  </data>
+  <data name="Confidence_Certain" xml:space="preserve">
+    <value>确定</value>
+  </data>
+  <data name="Confidence_Probable" xml:space="preserve">
+    <value>很可能</value>
+  </data>
+  <data name="Confidence_Heuristic" xml:space="preserve">
+    <value>推测</value>
+  </data>
+  <data name="Source_GitSystemConfig" xml:space="preserve">
+    <value>系统 Git 配置</value>
+  </data>
+  <data name="Source_GitGlobalConfig" xml:space="preserve">
+    <value>用户 Git 配置</value>
+  </data>
+  <data name="Source_RepoLocal" xml:space="preserve">
+    <value>仓库配置</value>
+  </data>
+  <data name="Source_RepoWorktree" xml:space="preserve">
+    <value>工作树配置</value>
+  </data>
+  <data name="Source_GitIncludedFile" xml:space="preserve">
+    <value>被引入的文件</value>
+  </data>
+  <data name="Source_Unknown" xml:space="preserve">
+    <value>来源未知</value>
+  </data>
+  <data name="Keys_Title" xml:space="preserve">
+    <value>SSH 密钥</value>
+  </data>
+  <data name="Keys_Column_Algorithm" xml:space="preserve">
+    <value>算法</value>
+  </data>
+  <data name="Keys_Column_Fingerprint" xml:space="preserve">
+    <value>指纹</value>
+  </data>
+  <data name="Keys_Column_Comment" xml:space="preserve">
+    <value>备注</value>
+  </data>
+  <data name="Keys_Column_Path" xml:space="preserve">
+    <value>路径</value>
+  </data>
+  <data name="Keys_Column_Format" xml:space="preserve">
+    <value>格式</value>
+  </data>
+  <data name="Keys_Encrypted" xml:space="preserve">
+    <value>已设置口令</value>
+  </data>
+  <data name="Keys_NotEncrypted" xml:space="preserve">
+    <value>无口令</value>
+  </data>
+  <data name="Keys_InAgent" xml:space="preserve">
+    <value>已加载到代理</value>
+  </data>
+  <data name="Keys_Empty" xml:space="preserve">
+    <value>未找到 SSH 密钥</value>
+  </data>
+  <data name="Keys_Column_Bits" xml:space="preserve">
+    <value>位数</value>
+  </data>
+  <data name="Keys_Column_Protection" xml:space="preserve">
+    <value>保护</value>
+  </data>
+  <data name="Keys_Detail_PublicKey" xml:space="preserve">
+    <value>公钥</value>
+  </data>
+  <data name="Keys_Detail_Permissions" xml:space="preserve">
+    <value>文件权限</value>
+  </data>
+  <data name="Keys_Detail_KdfRounds" xml:space="preserve">
+    <value>KDF 轮数</value>
+  </data>
+  <data name="Keys_Hardware" xml:space="preserve">
+    <value>硬件密钥</value>
+  </data>
+  <data name="Keys_CopyPublicKey" xml:space="preserve">
+    <value>复制公钥</value>
+  </data>
+  <data name="Keys_CopyFingerprint" xml:space="preserve">
+    <value>复制指纹</value>
+  </data>
+  <data name="Keys_RevealInFileManager" xml:space="preserve">
+    <value>在文件管理器中显示</value>
+  </data>
+  <data name="Keys_Copied" xml:space="preserve">
+    <value>已复制到剪贴板</value>
+  </data>
+  <data name="Format_OpenSsh" xml:space="preserve">
+    <value>OpenSSH</value>
+  </data>
+  <data name="Format_Pem" xml:space="preserve">
+    <value>PEM</value>
+  </data>
+  <data name="Format_Pkcs8" xml:space="preserve">
+    <value>PKCS#8</value>
+  </data>
+  <data name="Format_Ppk2" xml:space="preserve">
+    <value>PuTTY v2</value>
+  </data>
+  <data name="Format_Ppk3" xml:space="preserve">
+    <value>PuTTY v3</value>
+  </data>
+  <data name="Format_PublicOnly" xml:space="preserve">
+    <value>仅公钥</value>
+  </data>
+  <data name="Format_Unknown" xml:space="preserve">
+    <value>无法识别</value>
+  </data>
+  <data name="Agents_Title" xml:space="preserve">
+    <value>SSH 代理</value>
+  </data>
+  <data name="Agents_Endpoint" xml:space="preserve">
+    <value>端点</value>
+  </data>
+  <data name="Agents_Running" xml:space="preserve">
+    <value>运行中</value>
+  </data>
+  <data name="Agents_Stopped" xml:space="preserve">
+    <value>未运行</value>
+  </data>
+  <data name="Agents_Locked" xml:space="preserve">
+    <value>已锁定</value>
+  </data>
+  <data name="Agents_LoadedKeys" xml:space="preserve">
+    <value>已加载的密钥</value>
+  </data>
+  <data name="Agents_ReadOnly" xml:space="preserve">
+    <value>此代理不接受新密钥</value>
+  </data>
+  <data name="Agents_ShellSnippet" xml:space="preserve">
+    <value>Shell 代码片段</value>
+  </data>
+  <data name="Agents_Empty" xml:space="preserve">
+    <value>未找到 SSH 代理</value>
+  </data>
+  <data name="Agents_Column_Algorithm" xml:space="preserve">
+    <value>算法</value>
+  </data>
+  <data name="Agents_Column_Fingerprint" xml:space="preserve">
+    <value>指纹</value>
+  </data>
+  <data name="Agents_Column_Comment" xml:space="preserve">
+    <value>备注</value>
+  </data>
+  <data name="Agents_RemoveKey" xml:space="preserve">
+    <value>从代理中移除</value>
+  </data>
+  <data name="Agents_RemoveAll" xml:space="preserve">
+    <value>移除所有密钥</value>
+  </data>
+  <data name="Agents_RemoveAllConfirm" xml:space="preserve">
+    <value>再次点击以移除全部密钥</value>
+  </data>
+  <data name="Agents_Lock" xml:space="preserve">
+    <value>锁定</value>
+  </data>
+  <data name="Agents_Unlock" xml:space="preserve">
+    <value>解锁</value>
+  </data>
+  <data name="Agents_AddKey" xml:space="preserve">
+    <value>加载密钥…</value>
+  </data>
+  <data name="Agents_AddKey_NeedsPassphrase" xml:space="preserve">
+    <value>该密钥受口令保护。请在终端中使用 ssh-add 加载；GitVault 不会将你的口令转交给其他程序。</value>
+  </data>
+  <data name="Agents_CopySnippet" xml:space="preserve">
+    <value>复制代码片段</value>
+  </data>
+  <data name="Agents_Shell" xml:space="preserve">
+    <value>Shell</value>
+  </data>
+  <data name="AgentKind_OpenSshUnix" xml:space="preserve">
+    <value>OpenSSH 代理</value>
+  </data>
+  <data name="AgentKind_OpenSshWindowsPipe" xml:space="preserve">
+    <value>OpenSSH 代理（Windows 服务）</value>
+  </data>
+  <data name="AgentKind_Pageant" xml:space="preserve">
+    <value>Pageant</value>
+  </data>
+  <data name="AgentKind_GpgAgent" xml:space="preserve">
+    <value>gpg-agent</value>
+  </data>
+  <data name="AgentKind_OnePassword" xml:space="preserve">
+    <value>1Password</value>
+  </data>
+  <data name="AgentKind_KeeAgent" xml:space="preserve">
+    <value>KeeAgent</value>
+  </data>
+  <data name="AgentKind_WslRelay" xml:space="preserve">
+    <value>WSL 中继</value>
+  </data>
+  <data name="AgentKind_Unknown" xml:space="preserve">
+    <value>未识别的代理</value>
+  </data>
+  <data name="Credentials_Title" xml:space="preserve">
+    <value>凭据</value>
+  </data>
+  <data name="Credentials_Column_Host" xml:space="preserve">
+    <value>主机</value>
+  </data>
+  <data name="Credentials_Column_UserName" xml:space="preserve">
+    <value>用户名</value>
+  </data>
+  <data name="Credentials_Column_Protocol" xml:space="preserve">
+    <value>协议</value>
+  </data>
+  <data name="Credentials_Column_Vault" xml:space="preserve">
+    <value>凭据管理器</value>
+  </data>
+  <data name="Credentials_Column_Client" xml:space="preserve">
+    <value>所属客户端</value>
+  </data>
+  <data name="Credentials_Column_LastWrite" xml:space="preserve">
+    <value>最后写入</value>
+  </data>
+  <data name="Credentials_Reveal" xml:space="preserve">
+    <value>显示密钥内容</value>
+  </data>
+  <data name="Credentials_Empty" xml:space="preserve">
+    <value>未找到凭据</value>
+  </data>
+  <data name="Credentials_Column_Target" xml:space="preserve">
+    <value>目标</value>
+  </data>
+  <data name="Credentials_ShowAll" xml:space="preserve">
+    <value>显示与 Git 无关的条目</value>
+  </data>
+  <data name="Credentials_RevealConfirm" xml:space="preserve">
+    <value>再次点击以在屏幕上显示密钥内容</value>
+  </data>
+  <data name="Credentials_Hide" xml:space="preserve">
+    <value>隐藏</value>
+  </data>
+  <data name="Credentials_CopySecret" xml:space="preserve">
+    <value>复制密钥内容</value>
+  </data>
+  <data name="Credentials_HidingIn" xml:space="preserve">
+    <value>{0} 秒后隐藏</value>
+  </data>
+  <data name="Credentials_ClipboardNote" xml:space="preserve">
+    <value>剪贴板稍后会被清空，但剪贴板管理器可能会保留副本。</value>
+  </data>
+  <data name="Credentials_PlaintextBadge" xml:space="preserve">
+    <value>以明文存储</value>
+  </data>
+  <data name="Credentials_TestWithGit" xml:space="preserve">
+    <value>使用 git credential fill 测试</value>
+  </data>
+  <data name="Vault_WindowsCredentialManager" xml:space="preserve">
+    <value>Windows 凭据管理器</value>
+  </data>
+  <data name="Vault_MacKeychain" xml:space="preserve">
+    <value>钥匙串</value>
+  </data>
+  <data name="Vault_SecretService" xml:space="preserve">
+    <value>Secret Service</value>
+  </data>
+  <data name="Vault_KWallet" xml:space="preserve">
+    <value>KWallet</value>
+  </data>
+  <data name="Vault_GitCredentialsFile" xml:space="preserve">
+    <value>git-credentials 文件</value>
+  </data>
+  <data name="Vault_GcmPlaintext" xml:space="preserve">
+    <value>GCM 明文存储</value>
+  </data>
+  <data name="Vault_GcmDpapi" xml:space="preserve">
+    <value>GCM DPAPI 存储</value>
+  </data>
+  <data name="Vault_GcmGpg" xml:space="preserve">
+    <value>GCM GPG 存储</value>
+  </data>
+  <data name="Vault_GitKrakenBox" xml:space="preserve">
+    <value>GitKraken 安全存储</value>
+  </data>
+  <data name="Vault_GitCredentialCache" xml:space="preserve">
+    <value>git credential 缓存</value>
+  </data>
+  <data name="Vault_Unknown" xml:space="preserve">
+    <value>未识别的存储</value>
+  </data>
+  <data name="Clients_Title" xml:space="preserve">
+    <value>Git 客户端</value>
+  </data>
+  <data name="Clients_Version" xml:space="preserve">
+    <value>版本</value>
+  </data>
+  <data name="Clients_InstallPath" xml:space="preserve">
+    <value>安装路径</value>
+  </data>
+  <data name="Clients_ConfigRoots" xml:space="preserve">
+    <value>配置目录</value>
+  </data>
+  <data name="Clients_Opaque" xml:space="preserve">
+    <value>已检测到，但无法读取其配置</value>
+  </data>
+  <data name="Clients_Empty" xml:space="preserve">
+    <value>未找到 Git 客户端</value>
+  </data>
+  <data name="Clients_Accounts" xml:space="preserve">
+    <value>账户</value>
+  </data>
+  <data name="Clients_BoundKeys" xml:space="preserve">
+    <value>绑定到远程仓库的密钥</value>
+  </data>
+  <data name="Clients_SshCommand" xml:space="preserve">
+    <value>SSH 程序</value>
+  </data>
+  <data name="Clients_OpenConfigFolder" xml:space="preserve">
+    <value>打开配置目录</value>
+  </data>
+  <data name="Clients_CredentialsCount" xml:space="preserve">
+    <value>凭据条目</value>
+  </data>
+  <data name="Warning_TortoiseGitMissingKey_Title" xml:space="preserve">
+    <value>远程仓库指向的密钥文件已不存在</value>
+  </data>
+  <data name="Warning_TortoiseGitMissingKey_Body" xml:space="preserve">
+    <value>TortoiseGit 中有远程仓库绑定了磁盘上已不存在的 PuTTY 密钥，推送将会失败。请将该远程仓库重新绑定到现有密钥，或恢复该文件。</value>
+  </data>
+  <data name="Warning_WslSeparateKeys_Title" xml:space="preserve">
+    <value>WSL 发行版拥有独立的 SSH 密钥</value>
+  </data>
+  <data name="Warning_WslSeparateKeys_Body" xml:space="preserve">
+    <value>WSL 发行版内的密钥与 Windows 主目录中的密钥是两套独立的密钥。在发行版内进行的操作使用的是这一套；当某一侧推送突然失败时，这一点很容易被忽略。</value>
+  </data>
+  <data name="Profiles_Title" xml:space="preserve">
+    <value>身份配置</value>
+  </data>
+  <data name="Profiles_Activate_Button" xml:space="preserve">
+    <value>启用</value>
+  </data>
+  <data name="Profiles_Deactivate_Button" xml:space="preserve">
+    <value>停用</value>
+  </data>
+  <data name="Profiles_Scope_Global" xml:space="preserve">
+    <value>全局（当前用户）</value>
+  </data>
+  <data name="Profiles_Scope_System" xml:space="preserve">
+    <value>系统（所有用户）</value>
+  </data>
+  <data name="Profiles_Scope_Repository" xml:space="preserve">
+    <value>当前仓库</value>
+  </data>
+  <data name="Profiles_DryRun" xml:space="preserve">
+    <value>试运行——仅显示更改，不实际应用</value>
+  </data>
+  <data name="Profiles_Rollback" xml:space="preserve">
+    <value>回滚</value>
+  </data>
+  <data name="Profiles_RecentActivations" xml:space="preserve">
+    <value>最近的启用记录</value>
+  </data>
+  <data name="Profiles_Empty" xml:space="preserve">
+    <value>尚无身份配置</value>
+  </data>
+  <data name="Profiles_Preview" xml:space="preserve">
+    <value>预览更改</value>
+  </data>
+  <data name="Profiles_PlannedChanges" xml:space="preserve">
+    <value>计划的更改</value>
+  </data>
+  <data name="Profiles_NothingToDo" xml:space="preserve">
+    <value>当前状态已与该配置一致。</value>
+  </data>
+  <data name="Profiles_ApplyDryRunFirst" xml:space="preserve">
+    <value>请先预览更改，然后再应用。</value>
+  </data>
+  <data name="Profiles_Applied" xml:space="preserve">
+    <value>已应用。操作前已创建快照，因此可以回滚。</value>
+  </data>
+  <data name="Profiles_Blocked" xml:space="preserve">
+    <value>当前无法应用</value>
+  </data>
+  <data name="Profiles_BlockedWithReasons" xml:space="preserve">
+    <value>当前无法应用：{0}</value>
+  </data>
+  <data name="Profiles_Column_Name" xml:space="preserve">
+    <value>配置</value>
+  </data>
+  <data name="Profiles_Column_Identity" xml:space="preserve">
+    <value>身份</value>
+  </data>
+  <data name="Profiles_Column_Helper" xml:space="preserve">
+    <value>凭据助手</value>
+  </data>
+  <data name="Profiles_IsActive" xml:space="preserve">
+    <value>在此处生效</value>
+  </data>
+  <data name="Repositories_Scan" xml:space="preserve">
+    <value>扫描仓库</value>
+  </data>
+  <data name="Repositories_Scanning" xml:space="preserve">
+    <value>正在扫描…</value>
+  </data>
+  <data name="Repositories_NoRoots" xml:space="preserve">
+    <value>请在设置中添加目录以搜索仓库。</value>
+  </data>
+  <data name="Repositories_Column_Name" xml:space="preserve">
+    <value>仓库</value>
+  </data>
+  <data name="Identities_NameAndEmail" xml:space="preserve">
+    <value>{0} &lt;{1}&gt;</value>
+  </data>
+  <data name="Repositories_Title" xml:space="preserve">
+    <value>仓库</value>
+  </data>
+  <data name="Repositories_AddRoot" xml:space="preserve">
+    <value>添加目录…</value>
+  </data>
+  <data name="Repositories_Column_Path" xml:space="preserve">
+    <value>路径</value>
+  </data>
+  <data name="Repositories_Column_EffectiveIdentity" xml:space="preserve">
+    <value>生效身份</value>
+  </data>
+  <data name="Repositories_Column_Remote" xml:space="preserve">
+    <value>远程仓库</value>
+  </data>
+  <data name="Repositories_Empty" xml:space="preserve">
+    <value>未找到仓库</value>
+  </data>
+  <data name="Settings_Title" xml:space="preserve">
+    <value>设置</value>
+  </data>
+  <data name="Settings_Language" xml:space="preserve">
+    <value>语言</value>
+  </data>
+  <data name="Settings_Theme" xml:space="preserve">
+    <value>主题</value>
+  </data>
+  <data name="Settings_Theme_System" xml:space="preserve">
+    <value>跟随系统</value>
+  </data>
+  <data name="Settings_Theme_Light" xml:space="preserve">
+    <value>浅色</value>
+  </data>
+  <data name="Settings_Theme_Dark" xml:space="preserve">
+    <value>深色</value>
+  </data>
+  <data name="Settings_DryRunDefault" xml:space="preserve">
+    <value>默认试运行</value>
+  </data>
+  <data name="Settings_WatchForChanges" xml:space="preserve">
+    <value>文件变化时重新扫描</value>
+  </data>
+  <data name="Settings_LogLevel" xml:space="preserve">
+    <value>日志级别</value>
+  </data>
+  <data name="Settings_OpenLogsFolder" xml:space="preserve">
+    <value>打开日志目录</value>
+  </data>
+  <data name="Settings_ScanRoots" xml:space="preserve">
+    <value>仓库扫描目录</value>
+  </data>
+  <data name="Settings_CustomKeyFolders" xml:space="preserve">
+    <value>额外的密钥目录</value>
+  </data>
+  <data name="Settings_RevealPolicy" xml:space="preserve">
+    <value>密钥内容显示策略</value>
+  </data>
+  <data name="Settings_AutoHideSeconds" xml:space="preserve">
+    <value>显示后 {0} 秒自动隐藏</value>
+  </data>
+  <data name="Settings_ClipboardClearSeconds" xml:space="preserve">
+    <value>{0} 秒后清空剪贴板</value>
+  </data>
+  <data name="Settings_Diagnostics" xml:space="preserve">
+    <value>诊断</value>
+  </data>
+  <data name="Settings_PreviewDiagnostics" xml:space="preserve">
+    <value>预览诊断包</value>
+  </data>
+  <data name="Settings_SaveDiagnostics" xml:space="preserve">
+    <value>保存诊断包…</value>
+  </data>
+  <data name="Settings_DiagnosticsNote" xml:space="preserve">
+    <value>在你查看诊断包的确切内容之前，不会写入任何文件。其中从不包含 Git 配置的值，只包含配置项的名称。</value>
+  </data>
+  <data name="Settings_DiagnosticsSaved" xml:space="preserve">
+    <value>已保存到 {0}</value>
+  </data>
+  <data name="Settings_Telemetry" xml:space="preserve">
+    <value>遥测</value>
+  </data>
+  <data name="Settings_TelemetryNone" xml:space="preserve">
+    <value>GitVault 不收集任何数据，也不进行网络请求。</value>
+  </data>
+  <data name="Logs_Title" xml:space="preserve">
+    <value>日志</value>
+  </data>
+  <data name="Logs_Filter" xml:space="preserve">
+    <value>筛选</value>
+  </data>
+  <data name="Logs_Clear" xml:space="preserve">
+    <value>清空视图</value>
+  </data>
+  <data name="Logs_Column_Timestamp" xml:space="preserve">
+    <value>时间</value>
+  </data>
+  <data name="Logs_Column_Level" xml:space="preserve">
+    <value>级别</value>
+  </data>
+  <data name="Logs_Column_Message" xml:space="preserve">
+    <value>消息</value>
+  </data>
+  <data name="Status_Ok" xml:space="preserve">
+    <value>正常</value>
+  </data>
+  <data name="Status_NotInstalled" xml:space="preserve">
+    <value>未安装</value>
+  </data>
+  <data name="Status_AccessDenied" xml:space="preserve">
+    <value>访问被拒绝</value>
+  </data>
+  <data name="Status_Timeout" xml:space="preserve">
+    <value>已超时</value>
+  </data>
+  <data name="Status_ParseError" xml:space="preserve">
+    <value>无法解析</value>
+  </data>
+  <data name="Status_NotApplicable" xml:space="preserve">
+    <value>不适用</value>
+  </data>
+  <data name="Status_Failed" xml:space="preserve">
+    <value>失败</value>
+  </data>
+  <data name="Warning_KeyWorldReadable_Title" xml:space="preserve">
+    <value>私钥可被其他用户读取</value>
+  </data>
+  <data name="Warning_KeyWorldReadable_Body" xml:space="preserve">
+    <value>如果本机其他账户可以读取私钥，OpenSSH 将拒绝使用该私钥。请将文件权限设为 0600，使其仅对你自己可读。</value>
+  </data>
+  <data name="Warning_RsaTooShort_Title" xml:space="preserve">
+    <value>RSA 密钥长度不足 3072 位</value>
+  </data>
+  <data name="Warning_RsaTooShort_Body" xml:space="preserve">
+    <value>短 RSA 密钥已不符合当前的安全建议。请生成新的 Ed25519 密钥或至少 3072 位的 RSA 密钥，并在所有信任该密钥的主机上替换它。</value>
+  </data>
+  <data name="Warning_DsaDeprecated_Title" xml:space="preserve">
+    <value>发现 DSA 密钥</value>
+  </data>
+  <data name="Warning_DsaDeprecated_Body" xml:space="preserve">
+    <value>当前版本的 OpenSSH 默认已禁用 DSA，该密钥将无法继续使用。请改用 Ed25519 密钥。</value>
+  </data>
+  <data name="Warning_KeyNoPassphrase_Title" xml:space="preserve">
+    <value>私钥未设置口令</value>
+  </data>
+  <data name="Warning_KeyNoPassphrase_Body" xml:space="preserve">
+    <value>任何人复制该文件即可获得你的访问权限。请设置口令并将密钥加载到代理中，这样每个会话仍然只需输入一次。</value>
+  </data>
+  <data name="Warning_OrphanedPublicKey_Title" xml:space="preserve">
+    <value>公钥缺少对应的私钥</value>
+  </data>
+  <data name="Warning_OrphanedPublicKey_Body" xml:space="preserve">
+    <value>找到了 .pub 文件，但没有匹配的私钥。私钥可能存放在别处，或仅保存在硬件令牌或代理中。</value>
+  </data>
+  <data name="Warning_PlaintextCredentialStore_Title" xml:space="preserve">
+    <value>凭据以明文存储</value>
+  </data>
+  <data name="Warning_PlaintextCredentialStore_Body" xml:space="preserve">
+    <value>该存储将密码和令牌以未加密形式保存在磁盘上。请将凭据助手切换为操作系统自带的凭据管理器。</value>
+  </data>
+  <data name="Warning_MissingPublicKey_Title" xml:space="preserve">
+    <value>私钥旁缺少 .pub 文件</value>
+  </data>
+  <data name="Warning_MissingPublicKey_Body" xml:space="preserve">
+    <value>许多工具期望公钥与私钥放在一起。GitVault 可以生成该文件：未加密的密钥可直接导出，受保护的密钥则会先询问口令。</value>
+  </data>
+  <data name="Warning_KeyIntegrityFailed_Title" xml:space="preserve">
+    <value>密钥文件未通过自身的完整性校验</value>
+  </data>
+  <data name="Warning_KeyIntegrityFailed_Body" xml:space="preserve">
+    <value>PuTTY 密钥文件会保存其内容的 MAC，而此文件的 MAC 不匹配。该文件在写入后已被修改或损坏；在查清来源之前请勿使用。</value>
+  </data>
+  <data name="Warning_AgentNotRunning_Title" xml:space="preserve">
+    <value>SSH 代理未运行</value>
+  </data>
+  <data name="Warning_AgentNotRunning_Body" xml:space="preserve">
+    <value>代理停止时无法在内存中保存密钥，因此每次连接都会要求输入口令。</value>
+  </data>
+  <data name="Warning_GitNotFound_Title" xml:space="preserve">
+    <value>未找到 Git 可执行文件</value>
+  </data>
+  <data name="Warning_GitNotFound_Body" xml:space="preserve">
+    <value>GitVault 已改为自行读取配置文件。条件引入和平台路径细节的解析不如 git 本身准确。请安装 git，或将其加入 PATH。</value>
+  </data>
+  <data name="Warning_NoIdentityConfigured_Title" xml:space="preserve">
+    <value>未配置作者身份</value>
+  </data>
+  <data name="Warning_NoIdentityConfigured_Body" xml:space="preserve">
+    <value>任何位置都未设置 user.name 或 user.email，git 将拒绝创建提交。请在全局设置，或通过身份配置为单个仓库设置。</value>
+  </data>
+  <data name="Plural_Keys_One" xml:space="preserve">
+    <value>{0} 个密钥</value>
+  </data>
+  <data name="Plural_Keys_Few" xml:space="preserve">
+    <value>{0} 个密钥</value>
+  </data>
+  <data name="Plural_Keys_Many" xml:space="preserve">
+    <value>{0} 个密钥</value>
+  </data>
+  <data name="Plural_Keys_Other" xml:space="preserve">
+    <value>{0} 个密钥</value>
+  </data>
+  <data name="Plural_Identities_One" xml:space="preserve">
+    <value>{0} 个身份</value>
+  </data>
+  <data name="Plural_Identities_Few" xml:space="preserve">
+    <value>{0} 个身份</value>
+  </data>
+  <data name="Plural_Identities_Many" xml:space="preserve">
+    <value>{0} 个身份</value>
+  </data>
+  <data name="Plural_Identities_Other" xml:space="preserve">
+    <value>{0} 个身份</value>
+  </data>
+  <data name="Plural_Agents_One" xml:space="preserve">
+    <value>{0} 个代理</value>
+  </data>
+  <data name="Plural_Agents_Few" xml:space="preserve">
+    <value>{0} 个代理</value>
+  </data>
+  <data name="Plural_Agents_Many" xml:space="preserve">
+    <value>{0} 个代理</value>
+  </data>
+  <data name="Plural_Agents_Other" xml:space="preserve">
+    <value>{0} 个代理</value>
+  </data>
+  <data name="Plural_Credentials_One" xml:space="preserve">
+    <value>{0} 条凭据</value>
+  </data>
+  <data name="Plural_Credentials_Few" xml:space="preserve">
+    <value>{0} 条凭据</value>
+  </data>
+  <data name="Plural_Credentials_Many" xml:space="preserve">
+    <value>{0} 条凭据</value>
+  </data>
+  <data name="Plural_Credentials_Other" xml:space="preserve">
+    <value>{0} 条凭据</value>
+  </data>
+  <data name="Plural_Clients_One" xml:space="preserve">
+    <value>{0} 个客户端</value>
+  </data>
+  <data name="Plural_Clients_Few" xml:space="preserve">
+    <value>{0} 个客户端</value>
+  </data>
+  <data name="Plural_Clients_Many" xml:space="preserve">
+    <value>{0} 个客户端</value>
+  </data>
+  <data name="Plural_Clients_Other" xml:space="preserve">
+    <value>{0} 个客户端</value>
+  </data>
+  <data name="Plural_Warnings_One" xml:space="preserve">
+    <value>{0} 条警告</value>
+  </data>
+  <data name="Plural_Warnings_Few" xml:space="preserve">
+    <value>{0} 条警告</value>
+  </data>
+  <data name="Plural_Warnings_Many" xml:space="preserve">
+    <value>{0} 条警告</value>
+  </data>
+  <data name="Plural_Warnings_Other" xml:space="preserve">
+    <value>{0} 条警告</value>
+  </data>
+</root>

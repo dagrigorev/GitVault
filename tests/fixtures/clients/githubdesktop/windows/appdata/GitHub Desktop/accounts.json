@@ -1,0 +1,13 @@
+[
+  {
+    "login": "ada",
+    "name": "Ada Lovelace",
+    "endpoint": "https://api.github.com",
+    "emails": [{ "email": "ada@example.com", "primary": true }]
+  },
+  {
+    "login": "ada-work",
+    "name": "Ada at Work",
+    "endpoint": "https://api.github.example.com"
+  }
+]

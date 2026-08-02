@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <RootNamespace>GitVault.Platform.Windows</RootNamespace>
+    <Description>Windows-specific GitVault services: Credential Manager, DPAPI, Pageant, OpenSSH pipe, registry probes.</Description>
+    <!-- P/Invoke targets are guarded by SupportedOSPlatform, so the analyzer stays quiet. -->
+    <SupportedOSPlatformVersion>10.0.17763.0</SupportedOSPlatformVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Security.Cryptography.ProtectedData" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\GitVault.Core\GitVault.Core.csproj" />
+  </ItemGroup>
+
+</Project>

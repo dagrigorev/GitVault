@@ -1,0 +1,16 @@
+{
+  "id": "smartgit",
+  "displayName": "SmartGit",
+  "platforms": ["windows", "macos", "linux"],
+  "configRoots": [
+    "{home}/.smartgit",
+    "{appdata}/syntevo/SmartGit",
+    "{appsupport}/SmartGit"
+  ],
+  "installPaths": [
+    "{programfiles}/SmartGit",
+    "/Applications/SmartGit.app",
+    "/opt/smartgit"
+  ],
+  "identityFiles": []
+}

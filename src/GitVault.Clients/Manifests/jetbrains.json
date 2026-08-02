@@ -1,0 +1,12 @@
+{
+  "id": "jetbrains",
+  "displayName": "JetBrains IDEs",
+  "platforms": ["windows", "macos", "linux"],
+  "configRoots": [
+    "{appdata}/JetBrains",
+    "{appsupport}/JetBrains",
+    "{home}/.config/JetBrains"
+  ],
+  "installPaths": [],
+  "identityFiles": []
+}

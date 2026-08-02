@@ -1,0 +1,90 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:loc="using:GitVault.App.Markup"
+        x:Class="GitVault.App.Views.MainWindow"
+        Title="{Binding WindowTitle}"
+        Icon="avares://GitVault/Assets/gitvault.ico"
+        FontFamily="{StaticResource AppFontFamily}"
+        Width="1180" Height="760"
+        MinWidth="1024" MinHeight="720"
+        WindowStartupLocation="CenterScreen">
+
+  <Grid ColumnDefinitions="220,*">
+
+    <!-- Navigation rail -->
+    <Border Grid.Column="0"
+            Background="{DynamicResource LayerFillColorDefaultBrush}"
+            BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}"
+            BorderThickness="0,0,1,0">
+      <DockPanel Margin="8">
+        <StackPanel DockPanel.Dock="Top" Margin="8,12,8,16" Spacing="2">
+          <StackPanel Orientation="Horizontal" Spacing="10">
+            <Image Source="avares://GitVault/Assets/gitvault.png"
+                   Width="28" Height="28"
+                   VerticalAlignment="Center"
+                   RenderOptions.BitmapInterpolationMode="HighQuality" />
+            <TextBlock Text="{loc:Tr App_Title}" FontSize="20" FontWeight="Bold"
+                       VerticalAlignment="Center" />
+          </StackPanel>
+          <TextBlock Text="{loc:Tr App_Subtitle}"
+                     FontSize="12" Opacity="0.7" TextWrapping="Wrap" />
+        </StackPanel>
+
+        <ListBox Name="NavigationList"
+                 ItemsSource="{Binding Pages}"
+                 SelectedItem="{Binding SelectedPage, Mode=TwoWay}"
+                 AutomationProperties.Name="{loc:Tr App_Title}">
+          <ListBox.ItemTemplate>
+            <DataTemplate>
+              <StackPanel Orientation="Horizontal" Margin="4,2">
+                <PathIcon Classes="navIcon"
+                          Data="{Binding IconKey, Converter={x:Static loc:IconLookupConverter.Instance}}" />
+                <TextBlock Text="{Binding NavCaption}" VerticalAlignment="Center" />
+              </StackPanel>
+            </DataTemplate>
+          </ListBox.ItemTemplate>
+        </ListBox>
+      </DockPanel>
+    </Border>
+
+    <!-- Page host -->
+    <DockPanel Grid.Column="1">
+      <Border DockPanel.Dock="Top"
+              Padding="24,16"
+              BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}"
+              BorderThickness="0,0,0,1">
+        <Grid ColumnDefinitions="*,Auto,260">
+          <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
+            <PathIcon Classes="titleIcon"
+                      Data="{Binding SelectedPage.IconKey, Converter={x:Static loc:IconLookupConverter.Instance}}" />
+            <TextBlock Classes="pageTitle"
+                       VerticalAlignment="Center"
+                       Text="{Binding SelectedPage.Title}" />
+          </StackPanel>
+
+          <Button Grid.Column="1"
+                  Margin="0,0,12,0"
+                  VerticalAlignment="Center"
+                  Command="{Binding RescanCommand}"
+                  IsEnabled="{Binding !IsScanning}"
+                  HotKey="F5"
+                  ToolTip.Tip="{loc:Tr Common_Rescan}">
+            <StackPanel Orientation="Horizontal">
+              <PathIcon Classes="buttonIcon" Data="{StaticResource IconRescan}" />
+              <TextBlock Text="{loc:Tr Common_Rescan}" />
+            </StackPanel>
+          </Button>
+          <TextBox Grid.Column="2"
+                   Name="SearchBox"
+                   Watermark="{loc:Tr Common_Search}"
+                   Text="{Binding SearchText, Mode=TwoWay}"
+                   VerticalAlignment="Center" />
+        </Grid>
+      </Border>
+
+      <ScrollViewer>
+        <ContentControl Content="{Binding SelectedPage}" Margin="{StaticResource PagePadding}" />
+      </ScrollViewer>
+    </DockPanel>
+  </Grid>
+</Window>

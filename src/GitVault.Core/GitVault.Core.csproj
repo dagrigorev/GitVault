@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <RootNamespace>GitVault.Core</RootNamespace>
+    <Description>GitVault domain model, abstractions and orchestration. Contains no OS-specific code.</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BouncyCastle.Cryptography" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="GitVault.Core.Tests" />
+  </ItemGroup>
+
+</Project>

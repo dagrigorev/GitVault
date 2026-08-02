@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <RootNamespace>GitVault.Platform.Linux</RootNamespace>
+    <Description>Linux-specific GitVault services: Secret Service over D-Bus, gnome-keyring, KWallet, pass/gpg.</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\GitVault.Core\GitVault.Core.csproj" />
+  </ItemGroup>
+
+</Project>

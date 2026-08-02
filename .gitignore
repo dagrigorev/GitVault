@@ -1,0 +1,12 @@
+bin/
+obj/
+artifacts/
+.vs/
+.idea/
+*.user
+*.suo
+*.DotSettings.user
+TestResults/
+coverage*.xml
+coverage*.json
+*.trx

@@ -1,0 +1,14 @@
+{
+  "id": "tower",
+  "displayName": "Tower",
+  "platforms": ["windows", "macos"],
+  "configRoots": [
+    "{appsupport}/com.fournova.Tower3",
+    "{appdata}/Tower"
+  ],
+  "installPaths": [
+    "/Applications/Tower.app",
+    "{programfiles}/Tower"
+  ],
+  "identityFiles": []
+}

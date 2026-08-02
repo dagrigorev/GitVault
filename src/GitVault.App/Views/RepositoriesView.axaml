@@ -1,0 +1,46 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:loc="using:GitVault.App.Markup"
+             x:Class="GitVault.App.Views.RepositoriesView">
+  <StackPanel Spacing="8">
+
+    <StackPanel Orientation="Horizontal" Spacing="8">
+      <Button Command="{Binding ScanCommand}"
+              IsEnabled="{Binding !IsScanning}"
+              >
+        <StackPanel Orientation="Horizontal">
+          <PathIcon Classes="buttonIcon" Data="{StaticResource IconRescan}" />
+          <TextBlock Text="{loc:Tr Repositories_Scan}" />
+        </StackPanel>
+      </Button>
+      <TextBlock VerticalAlignment="Center"
+                 IsVisible="{Binding IsScanning}"
+                 Text="{loc:Tr Repositories_Scanning}" />
+    </StackPanel>
+
+    <TextBlock Classes="pageSubtitle"
+               IsVisible="{Binding HasNoRoots}"
+               Text="{Binding NoRootsCaption}" />
+
+    <TextBlock Classes="pageSubtitle"
+               IsVisible="{Binding IsEmpty}"
+               Text="{Binding EmptyCaption}" />
+
+    <DataGrid ItemsSource="{Binding Rows}"
+              SelectedItem="{Binding SelectedRepository, Mode=TwoWay}"
+              IsVisible="{Binding !IsEmpty}"
+              AutoGenerateColumns="False"
+              IsReadOnly="True"
+              CanUserSortColumns="True"
+              GridLinesVisibility="Horizontal"
+              MinHeight="200">
+      <DataGrid.Columns>
+        <DataGridTextColumn Header="{loc:Tr Repositories_Column_Name}" Binding="{Binding Name}" Width="Auto" />
+        <DataGridTextColumn Header="{loc:Tr Repositories_Column_EffectiveIdentity}" Binding="{Binding EffectiveIdentity}" Width="*" />
+        <DataGridTextColumn Header="{loc:Tr Repositories_Column_Remote}" Binding="{Binding RemoteUrl}" Width="*" />
+        <DataGridTextColumn Header="{loc:Tr Repositories_Column_Path}" Binding="{Binding Path}" Width="Auto" />
+      </DataGrid.Columns>
+    </DataGrid>
+
+  </StackPanel>
+</UserControl>

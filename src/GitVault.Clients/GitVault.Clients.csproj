@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <RootNamespace>GitVault.Clients</RootNamespace>
+    <Description>Probes that detect third-party Git clients and read their identity configuration.</Description>
+    <SupportedOSPlatformVersion>10.0.17763.0</SupportedOSPlatformVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\GitVault.Core\GitVault.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Path-only clients are described by data rather than code; see ManifestClientProbe. -->
+    <EmbeddedResource Include="Manifests\*.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="GitVault.Clients.Tests" />
+  </ItemGroup>
+
+</Project>

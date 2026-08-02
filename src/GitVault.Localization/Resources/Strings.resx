@@ -1,0 +1,938 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!--
+    GENERATED FILE - do not edit by hand.
+    Source: build/loc/strings.json    Generator: build/generate-localization.ps1
+  -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="App_Title" xml:space="preserve">
+    <value>GitVault</value>
+  </data>
+  <data name="App_Subtitle" xml:space="preserve">
+    <value>Git accounts, keys and credentials</value>
+  </data>
+  <data name="App_WindowTitle" xml:space="preserve">
+    <value>{0} — {1}</value>
+  </data>
+  <data name="Nav_Dashboard" xml:space="preserve">
+    <value>Dashboard</value>
+  </data>
+  <data name="Nav_Identities" xml:space="preserve">
+    <value>Identities</value>
+  </data>
+  <data name="Nav_Keys" xml:space="preserve">
+    <value>SSH keys</value>
+  </data>
+  <data name="Nav_Agents" xml:space="preserve">
+    <value>Agents</value>
+  </data>
+  <data name="Nav_Credentials" xml:space="preserve">
+    <value>Credentials</value>
+  </data>
+  <data name="Nav_Clients" xml:space="preserve">
+    <value>Clients</value>
+  </data>
+  <data name="Nav_Profiles" xml:space="preserve">
+    <value>Profiles</value>
+  </data>
+  <data name="Nav_Repositories" xml:space="preserve">
+    <value>Repositories</value>
+  </data>
+  <data name="Nav_Settings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="Nav_Logs" xml:space="preserve">
+    <value>Logs</value>
+  </data>
+  <data name="Common_Rescan" xml:space="preserve">
+    <value>Rescan</value>
+  </data>
+  <data name="Common_Search" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="Common_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Common_Ok" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="Common_Close" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="Common_Copy" xml:space="preserve">
+    <value>Copy</value>
+  </data>
+  <data name="Common_Apply" xml:space="preserve">
+    <value>Apply</value>
+  </data>
+  <data name="Common_Working" xml:space="preserve">
+    <value>Working…</value>
+  </data>
+  <data name="Common_NoData" xml:space="preserve">
+    <value>Nothing to show</value>
+  </data>
+  <data name="Common_Details" xml:space="preserve">
+    <value>Details</value>
+  </data>
+  <data name="Common_WhatDoesThisMean" xml:space="preserve">
+    <value>What does this mean?</value>
+  </data>
+  <data name="Common_Yes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="Common_No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="Common_Never" xml:space="preserve">
+    <value>Never</value>
+  </data>
+  <data name="Common_ListSeparator" xml:space="preserve">
+    <value>, </value>
+  </data>
+  <data name="Dashboard_Title" xml:space="preserve">
+    <value>Dashboard</value>
+  </data>
+  <data name="Dashboard_Subtitle" xml:space="preserve">
+    <value>Everything GitVault found on this machine</value>
+  </data>
+  <data name="Dashboard_Card_Identities" xml:space="preserve">
+    <value>Identities</value>
+  </data>
+  <data name="Dashboard_Card_Keys" xml:space="preserve">
+    <value>SSH keys</value>
+  </data>
+  <data name="Dashboard_Card_Agents" xml:space="preserve">
+    <value>Agents</value>
+  </data>
+  <data name="Dashboard_Card_Credentials" xml:space="preserve">
+    <value>Credentials</value>
+  </data>
+  <data name="Dashboard_Card_Clients" xml:space="preserve">
+    <value>Clients</value>
+  </data>
+  <data name="Dashboard_ActiveIdentity" xml:space="preserve">
+    <value>Active global identity</value>
+  </data>
+  <data name="Dashboard_NoScanYet" xml:space="preserve">
+    <value>No scan has run yet</value>
+  </data>
+  <data name="Dashboard_FixAllSafe" xml:space="preserve">
+    <value>Fix all safe issues</value>
+  </data>
+  <data name="Dashboard_Warnings" xml:space="preserve">
+    <value>Health warnings</value>
+  </data>
+  <data name="Dashboard_ScanDuration" xml:space="preserve">
+    <value>Scan finished in {0} ms</value>
+  </data>
+  <data name="Dashboard_ProbeMatrix" xml:space="preserve">
+    <value>Probe status</value>
+  </data>
+  <data name="Dashboard_Env_Os" xml:space="preserve">
+    <value>Operating system</value>
+  </data>
+  <data name="Dashboard_Env_Cpu" xml:space="preserve">
+    <value>Architecture</value>
+  </data>
+  <data name="Dashboard_Env_AppData" xml:space="preserve">
+    <value>GitVault data folder</value>
+  </data>
+  <data name="Dashboard_Env_Git" xml:space="preserve">
+    <value>Git executable</value>
+  </data>
+  <data name="Dashboard_Env_GitPathAndVersion" xml:space="preserve">
+    <value>{0} (version {1})</value>
+  </data>
+  <data name="Dashboard_Scanning" xml:space="preserve">
+    <value>Scanning…</value>
+  </data>
+  <data name="Identities_Title" xml:space="preserve">
+    <value>Identities</value>
+  </data>
+  <data name="Identities_Column_Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Identities_Column_Email" xml:space="preserve">
+    <value>E-mail</value>
+  </data>
+  <data name="Identities_Column_Source" xml:space="preserve">
+    <value>Source</value>
+  </data>
+  <data name="Identities_Column_Hosts" xml:space="preserve">
+    <value>Hosts</value>
+  </data>
+  <data name="Identities_Column_Scope" xml:space="preserve">
+    <value>Scope</value>
+  </data>
+  <data name="Identities_Column_Confidence" xml:space="preserve">
+    <value>Confidence</value>
+  </data>
+  <data name="Identities_Column_SigningKey" xml:space="preserve">
+    <value>Signing key</value>
+  </data>
+  <data name="Identities_Empty" xml:space="preserve">
+    <value>No identities found</value>
+  </data>
+  <data name="Identities_Effective_Title" xml:space="preserve">
+    <value>In effect for this user</value>
+  </data>
+  <data name="Identities_Effective_Key" xml:space="preserve">
+    <value>Setting</value>
+  </data>
+  <data name="Identities_Effective_Value" xml:space="preserve">
+    <value>Value</value>
+  </data>
+  <data name="Identities_Effective_WinningScope" xml:space="preserve">
+    <value>Set in</value>
+  </data>
+  <data name="Identities_Effective_Unset" xml:space="preserve">
+    <value>not set</value>
+  </data>
+  <data name="Identities_Effective_OverriddenIn" xml:space="preserve">
+    <value>overrides {0}</value>
+  </data>
+  <data name="Identities_Detail_Occurrences" xml:space="preserve">
+    <value>Seen in</value>
+  </data>
+  <data name="Scope_System" xml:space="preserve">
+    <value>System</value>
+  </data>
+  <data name="Scope_Global" xml:space="preserve">
+    <value>Global</value>
+  </data>
+  <data name="Scope_Local" xml:space="preserve">
+    <value>Repository</value>
+  </data>
+  <data name="Scope_Worktree" xml:space="preserve">
+    <value>Worktree</value>
+  </data>
+  <data name="Scope_Command" xml:space="preserve">
+    <value>Command line</value>
+  </data>
+  <data name="Scope_Unknown" xml:space="preserve">
+    <value>Unknown</value>
+  </data>
+  <data name="Confidence_Certain" xml:space="preserve">
+    <value>Certain</value>
+  </data>
+  <data name="Confidence_Probable" xml:space="preserve">
+    <value>Probable</value>
+  </data>
+  <data name="Confidence_Heuristic" xml:space="preserve">
+    <value>Guessed</value>
+  </data>
+  <data name="Source_GitSystemConfig" xml:space="preserve">
+    <value>System git config</value>
+  </data>
+  <data name="Source_GitGlobalConfig" xml:space="preserve">
+    <value>User git config</value>
+  </data>
+  <data name="Source_RepoLocal" xml:space="preserve">
+    <value>Repository config</value>
+  </data>
+  <data name="Source_RepoWorktree" xml:space="preserve">
+    <value>Worktree config</value>
+  </data>
+  <data name="Source_GitIncludedFile" xml:space="preserve">
+    <value>Included file</value>
+  </data>
+  <data name="Source_Unknown" xml:space="preserve">
+    <value>Unknown source</value>
+  </data>
+  <data name="Keys_Title" xml:space="preserve">
+    <value>SSH keys</value>
+  </data>
+  <data name="Keys_Column_Algorithm" xml:space="preserve">
+    <value>Algorithm</value>
+  </data>
+  <data name="Keys_Column_Fingerprint" xml:space="preserve">
+    <value>Fingerprint</value>
+  </data>
+  <data name="Keys_Column_Comment" xml:space="preserve">
+    <value>Comment</value>
+  </data>
+  <data name="Keys_Column_Path" xml:space="preserve">
+    <value>Path</value>
+  </data>
+  <data name="Keys_Column_Format" xml:space="preserve">
+    <value>Format</value>
+  </data>
+  <data name="Keys_Encrypted" xml:space="preserve">
+    <value>Passphrase protected</value>
+  </data>
+  <data name="Keys_NotEncrypted" xml:space="preserve">
+    <value>No passphrase</value>
+  </data>
+  <data name="Keys_InAgent" xml:space="preserve">
+    <value>Loaded in agent</value>
+  </data>
+  <data name="Keys_Empty" xml:space="preserve">
+    <value>No SSH keys found</value>
+  </data>
+  <data name="Keys_Column_Bits" xml:space="preserve">
+    <value>Bits</value>
+  </data>
+  <data name="Keys_Column_Protection" xml:space="preserve">
+    <value>Protection</value>
+  </data>
+  <data name="Keys_Detail_PublicKey" xml:space="preserve">
+    <value>Public key</value>
+  </data>
+  <data name="Keys_Detail_Permissions" xml:space="preserve">
+    <value>File mode</value>
+  </data>
+  <data name="Keys_Detail_KdfRounds" xml:space="preserve">
+    <value>KDF rounds</value>
+  </data>
+  <data name="Keys_Hardware" xml:space="preserve">
+    <value>Hardware-backed</value>
+  </data>
+  <data name="Keys_CopyPublicKey" xml:space="preserve">
+    <value>Copy public key</value>
+  </data>
+  <data name="Keys_CopyFingerprint" xml:space="preserve">
+    <value>Copy fingerprint</value>
+  </data>
+  <data name="Keys_RevealInFileManager" xml:space="preserve">
+    <value>Show in file manager</value>
+  </data>
+  <data name="Keys_Copied" xml:space="preserve">
+    <value>Copied to the clipboard</value>
+  </data>
+  <data name="Format_OpenSsh" xml:space="preserve">
+    <value>OpenSSH</value>
+  </data>
+  <data name="Format_Pem" xml:space="preserve">
+    <value>PEM</value>
+  </data>
+  <data name="Format_Pkcs8" xml:space="preserve">
+    <value>PKCS#8</value>
+  </data>
+  <data name="Format_Ppk2" xml:space="preserve">
+    <value>PuTTY v2</value>
+  </data>
+  <data name="Format_Ppk3" xml:space="preserve">
+    <value>PuTTY v3</value>
+  </data>
+  <data name="Format_PublicOnly" xml:space="preserve">
+    <value>Public key only</value>
+  </data>
+  <data name="Format_Unknown" xml:space="preserve">
+    <value>Unrecognised</value>
+  </data>
+  <data name="Agents_Title" xml:space="preserve">
+    <value>SSH agents</value>
+  </data>
+  <data name="Agents_Endpoint" xml:space="preserve">
+    <value>Endpoint</value>
+  </data>
+  <data name="Agents_Running" xml:space="preserve">
+    <value>Running</value>
+  </data>
+  <data name="Agents_Stopped" xml:space="preserve">
+    <value>Not running</value>
+  </data>
+  <data name="Agents_Locked" xml:space="preserve">
+    <value>Locked</value>
+  </data>
+  <data name="Agents_LoadedKeys" xml:space="preserve">
+    <value>Loaded keys</value>
+  </data>
+  <data name="Agents_ReadOnly" xml:space="preserve">
+    <value>This agent does not accept new keys</value>
+  </data>
+  <data name="Agents_ShellSnippet" xml:space="preserve">
+    <value>Shell snippet</value>
+  </data>
+  <data name="Agents_Empty" xml:space="preserve">
+    <value>No SSH agents found</value>
+  </data>
+  <data name="Agents_Column_Algorithm" xml:space="preserve">
+    <value>Algorithm</value>
+  </data>
+  <data name="Agents_Column_Fingerprint" xml:space="preserve">
+    <value>Fingerprint</value>
+  </data>
+  <data name="Agents_Column_Comment" xml:space="preserve">
+    <value>Comment</value>
+  </data>
+  <data name="Agents_RemoveKey" xml:space="preserve">
+    <value>Remove from agent</value>
+  </data>
+  <data name="Agents_RemoveAll" xml:space="preserve">
+    <value>Remove all keys</value>
+  </data>
+  <data name="Agents_RemoveAllConfirm" xml:space="preserve">
+    <value>Click again to remove every key</value>
+  </data>
+  <data name="Agents_Lock" xml:space="preserve">
+    <value>Lock</value>
+  </data>
+  <data name="Agents_Unlock" xml:space="preserve">
+    <value>Unlock</value>
+  </data>
+  <data name="Agents_AddKey" xml:space="preserve">
+    <value>Load a key…</value>
+  </data>
+  <data name="Agents_AddKey_NeedsPassphrase" xml:space="preserve">
+    <value>That key is passphrase protected. Load it with ssh-add from a terminal; GitVault will not carry your passphrase into another program.</value>
+  </data>
+  <data name="Agents_CopySnippet" xml:space="preserve">
+    <value>Copy snippet</value>
+  </data>
+  <data name="Agents_Shell" xml:space="preserve">
+    <value>Shell</value>
+  </data>
+  <data name="AgentKind_OpenSshUnix" xml:space="preserve">
+    <value>OpenSSH agent</value>
+  </data>
+  <data name="AgentKind_OpenSshWindowsPipe" xml:space="preserve">
+    <value>OpenSSH agent (Windows service)</value>
+  </data>
+  <data name="AgentKind_Pageant" xml:space="preserve">
+    <value>Pageant</value>
+  </data>
+  <data name="AgentKind_GpgAgent" xml:space="preserve">
+    <value>gpg-agent</value>
+  </data>
+  <data name="AgentKind_OnePassword" xml:space="preserve">
+    <value>1Password</value>
+  </data>
+  <data name="AgentKind_KeeAgent" xml:space="preserve">
+    <value>KeeAgent</value>
+  </data>
+  <data name="AgentKind_WslRelay" xml:space="preserve">
+    <value>WSL relay</value>
+  </data>
+  <data name="AgentKind_Unknown" xml:space="preserve">
+    <value>Unrecognised agent</value>
+  </data>
+  <data name="Credentials_Title" xml:space="preserve">
+    <value>Credentials</value>
+  </data>
+  <data name="Credentials_Column_Host" xml:space="preserve">
+    <value>Host</value>
+  </data>
+  <data name="Credentials_Column_UserName" xml:space="preserve">
+    <value>User name</value>
+  </data>
+  <data name="Credentials_Column_Protocol" xml:space="preserve">
+    <value>Protocol</value>
+  </data>
+  <data name="Credentials_Column_Vault" xml:space="preserve">
+    <value>Store</value>
+  </data>
+  <data name="Credentials_Column_Client" xml:space="preserve">
+    <value>Owning client</value>
+  </data>
+  <data name="Credentials_Column_LastWrite" xml:space="preserve">
+    <value>Last written</value>
+  </data>
+  <data name="Credentials_Reveal" xml:space="preserve">
+    <value>Reveal secret</value>
+  </data>
+  <data name="Credentials_Empty" xml:space="preserve">
+    <value>No credentials found</value>
+  </data>
+  <data name="Credentials_Column_Target" xml:space="preserve">
+    <value>Target</value>
+  </data>
+  <data name="Credentials_ShowAll" xml:space="preserve">
+    <value>Show entries unrelated to Git</value>
+  </data>
+  <data name="Credentials_RevealConfirm" xml:space="preserve">
+    <value>Click again to show the secret on screen</value>
+  </data>
+  <data name="Credentials_Hide" xml:space="preserve">
+    <value>Hide</value>
+  </data>
+  <data name="Credentials_CopySecret" xml:space="preserve">
+    <value>Copy secret</value>
+  </data>
+  <data name="Credentials_HidingIn" xml:space="preserve">
+    <value>Hiding in {0} s</value>
+  </data>
+  <data name="Credentials_ClipboardNote" xml:space="preserve">
+    <value>The clipboard is cleared afterwards, but a clipboard manager may keep its own copy.</value>
+  </data>
+  <data name="Credentials_PlaintextBadge" xml:space="preserve">
+    <value>Stored in plain text</value>
+  </data>
+  <data name="Credentials_TestWithGit" xml:space="preserve">
+    <value>Test with git credential fill</value>
+  </data>
+  <data name="Vault_WindowsCredentialManager" xml:space="preserve">
+    <value>Windows Credential Manager</value>
+  </data>
+  <data name="Vault_MacKeychain" xml:space="preserve">
+    <value>Keychain</value>
+  </data>
+  <data name="Vault_SecretService" xml:space="preserve">
+    <value>Secret Service</value>
+  </data>
+  <data name="Vault_KWallet" xml:space="preserve">
+    <value>KWallet</value>
+  </data>
+  <data name="Vault_GitCredentialsFile" xml:space="preserve">
+    <value>git-credentials file</value>
+  </data>
+  <data name="Vault_GcmPlaintext" xml:space="preserve">
+    <value>GCM plaintext store</value>
+  </data>
+  <data name="Vault_GcmDpapi" xml:space="preserve">
+    <value>GCM DPAPI store</value>
+  </data>
+  <data name="Vault_GcmGpg" xml:space="preserve">
+    <value>GCM GPG store</value>
+  </data>
+  <data name="Vault_GitKrakenBox" xml:space="preserve">
+    <value>GitKraken secure box</value>
+  </data>
+  <data name="Vault_GitCredentialCache" xml:space="preserve">
+    <value>git credential cache</value>
+  </data>
+  <data name="Vault_Unknown" xml:space="preserve">
+    <value>Unrecognised store</value>
+  </data>
+  <data name="Clients_Title" xml:space="preserve">
+    <value>Git clients</value>
+  </data>
+  <data name="Clients_Version" xml:space="preserve">
+    <value>Version</value>
+  </data>
+  <data name="Clients_InstallPath" xml:space="preserve">
+    <value>Install path</value>
+  </data>
+  <data name="Clients_ConfigRoots" xml:space="preserve">
+    <value>Configuration folders</value>
+  </data>
+  <data name="Clients_Opaque" xml:space="preserve">
+    <value>Detected, but its configuration could not be read</value>
+  </data>
+  <data name="Clients_Empty" xml:space="preserve">
+    <value>No Git clients found</value>
+  </data>
+  <data name="Clients_Accounts" xml:space="preserve">
+    <value>Accounts</value>
+  </data>
+  <data name="Clients_BoundKeys" xml:space="preserve">
+    <value>Keys bound to remotes</value>
+  </data>
+  <data name="Clients_SshCommand" xml:space="preserve">
+    <value>SSH program</value>
+  </data>
+  <data name="Clients_OpenConfigFolder" xml:space="preserve">
+    <value>Open configuration folder</value>
+  </data>
+  <data name="Clients_CredentialsCount" xml:space="preserve">
+    <value>Credential entries</value>
+  </data>
+  <data name="Warning_TortoiseGitMissingKey_Title" xml:space="preserve">
+    <value>A remote points at a key file that is gone</value>
+  </data>
+  <data name="Warning_TortoiseGitMissingKey_Body" xml:space="preserve">
+    <value>TortoiseGit has a remote bound to a PuTTY key that no longer exists on disk, so pushing to it will fail. Rebind the remote to a key you still have, or restore the file.</value>
+  </data>
+  <data name="Warning_WslSeparateKeys_Title" xml:space="preserve">
+    <value>A WSL distribution has its own SSH keys</value>
+  </data>
+  <data name="Warning_WslSeparateKeys_Body" xml:space="preserve">
+    <value>Keys inside a WSL distribution are a separate set from the ones in your Windows home directory. Work done inside the distribution uses these, which is easy to forget when a push suddenly stops working on one side.</value>
+  </data>
+  <data name="Profiles_Title" xml:space="preserve">
+    <value>Profiles</value>
+  </data>
+  <data name="Profiles_Activate_Button" xml:space="preserve">
+    <value>Activate</value>
+  </data>
+  <data name="Profiles_Deactivate_Button" xml:space="preserve">
+    <value>Deactivate</value>
+  </data>
+  <data name="Profiles_Scope_Global" xml:space="preserve">
+    <value>Global (this user)</value>
+  </data>
+  <data name="Profiles_Scope_System" xml:space="preserve">
+    <value>System (all users)</value>
+  </data>
+  <data name="Profiles_Scope_Repository" xml:space="preserve">
+    <value>This repository</value>
+  </data>
+  <data name="Profiles_DryRun" xml:space="preserve">
+    <value>Dry run — show changes without applying them</value>
+  </data>
+  <data name="Profiles_Rollback" xml:space="preserve">
+    <value>Roll back</value>
+  </data>
+  <data name="Profiles_RecentActivations" xml:space="preserve">
+    <value>Recent activations</value>
+  </data>
+  <data name="Profiles_Empty" xml:space="preserve">
+    <value>No profiles yet</value>
+  </data>
+  <data name="Profiles_Preview" xml:space="preserve">
+    <value>Preview changes</value>
+  </data>
+  <data name="Profiles_PlannedChanges" xml:space="preserve">
+    <value>Planned changes</value>
+  </data>
+  <data name="Profiles_NothingToDo" xml:space="preserve">
+    <value>Everything is already as this profile wants it.</value>
+  </data>
+  <data name="Profiles_ApplyDryRunFirst" xml:space="preserve">
+    <value>Preview the changes before applying them.</value>
+  </data>
+  <data name="Profiles_Applied" xml:space="preserve">
+    <value>Applied. A snapshot was taken first, so this can be rolled back.</value>
+  </data>
+  <data name="Profiles_Blocked" xml:space="preserve">
+    <value>This cannot be applied yet</value>
+  </data>
+  <data name="Profiles_BlockedWithReasons" xml:space="preserve">
+    <value>This cannot be applied yet: {0}</value>
+  </data>
+  <data name="Profiles_Column_Name" xml:space="preserve">
+    <value>Profile</value>
+  </data>
+  <data name="Profiles_Column_Identity" xml:space="preserve">
+    <value>Identity</value>
+  </data>
+  <data name="Profiles_Column_Helper" xml:space="preserve">
+    <value>Credential helper</value>
+  </data>
+  <data name="Profiles_IsActive" xml:space="preserve">
+    <value>Active here</value>
+  </data>
+  <data name="Repositories_Scan" xml:space="preserve">
+    <value>Scan for repositories</value>
+  </data>
+  <data name="Repositories_Scanning" xml:space="preserve">
+    <value>Scanning…</value>
+  </data>
+  <data name="Repositories_NoRoots" xml:space="preserve">
+    <value>Add a folder in Settings to search for repositories.</value>
+  </data>
+  <data name="Repositories_Column_Name" xml:space="preserve">
+    <value>Repository</value>
+  </data>
+  <data name="Identities_NameAndEmail" xml:space="preserve">
+    <value>{0} &lt;{1}&gt;</value>
+  </data>
+  <data name="Repositories_Title" xml:space="preserve">
+    <value>Repositories</value>
+  </data>
+  <data name="Repositories_AddRoot" xml:space="preserve">
+    <value>Add folder…</value>
+  </data>
+  <data name="Repositories_Column_Path" xml:space="preserve">
+    <value>Path</value>
+  </data>
+  <data name="Repositories_Column_EffectiveIdentity" xml:space="preserve">
+    <value>Effective identity</value>
+  </data>
+  <data name="Repositories_Column_Remote" xml:space="preserve">
+    <value>Remote</value>
+  </data>
+  <data name="Repositories_Empty" xml:space="preserve">
+    <value>No repositories found</value>
+  </data>
+  <data name="Settings_Title" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="Settings_Language" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="Settings_Theme" xml:space="preserve">
+    <value>Theme</value>
+  </data>
+  <data name="Settings_Theme_System" xml:space="preserve">
+    <value>Follow system</value>
+  </data>
+  <data name="Settings_Theme_Light" xml:space="preserve">
+    <value>Light</value>
+  </data>
+  <data name="Settings_Theme_Dark" xml:space="preserve">
+    <value>Dark</value>
+  </data>
+  <data name="Settings_DryRunDefault" xml:space="preserve">
+    <value>Dry run by default</value>
+  </data>
+  <data name="Settings_WatchForChanges" xml:space="preserve">
+    <value>Rescan when files change</value>
+  </data>
+  <data name="Settings_LogLevel" xml:space="preserve">
+    <value>Log level</value>
+  </data>
+  <data name="Settings_OpenLogsFolder" xml:space="preserve">
+    <value>Open logs folder</value>
+  </data>
+  <data name="Settings_ScanRoots" xml:space="preserve">
+    <value>Repository scan folders</value>
+  </data>
+  <data name="Settings_CustomKeyFolders" xml:space="preserve">
+    <value>Extra key folders</value>
+  </data>
+  <data name="Settings_RevealPolicy" xml:space="preserve">
+    <value>Secret reveal policy</value>
+  </data>
+  <data name="Settings_AutoHideSeconds" xml:space="preserve">
+    <value>Hide a revealed secret after {0} s</value>
+  </data>
+  <data name="Settings_ClipboardClearSeconds" xml:space="preserve">
+    <value>Clear the clipboard after {0} s</value>
+  </data>
+  <data name="Settings_Diagnostics" xml:space="preserve">
+    <value>Diagnostics</value>
+  </data>
+  <data name="Settings_PreviewDiagnostics" xml:space="preserve">
+    <value>Preview diagnostics bundle</value>
+  </data>
+  <data name="Settings_SaveDiagnostics" xml:space="preserve">
+    <value>Save bundle…</value>
+  </data>
+  <data name="Settings_DiagnosticsNote" xml:space="preserve">
+    <value>Nothing is written until you have seen exactly what the bundle contains. Values from your Git configuration are never included, only the names of the settings.</value>
+  </data>
+  <data name="Settings_DiagnosticsSaved" xml:space="preserve">
+    <value>Saved to {0}</value>
+  </data>
+  <data name="Settings_Telemetry" xml:space="preserve">
+    <value>Telemetry</value>
+  </data>
+  <data name="Settings_TelemetryNone" xml:space="preserve">
+    <value>GitVault collects nothing and makes no network calls.</value>
+  </data>
+  <data name="Logs_Title" xml:space="preserve">
+    <value>Logs</value>
+  </data>
+  <data name="Logs_Filter" xml:space="preserve">
+    <value>Filter</value>
+  </data>
+  <data name="Logs_Clear" xml:space="preserve">
+    <value>Clear view</value>
+  </data>
+  <data name="Logs_Column_Timestamp" xml:space="preserve">
+    <value>Time</value>
+  </data>
+  <data name="Logs_Column_Level" xml:space="preserve">
+    <value>Level</value>
+  </data>
+  <data name="Logs_Column_Message" xml:space="preserve">
+    <value>Message</value>
+  </data>
+  <data name="Status_Ok" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="Status_NotInstalled" xml:space="preserve">
+    <value>Not installed</value>
+  </data>
+  <data name="Status_AccessDenied" xml:space="preserve">
+    <value>Access denied</value>
+  </data>
+  <data name="Status_Timeout" xml:space="preserve">
+    <value>Timed out</value>
+  </data>
+  <data name="Status_ParseError" xml:space="preserve">
+    <value>Could not be parsed</value>
+  </data>
+  <data name="Status_NotApplicable" xml:space="preserve">
+    <value>Not applicable here</value>
+  </data>
+  <data name="Status_Failed" xml:space="preserve">
+    <value>Failed</value>
+  </data>
+  <data name="Warning_KeyWorldReadable_Title" xml:space="preserve">
+    <value>Private key is readable by others</value>
+  </data>
+  <data name="Warning_KeyWorldReadable_Body" xml:space="preserve">
+    <value>OpenSSH refuses to use a private key that other accounts on this machine can read. Set the file mode to 0600 so that only you can read it.</value>
+  </data>
+  <data name="Warning_RsaTooShort_Title" xml:space="preserve">
+    <value>RSA key is shorter than 3072 bits</value>
+  </data>
+  <data name="Warning_RsaTooShort_Body" xml:space="preserve">
+    <value>Short RSA keys no longer meet current guidance. Generate a new Ed25519 key, or an RSA key of at least 3072 bits, and replace this one on every host that trusts it.</value>
+  </data>
+  <data name="Warning_DsaDeprecated_Title" xml:space="preserve">
+    <value>DSA key found</value>
+  </data>
+  <data name="Warning_DsaDeprecated_Body" xml:space="preserve">
+    <value>DSA is disabled by default in current OpenSSH releases and will stop working. Replace it with an Ed25519 key.</value>
+  </data>
+  <data name="Warning_KeyNoPassphrase_Title" xml:space="preserve">
+    <value>Private key has no passphrase</value>
+  </data>
+  <data name="Warning_KeyNoPassphrase_Body" xml:space="preserve">
+    <value>Anyone who copies this file gets your access. Add a passphrase and load the key into an agent so you still type it only once per session.</value>
+  </data>
+  <data name="Warning_OrphanedPublicKey_Title" xml:space="preserve">
+    <value>Public key without a private key</value>
+  </data>
+  <data name="Warning_OrphanedPublicKey_Body" xml:space="preserve">
+    <value>A .pub file was found with no matching private key. Either the private key lives elsewhere, or it is held only by a hardware token or an agent.</value>
+  </data>
+  <data name="Warning_PlaintextCredentialStore_Title" xml:space="preserve">
+    <value>Credentials stored in plain text</value>
+  </data>
+  <data name="Warning_PlaintextCredentialStore_Body" xml:space="preserve">
+    <value>This store keeps passwords and tokens unencrypted on disk. Switch the credential helper to your operating system&apos;s vault.</value>
+  </data>
+  <data name="Warning_MissingPublicKey_Title" xml:space="preserve">
+    <value>No .pub file next to the private key</value>
+  </data>
+  <data name="Warning_MissingPublicKey_Body" xml:space="preserve">
+    <value>Several tools expect the public key to sit beside the private one. GitVault can write it: for an unencrypted key it derives it directly, and for a protected key it asks for the passphrase first.</value>
+  </data>
+  <data name="Warning_KeyIntegrityFailed_Title" xml:space="preserve">
+    <value>The key file failed its own integrity check</value>
+  </data>
+  <data name="Warning_KeyIntegrityFailed_Body" xml:space="preserve">
+    <value>A PuTTY key file stores a MAC over its own contents, and this one does not match. The file has been edited or damaged since it was written; do not rely on it until you have checked where it came from.</value>
+  </data>
+  <data name="Warning_AgentNotRunning_Title" xml:space="preserve">
+    <value>SSH agent is not running</value>
+  </data>
+  <data name="Warning_AgentNotRunning_Body" xml:space="preserve">
+    <value>Keys cannot be held in memory while the agent is stopped, so you will be asked for the passphrase on every connection.</value>
+  </data>
+  <data name="Warning_GitNotFound_Title" xml:space="preserve">
+    <value>No git executable found</value>
+  </data>
+  <data name="Warning_GitNotFound_Body" xml:space="preserve">
+    <value>GitVault fell back to reading the configuration files itself. Conditional includes and platform path quirks are resolved less accurately than git would resolve them. Install git, or add it to PATH.</value>
+  </data>
+  <data name="Warning_NoIdentityConfigured_Title" xml:space="preserve">
+    <value>No author identity configured</value>
+  </data>
+  <data name="Warning_NoIdentityConfigured_Body" xml:space="preserve">
+    <value>Neither user.name nor user.email is set anywhere, so git will refuse to create a commit. Set them globally, or per repository through a profile.</value>
+  </data>
+  <data name="Plural_Keys_One" xml:space="preserve">
+    <value>{0} key</value>
+  </data>
+  <data name="Plural_Keys_Few" xml:space="preserve">
+    <value>{0} keys</value>
+  </data>
+  <data name="Plural_Keys_Many" xml:space="preserve">
+    <value>{0} keys</value>
+  </data>
+  <data name="Plural_Keys_Other" xml:space="preserve">
+    <value>{0} keys</value>
+  </data>
+  <data name="Plural_Identities_One" xml:space="preserve">
+    <value>{0} identity</value>
+  </data>
+  <data name="Plural_Identities_Few" xml:space="preserve">
+    <value>{0} identities</value>
+  </data>
+  <data name="Plural_Identities_Many" xml:space="preserve">
+    <value>{0} identities</value>
+  </data>
+  <data name="Plural_Identities_Other" xml:space="preserve">
+    <value>{0} identities</value>
+  </data>
+  <data name="Plural_Agents_One" xml:space="preserve">
+    <value>{0} agent</value>
+  </data>
+  <data name="Plural_Agents_Few" xml:space="preserve">
+    <value>{0} agents</value>
+  </data>
+  <data name="Plural_Agents_Many" xml:space="preserve">
+    <value>{0} agents</value>
+  </data>
+  <data name="Plural_Agents_Other" xml:space="preserve">
+    <value>{0} agents</value>
+  </data>
+  <data name="Plural_Credentials_One" xml:space="preserve">
+    <value>{0} credential</value>
+  </data>
+  <data name="Plural_Credentials_Few" xml:space="preserve">
+    <value>{0} credentials</value>
+  </data>
+  <data name="Plural_Credentials_Many" xml:space="preserve">
+    <value>{0} credentials</value>
+  </data>
+  <data name="Plural_Credentials_Other" xml:space="preserve">
+    <value>{0} credentials</value>
+  </data>
+  <data name="Plural_Clients_One" xml:space="preserve">
+    <value>{0} client</value>
+  </data>
+  <data name="Plural_Clients_Few" xml:space="preserve">
+    <value>{0} clients</value>
+  </data>
+  <data name="Plural_Clients_Many" xml:space="preserve">
+    <value>{0} clients</value>
+  </data>
+  <data name="Plural_Clients_Other" xml:space="preserve">
+    <value>{0} clients</value>
+  </data>
+  <data name="Plural_Warnings_One" xml:space="preserve">
+    <value>{0} warning</value>
+  </data>
+  <data name="Plural_Warnings_Few" xml:space="preserve">
+    <value>{0} warnings</value>
+  </data>
+  <data name="Plural_Warnings_Many" xml:space="preserve">
+    <value>{0} warnings</value>
+  </data>
+  <data name="Plural_Warnings_Other" xml:space="preserve">
+    <value>{0} warnings</value>
+  </data>
+</root>

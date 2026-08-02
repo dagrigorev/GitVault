@@ -1,0 +1,12 @@
+{
+  "id": "lazygit",
+  "displayName": "lazygit",
+  "platforms": ["windows", "macos", "linux"],
+  "configRoots": [
+    "{home}/.config/lazygit",
+    "{appdata}/lazygit",
+    "{appsupport}/lazygit"
+  ],
+  "installPaths": [],
+  "identityFiles": []
+}

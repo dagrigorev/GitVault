@@ -1,0 +1,16 @@
+{
+  "id": "fork",
+  "displayName": "Fork",
+  "platforms": ["windows", "macos"],
+  "configRoots": [
+    "{appdata}/Fork",
+    "{appsupport}/Fork"
+  ],
+  "installPaths": [
+    "{localappdata}/Fork",
+    "/Applications/Fork.app"
+  ],
+  "identityFiles": [
+    { "path": "settings.json", "format": "json", "nameProperty": "user.name", "emailProperty": "user.email" }
+  ]
+}

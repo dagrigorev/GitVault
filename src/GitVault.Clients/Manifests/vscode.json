@@ -1,0 +1,18 @@
+{
+  "id": "vscode",
+  "displayName": "Visual Studio Code",
+  "platforms": ["windows", "macos", "linux"],
+  "configRoots": [
+    "{appdata}/Code/User",
+    "{appsupport}/Code/User",
+    "{home}/.config/Code/User",
+    "{appdata}/VSCodium/User",
+    "{home}/.config/VSCodium/User"
+  ],
+  "installPaths": [
+    "{localappdata}/Programs/Microsoft VS Code",
+    "/Applications/Visual Studio Code.app",
+    "/usr/share/code"
+  ],
+  "identityFiles": []
+}

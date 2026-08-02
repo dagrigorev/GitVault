@@ -1,0 +1,17 @@
+{
+  "id": "gitbutler",
+  "displayName": "GitButler",
+  "platforms": ["windows", "macos", "linux"],
+  "configRoots": [
+    "{appdata}/com.gitbutler.app",
+    "{appsupport}/com.gitbutler.app",
+    "{home}/.config/com.gitbutler.app"
+  ],
+  "installPaths": [
+    "{localappdata}/gitbutler",
+    "/Applications/GitButler.app"
+  ],
+  "identityFiles": [
+    { "path": "settings.json", "format": "json", "nameProperty": "user.name", "emailProperty": "user.email" }
+  ]
+}

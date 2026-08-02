@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <RootNamespace>GitVault.Platform.MacOS</RootNamespace>
+    <Description>macOS-specific GitVault services: Keychain access, launchd agent sockets.</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\GitVault.Core\GitVault.Core.csproj" />
+  </ItemGroup>
+
+</Project>

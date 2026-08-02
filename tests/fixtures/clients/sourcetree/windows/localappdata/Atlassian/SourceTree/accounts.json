@@ -1,0 +1,19 @@
+[
+  {
+    "$id": "1",
+    "UserName": "ada",
+    "DisplayName": "Ada Lovelace",
+    "Email": "ada@example.com",
+    "HostInstance": {
+      "Host": {
+        "BaseUrl": "https://github.com/",
+        "Name": "GitHub"
+      }
+    }
+  },
+  {
+    "$id": "2",
+    "UserName": "grace",
+    "Host": "bitbucket.org"
+  }
+]

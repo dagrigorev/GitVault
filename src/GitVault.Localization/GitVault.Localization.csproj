@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <RootNamespace>GitVault.Localization</RootNamespace>
+    <Description>GitVault user-visible strings for en-US, ru-RU and zh-Hans, plus the runtime culture switch.</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\Strings.resx">
+      <Generator></Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="GitVault.Core.Tests" />
+    <InternalsVisibleTo Include="GitVault.App.Tests" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,16 @@
+{
+  "id": "sublime-merge",
+  "displayName": "Sublime Merge",
+  "platforms": ["windows", "macos", "linux"],
+  "configRoots": [
+    "{appdata}/Sublime Merge",
+    "{appsupport}/Sublime Merge",
+    "{home}/.config/sublime-merge"
+  ],
+  "installPaths": [
+    "{programfiles}/Sublime Merge",
+    "/Applications/Sublime Merge.app",
+    "/opt/sublime_merge"
+  ],
+  "identityFiles": []
+}

@@ -1,0 +1,938 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!--
+    GENERATED FILE - do not edit by hand.
+    Source: build/loc/strings.json    Generator: build/generate-localization.ps1
+  -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="App_Title" xml:space="preserve">
+    <value>GitVault</value>
+  </data>
+  <data name="App_Subtitle" xml:space="preserve">
+    <value>Учётные записи, ключи и учётные данные Git</value>
+  </data>
+  <data name="App_WindowTitle" xml:space="preserve">
+    <value>{0} — {1}</value>
+  </data>
+  <data name="Nav_Dashboard" xml:space="preserve">
+    <value>Обзор</value>
+  </data>
+  <data name="Nav_Identities" xml:space="preserve">
+    <value>Идентичности</value>
+  </data>
+  <data name="Nav_Keys" xml:space="preserve">
+    <value>Ключи SSH</value>
+  </data>
+  <data name="Nav_Agents" xml:space="preserve">
+    <value>Агенты SSH</value>
+  </data>
+  <data name="Nav_Credentials" xml:space="preserve">
+    <value>Учётные данные</value>
+  </data>
+  <data name="Nav_Clients" xml:space="preserve">
+    <value>Клиенты</value>
+  </data>
+  <data name="Nav_Profiles" xml:space="preserve">
+    <value>Профили</value>
+  </data>
+  <data name="Nav_Repositories" xml:space="preserve">
+    <value>Репозитории</value>
+  </data>
+  <data name="Nav_Settings" xml:space="preserve">
+    <value>Параметры</value>
+  </data>
+  <data name="Nav_Logs" xml:space="preserve">
+    <value>Журнал</value>
+  </data>
+  <data name="Common_Rescan" xml:space="preserve">
+    <value>Пересканировать</value>
+  </data>
+  <data name="Common_Search" xml:space="preserve">
+    <value>Поиск</value>
+  </data>
+  <data name="Common_Cancel" xml:space="preserve">
+    <value>Отмена</value>
+  </data>
+  <data name="Common_Ok" xml:space="preserve">
+    <value>ОК</value>
+  </data>
+  <data name="Common_Close" xml:space="preserve">
+    <value>Закрыть</value>
+  </data>
+  <data name="Common_Copy" xml:space="preserve">
+    <value>Копировать</value>
+  </data>
+  <data name="Common_Apply" xml:space="preserve">
+    <value>Применить</value>
+  </data>
+  <data name="Common_Working" xml:space="preserve">
+    <value>Выполняется…</value>
+  </data>
+  <data name="Common_NoData" xml:space="preserve">
+    <value>Нет данных</value>
+  </data>
+  <data name="Common_Details" xml:space="preserve">
+    <value>Подробности</value>
+  </data>
+  <data name="Common_WhatDoesThisMean" xml:space="preserve">
+    <value>Что это значит?</value>
+  </data>
+  <data name="Common_Yes" xml:space="preserve">
+    <value>Да</value>
+  </data>
+  <data name="Common_No" xml:space="preserve">
+    <value>Нет</value>
+  </data>
+  <data name="Common_Never" xml:space="preserve">
+    <value>Никогда</value>
+  </data>
+  <data name="Common_ListSeparator" xml:space="preserve">
+    <value>, </value>
+  </data>
+  <data name="Dashboard_Title" xml:space="preserve">
+    <value>Обзор</value>
+  </data>
+  <data name="Dashboard_Subtitle" xml:space="preserve">
+    <value>Всё, что GitVault нашёл на этом компьютере</value>
+  </data>
+  <data name="Dashboard_Card_Identities" xml:space="preserve">
+    <value>Идентичности</value>
+  </data>
+  <data name="Dashboard_Card_Keys" xml:space="preserve">
+    <value>Ключи SSH</value>
+  </data>
+  <data name="Dashboard_Card_Agents" xml:space="preserve">
+    <value>Агенты</value>
+  </data>
+  <data name="Dashboard_Card_Credentials" xml:space="preserve">
+    <value>Учётные данные</value>
+  </data>
+  <data name="Dashboard_Card_Clients" xml:space="preserve">
+    <value>Клиенты</value>
+  </data>
+  <data name="Dashboard_ActiveIdentity" xml:space="preserve">
+    <value>Активная глобальная идентичность</value>
+  </data>
+  <data name="Dashboard_NoScanYet" xml:space="preserve">
+    <value>Сканирование ещё не выполнялось</value>
+  </data>
+  <data name="Dashboard_FixAllSafe" xml:space="preserve">
+    <value>Исправить всё, что безопасно</value>
+  </data>
+  <data name="Dashboard_Warnings" xml:space="preserve">
+    <value>Предупреждения</value>
+  </data>
+  <data name="Dashboard_ScanDuration" xml:space="preserve">
+    <value>Сканирование завершено за {0} мс</value>
+  </data>
+  <data name="Dashboard_ProbeMatrix" xml:space="preserve">
+    <value>Состояние проверок</value>
+  </data>
+  <data name="Dashboard_Env_Os" xml:space="preserve">
+    <value>Операционная система</value>
+  </data>
+  <data name="Dashboard_Env_Cpu" xml:space="preserve">
+    <value>Архитектура</value>
+  </data>
+  <data name="Dashboard_Env_AppData" xml:space="preserve">
+    <value>Папка данных GitVault</value>
+  </data>
+  <data name="Dashboard_Env_Git" xml:space="preserve">
+    <value>Исполняемый файл Git</value>
+  </data>
+  <data name="Dashboard_Env_GitPathAndVersion" xml:space="preserve">
+    <value>{0} (версия {1})</value>
+  </data>
+  <data name="Dashboard_Scanning" xml:space="preserve">
+    <value>Идёт сканирование…</value>
+  </data>
+  <data name="Identities_Title" xml:space="preserve">
+    <value>Идентичности</value>
+  </data>
+  <data name="Identities_Column_Name" xml:space="preserve">
+    <value>Имя</value>
+  </data>
+  <data name="Identities_Column_Email" xml:space="preserve">
+    <value>Эл. почта</value>
+  </data>
+  <data name="Identities_Column_Source" xml:space="preserve">
+    <value>Источник</value>
+  </data>
+  <data name="Identities_Column_Hosts" xml:space="preserve">
+    <value>Узлы</value>
+  </data>
+  <data name="Identities_Column_Scope" xml:space="preserve">
+    <value>Область</value>
+  </data>
+  <data name="Identities_Column_Confidence" xml:space="preserve">
+    <value>Достоверность</value>
+  </data>
+  <data name="Identities_Column_SigningKey" xml:space="preserve">
+    <value>Ключ подписи</value>
+  </data>
+  <data name="Identities_Empty" xml:space="preserve">
+    <value>Идентичности не найдены</value>
+  </data>
+  <data name="Identities_Effective_Title" xml:space="preserve">
+    <value>Действует для этого пользователя</value>
+  </data>
+  <data name="Identities_Effective_Key" xml:space="preserve">
+    <value>Параметр</value>
+  </data>
+  <data name="Identities_Effective_Value" xml:space="preserve">
+    <value>Значение</value>
+  </data>
+  <data name="Identities_Effective_WinningScope" xml:space="preserve">
+    <value>Задано в</value>
+  </data>
+  <data name="Identities_Effective_Unset" xml:space="preserve">
+    <value>не задано</value>
+  </data>
+  <data name="Identities_Effective_OverriddenIn" xml:space="preserve">
+    <value>перекрывает {0}</value>
+  </data>
+  <data name="Identities_Detail_Occurrences" xml:space="preserve">
+    <value>Встречается в</value>
+  </data>
+  <data name="Scope_System" xml:space="preserve">
+    <value>Система</value>
+  </data>
+  <data name="Scope_Global" xml:space="preserve">
+    <value>Глобально</value>
+  </data>
+  <data name="Scope_Local" xml:space="preserve">
+    <value>Репозиторий</value>
+  </data>
+  <data name="Scope_Worktree" xml:space="preserve">
+    <value>Рабочее дерево</value>
+  </data>
+  <data name="Scope_Command" xml:space="preserve">
+    <value>Командная строка</value>
+  </data>
+  <data name="Scope_Unknown" xml:space="preserve">
+    <value>Неизвестно</value>
+  </data>
+  <data name="Confidence_Certain" xml:space="preserve">
+    <value>Точно</value>
+  </data>
+  <data name="Confidence_Probable" xml:space="preserve">
+    <value>Вероятно</value>
+  </data>
+  <data name="Confidence_Heuristic" xml:space="preserve">
+    <value>Предположительно</value>
+  </data>
+  <data name="Source_GitSystemConfig" xml:space="preserve">
+    <value>Системная конфигурация Git</value>
+  </data>
+  <data name="Source_GitGlobalConfig" xml:space="preserve">
+    <value>Пользовательская конфигурация Git</value>
+  </data>
+  <data name="Source_RepoLocal" xml:space="preserve">
+    <value>Конфигурация репозитория</value>
+  </data>
+  <data name="Source_RepoWorktree" xml:space="preserve">
+    <value>Конфигурация рабочего дерева</value>
+  </data>
+  <data name="Source_GitIncludedFile" xml:space="preserve">
+    <value>Подключённый файл</value>
+  </data>
+  <data name="Source_Unknown" xml:space="preserve">
+    <value>Неизвестный источник</value>
+  </data>
+  <data name="Keys_Title" xml:space="preserve">
+    <value>Ключи SSH</value>
+  </data>
+  <data name="Keys_Column_Algorithm" xml:space="preserve">
+    <value>Алгоритм</value>
+  </data>
+  <data name="Keys_Column_Fingerprint" xml:space="preserve">
+    <value>Отпечаток</value>
+  </data>
+  <data name="Keys_Column_Comment" xml:space="preserve">
+    <value>Комментарий</value>
+  </data>
+  <data name="Keys_Column_Path" xml:space="preserve">
+    <value>Путь</value>
+  </data>
+  <data name="Keys_Column_Format" xml:space="preserve">
+    <value>Формат</value>
+  </data>
+  <data name="Keys_Encrypted" xml:space="preserve">
+    <value>Защищён парольной фразой</value>
+  </data>
+  <data name="Keys_NotEncrypted" xml:space="preserve">
+    <value>Без парольной фразы</value>
+  </data>
+  <data name="Keys_InAgent" xml:space="preserve">
+    <value>Загружен в агент</value>
+  </data>
+  <data name="Keys_Empty" xml:space="preserve">
+    <value>Ключи SSH не найдены</value>
+  </data>
+  <data name="Keys_Column_Bits" xml:space="preserve">
+    <value>Бит</value>
+  </data>
+  <data name="Keys_Column_Protection" xml:space="preserve">
+    <value>Защита</value>
+  </data>
+  <data name="Keys_Detail_PublicKey" xml:space="preserve">
+    <value>Открытый ключ</value>
+  </data>
+  <data name="Keys_Detail_Permissions" xml:space="preserve">
+    <value>Права доступа</value>
+  </data>
+  <data name="Keys_Detail_KdfRounds" xml:space="preserve">
+    <value>Раундов KDF</value>
+  </data>
+  <data name="Keys_Hardware" xml:space="preserve">
+    <value>Аппаратный ключ</value>
+  </data>
+  <data name="Keys_CopyPublicKey" xml:space="preserve">
+    <value>Копировать открытый ключ</value>
+  </data>
+  <data name="Keys_CopyFingerprint" xml:space="preserve">
+    <value>Копировать отпечаток</value>
+  </data>
+  <data name="Keys_RevealInFileManager" xml:space="preserve">
+    <value>Показать в файловом менеджере</value>
+  </data>
+  <data name="Keys_Copied" xml:space="preserve">
+    <value>Скопировано в буфер обмена</value>
+  </data>
+  <data name="Format_OpenSsh" xml:space="preserve">
+    <value>OpenSSH</value>
+  </data>
+  <data name="Format_Pem" xml:space="preserve">
+    <value>PEM</value>
+  </data>
+  <data name="Format_Pkcs8" xml:space="preserve">
+    <value>PKCS#8</value>
+  </data>
+  <data name="Format_Ppk2" xml:space="preserve">
+    <value>PuTTY v2</value>
+  </data>
+  <data name="Format_Ppk3" xml:space="preserve">
+    <value>PuTTY v3</value>
+  </data>
+  <data name="Format_PublicOnly" xml:space="preserve">
+    <value>Только открытый ключ</value>
+  </data>
+  <data name="Format_Unknown" xml:space="preserve">
+    <value>Не распознан</value>
+  </data>
+  <data name="Agents_Title" xml:space="preserve">
+    <value>Агенты SSH</value>
+  </data>
+  <data name="Agents_Endpoint" xml:space="preserve">
+    <value>Точка подключения</value>
+  </data>
+  <data name="Agents_Running" xml:space="preserve">
+    <value>Запущен</value>
+  </data>
+  <data name="Agents_Stopped" xml:space="preserve">
+    <value>Не запущен</value>
+  </data>
+  <data name="Agents_Locked" xml:space="preserve">
+    <value>Заблокирован</value>
+  </data>
+  <data name="Agents_LoadedKeys" xml:space="preserve">
+    <value>Загруженные ключи</value>
+  </data>
+  <data name="Agents_ReadOnly" xml:space="preserve">
+    <value>Этот агент не принимает новые ключи</value>
+  </data>
+  <data name="Agents_ShellSnippet" xml:space="preserve">
+    <value>Фрагмент для оболочки</value>
+  </data>
+  <data name="Agents_Empty" xml:space="preserve">
+    <value>Агенты SSH не найдены</value>
+  </data>
+  <data name="Agents_Column_Algorithm" xml:space="preserve">
+    <value>Алгоритм</value>
+  </data>
+  <data name="Agents_Column_Fingerprint" xml:space="preserve">
+    <value>Отпечаток</value>
+  </data>
+  <data name="Agents_Column_Comment" xml:space="preserve">
+    <value>Комментарий</value>
+  </data>
+  <data name="Agents_RemoveKey" xml:space="preserve">
+    <value>Убрать из агента</value>
+  </data>
+  <data name="Agents_RemoveAll" xml:space="preserve">
+    <value>Убрать все ключи</value>
+  </data>
+  <data name="Agents_RemoveAllConfirm" xml:space="preserve">
+    <value>Нажмите ещё раз, чтобы убрать все ключи</value>
+  </data>
+  <data name="Agents_Lock" xml:space="preserve">
+    <value>Заблокировать</value>
+  </data>
+  <data name="Agents_Unlock" xml:space="preserve">
+    <value>Разблокировать</value>
+  </data>
+  <data name="Agents_AddKey" xml:space="preserve">
+    <value>Загрузить ключ…</value>
+  </data>
+  <data name="Agents_AddKey_NeedsPassphrase" xml:space="preserve">
+    <value>Этот ключ защищён парольной фразой. Загрузите его командой ssh-add в терминале: GitVault не передаёт вашу парольную фразу другой программе.</value>
+  </data>
+  <data name="Agents_CopySnippet" xml:space="preserve">
+    <value>Копировать фрагмент</value>
+  </data>
+  <data name="Agents_Shell" xml:space="preserve">
+    <value>Оболочка</value>
+  </data>
+  <data name="AgentKind_OpenSshUnix" xml:space="preserve">
+    <value>Агент OpenSSH</value>
+  </data>
+  <data name="AgentKind_OpenSshWindowsPipe" xml:space="preserve">
+    <value>Агент OpenSSH (служба Windows)</value>
+  </data>
+  <data name="AgentKind_Pageant" xml:space="preserve">
+    <value>Pageant</value>
+  </data>
+  <data name="AgentKind_GpgAgent" xml:space="preserve">
+    <value>gpg-agent</value>
+  </data>
+  <data name="AgentKind_OnePassword" xml:space="preserve">
+    <value>1Password</value>
+  </data>
+  <data name="AgentKind_KeeAgent" xml:space="preserve">
+    <value>KeeAgent</value>
+  </data>
+  <data name="AgentKind_WslRelay" xml:space="preserve">
+    <value>Ретранслятор WSL</value>
+  </data>
+  <data name="AgentKind_Unknown" xml:space="preserve">
+    <value>Неизвестный агент</value>
+  </data>
+  <data name="Credentials_Title" xml:space="preserve">
+    <value>Учётные данные</value>
+  </data>
+  <data name="Credentials_Column_Host" xml:space="preserve">
+    <value>Узел</value>
+  </data>
+  <data name="Credentials_Column_UserName" xml:space="preserve">
+    <value>Пользователь</value>
+  </data>
+  <data name="Credentials_Column_Protocol" xml:space="preserve">
+    <value>Протокол</value>
+  </data>
+  <data name="Credentials_Column_Vault" xml:space="preserve">
+    <value>Хранилище</value>
+  </data>
+  <data name="Credentials_Column_Client" xml:space="preserve">
+    <value>Владелец</value>
+  </data>
+  <data name="Credentials_Column_LastWrite" xml:space="preserve">
+    <value>Изменено</value>
+  </data>
+  <data name="Credentials_Reveal" xml:space="preserve">
+    <value>Показать секрет</value>
+  </data>
+  <data name="Credentials_Empty" xml:space="preserve">
+    <value>Учётные данные не найдены</value>
+  </data>
+  <data name="Credentials_Column_Target" xml:space="preserve">
+    <value>Цель</value>
+  </data>
+  <data name="Credentials_ShowAll" xml:space="preserve">
+    <value>Показывать записи, не связанные с Git</value>
+  </data>
+  <data name="Credentials_RevealConfirm" xml:space="preserve">
+    <value>Нажмите ещё раз, чтобы показать секрет на экране</value>
+  </data>
+  <data name="Credentials_Hide" xml:space="preserve">
+    <value>Скрыть</value>
+  </data>
+  <data name="Credentials_CopySecret" xml:space="preserve">
+    <value>Копировать секрет</value>
+  </data>
+  <data name="Credentials_HidingIn" xml:space="preserve">
+    <value>Скрытие через {0} с</value>
+  </data>
+  <data name="Credentials_ClipboardNote" xml:space="preserve">
+    <value>Буфер обмена очищается позже, однако менеджер буфера обмена может сохранить свою копию.</value>
+  </data>
+  <data name="Credentials_PlaintextBadge" xml:space="preserve">
+    <value>Хранится в открытом виде</value>
+  </data>
+  <data name="Credentials_TestWithGit" xml:space="preserve">
+    <value>Проверить через git credential fill</value>
+  </data>
+  <data name="Vault_WindowsCredentialManager" xml:space="preserve">
+    <value>Диспетчер учётных данных Windows</value>
+  </data>
+  <data name="Vault_MacKeychain" xml:space="preserve">
+    <value>Связка ключей</value>
+  </data>
+  <data name="Vault_SecretService" xml:space="preserve">
+    <value>Secret Service</value>
+  </data>
+  <data name="Vault_KWallet" xml:space="preserve">
+    <value>KWallet</value>
+  </data>
+  <data name="Vault_GitCredentialsFile" xml:space="preserve">
+    <value>Файл git-credentials</value>
+  </data>
+  <data name="Vault_GcmPlaintext" xml:space="preserve">
+    <value>Открытое хранилище GCM</value>
+  </data>
+  <data name="Vault_GcmDpapi" xml:space="preserve">
+    <value>Хранилище GCM DPAPI</value>
+  </data>
+  <data name="Vault_GcmGpg" xml:space="preserve">
+    <value>Хранилище GCM GPG</value>
+  </data>
+  <data name="Vault_GitKrakenBox" xml:space="preserve">
+    <value>Защищённое хранилище GitKraken</value>
+  </data>
+  <data name="Vault_GitCredentialCache" xml:space="preserve">
+    <value>Кэш git credential</value>
+  </data>
+  <data name="Vault_Unknown" xml:space="preserve">
+    <value>Неизвестное хранилище</value>
+  </data>
+  <data name="Clients_Title" xml:space="preserve">
+    <value>Клиенты Git</value>
+  </data>
+  <data name="Clients_Version" xml:space="preserve">
+    <value>Версия</value>
+  </data>
+  <data name="Clients_InstallPath" xml:space="preserve">
+    <value>Путь установки</value>
+  </data>
+  <data name="Clients_ConfigRoots" xml:space="preserve">
+    <value>Папки конфигурации</value>
+  </data>
+  <data name="Clients_Opaque" xml:space="preserve">
+    <value>Обнаружен, но конфигурацию прочитать не удалось</value>
+  </data>
+  <data name="Clients_Empty" xml:space="preserve">
+    <value>Клиенты Git не найдены</value>
+  </data>
+  <data name="Clients_Accounts" xml:space="preserve">
+    <value>Учётные записи</value>
+  </data>
+  <data name="Clients_BoundKeys" xml:space="preserve">
+    <value>Ключи, привязанные к удалённым репозиториям</value>
+  </data>
+  <data name="Clients_SshCommand" xml:space="preserve">
+    <value>Программа SSH</value>
+  </data>
+  <data name="Clients_OpenConfigFolder" xml:space="preserve">
+    <value>Открыть папку конфигурации</value>
+  </data>
+  <data name="Clients_CredentialsCount" xml:space="preserve">
+    <value>Записей учётных данных</value>
+  </data>
+  <data name="Warning_TortoiseGitMissingKey_Title" xml:space="preserve">
+    <value>Удалённый репозиторий ссылается на отсутствующий файл ключа</value>
+  </data>
+  <data name="Warning_TortoiseGitMissingKey_Body" xml:space="preserve">
+    <value>В TortoiseGit удалённый репозиторий привязан к ключу PuTTY, которого больше нет на диске, поэтому отправка изменений завершится ошибкой. Привяжите удалённый репозиторий к существующему ключу или восстановите файл.</value>
+  </data>
+  <data name="Warning_WslSeparateKeys_Title" xml:space="preserve">
+    <value>У дистрибутива WSL собственные ключи SSH</value>
+  </data>
+  <data name="Warning_WslSeparateKeys_Body" xml:space="preserve">
+    <value>Ключи внутри дистрибутива WSL — это отдельный набор, не связанный с ключами в домашней папке Windows. Работа внутри дистрибутива использует именно их, о чём легко забыть, когда отправка изменений вдруг перестаёт работать с одной из сторон.</value>
+  </data>
+  <data name="Profiles_Title" xml:space="preserve">
+    <value>Профили</value>
+  </data>
+  <data name="Profiles_Activate_Button" xml:space="preserve">
+    <value>Активировать</value>
+  </data>
+  <data name="Profiles_Deactivate_Button" xml:space="preserve">
+    <value>Деактивировать</value>
+  </data>
+  <data name="Profiles_Scope_Global" xml:space="preserve">
+    <value>Глобально (текущий пользователь)</value>
+  </data>
+  <data name="Profiles_Scope_System" xml:space="preserve">
+    <value>Системно (все пользователи)</value>
+  </data>
+  <data name="Profiles_Scope_Repository" xml:space="preserve">
+    <value>Этот репозиторий</value>
+  </data>
+  <data name="Profiles_DryRun" xml:space="preserve">
+    <value>Пробный запуск — показать изменения, ничего не применяя</value>
+  </data>
+  <data name="Profiles_Rollback" xml:space="preserve">
+    <value>Откатить</value>
+  </data>
+  <data name="Profiles_RecentActivations" xml:space="preserve">
+    <value>Недавние активации</value>
+  </data>
+  <data name="Profiles_Empty" xml:space="preserve">
+    <value>Профилей пока нет</value>
+  </data>
+  <data name="Profiles_Preview" xml:space="preserve">
+    <value>Показать изменения</value>
+  </data>
+  <data name="Profiles_PlannedChanges" xml:space="preserve">
+    <value>Планируемые изменения</value>
+  </data>
+  <data name="Profiles_NothingToDo" xml:space="preserve">
+    <value>Всё уже соответствует этому профилю.</value>
+  </data>
+  <data name="Profiles_ApplyDryRunFirst" xml:space="preserve">
+    <value>Просмотрите изменения перед применением.</value>
+  </data>
+  <data name="Profiles_Applied" xml:space="preserve">
+    <value>Применено. Перед этим создан снимок, поэтому изменения можно откатить.</value>
+  </data>
+  <data name="Profiles_Blocked" xml:space="preserve">
+    <value>Пока это применить нельзя</value>
+  </data>
+  <data name="Profiles_BlockedWithReasons" xml:space="preserve">
+    <value>Пока это применить нельзя: {0}</value>
+  </data>
+  <data name="Profiles_Column_Name" xml:space="preserve">
+    <value>Профиль</value>
+  </data>
+  <data name="Profiles_Column_Identity" xml:space="preserve">
+    <value>Идентичность</value>
+  </data>
+  <data name="Profiles_Column_Helper" xml:space="preserve">
+    <value>Помощник учётных данных</value>
+  </data>
+  <data name="Profiles_IsActive" xml:space="preserve">
+    <value>Активен здесь</value>
+  </data>
+  <data name="Repositories_Scan" xml:space="preserve">
+    <value>Найти репозитории</value>
+  </data>
+  <data name="Repositories_Scanning" xml:space="preserve">
+    <value>Идёт поиск…</value>
+  </data>
+  <data name="Repositories_NoRoots" xml:space="preserve">
+    <value>Добавьте папку в параметрах, чтобы искать репозитории.</value>
+  </data>
+  <data name="Repositories_Column_Name" xml:space="preserve">
+    <value>Репозиторий</value>
+  </data>
+  <data name="Identities_NameAndEmail" xml:space="preserve">
+    <value>{0} &lt;{1}&gt;</value>
+  </data>
+  <data name="Repositories_Title" xml:space="preserve">
+    <value>Репозитории</value>
+  </data>
+  <data name="Repositories_AddRoot" xml:space="preserve">
+    <value>Добавить папку…</value>
+  </data>
+  <data name="Repositories_Column_Path" xml:space="preserve">
+    <value>Путь</value>
+  </data>
+  <data name="Repositories_Column_EffectiveIdentity" xml:space="preserve">
+    <value>Действующая идентичность</value>
+  </data>
+  <data name="Repositories_Column_Remote" xml:space="preserve">
+    <value>Удалённый репозиторий</value>
+  </data>
+  <data name="Repositories_Empty" xml:space="preserve">
+    <value>Репозитории не найдены</value>
+  </data>
+  <data name="Settings_Title" xml:space="preserve">
+    <value>Параметры</value>
+  </data>
+  <data name="Settings_Language" xml:space="preserve">
+    <value>Язык</value>
+  </data>
+  <data name="Settings_Theme" xml:space="preserve">
+    <value>Оформление</value>
+  </data>
+  <data name="Settings_Theme_System" xml:space="preserve">
+    <value>Как в системе</value>
+  </data>
+  <data name="Settings_Theme_Light" xml:space="preserve">
+    <value>Светлое</value>
+  </data>
+  <data name="Settings_Theme_Dark" xml:space="preserve">
+    <value>Тёмное</value>
+  </data>
+  <data name="Settings_DryRunDefault" xml:space="preserve">
+    <value>Пробный запуск по умолчанию</value>
+  </data>
+  <data name="Settings_WatchForChanges" xml:space="preserve">
+    <value>Пересканировать при изменении файлов</value>
+  </data>
+  <data name="Settings_LogLevel" xml:space="preserve">
+    <value>Уровень журналирования</value>
+  </data>
+  <data name="Settings_OpenLogsFolder" xml:space="preserve">
+    <value>Открыть папку журналов</value>
+  </data>
+  <data name="Settings_ScanRoots" xml:space="preserve">
+    <value>Папки для поиска репозиториев</value>
+  </data>
+  <data name="Settings_CustomKeyFolders" xml:space="preserve">
+    <value>Дополнительные папки с ключами</value>
+  </data>
+  <data name="Settings_RevealPolicy" xml:space="preserve">
+    <value>Политика показа секретов</value>
+  </data>
+  <data name="Settings_AutoHideSeconds" xml:space="preserve">
+    <value>Скрывать показанный секрет через {0} с</value>
+  </data>
+  <data name="Settings_ClipboardClearSeconds" xml:space="preserve">
+    <value>Очищать буфер обмена через {0} с</value>
+  </data>
+  <data name="Settings_Diagnostics" xml:space="preserve">
+    <value>Диагностика</value>
+  </data>
+  <data name="Settings_PreviewDiagnostics" xml:space="preserve">
+    <value>Просмотреть пакет диагностики</value>
+  </data>
+  <data name="Settings_SaveDiagnostics" xml:space="preserve">
+    <value>Сохранить пакет…</value>
+  </data>
+  <data name="Settings_DiagnosticsNote" xml:space="preserve">
+    <value>Ничего не записывается, пока вы не увидите точное содержимое пакета. Значения из конфигурации Git никогда не включаются — только названия параметров.</value>
+  </data>
+  <data name="Settings_DiagnosticsSaved" xml:space="preserve">
+    <value>Сохранено в {0}</value>
+  </data>
+  <data name="Settings_Telemetry" xml:space="preserve">
+    <value>Телеметрия</value>
+  </data>
+  <data name="Settings_TelemetryNone" xml:space="preserve">
+    <value>GitVault ничего не собирает и не обращается к сети.</value>
+  </data>
+  <data name="Logs_Title" xml:space="preserve">
+    <value>Журнал</value>
+  </data>
+  <data name="Logs_Filter" xml:space="preserve">
+    <value>Фильтр</value>
+  </data>
+  <data name="Logs_Clear" xml:space="preserve">
+    <value>Очистить вид</value>
+  </data>
+  <data name="Logs_Column_Timestamp" xml:space="preserve">
+    <value>Время</value>
+  </data>
+  <data name="Logs_Column_Level" xml:space="preserve">
+    <value>Уровень</value>
+  </data>
+  <data name="Logs_Column_Message" xml:space="preserve">
+    <value>Сообщение</value>
+  </data>
+  <data name="Status_Ok" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="Status_NotInstalled" xml:space="preserve">
+    <value>Не установлено</value>
+  </data>
+  <data name="Status_AccessDenied" xml:space="preserve">
+    <value>Доступ запрещён</value>
+  </data>
+  <data name="Status_Timeout" xml:space="preserve">
+    <value>Превышено время ожидания</value>
+  </data>
+  <data name="Status_ParseError" xml:space="preserve">
+    <value>Не удалось разобрать</value>
+  </data>
+  <data name="Status_NotApplicable" xml:space="preserve">
+    <value>Неприменимо</value>
+  </data>
+  <data name="Status_Failed" xml:space="preserve">
+    <value>Ошибка</value>
+  </data>
+  <data name="Warning_KeyWorldReadable_Title" xml:space="preserve">
+    <value>Закрытый ключ доступен другим для чтения</value>
+  </data>
+  <data name="Warning_KeyWorldReadable_Body" xml:space="preserve">
+    <value>OpenSSH отказывается использовать закрытый ключ, который могут прочитать другие учётные записи на этом компьютере. Установите права 0600, чтобы файл читали только вы.</value>
+  </data>
+  <data name="Warning_RsaTooShort_Title" xml:space="preserve">
+    <value>Длина ключа RSA меньше 3072 бит</value>
+  </data>
+  <data name="Warning_RsaTooShort_Body" xml:space="preserve">
+    <value>Короткие ключи RSA больше не соответствуют современным рекомендациям. Создайте новый ключ Ed25519 или ключ RSA длиной не менее 3072 бит и замените этот ключ на всех узлах, где он используется.</value>
+  </data>
+  <data name="Warning_DsaDeprecated_Title" xml:space="preserve">
+    <value>Обнаружен ключ DSA</value>
+  </data>
+  <data name="Warning_DsaDeprecated_Body" xml:space="preserve">
+    <value>DSA по умолчанию отключён в актуальных выпусках OpenSSH и вскоре перестанет работать. Замените ключ на Ed25519.</value>
+  </data>
+  <data name="Warning_KeyNoPassphrase_Title" xml:space="preserve">
+    <value>Закрытый ключ без парольной фразы</value>
+  </data>
+  <data name="Warning_KeyNoPassphrase_Body" xml:space="preserve">
+    <value>Любой, кто скопирует этот файл, получит ваш доступ. Задайте парольную фразу и загрузите ключ в агент — вводить её придётся по-прежнему один раз за сеанс.</value>
+  </data>
+  <data name="Warning_OrphanedPublicKey_Title" xml:space="preserve">
+    <value>Открытый ключ без закрытого</value>
+  </data>
+  <data name="Warning_OrphanedPublicKey_Body" xml:space="preserve">
+    <value>Найден файл .pub без соответствующего закрытого ключа. Либо закрытый ключ хранится в другом месте, либо он есть только в аппаратном токене или в агенте.</value>
+  </data>
+  <data name="Warning_PlaintextCredentialStore_Title" xml:space="preserve">
+    <value>Учётные данные хранятся в открытом виде</value>
+  </data>
+  <data name="Warning_PlaintextCredentialStore_Body" xml:space="preserve">
+    <value>В этом хранилище пароли и токены лежат на диске без шифрования. Переключите помощник учётных данных на системное хранилище.</value>
+  </data>
+  <data name="Warning_MissingPublicKey_Title" xml:space="preserve">
+    <value>Рядом с закрытым ключом нет файла .pub</value>
+  </data>
+  <data name="Warning_MissingPublicKey_Body" xml:space="preserve">
+    <value>Многие программы ожидают, что открытый ключ лежит рядом с закрытым. GitVault может создать этот файл: для незашифрованного ключа — сразу, для защищённого — после запроса парольной фразы.</value>
+  </data>
+  <data name="Warning_KeyIntegrityFailed_Title" xml:space="preserve">
+    <value>Файл ключа не прошёл собственную проверку целостности</value>
+  </data>
+  <data name="Warning_KeyIntegrityFailed_Body" xml:space="preserve">
+    <value>Файл ключа PuTTY содержит MAC своего содержимого, и здесь он не совпадает. Файл был изменён или повреждён после создания; не полагайтесь на него, пока не выясните его происхождение.</value>
+  </data>
+  <data name="Warning_AgentNotRunning_Title" xml:space="preserve">
+    <value>Агент SSH не запущен</value>
+  </data>
+  <data name="Warning_AgentNotRunning_Body" xml:space="preserve">
+    <value>Пока агент остановлен, ключи не могут храниться в памяти, поэтому парольную фразу придётся вводить при каждом подключении.</value>
+  </data>
+  <data name="Warning_GitNotFound_Title" xml:space="preserve">
+    <value>Исполняемый файл Git не найден</value>
+  </data>
+  <data name="Warning_GitNotFound_Body" xml:space="preserve">
+    <value>GitVault перешёл к самостоятельному чтению файлов конфигурации. Условные подключения и особенности путей разрешаются менее точно, чем это сделал бы git. Установите git или добавьте его в PATH.</value>
+  </data>
+  <data name="Warning_NoIdentityConfigured_Title" xml:space="preserve">
+    <value>Идентичность автора не настроена</value>
+  </data>
+  <data name="Warning_NoIdentityConfigured_Body" xml:space="preserve">
+    <value>Ни user.name, ни user.email не заданы нигде, поэтому git откажется создавать коммит. Задайте их глобально или для отдельного репозитория через профиль.</value>
+  </data>
+  <data name="Plural_Keys_One" xml:space="preserve">
+    <value>{0} ключ</value>
+  </data>
+  <data name="Plural_Keys_Few" xml:space="preserve">
+    <value>{0} ключа</value>
+  </data>
+  <data name="Plural_Keys_Many" xml:space="preserve">
+    <value>{0} ключей</value>
+  </data>
+  <data name="Plural_Keys_Other" xml:space="preserve">
+    <value>{0} ключа</value>
+  </data>
+  <data name="Plural_Identities_One" xml:space="preserve">
+    <value>{0} идентичность</value>
+  </data>
+  <data name="Plural_Identities_Few" xml:space="preserve">
+    <value>{0} идентичности</value>
+  </data>
+  <data name="Plural_Identities_Many" xml:space="preserve">
+    <value>{0} идентичностей</value>
+  </data>
+  <data name="Plural_Identities_Other" xml:space="preserve">
+    <value>{0} идентичности</value>
+  </data>
+  <data name="Plural_Agents_One" xml:space="preserve">
+    <value>{0} агент</value>
+  </data>
+  <data name="Plural_Agents_Few" xml:space="preserve">
+    <value>{0} агента</value>
+  </data>
+  <data name="Plural_Agents_Many" xml:space="preserve">
+    <value>{0} агентов</value>
+  </data>
+  <data name="Plural_Agents_Other" xml:space="preserve">
+    <value>{0} агента</value>
+  </data>
+  <data name="Plural_Credentials_One" xml:space="preserve">
+    <value>{0} запись учётных данных</value>
+  </data>
+  <data name="Plural_Credentials_Few" xml:space="preserve">
+    <value>{0} записи учётных данных</value>
+  </data>
+  <data name="Plural_Credentials_Many" xml:space="preserve">
+    <value>{0} записей учётных данных</value>
+  </data>
+  <data name="Plural_Credentials_Other" xml:space="preserve">
+    <value>{0} записи учётных данных</value>
+  </data>
+  <data name="Plural_Clients_One" xml:space="preserve">
+    <value>{0} клиент</value>
+  </data>
+  <data name="Plural_Clients_Few" xml:space="preserve">
+    <value>{0} клиента</value>
+  </data>
+  <data name="Plural_Clients_Many" xml:space="preserve">
+    <value>{0} клиентов</value>
+  </data>
+  <data name="Plural_Clients_Other" xml:space="preserve">
+    <value>{0} клиента</value>
+  </data>
+  <data name="Plural_Warnings_One" xml:space="preserve">
+    <value>{0} предупреждение</value>
+  </data>
+  <data name="Plural_Warnings_Few" xml:space="preserve">
+    <value>{0} предупреждения</value>
+  </data>
+  <data name="Plural_Warnings_Many" xml:space="preserve">
+    <value>{0} предупреждений</value>
+  </data>
+  <data name="Plural_Warnings_Other" xml:space="preserve">
+    <value>{0} предупреждения</value>
+  </data>
+</root>

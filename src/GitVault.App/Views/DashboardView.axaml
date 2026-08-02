@@ -1,0 +1,73 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:loc="using:GitVault.App.Markup"
+             x:Class="GitVault.App.Views.DashboardView">
+  <StackPanel Spacing="4">
+
+    <TextBlock Classes="pageSubtitle" Text="{loc:Tr Dashboard_Subtitle}" />
+
+    <ItemsControl ItemsSource="{Binding Cards}">
+      <ItemsControl.ItemsPanel>
+        <ItemsPanelTemplate>
+          <WrapPanel />
+        </ItemsPanelTemplate>
+      </ItemsControl.ItemsPanel>
+      <ItemsControl.ItemTemplate>
+        <DataTemplate>
+          <Border Classes="card" Margin="0,0,12,12">
+            <StackPanel Spacing="4">
+              <StackPanel Orientation="Horizontal">
+                <PathIcon Classes="cardIcon"
+                          Data="{Binding IconKey, Converter={x:Static loc:IconLookupConverter.Instance}}" />
+                <TextBlock Text="{Binding Caption}" Opacity="0.75" VerticalAlignment="Center" />
+              </StackPanel>
+              <TextBlock Text="{Binding CountCaption}" FontSize="20" FontWeight="SemiBold" />
+            </StackPanel>
+          </Border>
+        </DataTemplate>
+      </ItemsControl.ItemTemplate>
+    </ItemsControl>
+
+    <TextBlock Classes="pageSubtitle"
+               IsVisible="{Binding HasNoScan}"
+               Text="{Binding NoScanCaption}" />
+
+    <TextBlock Text="{Binding ScanDurationCaption}" IsVisible="{Binding !HasNoScan}" Opacity="0.7" />
+
+    <TextBlock Classes="sectionHeader" Text="{loc:Tr Dashboard_Warnings}" />
+    <TextBlock Text="{Binding WarningCountCaption}" />
+    <ItemsControl ItemsSource="{Binding Warnings}">
+      <ItemsControl.ItemTemplate>
+        <DataTemplate>
+          <Expander Margin="0,4,0,0">
+            <Expander.Header>
+              <StackPanel Orientation="Horizontal">
+                <PathIcon Classes="severityIcon"
+                          Data="{Binding Severity, Converter={x:Static loc:SeverityIconConverter.Instance}}"
+                          Foreground="{Binding Severity, Converter={x:Static loc:SeverityBrushConverter.Instance}}" />
+                <TextBlock Text="{Binding Title}" VerticalAlignment="Center" TextWrapping="Wrap" />
+              </StackPanel>
+            </Expander.Header>
+            <StackPanel Spacing="4">
+              <TextBlock Classes="mono" Text="{Binding Subject}" IsVisible="{Binding Subject, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" />
+              <TextBlock TextWrapping="Wrap" Text="{Binding Body}" />
+            </StackPanel>
+          </Expander>
+        </DataTemplate>
+      </ItemsControl.ItemTemplate>
+    </ItemsControl>
+
+    <TextBlock Classes="sectionHeader" Text="{loc:Tr Common_Details}" />
+    <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto,Auto,Auto" >
+      <TextBlock Grid.Row="0" Grid.Column="0" Text="{loc:Tr Dashboard_Env_Os}" Opacity="0.75" Margin="0,0,16,2" />
+      <TextBlock Grid.Row="0" Grid.Column="1" Classes="mono" Text="{Binding OsDescription}" />
+      <TextBlock Grid.Row="1" Grid.Column="0" Text="{loc:Tr Dashboard_Env_Cpu}" Opacity="0.75" Margin="0,0,16,2" />
+      <TextBlock Grid.Row="1" Grid.Column="1" Classes="mono" Text="{Binding Architecture}" />
+      <TextBlock Grid.Row="2" Grid.Column="0" Text="{loc:Tr Dashboard_Env_AppData}" Opacity="0.75" Margin="0,0,16,2" />
+      <TextBlock Grid.Row="2" Grid.Column="1" Classes="mono" Text="{Binding AppDataDirectory}" />
+      <TextBlock Grid.Row="3" Grid.Column="0" Text="{loc:Tr Dashboard_Env_Git}" Opacity="0.75" Margin="0,0,16,2" />
+      <TextBlock Grid.Row="3" Grid.Column="1" Classes="mono" Text="{Binding GitDescription}" />
+    </Grid>
+
+  </StackPanel>
+</UserControl>

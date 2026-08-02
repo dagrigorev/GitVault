@@ -1,0 +1,60 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <RootNamespace>GitVault.App</RootNamespace>
+    <AssemblyName>GitVault</AssemblyName>
+    <Description>GitVault desktop application.</Description>
+    <!-- Executable: no public API surface to document. -->
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+    <ApplicationIcon>Assets\gitvault.ico</ApplicationIcon>
+    <!--
+      Reflection bindings, deliberately. The view models are internal and bind through an
+      indexer on the localizer, which compiled bindings cannot express without exposing the
+      whole view-model surface publicly.
+    -->
+    <AvaloniaUseCompiledBindingsByDefault>false</AvaloniaUseCompiledBindingsByDefault>
+    <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
+    <SatelliteResourceLanguages>en;ru;zh-Hans</SatelliteResourceLanguages>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Avalonia" />
+    <PackageReference Include="Avalonia.Desktop" />
+    <PackageReference Include="Avalonia.Themes.Fluent" />
+    <PackageReference Include="Avalonia.Fonts.Inter" />
+    <PackageReference Include="Avalonia.Controls.DataGrid" />
+    <PackageReference Include="Avalonia.Diagnostics" Condition="'$(Configuration)' == 'Debug'" />
+    <PackageReference Include="FluentAvaloniaUI" />
+    <PackageReference Include="CommunityToolkit.Mvvm" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" />
+    <PackageReference Include="Serilog" />
+    <PackageReference Include="Serilog.Extensions.Hosting" />
+    <PackageReference Include="Serilog.Sinks.File" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\GitVault.Core\GitVault.Core.csproj" />
+    <ProjectReference Include="..\GitVault.Localization\GitVault.Localization.csproj" />
+    <ProjectReference Include="..\GitVault.Clients\GitVault.Clients.csproj" />
+    <ProjectReference Include="..\GitVault.Platform.Windows\GitVault.Platform.Windows.csproj" />
+    <ProjectReference Include="..\GitVault.Platform.MacOS\GitVault.Platform.MacOS.csproj" />
+    <ProjectReference Include="..\GitVault.Platform.Linux\GitVault.Platform.Linux.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- The icon set and the application mark. Icons.axaml is generated; see build/generate-icons.ps1. -->
+    <AvaloniaResource Include="Assets\Icons.axaml" />
+    <AvaloniaResource Include="Assets\gitvault.png" />
+    <AvaloniaResource Include="Assets\gitvault.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="GitVault.App.Tests" />
+  </ItemGroup>
+
+</Project>

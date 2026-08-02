@@ -1,0 +1,9 @@
+{
+  "id": "p1",
+  "name": "Ada Lovelace",
+  "email": "ada@example.com",
+  "providers": [
+    { "host": "github.com", "username": "ada" },
+    { "domain": "gitlab.example.com", "login": "ada.l" }
+  ]
+}

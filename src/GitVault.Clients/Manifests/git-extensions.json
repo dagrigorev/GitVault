@@ -1,0 +1,13 @@
+{
+  "id": "git-extensions",
+  "displayName": "Git Extensions",
+  "platforms": ["windows"],
+  "configRoots": [
+    "{appdata}/GitExtensions/GitExtensions"
+  ],
+  "installPaths": [
+    "{programfiles}/GitExtensions",
+    "{programfilesx86}/GitExtensions"
+  ],
+  "identityFiles": []
+}

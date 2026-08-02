@@ -1,0 +1,131 @@
+#!/usr/bin/env pwsh
+<#
+.SYNOPSIS
+    Regenerates the committed SSH key fixtures and the expected-fingerprint manifest.
+
+.DESCRIPTION
+    Fixtures are produced by the reference tools (OpenSSH ssh-keygen and PuTTY puttygen) so that
+    the parser tests compare GitVault against the implementations it has to interoperate with,
+    not against itself.
+
+    The manifest records what `ssh-keygen -lf` says for every key, in both SHA256 and MD5 form.
+    GitVault's fingerprints must match it byte for byte.
+
+    The generated keys are throwaway test material. They are committed on purpose and must never
+    be used for anything.
+#>
+[CmdletBinding()]
+param(
+    [string] $OutputDirectory = (Join-Path $PSScriptRoot '../tests/fixtures/ssh'),
+    [string] $Passphrase = 'gitvault-test'
+)
+
+$ErrorActionPreference = 'Stop'
+
+$keygen = (Get-Command ssh-keygen -ErrorAction SilentlyContinue).Source
+if (-not $keygen) { throw 'ssh-keygen is required to regenerate the fixtures.' }
+
+$puttygen = (Get-Command puttygen -ErrorAction SilentlyContinue).Source
+if (-not $puttygen) {
+    $puttygen = @(
+        'C:\Program Files\PuTTY\puttygen.exe',
+        'C:\Program Files (x86)\PuTTY\puttygen.exe',
+        '/usr/bin/puttygen'
+    ) | Where-Object { Test-Path $_ } | Select-Object -First 1
+}
+
+if (Test-Path $OutputDirectory) { Remove-Item $OutputDirectory -Recurse -Force }
+New-Item -ItemType Directory -Force -Path $OutputDirectory | Out-Null
+
+function New-Key {
+    param(
+        [string] $Name,
+        [string] $Type,
+        [int] $Bits = 0,
+        [string] $Format = 'RFC4716',
+        [string] $Pass = '',
+        [string] $Comment
+    )
+
+    $path = Join-Path $OutputDirectory $Name
+    $arguments = @('-t', $Type, '-f', $path, '-N', $Pass, '-C', $Comment, '-q', '-m', $Format)
+    if ($Bits -gt 0) { $arguments += @('-b', $Bits) }
+
+    & $keygen @arguments
+    if ($LASTEXITCODE -ne 0) { throw "ssh-keygen failed for $Name" }
+    Write-Host "generated $Name"
+}
+
+# OpenSSH v1 container ("-m RFC4716" is ssh-keygen's spelling for its own default format).
+New-Key -Name 'ed25519_plain'      -Type 'ed25519' -Comment 'ada@example.com'
+New-Key -Name 'ed25519_encrypted'  -Type 'ed25519' -Pass $Passphrase -Comment 'encrypted@example.com'
+New-Key -Name 'rsa2048_plain'      -Type 'rsa' -Bits 2048 -Comment 'rsa2048@example.com'
+New-Key -Name 'rsa4096_plain'      -Type 'rsa' -Bits 4096 -Comment 'rsa4096@example.com'
+New-Key -Name 'rsa2048_encrypted'  -Type 'rsa' -Bits 2048 -Pass $Passphrase -Comment 'rsa-locked@example.com'
+New-Key -Name 'ecdsa256_plain'     -Type 'ecdsa' -Bits 256 -Comment 'ecdsa256@example.com'
+New-Key -Name 'ecdsa384_plain'     -Type 'ecdsa' -Bits 384 -Comment 'ecdsa384@example.com'
+New-Key -Name 'ecdsa521_plain'     -Type 'ecdsa' -Bits 521 -Comment 'ecdsa521@example.com'
+New-Key -Name 'dsa1024_plain'      -Type 'dsa' -Bits 1024 -Comment 'dsa@example.com'
+
+# Legacy containers.
+New-Key -Name 'rsa2048_pem'        -Type 'rsa' -Bits 2048 -Format 'PEM' -Comment 'pem@example.com'
+New-Key -Name 'rsa2048_pem_locked' -Type 'rsa' -Bits 2048 -Format 'PEM' -Pass $Passphrase -Comment 'pem-locked@example.com'
+New-Key -Name 'rsa2048_pkcs8'      -Type 'rsa' -Bits 2048 -Format 'PKCS8' -Comment 'pkcs8@example.com'
+New-Key -Name 'ed25519_pkcs8'      -Type 'ed25519' -Format 'PKCS8' -Comment 'pkcs8-ed@example.com'
+
+# RFC 4716 public key export, for the public-key reader.
+& $keygen -e -m RFC4716 -f (Join-Path $OutputDirectory 'ed25519_plain.pub') |
+    Set-Content -LiteralPath (Join-Path $OutputDirectory 'ed25519_plain.rfc4716.pub') -Encoding utf8
+
+# PuTTY containers.
+#
+# PuTTY's Windows puttygen.exe is a GUI application: invoking it from a script opens a window and
+# blocks forever. The .ppk fixtures are therefore assembled by generate-ppk-fixtures.ps1 from
+# .NET primitives instead, which keeps them independent of the parser under test either way.
+if ($puttygen -and -not $IsWindows) {
+    Write-Host "puttygen available at $puttygen, but the fixtures are built from .NET primitives for portability."
+}
+
+# Deliberately malformed inputs.
+Set-Content -LiteralPath (Join-Path $OutputDirectory 'malformed_truncated.key') -Encoding utf8 -Value @'
+-----BEGIN OPENSSH PRIVATE KEY-----
+b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAAB
+-----END OPENSSH PRIVATE KEY-----
+'@
+
+Set-Content -LiteralPath (Join-Path $OutputDirectory 'malformed_not_a_key.key') -Encoding utf8 -Value 'this is not a key at all'
+
+Set-Content -LiteralPath (Join-Path $OutputDirectory 'malformed_bad_base64.pub') -Encoding utf8 -Value 'ssh-ed25519 !!!not-base64!!! broken@example.com'
+
+Set-Content -LiteralPath (Join-Path $OutputDirectory 'orphan.pub') -Encoding utf8 `
+    -Value (Get-Content -LiteralPath (Join-Path $OutputDirectory 'ecdsa384_plain.pub') -Raw).Trim()
+
+# Expected fingerprints, straight from the reference implementation.
+$manifest = [System.Collections.Generic.List[string]]::new()
+$manifest.Add('# Generated by build/generate-ssh-fixtures.ps1 from ssh-keygen -lf. Do not edit.')
+$manifest.Add('# name<TAB>bits<TAB>sha256<TAB>md5<TAB>algorithm')
+
+Get-ChildItem -LiteralPath $OutputDirectory -Filter '*.pub' |
+    Where-Object { $_.Name -notlike '*malformed*' -and $_.Name -notlike '*rfc4716*' } |
+    Sort-Object Name |
+    ForEach-Object {
+        $sha = (& $keygen -l -f $_.FullName) -split '\s+'
+        $md5 = (& $keygen -l -E md5 -f $_.FullName) -split '\s+'
+        $manifest.Add(($_.BaseName, $sha[0], $sha[1], $md5[1], $sha[-1].Trim('(', ')')) -join "`t")
+    }
+
+$manifestPath = Join-Path $OutputDirectory 'expected-fingerprints.tsv'
+[System.IO.File]::WriteAllLines($manifestPath, $manifest, [System.Text.UTF8Encoding]::new($false))
+Write-Host "wrote $manifestPath"
+
+Set-Content -LiteralPath (Join-Path $OutputDirectory 'README.md') -Encoding utf8 -Value @"
+# SSH key fixtures
+
+Generated by ``build/generate-ssh-fixtures.ps1`` using OpenSSH ``ssh-keygen`` and PuTTY ``puttygen``.
+
+**These are throwaway test keys committed on purpose. Never use them for anything.**
+The passphrase on every encrypted fixture is ``$Passphrase``.
+
+``expected-fingerprints.tsv`` records what ``ssh-keygen -lf`` reports for each key. The parser
+tests assert GitVault agrees with it byte for byte.
+"@

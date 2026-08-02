@@ -1,0 +1,91 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:loc="using:GitVault.App.Markup"
+             x:Class="GitVault.App.Views.AgentsView">
+  <StackPanel Spacing="8">
+
+    <TextBlock Classes="pageSubtitle"
+               IsVisible="{Binding IsEmpty}"
+               Text="{Binding EmptyCaption}" />
+
+    <ListBox ItemsSource="{Binding Cards}"
+             SelectedItem="{Binding SelectedAgent, Mode=TwoWay}"
+             IsVisible="{Binding !IsEmpty}"
+             MaxHeight="180">
+      <ListBox.ItemTemplate>
+        <DataTemplate>
+          <StackPanel Spacing="2" Margin="2">
+            <TextBlock Text="{Binding KindCaption}" FontWeight="SemiBold" />
+            <TextBlock Classes="mono" Opacity="0.7" FontSize="12" Text="{Binding Endpoint}" />
+            <StackPanel Orientation="Horizontal" Spacing="12">
+              <TextBlock Opacity="0.7" FontSize="12" Text="{Binding StateCaption}" />
+              <TextBlock Opacity="0.7" FontSize="12" Text="{Binding KeyCountCaption}" />
+            </StackPanel>
+          </StackPanel>
+        </DataTemplate>
+      </ListBox.ItemTemplate>
+    </ListBox>
+
+    <Border Classes="card"
+            IsVisible="{Binding SelectedAgent, Converter={x:Static ObjectConverters.IsNotNull}}">
+      <StackPanel Spacing="6">
+
+        <TextBlock Classes="sectionHeader" Margin="0,0,0,4" Text="{loc:Tr Agents_LoadedKeys}" />
+
+        <TextBlock Opacity="0.7"
+                   TextWrapping="Wrap"
+                   IsVisible="{Binding SelectedAgent.IsReadOnly}"
+                   Text="{loc:Tr Agents_ReadOnly}" />
+
+        <DataGrid ItemsSource="{Binding SelectedAgent.Keys}"
+                  AutoGenerateColumns="False"
+                  IsReadOnly="True"
+                  GridLinesVisibility="Horizontal"
+                  MaxHeight="220">
+          <DataGrid.Columns>
+            <DataGridTextColumn Header="{loc:Tr Agents_Column_Algorithm}" Binding="{Binding Algorithm}" Width="Auto" />
+            <DataGridTextColumn Header="{loc:Tr Agents_Column_Fingerprint}" Binding="{Binding Fingerprint}" Width="*" />
+            <DataGridTextColumn Header="{loc:Tr Agents_Column_Comment}" Binding="{Binding Comment}" Width="Auto" />
+          </DataGrid.Columns>
+        </DataGrid>
+
+        <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,8,0,0">
+          <Button Command="{Binding RemoveAllKeysCommand}"
+                  IsEnabled="{Binding !SelectedAgent.IsReadOnly}"
+                  >
+            <StackPanel Orientation="Horizontal">
+              <PathIcon Classes="buttonIcon" Data="{StaticResource IconDelete}" />
+              <TextBlock Text="{loc:Tr Agents_RemoveAll}" />
+            </StackPanel>
+          </Button>
+          <TextBlock VerticalAlignment="Center"
+                     IsVisible="{Binding SelectedAgent.RemoveAllArmed}"
+                     Text="{loc:Tr Agents_RemoveAllConfirm}" />
+        </StackPanel>
+
+        <TextBlock Classes="sectionHeader" Text="{loc:Tr Agents_ShellSnippet}" />
+        <StackPanel Orientation="Horizontal" Spacing="8">
+          <ComboBox ItemsSource="{Binding SelectedAgent.Shells}"
+                    SelectedItem="{Binding SelectedAgent.SelectedShell, Mode=TwoWay}"
+                    MinWidth="140"
+                    AutomationProperties.Name="{loc:Tr Agents_Shell}">
+            <ComboBox.ItemTemplate>
+              <DataTemplate>
+                <TextBlock Text="{Binding Label}" />
+              </DataTemplate>
+            </ComboBox.ItemTemplate>
+          </ComboBox>
+          <Button Command="{Binding CopySnippetCommand}" >
+            <StackPanel Orientation="Horizontal">
+              <PathIcon Classes="buttonIcon" Data="{StaticResource IconCopy}" />
+              <TextBlock Text="{loc:Tr Agents_CopySnippet}" />
+            </StackPanel>
+          </Button>
+        </StackPanel>
+        <SelectableTextBlock Classes="mono" Text="{Binding SelectedAgent.Snippet}" />
+
+      </StackPanel>
+    </Border>
+
+  </StackPanel>
+</UserControl>
