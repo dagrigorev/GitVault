@@ -1,0 +1,41 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:loc="using:GitVault.App.Markup"
+             x:Class="GitVault.App.Views.ScanRootEditorView">
+  <StackPanel Spacing="0">
+
+    <Grid ColumnDefinitions="110,*" RowDefinitions="Auto,Auto,Auto" Margin="0,0,0,4">
+      <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Margin="0,4"
+                 Text="{loc:Tr Options_Field_Path}" />
+      <Grid Grid.Row="0" Grid.Column="1" ColumnDefinitions="*,Auto" Margin="0,4">
+        <TextBox Grid.Column="0" Text="{Binding Path, Mode=TwoWay}" />
+        <Button Grid.Column="1" Margin="5,0,0,0"
+                Content="{loc:Tr Common_Browse}"
+                Command="{Binding BrowseCommand}" />
+      </Grid>
+
+      <TextBlock Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Margin="0,4"
+                 Text="{loc:Tr Options_Field_Depth}" />
+      <ComboBox Grid.Row="1" Grid.Column="1" Margin="0,4" HorizontalAlignment="Stretch"
+                ItemsSource="{Binding Depths}"
+                SelectedItem="{Binding SelectedDepth, Mode=TwoWay}">
+        <ComboBox.ItemTemplate>
+          <DataTemplate>
+            <TextBlock Text="{Binding Label}" />
+          </DataTemplate>
+        </ComboBox.ItemTemplate>
+      </ComboBox>
+
+      <TextBlock Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" Margin="0,4"
+                 Text="{loc:Tr Options_Field_Enabled}" />
+      <CheckBox Grid.Row="2" Grid.Column="1" Margin="0,4"
+                IsChecked="{Binding IsEnabled, Mode=TwoWay}"
+                Content="{loc:Tr Options_ScanThisRoot}" />
+    </Grid>
+
+    <Border Classes="note">
+      <TextBlock TextWrapping="Wrap" Text="{Binding SettingsOnlyCaption}" />
+    </Border>
+
+  </StackPanel>
+</UserControl>

@@ -176,7 +176,7 @@ public sealed class SnapshotServiceTests : IDisposable
     {
         var path = WriteFile("config", "original");
 
-        var snapshot = await _snapshots.CaptureAsync([path], CancellationToken.None);
+        var snapshot = await _snapshots.CaptureAsync([path], SnapshotMetadata.Unknown, CancellationToken.None);
         await File.WriteAllTextAsync(path, "changed");
 
         await _snapshots.RestoreAsync(snapshot.Path, CancellationToken.None);
@@ -189,7 +189,7 @@ public sealed class SnapshotServiceTests : IDisposable
     {
         var path = Path.Combine(_home, "created-later");
 
-        var snapshot = await _snapshots.CaptureAsync([path], CancellationToken.None);
+        var snapshot = await _snapshots.CaptureAsync([path], SnapshotMetadata.Unknown, CancellationToken.None);
         await File.WriteAllTextAsync(path, "we made this");
 
         await _snapshots.RestoreAsync(snapshot.Path, CancellationToken.None);
@@ -202,7 +202,7 @@ public sealed class SnapshotServiceTests : IDisposable
     {
         var path = WriteFile("config", "original");
 
-        var snapshot = await _snapshots.CaptureAsync([path], CancellationToken.None);
+        var snapshot = await _snapshots.CaptureAsync([path], SnapshotMetadata.Unknown, CancellationToken.None);
 
         snapshot.Files.Should().ContainKey(path);
         File.Exists(snapshot.Files[path]).Should().BeTrue();
@@ -215,7 +215,7 @@ public sealed class SnapshotServiceTests : IDisposable
 
         for (var i = 0; i < SnapshotService.RetainedSnapshots + 5; i++)
         {
-            await _snapshots.CaptureAsync([path], CancellationToken.None);
+            await _snapshots.CaptureAsync([path], SnapshotMetadata.Unknown, CancellationToken.None);
         }
 
         _snapshots.ListSnapshots().Should().HaveCount(SnapshotService.RetainedSnapshots);

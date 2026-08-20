@@ -2,60 +2,42 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:loc="using:GitVault.App.Markup"
              x:Class="GitVault.App.Views.IdentitiesView">
-  <StackPanel Spacing="4">
+  <DockPanel>
 
-    <TextBlock Classes="pageSubtitle"
+    <TextBlock DockPanel.Dock="Top"
+               Classes="pageSubtitle"
+               Margin="0,0,0,6"
                IsVisible="{Binding IsEmpty}"
                Text="{Binding EmptyCaption}" />
 
-    <DataGrid ItemsSource="{Binding Rows}"
-              SelectedItem="{Binding SelectedRow, Mode=TwoWay}"
-              IsVisible="{Binding !IsEmpty}"
-              AutoGenerateColumns="False"
-              IsReadOnly="True"
-              CanUserSortColumns="True"
-              GridLinesVisibility="Horizontal"
-              MinHeight="180"
-              MaxHeight="360">
+    <!-- Which identity actually wins, which is the question this page exists to answer. -->
+    <Border DockPanel.Dock="Bottom" Classes="group" MaxHeight="190">
+      <DockPanel>
+        <TextBlock DockPanel.Dock="Top" Classes="groupTitle" Margin="0,-16,0,4"
+                   Text="{loc:Tr Identities_Effective_Title}" />
+        <Border Classes="panelWhite">
+          <DataGrid ItemsSource="{Binding EffectiveSettings}" BorderThickness="0" MaxHeight="140">
+            <DataGrid.Columns>
+              <DataGridTextColumn Header="{loc:Tr Identities_Effective_Key}" Binding="{Binding Key}" Width="180" />
+              <DataGridTextColumn Header="{loc:Tr Identities_Effective_Value}" Binding="{Binding Value}" Width="*" />
+              <DataGridTextColumn Header="{loc:Tr Identities_Effective_WinningScope}" Binding="{Binding Scope}" Width="140" />
+            </DataGrid.Columns>
+          </DataGrid>
+        </Border>
+      </DockPanel>
+    </Border>
+
+    <DataGrid Name="IdentitiesGrid"
+              ItemsSource="{Binding Rows}"
+              SelectedItem="{Binding SelectedRow, Mode=TwoWay}">
       <DataGrid.Columns>
         <DataGridTextColumn Header="{loc:Tr Identities_Column_Name}" Binding="{Binding UserName}" Width="*" />
         <DataGridTextColumn Header="{loc:Tr Identities_Column_Email}" Binding="{Binding Email}" Width="*" />
-        <DataGridTextColumn Header="{loc:Tr Identities_Column_Source}" Binding="{Binding Source}" Width="Auto" />
-        <DataGridTextColumn Header="{loc:Tr Identities_Column_Hosts}" Binding="{Binding Hosts}" Width="Auto" />
-        <DataGridTextColumn Header="{loc:Tr Identities_Column_Confidence}" Binding="{Binding Confidence}" Width="Auto" />
+        <DataGridTextColumn Header="{loc:Tr Identities_Column_Source}" Binding="{Binding Source}" Width="150" />
+        <DataGridTextColumn Header="{loc:Tr Identities_Column_Hosts}" Binding="{Binding Hosts}" Width="180" />
+        <DataGridTextColumn Header="{loc:Tr Identities_Column_Confidence}" Binding="{Binding Confidence}" Width="110" />
       </DataGrid.Columns>
     </DataGrid>
 
-    <Border Classes="card" Margin="0,12,0,0" IsVisible="{Binding SelectedRow, Converter={x:Static ObjectConverters.IsNotNull}}">
-      <StackPanel Spacing="4">
-        <TextBlock Classes="sectionHeader" Text="{loc:Tr Common_Details}" Margin="0,0,0,4" />
-        <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto,Auto">
-          <TextBlock Grid.Row="0" Grid.Column="0" Opacity="0.75" Margin="0,0,16,2"
-                     Text="{loc:Tr Identities_Column_SigningKey}" />
-          <TextBlock Grid.Row="0" Grid.Column="1" Classes="mono" Text="{Binding SelectedRow.SigningKey}" />
-          <TextBlock Grid.Row="1" Grid.Column="0" Opacity="0.75" Margin="0,0,16,2"
-                     Text="{loc:Tr Keys_Column_Path}" />
-          <TextBlock Grid.Row="1" Grid.Column="1" Classes="mono" Text="{Binding SelectedRow.Path}" />
-          <TextBlock Grid.Row="2" Grid.Column="0" Opacity="0.75" Margin="0,0,16,2"
-                     Text="{loc:Tr Identities_Detail_Occurrences}" />
-          <TextBlock Grid.Row="2" Grid.Column="1" Classes="mono" Text="{Binding SelectedRow.Occurrences}" />
-        </Grid>
-      </StackPanel>
-    </Border>
-
-    <TextBlock Classes="sectionHeader" Text="{loc:Tr Identities_Effective_Title}" />
-    <DataGrid ItemsSource="{Binding EffectiveSettings}"
-              AutoGenerateColumns="False"
-              IsReadOnly="True"
-              GridLinesVisibility="Horizontal"
-              MaxHeight="220">
-      <DataGrid.Columns>
-        <DataGridTextColumn Header="{loc:Tr Identities_Effective_Key}" Binding="{Binding Key}" Width="Auto" />
-        <DataGridTextColumn Header="{loc:Tr Identities_Effective_Value}" Binding="{Binding Value}" Width="*" />
-        <DataGridTextColumn Header="{loc:Tr Identities_Effective_WinningScope}" Binding="{Binding Scope}" Width="Auto" />
-        <DataGridTextColumn Header="{loc:Tr Common_Details}" Binding="{Binding Overrides}" Width="Auto" />
-      </DataGrid.Columns>
-    </DataGrid>
-
-  </StackPanel>
+  </DockPanel>
 </UserControl>

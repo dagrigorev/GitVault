@@ -78,6 +78,9 @@ internal sealed partial class RepositoriesViewModel : ListPageViewModel
     public override string TitleKey => Keys.Repositories_Title;
 
     /// <inheritdoc/>
+    public override string SubtitleKey => Keys.Repositories_Subtitle;
+
+    /// <inheritdoc/>
     public override string IconKey => "IconRepositories";
 
     public override string EmptyKey => Keys.Repositories_Empty;
@@ -89,7 +92,7 @@ internal sealed partial class RepositoriesViewModel : ListPageViewModel
     public ObservableCollection<RepositoryRow> Rows { get; } = [];
 
     /// <summary>True when the user has not chosen anywhere to search.</summary>
-    public bool HasNoRoots => _settings.Current.RepositoryScanRoots.Count == 0;
+    public bool HasNoRoots => _settings.Current.HasNoScanRoots;
 
     /// <summary>Localized prompt shown when there is nowhere to search.</summary>
     public string NoRootsCaption => L[Keys.Repositories_NoRoots];
@@ -103,10 +106,13 @@ internal sealed partial class RepositoriesViewModel : ListPageViewModel
     [RelayCommand]
     private async Task ScanAsync(CancellationToken cancellationToken)
     {
-        var roots = _settings.Current.RepositoryScanRoots;
+        var settings = _settings.Current;
+        var recursive = settings.EnabledRecursiveScanRoots;
+        var topLevel = settings.EnabledTopLevelScanRoots;
+
         OnPropertyChanged(nameof(HasNoRoots));
 
-        if (roots.Count == 0)
+        if (recursive.Count == 0 && topLevel.Count == 0)
         {
             return;
         }
@@ -114,10 +120,15 @@ internal sealed partial class RepositoriesViewModel : ListPageViewModel
         IsScanning = true;
         try
         {
-            var found = await _scanner.ScanAsync(roots, ScanDepth, cancellationToken).ConfigureAwait(true);
+            // Two passes rather than one, because depth is a per-root setting: a root the user
+            // marked top-level must not be walked to the same depth as the rest.
+            var found = await _scanner.ScanAsync(recursive, ScanDepth, cancellationToken).ConfigureAwait(true);
+            var shallow = await _scanner.ScanAsync(topLevel, 1, cancellationToken).ConfigureAwait(true);
 
             Rows.Clear();
-            foreach (var repository in found)
+            foreach (var repository in found.Concat(shallow)
+                         .DistinctBy(r => r.Path, StringComparer.OrdinalIgnoreCase)
+                         .OrderBy(r => r.Path, StringComparer.CurrentCultureIgnoreCase))
             {
                 Rows.Add(new RepositoryRow(L, repository));
             }
@@ -150,12 +161,62 @@ internal sealed partial class RepositoriesViewModel : ListPageViewModel
         }
     }
 
+
+    /// <inheritdoc/>
+    internal override void EnsureSelection()
+    {
+        if (Rows.Count == 0)
+        {
+            return;
+        }
+
+        var current = SelectedRepository;
+        SelectedRepository = null;
+        SelectedRepository = current ?? Rows[0];
+    }
     /// <inheritdoc/>
     protected override void OnCultureChanged()
     {
+        base.OnCultureChanged();
+
         foreach (var row in Rows)
         {
             row.RefreshCaptions();
         }
+
+        RebuildProperties();
+    }
+
+    partial void OnSelectedRepositoryChanged(RepositoryRow? value)
+    {
+        // A DataGrid pushes null back through the binding when it is first attached. A classic
+        // list always has a current item, so re-assert the first row instead of letting the
+        // properties pane blank itself the moment the page is shown.
+        if (value is null && Rows.Count > 0)
+        {
+            SelectedRepository = Rows[0];
+            return;
+        }
+
+        _ = value;
+        RebuildProperties();
+    }
+
+    /// <summary>Fills the properties pane for the selected repository.</summary>
+    private void RebuildProperties()
+    {
+        if (SelectedRepository is not { } row)
+        {
+            SetProperties([]);
+            return;
+        }
+
+        SetProperties(
+        [
+            Property(Keys.Repositories_Column_Name, row.Name),
+            Property(Keys.Keys_Column_Path, row.Path, PropertyStyle.Mono),
+            Property(Keys.Repositories_Column_Remote, row.RemoteUrl, PropertyStyle.Mono),
+            Property(Keys.Repositories_Column_EffectiveIdentity, row.EffectiveIdentity),
+        ]);
     }
 }

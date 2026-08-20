@@ -1,0 +1,44 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="GitVault.App.Views.PropertyList"
+             x:Name="Root">
+
+  <!--
+    The label-and-value list used by the properties pane, the properties dialog and the detail
+    panels on the pages. One control, so the column width, the monospaced values and the badges
+    stay identical wherever properties are shown.
+  -->
+  <ItemsControl ItemsSource="{Binding #Root.Entries}">
+    <ItemsControl.ItemTemplate>
+      <DataTemplate>
+        <Grid ColumnDefinitions="96,*" Margin="0,3">
+          <TextBlock Grid.Column="0"
+                     Classes="dim"
+                     Margin="0,0,6,0"
+                     TextWrapping="Wrap"
+                     Text="{Binding Label}" />
+
+          <SelectableTextBlock Grid.Column="1"
+                               IsVisible="{Binding IsText}"
+                               TextWrapping="Wrap"
+                               Text="{Binding Value}" />
+
+          <SelectableTextBlock Grid.Column="1"
+                               Classes="mono"
+                               IsVisible="{Binding IsMono}"
+                               TextWrapping="Wrap"
+                               Text="{Binding Value}" />
+
+          <Border Grid.Column="1"
+                  Classes="badge"
+                  Classes.ok="{Binding IsBadgeOk}"
+                  Classes.warn="{Binding IsBadgeWarn}"
+                  Classes.dim="{Binding IsBadgeDim}"
+                  IsVisible="{Binding IsBadge}">
+            <TextBlock Text="{Binding Value}" />
+          </Border>
+        </Grid>
+      </DataTemplate>
+    </ItemsControl.ItemTemplate>
+  </ItemsControl>
+</UserControl>

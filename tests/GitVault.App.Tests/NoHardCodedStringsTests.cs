@@ -133,6 +133,11 @@ public sealed class NoHardCodedStringsTests
         [
             "English", "Русский", "简体中文",
             "bash", "zsh", "fish", "PowerShell", "cmd",
+
+            // Credential helper names. These are the values git itself expects in
+            // credential.helper — the user is choosing a command, not reading a word, and a
+            // translated "manager" would produce a configuration git cannot use.
+            "manager", "store", "cache",
         ];
 
         if (properNouns.Contains(value, StringComparer.Ordinal))

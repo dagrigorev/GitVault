@@ -1,0 +1,41 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:loc="using:GitVault.App.Markup"
+             x:Class="GitVault.App.Views.RollbackPreviewView">
+  <StackPanel Spacing="0">
+
+    <Border Classes="note warn" Margin="0,0,0,7">
+      <StackPanel Orientation="Horizontal" Spacing="7">
+        <Image Classes="icon20" Source="{StaticResource IconSeverityMedium}" VerticalAlignment="Top" />
+        <StackPanel Spacing="2" MaxWidth="520">
+          <TextBlock FontWeight="Bold" Text="{Binding NothingWrittenCaption}" TextWrapping="Wrap" />
+          <TextBlock Classes="dim" TextWrapping="Wrap" Text="{loc:Tr Dialog_RollbackExplains}" />
+        </StackPanel>
+      </StackPanel>
+    </Border>
+
+    <Grid ColumnDefinitions="130,*" RowDefinitions="Auto,Auto,Auto">
+      <TextBlock Grid.Row="0" Grid.Column="0" Classes="dim" Margin="0,2" Text="{loc:Tr Snapshots_Column_Snapshot}" />
+      <TextBlock Grid.Row="0" Grid.Column="1" Margin="0,2" FontWeight="Bold" Text="{Binding SnapshotLabel}" />
+
+      <TextBlock Grid.Row="1" Grid.Column="0" Classes="dim" Margin="0,2" Text="{loc:Tr Snapshots_Column_Target}" />
+      <TextBlock Grid.Row="1" Grid.Column="1" Classes="mono" Margin="0,2" TextWrapping="Wrap"
+                 Text="{Binding Snapshot.Target}" />
+
+      <TextBlock Grid.Row="2" Grid.Column="0" Classes="dim" Margin="0,2" Text="{loc:Tr Snapshots_Column_Profile}" />
+      <TextBlock Grid.Row="2" Grid.Column="1" Margin="0,2" Text="{Binding Snapshot.ProfileName}" />
+    </Grid>
+
+    <TextBlock Classes="sectionHeader" Margin="0,10,0,4" Text="{loc:Tr Dialog_FilesRestored}" />
+
+    <Border Classes="panelWhite">
+      <DataGrid ItemsSource="{Binding Files}" MinHeight="140" MaxHeight="220" BorderThickness="0">
+        <DataGrid.Columns>
+          <DataGridTextColumn Header="{loc:Tr Keys_Column_Path}" Binding="{Binding Path}" Width="*" />
+          <DataGridTextColumn Header="{loc:Tr Snapshots_Column_Action}" Binding="{Binding Action}" Width="150" />
+        </DataGrid.Columns>
+      </DataGrid>
+    </Border>
+
+  </StackPanel>
+</UserControl>

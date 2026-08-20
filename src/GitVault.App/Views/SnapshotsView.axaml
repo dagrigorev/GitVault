@@ -1,0 +1,43 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:loc="using:GitVault.App.Markup"
+             x:Class="GitVault.App.Views.SnapshotsView">
+  <DockPanel>
+
+    <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Spacing="5" Margin="0,0,0,6">
+      <Button Command="{Binding RefreshCommand}" Content="{loc:Tr Common_Refresh}" />
+      <Button Classes="primary"
+              Name="PreviewRollbackButton"
+              Command="{Binding PreviewRollbackCommand}"
+              IsEnabled="{Binding HasSnapshots}"
+              Content="{loc:Tr Snapshots_PreviewRollback}" />
+    </StackPanel>
+
+    <TextBlock DockPanel.Dock="Top"
+               Classes="pageSubtitle"
+               Margin="0,0,0,6"
+               IsVisible="{Binding IsEmpty}"
+               Text="{Binding EmptyCaption}" />
+
+    <!--
+      There is no one-click rollback here on purpose: the button says "preview", and restoring
+      happens only from inside the preview dialog after the file list has been shown.
+    -->
+    <Border DockPanel.Dock="Bottom" Classes="note" Margin="0,7,0,0">
+      <TextBlock TextWrapping="Wrap" Text="{Binding RetentionCaption}" />
+    </Border>
+
+    <DataGrid Name="SnapshotsGrid"
+              ItemsSource="{Binding Rows}"
+              SelectedItem="{Binding SelectedRow, Mode=TwoWay}">
+      <DataGrid.Columns>
+        <DataGridTextColumn Header="{loc:Tr Snapshots_Column_Snapshot}" Binding="{Binding Label}" Width="90" />
+        <DataGridTextColumn Header="{loc:Tr Snapshots_Column_Created}" Binding="{Binding Created}" Width="150" />
+        <DataGridTextColumn Header="{loc:Tr Snapshots_Column_Operation}" Binding="{Binding Operation}" Width="*" />
+        <DataGridTextColumn Header="{loc:Tr Snapshots_Column_Target}" Binding="{Binding Target}" Width="*" />
+        <DataGridTextColumn Header="{loc:Tr Snapshots_Column_State}" Binding="{Binding State}" Width="120" />
+      </DataGrid.Columns>
+    </DataGrid>
+
+  </DockPanel>
+</UserControl>

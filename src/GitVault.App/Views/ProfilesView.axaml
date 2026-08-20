@@ -2,93 +2,161 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:loc="using:GitVault.App.Markup"
              x:Class="GitVault.App.Views.ProfilesView">
-  <StackPanel Spacing="8">
+  <ScrollViewer>
+    <StackPanel Spacing="0">
 
-    <TextBlock Classes="pageSubtitle"
-               IsVisible="{Binding IsEmpty}"
-               Text="{Binding EmptyCaption}" />
+      <TextBlock Classes="pageSubtitle"
+                 Margin="0,0,0,6"
+                 IsVisible="{Binding IsEmpty}"
+                 Text="{Binding EmptyCaption}" />
 
-    <DataGrid ItemsSource="{Binding Rows}"
-              SelectedItem="{Binding SelectedProfile, Mode=TwoWay}"
-              IsVisible="{Binding !IsEmpty}"
-              AutoGenerateColumns="False"
-              IsReadOnly="True"
-              GridLinesVisibility="Horizontal"
-              MaxHeight="200">
-      <DataGrid.Columns>
-        <DataGridTextColumn Header="{loc:Tr Profiles_Column_Name}" Binding="{Binding Name}" Width="Auto" />
-        <DataGridTextColumn Header="{loc:Tr Profiles_Column_Identity}" Binding="{Binding Identity}" Width="*" />
-        <DataGridTextColumn Header="{loc:Tr Profiles_Column_Helper}" Binding="{Binding CredentialHelper}" Width="Auto" />
-      </DataGrid.Columns>
-    </DataGrid>
+      <Border Classes="panelWhite" MinHeight="110" MaxHeight="180">
+        <DataGrid Name="ProfilesGrid"
+                  ItemsSource="{Binding Rows}"
+                  SelectedItem="{Binding SelectedProfile, Mode=TwoWay}"
+                  BorderThickness="0">
+          <DataGrid.Columns>
+            <DataGridTextColumn Header="{loc:Tr Profiles_Column_Name}" Binding="{Binding Name}" Width="165" />
+            <DataGridTextColumn Header="{loc:Tr Profiles_Column_Identity}" Binding="{Binding Identity}" Width="*" />
+            <DataGridTextColumn Header="{loc:Tr Profiles_Column_Helper}" Binding="{Binding CredentialHelper}" Width="160" />
+            <DataGridTextColumn Header="{loc:Tr Profiles_Column_StoredScope}" Binding="{Binding StoredScope}" Width="130" />
+          </DataGrid.Columns>
+        </DataGrid>
+      </Border>
 
-    <Border Classes="card"
-            IsVisible="{Binding SelectedProfile, Converter={x:Static ObjectConverters.IsNotNull}}">
-      <StackPanel Spacing="8">
+      <!-- ================================================== profile editor -->
+      <Border Classes="group">
+        <!--
+          A stack rather than a dock: the editor's last row is a check box, and docking the button
+          strip to the bottom made the grid give up the pixels that row needed.
+        -->
+        <StackPanel>
+          <TextBlock Classes="groupTitle" Margin="0,-16,0,4"
+                     Text="{loc:Tr Profiles_Editor}" />
+          <Grid ColumnDefinitions="135,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto"
+                IsEnabled="{Binding HasSelectedProfile}">
 
-        <StackPanel Orientation="Horizontal" Spacing="8">
-          <ComboBox ItemsSource="{Binding Scopes}"
-                    SelectedItem="{Binding SelectedScope, Mode=TwoWay}"
-                    MinWidth="220"
-                    AutomationProperties.Name="{loc:Tr Profiles_Column_Name}">
-            <ComboBox.ItemTemplate>
-              <DataTemplate>
-                <TextBlock Text="{Binding Label}" />
-              </DataTemplate>
-            </ComboBox.ItemTemplate>
-          </ComboBox>
+            <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Margin="0,3"
+                       Text="{loc:Tr Profiles_Field_Name}" />
+            <TextBox Grid.Row="0" Grid.Column="1" Margin="0,3" Text="{Binding EditorName, Mode=TwoWay}" />
 
-          <TextBox Width="280"
-                   Text="{Binding RepositoryPath, Mode=TwoWay}"
-                   Watermark="{loc:Tr Repositories_Column_Path}"
-                   AutomationProperties.Name="{loc:Tr Repositories_Column_Path}" />
+            <TextBlock Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Margin="0,3"
+                       Text="{loc:Tr Profiles_Field_Identity}" />
+            <ComboBox Grid.Row="1" Grid.Column="1" Margin="0,3" HorizontalAlignment="Stretch"
+                      ItemsSource="{Binding Identities}"
+                      SelectedItem="{Binding EditorIdentity, Mode=TwoWay}">
+              <ComboBox.ItemTemplate>
+                <DataTemplate>
+                  <TextBlock Text="{Binding DisplayName}" />
+                </DataTemplate>
+              </ComboBox.ItemTemplate>
+            </ComboBox>
+
+            <TextBlock Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" Margin="0,3"
+                       Text="{loc:Tr Profiles_Field_SshKey}" />
+            <ComboBox Grid.Row="2" Grid.Column="1" Margin="0,3" HorizontalAlignment="Stretch"
+                      ItemsSource="{Binding KeyOptions}"
+                      SelectedItem="{Binding EditorKey, Mode=TwoWay}">
+              <ComboBox.ItemTemplate>
+                <DataTemplate>
+                  <TextBlock Text="{Binding Label}" />
+                </DataTemplate>
+              </ComboBox.ItemTemplate>
+            </ComboBox>
+
+            <TextBlock Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" Margin="0,3"
+                       Text="{loc:Tr Profiles_Field_Helper}" />
+            <ComboBox Grid.Row="3" Grid.Column="1" Margin="0,3" HorizontalAlignment="Stretch"
+                      ItemsSource="{Binding Helpers}"
+                      SelectedItem="{Binding EditorHelper, Mode=TwoWay}">
+              <ComboBox.ItemTemplate>
+                <DataTemplate>
+                  <TextBlock Text="{Binding Label}" />
+                </DataTemplate>
+              </ComboBox.ItemTemplate>
+            </ComboBox>
+
+            <TextBlock Grid.Row="4" Grid.Column="0" VerticalAlignment="Center" Margin="0,3"
+                       Text="{loc:Tr Profiles_Field_StoredScope}" />
+            <ComboBox Grid.Row="4" Grid.Column="1" Name="ScopeBox" Margin="0,3" HorizontalAlignment="Stretch"
+                      ItemsSource="{Binding Scopes}"
+                      SelectedItem="{Binding SelectedScope, Mode=TwoWay}">
+              <ComboBox.ItemTemplate>
+                <DataTemplate>
+                  <TextBlock Text="{Binding Label}" />
+                </DataTemplate>
+              </ComboBox.ItemTemplate>
+            </ComboBox>
+
+            <TextBlock Grid.Row="5" Grid.Column="0" VerticalAlignment="Center" Margin="0,3"
+                       IsVisible="{Binding IsRepositoryScope}"
+                       Text="{loc:Tr Profiles_Field_RepositoryPath}" />
+            <TextBox Grid.Row="5" Grid.Column="1" Margin="0,3"
+                     IsVisible="{Binding IsRepositoryScope}"
+                     Text="{Binding RepositoryPath, Mode=TwoWay}" />
+
+            <CheckBox Grid.Row="6" Grid.Column="1" Margin="0,5,0,0"
+                      IsChecked="{Binding EditorWritesSshCommand, Mode=TwoWay}"
+                      Content="{loc:Tr Profiles_Field_WriteSshCommand}" />
+          </Grid>
+
+          <StackPanel Orientation="Horizontal" Spacing="5" Margin="0,8,0,0">
+            <Button Command="{Binding NewProfileCommand}" Content="{loc:Tr Profiles_New}" />
+            <Button Classes="primary"
+                    Command="{Binding SaveProfileCommand}"
+                    IsEnabled="{Binding HasSelectedProfile}"
+                    Content="{loc:Tr Profiles_Save}" />
+            <Button Classes="danger"
+                    Command="{Binding DeleteProfileCommand}"
+                    IsEnabled="{Binding HasSelectedProfile}"
+                    Content="{loc:Tr Profiles_Delete}" />
+            <Border Classes="badge warn" VerticalAlignment="Center" IsVisible="{Binding IsDirty}">
+              <TextBlock Text="{loc:Tr Profiles_UnsavedChanges}" />
+            </Border>
+          </StackPanel>
         </StackPanel>
+      </Border>
 
-        <TextBlock Classes="pageSubtitle" Text="{Binding DryRunCaption}" />
+      <!-- ================================================== activation -->
+      <Border Classes="group">
+        <DockPanel>
+          <TextBlock DockPanel.Dock="Top" Classes="groupTitle" Margin="0,-16,0,4"
+                     Text="{loc:Tr Profiles_Activation}" />
 
-        <StackPanel Orientation="Horizontal" Spacing="8">
-          <Button Command="{Binding PreviewActivationCommand}" >
-            <StackPanel Orientation="Horizontal">
-              <PathIcon Classes="buttonIcon" Data="{StaticResource IconPreview}" />
-              <TextBlock Text="{loc:Tr Profiles_Activate_Button}" />
-            </StackPanel>
-          </Button>
-          <Button Command="{Binding PreviewDeactivationCommand}" >
-            <StackPanel Orientation="Horizontal">
-              <PathIcon Classes="buttonIcon" Data="{StaticResource IconPreview}" />
-              <TextBlock Text="{loc:Tr Profiles_Deactivate_Button}" />
-            </StackPanel>
-          </Button>
-          <Button Command="{Binding ApplyCommand}"
-                  IsEnabled="{Binding CanApply}"
-                  >
-            <StackPanel Orientation="Horizontal">
-              <PathIcon Classes="buttonIcon" Data="{StaticResource IconApply}" />
-              <TextBlock Text="{loc:Tr Common_Apply}" />
-            </StackPanel>
-          </Button>
-          <Button Command="{Binding RollbackCommand}"
-                  IsEnabled="{Binding CanRollback}"
-                  >
-            <StackPanel Orientation="Horizontal">
-              <PathIcon Classes="buttonIcon" Data="{StaticResource IconRollback}" />
-              <TextBlock Text="{loc:Tr Profiles_Rollback}" />
-            </StackPanel>
-          </Button>
-        </StackPanel>
+          <Border DockPanel.Dock="Top" Classes="note warn" Margin="0,0,0,7">
+            <TextBlock TextWrapping="Wrap" Text="{Binding SnapshotNoteCaption}" />
+          </Border>
 
-        <TextBlock TextWrapping="Wrap"
-                   IsVisible="{Binding StatusMessage, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
-                   Text="{Binding StatusMessage}" />
+          <Grid DockPanel.Dock="Top" ColumnDefinitions="135,*" RowDefinitions="Auto" Margin="0,0,0,7">
+            <TextBlock Grid.Column="0" Classes="dim" Text="{loc:Tr Profiles_State}" />
+            <Border Grid.Column="1" Classes="badge" HorizontalAlignment="Left">
+              <TextBlock Name="PlanStateBadge" Text="{Binding PlanStateCaption}" />
+            </Border>
+          </Grid>
 
-        <StackPanel IsVisible="{Binding PlanDiff, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
-                    Spacing="4">
-          <TextBlock Classes="sectionHeader" Text="{loc:Tr Profiles_PlannedChanges}" />
-          <SelectableTextBlock Classes="mono" Text="{Binding PlanDiff}" />
-        </StackPanel>
+          <StackPanel Orientation="Horizontal" Spacing="5">
+            <Button Classes="primary"
+                    Command="{Binding PreviewActivationCommand}"
+                    IsEnabled="{Binding HasSelectedProfile}"
+                    Content="{loc:Tr Profiles_PreviewActivation}" />
+            <Button Command="{Binding PreviewDeactivationCommand}"
+                    IsEnabled="{Binding HasSelectedProfile}"
+                    Content="{loc:Tr Profiles_PreviewDeactivation}" />
+            <Button Name="ApplyButton"
+                    Command="{Binding ApplyCommand}"
+                    IsEnabled="{Binding CanApply}"
+                    Content="{loc:Tr Common_Apply}" />
+            <Button Command="{Binding RollbackCommand}"
+                    IsEnabled="{Binding CanRollback}"
+                    Content="{loc:Tr Profiles_Rollback}" />
+          </StackPanel>
+        </DockPanel>
+      </Border>
 
-      </StackPanel>
-    </Border>
+      <Border Classes="note">
+        <TextBlock TextWrapping="Wrap" Text="{Binding StoredScopeNoteCaption}" />
+      </Border>
 
-  </StackPanel>
+    </StackPanel>
+  </ScrollViewer>
 </UserControl>

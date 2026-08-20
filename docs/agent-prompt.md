@@ -44,8 +44,9 @@ implementations over clever ones.
 7. On POSIX, refuse to write a private key with a mode looser than `0600`. Preserve permissions.
 8. No `#if WINDOWS` in business logic. All OS-specific behaviour sits behind interfaces resolved by
    `src/GitVault.App/Composition/PlatformModule.cs`, the single place that branches on OS.
-9. Third-party packages must be MIT / Apache-2.0 / BSD / MPL-2.0. No GPL linkage. (This is why
-   FluentAssertions is pinned to 6.12.2 and why Icons8 was rejected in favour of Material Symbols.)
+9. Third-party packages and assets must be MIT / Apache-2.0 / BSD / MPL-2.0 / public domain. No
+   GPL linkage. (This is why FluentAssertions is pinned to 6.12.2, and why the icon set is the
+   public-domain Tango library.)
 10. No user-visible string in XAML or C#. Add a key to `build/loc/strings.json` and regenerate;
     `NoHardCodedStringsTests` enforces it.
 
@@ -57,7 +58,7 @@ Flag any guess with `// VERIFY:`. Reflection bindings are on
 **Generated files — edit the source, not the output.**
 ```bash
 pwsh build/generate-localization.ps1   # strings.json -> .resx + Keys.g.cs   (CI fails if stale)
-pwsh build/generate-icons.ps1          # Material Symbols -> Assets/Icons.axaml
+pwsh build/generate-classic-icons.ps1 # Tango icons -> Assets/ClassicIcons.axaml
 pwsh build/generate-ssh-fixtures.ps1   # test keys, via the reference tools
 ```
 
@@ -75,6 +76,9 @@ pwsh build/check-coverage.ps1          # gate: 75% line coverage in GitVault.Cor
 repos and a sample profile for it. Known gaps are listed in both documents — read them before
 assuming something is missing by accident.
 
-**Open work.** No editor UI for scan roots, custom key folders, or profiles — all are hand-edited
-JSON in the app data directory. The Profiles scope dropdown ignores the profile's stored scope and
-defaults to Global.
+**Interface.** A classic Windows desktop utility: menu bar, toolbar, navigation tree, dense grids,
+a shared properties pane, group boxes, modal dialogs and a status bar. Styles live in
+`src/GitVault.App/Styles/` and override Avalonia's Fluent templates rather than replacing them.
+Two rules the UI enforces rather than documents: a profile opens with the scope it was saved with,
+and Apply stays disabled until the user has confirmed a dry-run preview dialog — changing anything
+the plan was built from invalidates it again.

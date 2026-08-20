@@ -15,6 +15,9 @@ internal sealed partial class LogsViewModel : PageViewModel
     [ObservableProperty]
     private string _filter = string.Empty;
 
+    [ObservableProperty]
+    private LogLine? _selectedLine;
+
     public LogsViewModel(Localizer localizer, InMemoryLogSink sink)
         : base(localizer)
     {
@@ -32,6 +35,9 @@ internal sealed partial class LogsViewModel : PageViewModel
     public override string NavKey => Keys.Nav_Logs;
 
     public override string TitleKey => Keys.Logs_Title;
+
+    /// <inheritdoc/>
+    public override string SubtitleKey => Keys.Logs_Subtitle;
 
     /// <inheritdoc/>
     public override string IconKey => "IconLogs";
@@ -84,5 +90,50 @@ internal sealed partial class LogsViewModel : PageViewModel
         {
             Lines.Add(line);
         }
+    }
+
+    partial void OnSelectedLineChanged(LogLine? value)
+    {
+        _ = value;
+        RebuildProperties();
+    }
+
+    /// <inheritdoc/>
+    protected override void OnCultureChanged()
+    {
+        base.OnCultureChanged();
+        RebuildProperties();
+    }
+
+    /// <summary>
+    /// Fills the properties pane for the selected log entry.
+    /// </summary>
+    /// <remarks>
+    /// Whatever is here has already been through the redactor on its way into the sink, and the
+    /// pane says so: a log the user is about to paste into an issue should carry a visible claim
+    /// about what was removed from it.
+    /// </remarks>
+    private void RebuildProperties()
+    {
+        if (SelectedLine is not { } line)
+        {
+            SetProperties([]);
+            return;
+        }
+
+        var entries = new List<PropertyEntry>
+        {
+            Property(Keys.Logs_Column_Time, line.Timestamp.ToLocalTime().ToString("T", L.Service.CurrentCulture)),
+            Property(Keys.Logs_Column_Level, line.Level, PropertyStyle.Badge),
+            Property(Keys.Logs_Column_Message, line.Message),
+            Property(Keys.Logs_Detail_Secrets, L[Keys.Logs_Redacted], PropertyStyle.BadgeOk),
+        };
+
+        if (!string.IsNullOrEmpty(line.Exception))
+        {
+            entries.Add(Property(Keys.Logs_Detail_Exception, line.Exception, PropertyStyle.Mono));
+        }
+
+        SetProperties(entries);
     }
 }

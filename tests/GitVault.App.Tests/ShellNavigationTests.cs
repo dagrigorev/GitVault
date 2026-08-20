@@ -17,7 +17,7 @@ public sealed class ShellNavigationTests
     private static ServiceProvider BuildProvider() => TestServices.Build();
 
     [AvaloniaFact]
-    public void Every_page_is_present_in_the_navigation_rail()
+    public void Every_page_hangs_off_the_machine_in_the_navigation_tree()
     {
         using var provider = BuildProvider();
         var shell = provider.GetRequiredService<MainWindowViewModel>();
@@ -25,10 +25,58 @@ public sealed class ShellNavigationTests
         var window = new MainWindow { DataContext = shell };
         window.Show();
 
-        var list = window.FindControl<ListBox>("NavigationList");
-        list.Should().NotBeNull();
-        list!.ItemCount.Should().Be(10);
+        var tree = window.FindControl<TreeView>("NavigationTree");
+        tree.Should().NotBeNull();
+
+        shell.RootNodes.Should().ContainSingle("the tree has one root: this computer");
+        shell.RootNodes[0].IsRoot.Should().BeTrue();
+        shell.RootNodes[0].Children.Should().HaveCount(11);
         shell.SelectedPage.Should().BeOfType<DashboardViewModel>();
+    }
+
+    [AvaloniaFact]
+    public void Selecting_a_tree_node_changes_the_page()
+    {
+        using var provider = BuildProvider();
+        var shell = provider.GetRequiredService<MainWindowViewModel>();
+
+        var window = new MainWindow { DataContext = shell };
+        window.Show();
+
+        var node = shell.RootNodes[0].Children.Single(n => n.Page is SshKeysViewModel);
+        shell.SelectedNode = node;
+
+        shell.SelectedPage.Should().BeOfType<SshKeysViewModel>();
+    }
+
+    [AvaloniaFact]
+    public void Selecting_the_root_is_not_a_navigation()
+    {
+        // The machine is a heading. Clicking it must not blank the workspace.
+        using var provider = BuildProvider();
+        var shell = provider.GetRequiredService<MainWindowViewModel>();
+
+        var window = new MainWindow { DataContext = shell };
+        window.Show();
+
+        shell.Navigate<LogsViewModel>();
+        shell.SelectedNode = shell.RootNodes[0];
+
+        shell.SelectedPage.Should().BeOfType<LogsViewModel>();
+    }
+
+    [AvaloniaFact]
+    public void Navigating_from_a_menu_moves_the_tree_selection_too()
+    {
+        using var provider = BuildProvider();
+        var shell = provider.GetRequiredService<MainWindowViewModel>();
+
+        var window = new MainWindow { DataContext = shell };
+        window.Show();
+
+        shell.Navigate<SnapshotsViewModel>();
+
+        shell.SelectedNode!.Page.Should().BeOfType<SnapshotsViewModel>();
     }
 
     [AvaloniaFact]
@@ -51,15 +99,16 @@ public sealed class ShellNavigationTests
         locator.Build(shell.Pages.OfType<ClientsViewModel>().Single()).Should().BeOfType<ClientsView>();
         locator.Build(shell.Pages.OfType<ProfilesViewModel>().Single()).Should().BeOfType<ProfilesView>();
         locator.Build(shell.Pages.OfType<RepositoriesViewModel>().Single()).Should().BeOfType<RepositoriesView>();
+        locator.Build(shell.Pages.OfType<SnapshotsViewModel>().Single()).Should().BeOfType<SnapshotsView>();
 
         // The shared list view is still the fallback for a page with no view of its own.
         new ViewLocator().Match(shell.Pages[0]).Should().BeTrue();
     }
 
     [AvaloniaTheory]
-    [InlineData("en-US", "Dashboard", "Settings")]
+    [InlineData("en-US", "Overview", "Options")]
     [InlineData("ru-RU", "Обзор", "Параметры")]
-    [InlineData("zh-Hans", "概览", "设置")]
+    [InlineData("zh-Hans", "概览", "选项")]
     public void Navigation_captions_follow_the_selected_language(
         string culture,
         string expectedFirst,
@@ -87,7 +136,7 @@ public sealed class ShellNavigationTests
         window.Show();
 
         localization.SetCulture(CultureInfo.GetCultureInfo("en-US"));
-        shell.Pages[0].Title.Should().Be("Dashboard");
+        shell.Pages[0].Title.Should().Be("Overview");
 
         localization.SetCulture(CultureInfo.GetCultureInfo("ru-RU"));
         shell.Pages[0].Title.Should().Be("Обзор");
@@ -129,13 +178,13 @@ public sealed class ShellNavigationTests
         searchBox.Should().NotBeNull();
 
         localization.SetCulture(CultureInfo.GetCultureInfo("en-US"));
-        searchBox!.Watermark.Should().Be("Search");
+        searchBox!.Watermark.Should().Be("Filter current view");
 
         localization.SetCulture(CultureInfo.GetCultureInfo("ru-RU"));
-        searchBox.Watermark.Should().Be("Поиск", "a {loc:Tr} binding must follow the culture");
+        searchBox.Watermark.Should().Be("Фильтр текущего вида", "a {loc:Tr} binding must follow the culture");
 
         localization.SetCulture(CultureInfo.GetCultureInfo("zh-Hans"));
-        searchBox.Watermark.Should().Be("搜索");
+        searchBox.Watermark.Should().Be("筛选当前视图");
     }
 
     [AvaloniaFact]

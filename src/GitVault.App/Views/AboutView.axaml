@@ -1,0 +1,19 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="GitVault.App.Views.AboutView">
+  <StackPanel Spacing="10">
+    <StackPanel Orientation="Horizontal" Spacing="12">
+      <Image Width="48" Height="48" VerticalAlignment="Top"
+             RenderOptions.BitmapInterpolationMode="HighQuality"
+             Source="avares://GitVault/Assets/gitvault.png" />
+      <StackPanel Spacing="3" MaxWidth="330">
+        <TextBlock FontSize="18" FontWeight="Bold" Text="{Binding ProductName}" />
+        <TextBlock Text="{Binding Description}" TextWrapping="Wrap" />
+        <TextBlock Classes="mono" Text="{Binding Version}" />
+      </StackPanel>
+    </StackPanel>
+
+    <TextBlock Classes="dim" TextWrapping="Wrap" Text="{Binding NoNetworkCaption}" />
+    <TextBlock Classes="dim" FontSize="11" TextWrapping="Wrap" Text="{Binding IconLicenseCaption}" />
+  </StackPanel>
+</UserControl>

@@ -1,6 +1,5 @@
 using System.Globalization;
 using Avalonia;
-using Avalonia.Controls;
 using Avalonia.Data.Converters;
 using Avalonia.Media;
 using Avalonia.Styling;
@@ -9,12 +8,14 @@ using GitVault.Core.Models;
 namespace GitVault.App.Markup;
 
 /// <summary>
-/// Resolves an icon resource key, such as <c>IconKeys</c>, to the geometry behind it.
+/// Resolves an icon resource key, such as <c>IconKeys</c>, to the image behind it.
 /// </summary>
 /// <remarks>
-/// This exists so a view model can say <em>which</em> icon it wants without referencing a
-/// drawing type. The view models stay free of visuals, and the icon set stays swappable by
-/// regenerating one resource dictionary.
+/// This exists so a view model can say <em>which</em> icon it wants without referencing a drawing
+/// type. The view models stay free of visuals, and the icon set stays swappable by regenerating
+/// one resource dictionary — which is exactly what happened when the set changed from Material
+/// Symbols to Tango, turning every icon from a geometry into a bitmap without touching a single
+/// view model.
 /// </remarks>
 internal sealed class IconLookupConverter : IValueConverter
 {
@@ -38,7 +39,7 @@ internal sealed class IconLookupConverter : IValueConverter
 
     /// <inheritdoc/>
     public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture) =>
-        value is string { Length: > 0 } key ? FindResource(key) as Geometry : null;
+        value is string { Length: > 0 } key ? FindResource(key) as IImage : null;
 
     /// <inheritdoc/>
     public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) =>
@@ -54,6 +55,8 @@ internal sealed class SeverityIconConverter : IValueConverter
     /// <inheritdoc/>
     public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
+        // Tango has a dialog icon per severity, which is precisely the classic vocabulary: a red
+        // cross, a yellow triangle and a blue "i". No colour needs to be applied on top.
         var key = value is WarningSeverity severity
             ? severity switch
             {
@@ -63,37 +66,7 @@ internal sealed class SeverityIconConverter : IValueConverter
             }
             : "IconSeverityLow";
 
-        return IconLookupConverter.FindResource(key) as Geometry;
-    }
-
-    /// <inheritdoc/>
-    public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) =>
-        throw new NotSupportedException("Severity lookup is one-way.");
-}
-
-/// <summary>Maps a warning severity to the brush that colours its icon.</summary>
-internal sealed class SeverityBrushConverter : IValueConverter
-{
-    /// <summary>Shared instance, referenced from XAML.</summary>
-    public static SeverityBrushConverter Instance { get; } = new();
-
-    /// <inheritdoc/>
-    public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
-    {
-        // These are GitVault's own resources, defined per theme variant in App.axaml. Borrowing
-        // the theme's internal names instead would risk a silent miss, and a missing brush makes
-        // the icon render invisible rather than fail loudly.
-        var key = value is WarningSeverity severity
-            ? severity switch
-            {
-                WarningSeverity.High => "SeverityHighBrush",
-                WarningSeverity.Medium => "SeverityMediumBrush",
-                _ => "SeverityLowBrush",
-            }
-            : "SeverityLowBrush";
-
-        // Falling back to the inherited foreground beats painting nothing at all.
-        return IconLookupConverter.FindResource(key) as IBrush ?? (object)AvaloniaProperty.UnsetValue;
+        return IconLookupConverter.FindResource(key) as IImage;
     }
 
     /// <inheritdoc/>

@@ -87,25 +87,26 @@ pwsh build/generate-ssh-fixtures.ps1 && pwsh build/generate-ppk-fixtures.ps1
 `expected-fingerprints.tsv` records what `ssh-keygen -lf` reports for every key; the tests assert
 GitVault agrees byte for byte. The keys are throwaway material committed on purpose.
 
-## Icons
+## Interface
 
-The interface uses **Material Symbols**, licensed Apache-2.0 — one of the licences this project
-accepts, and one that imposes no attribution obligation inside the running application.
+The interface is a classic Windows desktop utility: menu bar, toolbar, navigation tree, dense
+grids, a shared properties pane, group boxes, modal dialogs and a status bar. The reference is the
+generation of administration tools it belongs beside — a management console rather than a web
+application in a window.
 
 ```bash
-pwsh build/generate-icons.ps1     # icon set -> Assets/Icons.axaml
-pwsh build/generate-appicon.ps1   # application mark -> .ico, .png, .iconset
+pwsh build/generate-classic-icons.ps1   # Tango icon set -> Assets/ClassicIcons.axaml
+pwsh build/generate-appicon.ps1         # application mark -> .ico, .png, .iconset
 ```
 
-Each symbol is a single path on a 24×24 canvas, so the generator turns it into a
-`StreamGeometry`. There is no SVG rendering dependency, and every icon inherits the theme
-foreground like any other control.
+Icons are the **Tango Icon Library 0.8.90, public domain**; the generator downloads the artwork
+and the upstream `COPYING` together, so the licence claim is checkable rather than asserted. See
+`src/GitVault.App/Assets/ClassicIcons/README.md` for why the set is raster rather than geometry.
+Nothing is fetched at runtime — the PNGs ship inside the assembly.
 
-Icons8 was the first choice and was ruled out for two reasons, recorded in
-`src/GitVault.App/Assets/Icons/README.md`: its SVG endpoint requires a paid API key and answers
-403 without one, and its free licence requires an attribution link inside the application while
-restricting redistribution of the icon files — an obligation every clone of this repository would
-inherit.
+Styling lives in `src/GitVault.App/Styles/`: one palette file and three style sheets (controls,
+data grid, chrome). They override Avalonia's Fluent templates rather than replacing them, which
+keeps the surface small enough to audit.
 
 ## Localization
 

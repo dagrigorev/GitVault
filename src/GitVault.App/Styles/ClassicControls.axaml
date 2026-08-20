@@ -1,0 +1,437 @@
+<!--
+  Classic control styling: buttons, fields, group boxes, notes, badges and text roles.
+
+  These styles set properties rather than replacing control templates wherever the template
+  already honours the property. That keeps the surface small enough to audit and means an
+  Avalonia upgrade cannot silently break a hand-copied template. Where a hover or pressed state
+  lives on an inner part — Fluent paints those on the templated child, not the control — the
+  selector reaches into the template explicitly.
+-->
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+  <!-- =============================================================== text roles -->
+
+  <Style Selector="TextBlock">
+    <Setter Property="FontSize" Value="{StaticResource ClassicFontSize}" />
+    <Setter Property="Foreground" Value="{StaticResource ClassicTextBrush}" />
+  </Style>
+
+  <Style Selector="SelectableTextBlock">
+    <Setter Property="FontSize" Value="{StaticResource ClassicFontSize}" />
+    <Setter Property="Foreground" Value="{StaticResource ClassicTextBrush}" />
+  </Style>
+
+  <Style Selector="TextBlock.pageTitle">
+    <Setter Property="FontSize" Value="16" />
+    <Setter Property="FontWeight" Value="Bold" />
+  </Style>
+
+  <Style Selector="TextBlock.pageSubtitle">
+    <Setter Property="Foreground" Value="{StaticResource ClassicDimTextBrush}" />
+    <Setter Property="TextWrapping" Value="Wrap" />
+  </Style>
+
+  <Style Selector="TextBlock.sectionHeader">
+    <Setter Property="FontWeight" Value="Bold" />
+    <Setter Property="Margin" Value="0,0,0,4" />
+  </Style>
+
+  <Style Selector="TextBlock.dim">
+    <Setter Property="Foreground" Value="{StaticResource ClassicDimTextBrush}" />
+  </Style>
+
+  <Style Selector="TextBlock.mono, SelectableTextBlock.mono">
+    <Setter Property="FontFamily" Value="{StaticResource ClassicMonoFontFamily}" />
+    <Setter Property="FontSize" Value="{StaticResource ClassicSmallFontSize}" />
+  </Style>
+
+  <Style Selector="TextBlock.added">
+    <Setter Property="Foreground" Value="{StaticResource ClassicAddBrush}" />
+  </Style>
+
+  <Style Selector="TextBlock.removed">
+    <Setter Property="Foreground" Value="{StaticResource ClassicRemoveBrush}" />
+  </Style>
+
+  <!-- =============================================================== buttons -->
+
+  <Style Selector="Button">
+    <Setter Property="MinHeight" Value="23" />
+    <Setter Property="Padding" Value="12,3" />
+    <Setter Property="CornerRadius" Value="2" />
+    <Setter Property="FontSize" Value="{StaticResource ClassicFontSize}" />
+    <Setter Property="Background" Value="{StaticResource ClassicButtonBrush}" />
+    <Setter Property="BorderBrush" Value="{StaticResource ClassicBorderBrush}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="Foreground" Value="{StaticResource ClassicTextBrush}" />
+    <Setter Property="HorizontalContentAlignment" Value="Center" />
+  </Style>
+
+  <Style Selector="Button:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+    <Setter Property="Background" Value="{StaticResource ClassicButtonHoverBrush}" />
+    <Setter Property="BorderBrush" Value="#3C7FB1" />
+    <Setter Property="Foreground" Value="{StaticResource ClassicTextBrush}" />
+  </Style>
+
+  <Style Selector="Button:pressed /template/ ContentPresenter#PART_ContentPresenter">
+    <Setter Property="Background" Value="{StaticResource ClassicButtonPressedBrush}" />
+    <Setter Property="BorderBrush" Value="#3C7FB1" />
+  </Style>
+
+  <Style Selector="Button:disabled /template/ ContentPresenter#PART_ContentPresenter">
+    <Setter Property="Background" Value="{StaticResource ClassicFaceAltBrush}" />
+    <Setter Property="BorderBrush" Value="{StaticResource ClassicSoftBorderBrush}" />
+    <Setter Property="Foreground" Value="{StaticResource ClassicDisabledTextBrush}" />
+  </Style>
+
+  <!-- The default action of a dialog, drawn the way a classic default button is. -->
+  <Style Selector="Button.primary">
+    <Setter Property="BorderBrush" Value="#2D6E9E" />
+    <Setter Property="Background">
+      <LinearGradientBrush StartPoint="0%,0%" EndPoint="0%,100%">
+        <GradientStop Offset="0" Color="#FAFDFF" />
+        <GradientStop Offset="1" Color="#CFEAFF" />
+      </LinearGradientBrush>
+    </Setter>
+  </Style>
+
+  <Style Selector="Button.danger">
+    <Setter Property="Foreground" Value="#8C1C14" />
+  </Style>
+
+  <!--
+    Toolbar buttons: a 20px icon over a 10px caption, flat until hovered. The border is present
+    but transparent so hovering does not shift the layout by a pixel.
+  -->
+  <Style Selector="Button.tool">
+    <Setter Property="MinWidth" Value="44" />
+    <Setter Property="Height" Value="40" />
+    <Setter Property="Padding" Value="7,2" />
+    <Setter Property="CornerRadius" Value="0" />
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="BorderBrush" Value="Transparent" />
+    <Setter Property="BorderThickness" Value="1" />
+  </Style>
+
+  <Style Selector="Button.tool:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+    <Setter Property="Background">
+      <LinearGradientBrush StartPoint="0%,0%" EndPoint="0%,100%">
+        <GradientStop Offset="0" Color="#FFFFFF" />
+        <GradientStop Offset="1" Color="#DBEEFB" />
+      </LinearGradientBrush>
+    </Setter>
+    <Setter Property="BorderBrush" Value="{StaticResource ClassicToolHoverBorderBrush}" />
+  </Style>
+
+  <Style Selector="Button.tool:pressed /template/ ContentPresenter#PART_ContentPresenter">
+    <Setter Property="Background" Value="{StaticResource ClassicToolPressedBrush}" />
+  </Style>
+
+  <Style Selector="Button.tool:disabled /template/ ContentPresenter#PART_ContentPresenter">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="BorderBrush" Value="Transparent" />
+  </Style>
+
+  <!-- A disabled tool fades whole, icon included, the way a Win32 toolbar dims a command. -->
+  <Style Selector="Button.tool:disabled">
+    <Setter Property="Opacity" Value="0.43" />
+  </Style>
+
+  <Style Selector="Button.tool TextBlock">
+    <Setter Property="FontSize" Value="10" />
+    <Setter Property="HorizontalAlignment" Value="Center" />
+  </Style>
+
+  <!--
+    Icon sizes. Rasters, so the sizes are the ones the artwork was drawn for: the source PNGs are
+    64px and every size below is an exact or near-exact division of it.
+
+    Interpolation is left to the renderer. RenderOptions.BitmapInterpolationMode cannot be set
+    from a style in Avalonia 11 — the XAML compiler cannot resolve the attached property from a
+    Setter — so the views that need it set it inline.
+  -->
+  <Style Selector="Image.icon16">
+    <Setter Property="Width" Value="16" />
+    <Setter Property="Height" Value="16" />
+  </Style>
+
+  <Style Selector="Image.icon20">
+    <Setter Property="Width" Value="20" />
+    <Setter Property="Height" Value="20" />
+  </Style>
+
+  <Style Selector="Image.icon24">
+    <Setter Property="Width" Value="24" />
+    <Setter Property="Height" Value="24" />
+  </Style>
+
+  <Style Selector="Image.icon32">
+    <Setter Property="Width" Value="32" />
+    <Setter Property="Height" Value="32" />
+  </Style>
+
+  <!-- =============================================================== fields -->
+
+  <Style Selector="TextBox">
+    <Setter Property="MinHeight" Value="23" />
+    <Setter Property="Height" Value="23" />
+    <Setter Property="Padding" Value="5,2" />
+    <Setter Property="CornerRadius" Value="0" />
+    <Setter Property="FontSize" Value="{StaticResource ClassicFontSize}" />
+    <Setter Property="Background" Value="{StaticResource ClassicWindowBrush}" />
+    <Setter Property="BorderBrush" Value="{StaticResource ClassicFieldBorderBrush}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="Foreground" Value="{StaticResource ClassicTextBrush}" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+  </Style>
+
+  <Style Selector="TextBox.multiline">
+    <Setter Property="Height" Value="NaN" />
+    <Setter Property="VerticalContentAlignment" Value="Top" />
+  </Style>
+
+  <Style Selector="TextBox /template/ Border#PART_BorderElement">
+    <Setter Property="CornerRadius" Value="0" />
+    <Setter Property="Background" Value="{StaticResource ClassicWindowBrush}" />
+    <Setter Property="BorderBrush" Value="{StaticResource ClassicFieldBorderBrush}" />
+  </Style>
+
+  <Style Selector="TextBox:pointerover /template/ Border#PART_BorderElement">
+    <Setter Property="BorderBrush" Value="#3C7FB1" />
+    <Setter Property="Background" Value="{StaticResource ClassicWindowBrush}" />
+  </Style>
+
+  <Style Selector="TextBox:focus /template/ Border#PART_BorderElement">
+    <Setter Property="BorderBrush" Value="#2D6E9E" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="Background" Value="{StaticResource ClassicWindowBrush}" />
+  </Style>
+
+  <Style Selector="ComboBox">
+    <Setter Property="MinHeight" Value="23" />
+    <Setter Property="Height" Value="23" />
+    <Setter Property="Padding" Value="5,1" />
+    <Setter Property="CornerRadius" Value="0" />
+    <Setter Property="FontSize" Value="{StaticResource ClassicFontSize}" />
+    <Setter Property="Background" Value="{StaticResource ClassicButtonBrush}" />
+    <Setter Property="BorderBrush" Value="{StaticResource ClassicFieldBorderBrush}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="Foreground" Value="{StaticResource ClassicTextBrush}" />
+    <Setter Property="VerticalContentAlignment" Value="Center" />
+  </Style>
+
+  <Style Selector="ComboBox /template/ Border#Background">
+    <Setter Property="CornerRadius" Value="0" />
+  </Style>
+
+  <Style Selector="ComboBoxItem">
+    <Setter Property="MinHeight" Value="21" />
+    <Setter Property="Padding" Value="6,2" />
+    <Setter Property="CornerRadius" Value="0" />
+    <Setter Property="FontSize" Value="{StaticResource ClassicFontSize}" />
+  </Style>
+
+  <Style Selector="ComboBoxItem:selected /template/ ContentPresenter">
+    <Setter Property="Background" Value="{StaticResource ClassicSelectionBrush}" />
+    <Setter Property="Foreground" Value="{StaticResource ClassicSelectionTextBrush}" />
+  </Style>
+
+  <Style Selector="CheckBox">
+    <Setter Property="MinHeight" Value="20" />
+    <Setter Property="FontSize" Value="{StaticResource ClassicFontSize}" />
+    <Setter Property="Foreground" Value="{StaticResource ClassicTextBrush}" />
+  </Style>
+
+  <!-- Fluent dims a check box's own content; a classic one is as readable as any other label. -->
+  <Style Selector="CheckBox /template/ ContentPresenter">
+    <Setter Property="TextElement.Foreground" Value="{StaticResource ClassicTextBrush}" />
+  </Style>
+
+  <Style Selector="CheckBox:disabled /template/ ContentPresenter">
+    <Setter Property="TextElement.Foreground" Value="{StaticResource ClassicDisabledTextBrush}" />
+  </Style>
+
+  <Style Selector="CheckBox /template/ Border#NormalRectangle">
+    <Setter Property="CornerRadius" Value="0" />
+    <Setter Property="Width" Value="14" />
+    <Setter Property="Height" Value="14" />
+    <Setter Property="BorderBrush" Value="{StaticResource ClassicFieldBorderBrush}" />
+  </Style>
+
+  <!-- =============================================================== containers -->
+
+  <!--
+    A group box: a bordered panel whose caption sits astride the top border. Two elements rather
+    than one control, because Avalonia has no GroupBox and a HeaderedContentControl template
+    would be more code than the two-line composition the views use.
+  -->
+  <Style Selector="Border.group">
+    <Setter Property="BorderBrush" Value="#8D8D8D" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="Background" Value="{StaticResource ClassicFaceBrush}" />
+    <Setter Property="Padding" Value="7,11,7,7" />
+    <Setter Property="Margin" Value="0,7,0,0" />
+    <Setter Property="CornerRadius" Value="0" />
+  </Style>
+
+  <Style Selector="TextBlock.groupTitle">
+    <Setter Property="FontWeight" Value="Bold" />
+    <Setter Property="Background" Value="{StaticResource ClassicFaceBrush}" />
+    <Setter Property="Margin" Value="8,-1,0,0" />
+    <Setter Property="Padding" Value="4,0" />
+    <Setter Property="HorizontalAlignment" Value="Left" />
+    <Setter Property="VerticalAlignment" Value="Top" />
+  </Style>
+
+  <!-- A sunken white content area: grids, lists, diffs. -->
+  <Style Selector="Border.panelWhite">
+    <Setter Property="Background" Value="{StaticResource ClassicWindowBrush}" />
+    <Setter Property="BorderBrush" Value="#8A8A8A" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="CornerRadius" Value="0" />
+  </Style>
+
+  <!-- The properties pane and other face-coloured detail panels. -->
+  <Style Selector="Border.detail">
+    <Setter Property="Background" Value="{StaticResource ClassicFaceBrush}" />
+    <Setter Property="BorderBrush" Value="#8D8D8D" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="Padding" Value="8" />
+    <Setter Property="CornerRadius" Value="0" />
+  </Style>
+
+  <!-- Notes: the classic information bar, in three severities. -->
+  <Style Selector="Border.note">
+    <Setter Property="Background" Value="{StaticResource ClassicNoteBackgroundBrush}" />
+    <Setter Property="BorderBrush" Value="{StaticResource ClassicNoteBorderBrush}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="Padding" Value="8,7" />
+    <Setter Property="Margin" Value="0,7,0,0" />
+    <Setter Property="CornerRadius" Value="0" />
+  </Style>
+
+  <Style Selector="Border.note.warn">
+    <Setter Property="Background" Value="{StaticResource ClassicNoteWarnBackgroundBrush}" />
+    <Setter Property="BorderBrush" Value="{StaticResource ClassicNoteWarnBorderBrush}" />
+  </Style>
+
+  <Style Selector="Border.note.error">
+    <Setter Property="Background" Value="{StaticResource ClassicNoteErrorBackgroundBrush}" />
+    <Setter Property="BorderBrush" Value="{StaticResource ClassicNoteErrorBorderBrush}" />
+  </Style>
+
+  <!-- Badges: a one-word state, boxed. -->
+  <Style Selector="Border.badge">
+    <Setter Property="BorderBrush" Value="#8D8D8D" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="Background" Value="{StaticResource ClassicWindowBrush}" />
+    <Setter Property="Padding" Value="5,1" />
+    <Setter Property="CornerRadius" Value="2" />
+    <Setter Property="HorizontalAlignment" Value="Left" />
+  </Style>
+
+  <Style Selector="Border.badge.ok">
+    <Setter Property="Background" Value="{StaticResource ClassicBadgeOkBackgroundBrush}" />
+    <Setter Property="BorderBrush" Value="{StaticResource ClassicBadgeOkBorderBrush}" />
+  </Style>
+
+  <Style Selector="Border.badge.ok TextBlock">
+    <Setter Property="Foreground" Value="{StaticResource ClassicOkBrush}" />
+  </Style>
+
+  <Style Selector="Border.badge.warn">
+    <Setter Property="Background" Value="{StaticResource ClassicBadgeWarnBackgroundBrush}" />
+    <Setter Property="BorderBrush" Value="{StaticResource ClassicBadgeWarnBorderBrush}" />
+  </Style>
+
+  <Style Selector="Border.badge.warn TextBlock">
+    <Setter Property="Foreground" Value="{StaticResource ClassicWarnBrush}" />
+  </Style>
+
+  <Style Selector="Border.badge.dim">
+    <Setter Property="Background" Value="{StaticResource ClassicBadgeDimBackgroundBrush}" />
+  </Style>
+
+  <Style Selector="Border.badge.dim TextBlock">
+    <Setter Property="Foreground" Value="{StaticResource ClassicDimTextBrush}" />
+  </Style>
+
+  <!-- Summary cards on the overview: small, bordered, not floating. -->
+  <Style Selector="Border.summaryCard">
+    <Setter Property="BorderBrush" Value="#999999" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="Padding" Value="9" />
+    <Setter Property="MinHeight" Value="72" />
+    <Setter Property="CornerRadius" Value="0" />
+    <Setter Property="Background">
+      <LinearGradientBrush StartPoint="0%,0%" EndPoint="0%,100%">
+        <GradientStop Offset="0" Color="#FFFFFF" />
+        <GradientStop Offset="1" Color="#EFEFEF" />
+      </LinearGradientBrush>
+    </Setter>
+  </Style>
+
+  <Style Selector="TextBlock.cardNumber">
+    <Setter Property="FontSize" Value="21" />
+    <Setter Property="FontWeight" Value="Bold" />
+    <Setter Property="Margin" Value="0,5,0,0" />
+  </Style>
+
+  <!-- The status bar's sunken cells. -->
+  <Style Selector="Border.statusCell">
+    <Setter Property="BorderBrush" Value="{StaticResource ClassicSoftBorderBrush}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="Padding" Value="6,1" />
+    <Setter Property="CornerRadius" Value="0" />
+  </Style>
+
+  <!-- =============================================================== lists -->
+
+  <Style Selector="ListBox">
+    <Setter Property="Background" Value="{StaticResource ClassicWindowBrush}" />
+    <Setter Property="BorderBrush" Value="{StaticResource ClassicFieldBorderBrush}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="CornerRadius" Value="0" />
+    <Setter Property="Padding" Value="0" />
+  </Style>
+
+  <Style Selector="ListBoxItem">
+    <Setter Property="MinHeight" Value="24" />
+    <Setter Property="Padding" Value="4,2" />
+    <Setter Property="CornerRadius" Value="0" />
+    <Setter Property="FontSize" Value="{StaticResource ClassicFontSize}" />
+  </Style>
+
+  <Style Selector="ListBoxItem:pointerover /template/ ContentPresenter">
+    <Setter Property="Background" Value="{StaticResource ClassicHoverBrush}" />
+  </Style>
+
+  <Style Selector="ListBoxItem:selected /template/ ContentPresenter">
+    <Setter Property="Background" Value="{StaticResource ClassicSelectionBrush}" />
+    <Setter Property="Foreground" Value="{StaticResource ClassicSelectionTextBrush}" />
+  </Style>
+
+  <Style Selector="ListBoxItem:selected TextBlock">
+    <Setter Property="Foreground" Value="{StaticResource ClassicSelectionTextBrush}" />
+  </Style>
+
+  <!-- =============================================================== splitter -->
+
+  <Style Selector="GridSplitter">
+    <Setter Property="Background" Value="{StaticResource ClassicFaceBrush}" />
+    <Setter Property="Width" Value="5" />
+  </Style>
+
+  <Style Selector="GridSplitter.horizontal">
+    <Setter Property="Width" Value="NaN" />
+    <Setter Property="Height" Value="5" />
+  </Style>
+
+  <!-- =============================================================== scrollbars -->
+
+  <Style Selector="ScrollViewer">
+    <Setter Property="Background" Value="Transparent" />
+  </Style>
+
+</Styles>

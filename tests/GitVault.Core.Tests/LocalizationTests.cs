@@ -81,6 +81,13 @@ public sealed class LocalizationTests
             Keys.Vault_SecretService,
             Keys.Vault_KWallet,
             Keys.Identities_NameAndEmail,
+
+            // "Git" is the product's own name in all three languages, so the label of the row
+            // naming the located git binary is legitimately identical everywhere.
+            Keys.Dashboard_Detail_Git,
+
+            // A snapshot number is a format string around a digit sequence.
+            Keys.Snapshots_Number,
         ];
 
         var service = new LocalizationService(new CldrPluralizer());
@@ -119,9 +126,9 @@ public sealed class LocalizationTests
         service.SetCulture(Cultures[2]);
         var chinese = service.Get(Keys.Nav_Settings);
 
-        english.Should().Be("Settings");
+        english.Should().Be("Options");
         russian.Should().Be("Параметры");
-        chinese.Should().Be("设置");
+        chinese.Should().Be("选项");
     }
 
     [Fact]

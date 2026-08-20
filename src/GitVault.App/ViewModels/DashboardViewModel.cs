@@ -2,6 +2,7 @@ using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using GitVault.App.Services;
 using GitVault.Core.Abstractions;
+using GitVault.Core.Git;
 using GitVault.Core.Discovery;
 using GitVault.Core.Models;
 using GitVault.Localization;
@@ -69,6 +70,14 @@ internal sealed class WarningRow(Localizer localizer, KeyWarning warning) : Obse
     /// <summary>Localized explanation, shown behind "What does this mean?".</summary>
     public string Body => L[WarningKeys.Body(warning.Code)];
 
+    /// <summary>Localized severity name, for the properties pane.</summary>
+    public string SeverityCaption => L[Severity switch
+    {
+        WarningSeverity.High => Keys.Severity_High,
+        WarningSeverity.Medium => Keys.Severity_Medium,
+        _ => Keys.Severity_Low,
+    }];
+
     /// <summary>Re-reads the localized members. Called when the culture changes.</summary>
     internal void RefreshCaptions() =>
         OnPropertyChanged(new System.ComponentModel.PropertyChangedEventArgs(string.Empty));
@@ -80,24 +89,31 @@ internal sealed partial class DashboardViewModel : PageViewModel
     private readonly IPlatformInfo _platformInfo;
     private readonly IPlatformPaths _paths;
     private readonly IGitConfigService _gitConfig;
+    private readonly IEffectiveIdentityResolver _resolver;
     private readonly ScanCoordinator _scans;
+
+    [ObservableProperty]
+    private WarningRow? _selectedWarning;
 
     public DashboardViewModel(
         Localizer localizer,
         IPlatformInfo platformInfo,
         IPlatformPaths paths,
         IGitConfigService gitConfig,
+        IEffectiveIdentityResolver resolver,
         ScanCoordinator scans)
         : base(localizer)
     {
         ArgumentNullException.ThrowIfNull(platformInfo);
         ArgumentNullException.ThrowIfNull(paths);
         ArgumentNullException.ThrowIfNull(gitConfig);
+        ArgumentNullException.ThrowIfNull(resolver);
         ArgumentNullException.ThrowIfNull(scans);
 
         _platformInfo = platformInfo;
         _paths = paths;
         _gitConfig = gitConfig;
+        _resolver = resolver;
         _scans = scans;
 
         Cards =
@@ -117,7 +133,10 @@ internal sealed partial class DashboardViewModel : PageViewModel
     public override string TitleKey => Keys.Dashboard_Title;
 
     /// <inheritdoc/>
-    public override string IconKey => "IconDashboard";
+    public override string SubtitleKey => Keys.Dashboard_Subtitle;
+
+    /// <inheritdoc/>
+    public override string IconKey => "IconOverview";
 
     /// <summary>Summary tiles, in display order.</summary>
     public ObservableCollection<SummaryCard> Cards { get; }
@@ -153,9 +172,34 @@ internal sealed partial class DashboardViewModel : PageViewModel
         Keys.Dashboard_ScanDuration,
         (long)Math.Round(_scans.Report.Duration.TotalMilliseconds));
 
+    /// <summary>Effective identity settings, as the overview lists them.</summary>
+    public ObservableCollection<EffectiveSettingRow> EffectiveSettings { get; } = [];
+
+    /// <summary>True once the effective identity has been resolved.</summary>
+    public bool HasEffectiveSettings => EffectiveSettings.Count > 0;
+
+    /// <inheritdoc/>
+    public override async Task OnActivatedAsync(CancellationToken cancellationToken)
+    {
+        // Which identity actually wins is the overview's most useful fact, and it is a question
+        // about configuration rather than about the scan, so it is resolved here directly.
+        var effective = await _resolver.ResolveAsync(null, cancellationToken).ConfigureAwait(true);
+
+        EffectiveSettings.Clear();
+        foreach (var setting in effective.All)
+        {
+            EffectiveSettings.Add(new EffectiveSettingRow(L, setting));
+        }
+
+        RebuildProperties();
+        OnPropertyChanged(nameof(HasEffectiveSettings));
+    }
+
     /// <inheritdoc/>
     protected override void OnCultureChanged()
     {
+        base.OnCultureChanged();
+
         foreach (var card in Cards)
         {
             card.RefreshCaptions();
@@ -165,6 +209,43 @@ internal sealed partial class DashboardViewModel : PageViewModel
         {
             warning.RefreshCaptions();
         }
+
+        foreach (var setting in EffectiveSettings)
+        {
+            setting.RefreshCaptions();
+        }
+
+        RebuildProperties();
+    }
+
+    partial void OnSelectedWarningChanged(WarningRow? value)
+    {
+        _ = value;
+        RebuildProperties();
+    }
+
+    /// <summary>Fills the properties pane from the machine and the selected finding.</summary>
+    private void RebuildProperties()
+    {
+        var entries = new List<PropertyEntry>
+        {
+            Property(Keys.Dashboard_Detail_Platform, OsDescription),
+            Property(Keys.Dashboard_Detail_Architecture, Architecture),
+            Property(Keys.Dashboard_Detail_Git, GitDescription),
+            Property(Keys.Dashboard_Detail_AppData, AppDataDirectory, PropertyStyle.Mono),
+        };
+
+        if (SelectedWarning is { } warning)
+        {
+            entries.Add(Property(Keys.Dashboard_Detail_Finding, warning.Title));
+            entries.Add(Property(Keys.Dashboard_Detail_Subject, warning.Subject, PropertyStyle.Mono));
+            entries.Add(Property(
+                Keys.Dashboard_Detail_Severity,
+                warning.SeverityCaption,
+                warning.Severity == WarningSeverity.High ? PropertyStyle.BadgeWarn : PropertyStyle.Badge));
+        }
+
+        SetProperties(entries);
     }
 
     /// <inheritdoc/>
@@ -199,7 +280,11 @@ internal sealed partial class DashboardViewModel : PageViewModel
             Warnings.Add(new WarningRow(L, warning));
         }
 
+        SelectedWarning = Warnings.FirstOrDefault();
+        RebuildProperties();
+
         OnPropertyChanged(nameof(HasNoScan));
+        OnPropertyChanged(nameof(HasEffectiveSettings));
         OnPropertyChanged(nameof(WarningCountCaption));
         OnPropertyChanged(nameof(ScanDurationCaption));
         OnPropertyChanged(nameof(GitDescription));

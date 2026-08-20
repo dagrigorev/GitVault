@@ -103,6 +103,9 @@ internal sealed partial class CredentialsViewModel : ListPageViewModel
     public override string TitleKey => Keys.Credentials_Title;
 
     /// <inheritdoc/>
+    public override string SubtitleKey => Keys.Credentials_Subtitle;
+
+    /// <inheritdoc/>
     public override string IconKey => "IconCredentials";
 
     public override string EmptyKey => Keys.Credentials_Empty;
@@ -194,6 +197,19 @@ internal sealed partial class CredentialsViewModel : ListPageViewModel
         }
     }
 
+
+    /// <inheritdoc/>
+    internal override void EnsureSelection()
+    {
+        if (Rows.Count == 0)
+        {
+            return;
+        }
+
+        var current = SelectedRow;
+        SelectedRow = null;
+        SelectedRow = current ?? Rows[0];
+    }
     /// <inheritdoc/>
     protected override void OnCultureChanged()
     {
@@ -310,10 +326,56 @@ internal sealed partial class CredentialsViewModel : ListPageViewModel
 
     partial void OnSelectedRowChanged(CredentialRow? value)
     {
+        // A DataGrid pushes null back through the binding when it is first attached. A classic
+        // list always has a current item, so re-assert the first row instead of letting the
+        // properties pane blank itself the moment the page is shown.
+        if (value is null && Rows.Count > 0)
+        {
+            SelectedRow = Rows[0];
+            return;
+        }
+
         _ = value;
 
         // Changing rows must never leave the previous row's secret on screen.
         HideSecret();
         RevealConfirmationPending = false;
+
+        RebuildProperties();
+    }
+
+    /// <summary>
+    /// Fills the properties pane for the selected credential.
+    /// </summary>
+    /// <remarks>
+    /// The secret is never among these entries, revealed or not. The pane says whether the store
+    /// keeps the value in the clear and whether GitVault can read it at all; reading it stays a
+    /// separate, confirmed, time-limited action on the page itself.
+    /// </remarks>
+    private void RebuildProperties()
+    {
+        if (SelectedRow is not { } row)
+        {
+            SetProperties([]);
+            return;
+        }
+
+        var entries = new List<PropertyEntry>
+        {
+            Property(Keys.Credentials_Column_Vault, row.Vault),
+            Property(Keys.Credentials_Column_Host, row.Host),
+            Property(Keys.Credentials_Column_Protocol, row.Protocol),
+            Property(Keys.Credentials_Column_UserName, row.UserName),
+            Property(Keys.Credentials_Column_Client, row.OwningClient),
+            Property(Keys.Credentials_Detail_Target, row.Target, PropertyStyle.Mono),
+            Property(Keys.Credentials_Column_LastWrite, row.LastWrite),
+            Property(
+                Keys.Credentials_Detail_Storage,
+                L[row.IsPlaintext ? Keys.Credentials_PlaintextBadge : Keys.Credentials_ProtectedBadge],
+                row.IsPlaintext ? PropertyStyle.BadgeWarn : PropertyStyle.BadgeOk),
+            Property(Keys.Credentials_Detail_SecretValue, L[Keys.Credentials_NotRead], PropertyStyle.Badge),
+        };
+
+        SetProperties(entries);
     }
 }

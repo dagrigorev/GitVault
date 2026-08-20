@@ -1,0 +1,84 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:loc="using:GitVault.App.Markup"
+             x:Class="GitVault.App.Views.PlanReviewView">
+  <StackPanel Spacing="0">
+
+    <!-- The first thing on screen is the fact that nothing has happened yet. -->
+    <Border Classes="note warn" Margin="0,0,0,7">
+      <StackPanel Orientation="Horizontal" Spacing="7">
+        <Image Classes="icon20" Source="{StaticResource IconSeverityMedium}" VerticalAlignment="Top" />
+        <StackPanel Spacing="2" MaxWidth="540">
+          <TextBlock FontWeight="Bold" Text="{Binding NothingWrittenCaption}" TextWrapping="Wrap" />
+          <TextBlock Classes="dim" TextWrapping="Wrap" Text="{loc:Tr Dialog_ReviewBeforeApply}" />
+        </StackPanel>
+      </StackPanel>
+    </Border>
+
+    <Grid ColumnDefinitions="130,*" RowDefinitions="Auto,Auto,Auto,Auto" Margin="0,0,0,7">
+      <TextBlock Grid.Row="0" Grid.Column="0" Classes="dim" Margin="0,2" Text="{loc:Tr Profiles_Column_Name}" />
+      <TextBlock Grid.Row="0" Grid.Column="1" Margin="0,2" FontWeight="Bold" Text="{Binding ProfileName}" />
+
+      <TextBlock Grid.Row="1" Grid.Column="0" Classes="dim" Margin="0,2" Text="{loc:Tr Dialog_TargetScope}" />
+      <TextBlock Grid.Row="1" Grid.Column="1" Margin="0,2" FontWeight="Bold" Text="{Binding ScopeLabel}" />
+
+      <TextBlock Grid.Row="2" Grid.Column="0" Classes="dim" Margin="0,2"
+                 IsVisible="{Binding HasRepository}" Text="{loc:Tr Profiles_Repository}" />
+      <TextBlock Grid.Row="2" Grid.Column="1" Classes="mono" Margin="0,2"
+                 IsVisible="{Binding HasRepository}" Text="{Binding RepositoryPath}" TextWrapping="Wrap" />
+
+      <TextBlock Grid.Row="3" Grid.Column="0" Classes="dim" Margin="0,2" Text="{loc:Tr Dialog_Snapshot}" />
+      <TextBlock Grid.Row="3" Grid.Column="1" Margin="0,2" Text="{Binding SnapshotCaption}" TextWrapping="Wrap" />
+    </Grid>
+
+    <TextBlock Classes="sectionHeader" Text="{loc:Tr Profiles_PlannedChanges}" />
+
+    <Border Classes="diff">
+      <ItemsControl ItemsSource="{Binding Lines}">
+        <ItemsControl.ItemTemplate>
+          <DataTemplate>
+            <!-- Conditional classes rather than a converter: the colours already exist as styles. -->
+            <TextBlock Classes="mono"
+                       Classes.added="{Binding IsAddition}"
+                       Classes.removed="{Binding IsRemoval}"
+                       Text="{Binding Text}"
+                       TextWrapping="NoWrap" />
+          </DataTemplate>
+        </ItemsControl.ItemTemplate>
+      </ItemsControl>
+    </Border>
+
+    <Border Classes="note" IsVisible="{Binding IsNoOp}">
+      <TextBlock TextWrapping="Wrap" Text="{loc:Tr Profiles_NothingToDo}" />
+    </Border>
+
+    <Border Classes="note error" IsVisible="{Binding HasBlockers}">
+      <StackPanel Orientation="Horizontal" Spacing="7">
+        <Image Classes="icon20" Source="{StaticResource IconSeverityHigh}" VerticalAlignment="Top" />
+        <StackPanel Spacing="2" MaxWidth="540">
+          <TextBlock FontWeight="Bold" Text="{loc:Tr Dialog_PlanBlocked}" />
+          <ItemsControl ItemsSource="{Binding Blockers}">
+            <ItemsControl.ItemTemplate>
+              <DataTemplate>
+                <TextBlock Text="{Binding}" TextWrapping="Wrap" />
+              </DataTemplate>
+            </ItemsControl.ItemTemplate>
+          </ItemsControl>
+        </StackPanel>
+      </StackPanel>
+    </Border>
+
+    <!--
+      The guarantees the plan makes, stated where the user is deciding rather than in the manual:
+      a snapshot precedes the write, permissions are preserved, and no secret reaches a command
+      line. Each is a property the activation engine actually holds and the tests assert.
+    -->
+    <Border Classes="note" Margin="0,7,0,0">
+      <StackPanel Spacing="2" MaxWidth="560">
+        <TextBlock Text="{loc:Tr Dialog_Guarantee_Permissions}" TextWrapping="Wrap" />
+        <TextBlock Text="{loc:Tr Dialog_Guarantee_NoSecrets}" TextWrapping="Wrap" />
+      </StackPanel>
+    </Border>
+
+  </StackPanel>
+</UserControl>

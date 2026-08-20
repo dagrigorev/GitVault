@@ -49,7 +49,70 @@ public sealed class SettingsServiceTests : IDisposable
         reloaded.Language.Should().Be("ru-RU");
         reloaded.Theme.Should().Be(ThemePreference.Dark);
         reloaded.DryRunByDefault.Should().BeFalse();
-        reloaded.CustomKeyDirectories.Should().ContainSingle().Which.Should().Be("/home/user/keys");
+        // The legacy bare-path list is migrated on load, so what comes back is the structured
+        // entry rather than the string that was written.
+        reloaded.CustomKeyDirectories.Should().BeEmpty();
+        reloaded.KeyFolders.Should().ContainSingle()
+            .Which.Should().BeEquivalentTo(new { Path = "/home/user/keys", Mode = KeyFolderMode.PrivateAndPublic, Enabled = true });
+    }
+
+    [Fact]
+    public void Legacy_bare_paths_migrate_into_the_structured_lists()
+    {
+        var settings = new AppSettings
+        {
+            RepositoryScanRoots = ["/src", "/archive"],
+            CustomKeyDirectories = ["/keys"],
+        };
+
+        settings.MigrateLegacyEntries().Should().BeTrue();
+
+        settings.ScanRoots.Select(r => r.Path).Should().Equal("/src", "/archive");
+        settings.ScanRoots.Should().OnlyContain(r => r.Enabled && r.Depth == ScanDepth.Recursive);
+        settings.KeyFolders.Should().ContainSingle().Which.Path.Should().Be("/keys");
+        settings.RepositoryScanRoots.Should().BeEmpty();
+        settings.CustomKeyDirectories.Should().BeEmpty();
+    }
+
+    [Fact]
+    public void Migration_keeps_what_the_user_has_since_configured()
+    {
+        // A path already present structurally must not be reset to defaults by a stale legacy
+        // entry: the user may have disabled it or made it top-level only.
+        var settings = new AppSettings
+        {
+            RepositoryScanRoots = ["/src"],
+            ScanRoots = [new ScanRoot { Path = "/src", Depth = ScanDepth.TopLevel, Enabled = false }],
+        };
+
+        settings.MigrateLegacyEntries();
+
+        settings.ScanRoots.Should().ContainSingle()
+            .Which.Should().BeEquivalentTo(new { Path = "/src", Depth = ScanDepth.TopLevel, Enabled = false });
+    }
+
+    [Fact]
+    public void Only_enabled_entries_reach_the_scanners()
+    {
+        var settings = new AppSettings
+        {
+            ScanRoots =
+            [
+                new ScanRoot { Path = "/deep" },
+                new ScanRoot { Path = "/shallow", Depth = ScanDepth.TopLevel },
+                new ScanRoot { Path = "/off", Enabled = false },
+                new ScanRoot { Path = "   " },
+            ],
+            KeyFolders =
+            [
+                new KeyFolder { Path = "/keys" },
+                new KeyFolder { Path = "/disabled", Enabled = false },
+            ],
+        };
+
+        settings.EnabledRecursiveScanRoots.Should().Equal("/deep");
+        settings.EnabledTopLevelScanRoots.Should().Equal("/shallow");
+        settings.EnabledKeyDirectories.Should().Equal("/keys");
     }
 
     [Fact]

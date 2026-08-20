@@ -23,6 +23,16 @@ internal static class DisplayNames
         _ => Keys.Scope_Unknown,
     };
 
+    /// <summary>Resource key for an activation scope.</summary>
+    /// <param name="scope">Scope to name.</param>
+    /// <returns>A resource key.</returns>
+    internal static string ScopeKey(ActivationScope scope) => scope switch
+    {
+        ActivationScope.System => Keys.Profiles_Scope_System,
+        ActivationScope.Repository => Keys.Profiles_Scope_Repository,
+        _ => Keys.Profiles_Scope_Global,
+    };
+
     /// <summary>Resource key for a credential store.</summary>
     /// <param name="kind">Vault kind to name.</param>
     /// <returns>A resource key.</returns>

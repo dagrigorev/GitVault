@@ -1,90 +1,308 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:loc="using:GitVault.App.Markup"
+        xmlns:v="using:GitVault.App.Views"
         x:Class="GitVault.App.Views.MainWindow"
         Title="{Binding WindowTitle}"
         Icon="avares://GitVault/Assets/gitvault.ico"
-        FontFamily="{StaticResource AppFontFamily}"
+        FontFamily="{StaticResource ClassicFontFamily}"
+        FontSize="{StaticResource ClassicFontSize}"
+        Background="{StaticResource ClassicFaceBrush}"
         Width="1180" Height="760"
         MinWidth="1024" MinHeight="720"
         WindowStartupLocation="CenterScreen">
 
-  <Grid ColumnDefinitions="220,*">
+  <!--
+    The classic five-band layout: menu, toolbar, content, status bar. Each band is a fixed-height
+    row and the content is the only one that grows, which is what makes the window read as an
+    administration utility rather than a page with chrome bolted on.
+  -->
+  <DockPanel>
 
-    <!-- Navigation rail -->
-    <Border Grid.Column="0"
-            Background="{DynamicResource LayerFillColorDefaultBrush}"
-            BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}"
-            BorderThickness="0,0,1,0">
-      <DockPanel Margin="8">
-        <StackPanel DockPanel.Dock="Top" Margin="8,12,8,16" Spacing="2">
-          <StackPanel Orientation="Horizontal" Spacing="10">
-            <Image Source="avares://GitVault/Assets/gitvault.png"
-                   Width="28" Height="28"
-                   VerticalAlignment="Center"
-                   RenderOptions.BitmapInterpolationMode="HighQuality" />
-            <TextBlock Text="{loc:Tr App_Title}" FontSize="20" FontWeight="Bold"
-                       VerticalAlignment="Center" />
-          </StackPanel>
-          <TextBlock Text="{loc:Tr App_Subtitle}"
-                     FontSize="12" Opacity="0.7" TextWrapping="Wrap" />
-        </StackPanel>
+    <!-- ============================================================ menu bar -->
+    <Border DockPanel.Dock="Top" Classes="menuBar">
+      <Menu>
+        <MenuItem Header="{loc:Tr Menu_File}">
+          <MenuItem Header="{loc:Tr Menu_File_Rescan}"
+                    InputGesture="F5"
+                    Command="{Binding RescanCommand}"
+                    IsEnabled="{Binding IsNotScanning}">
+            <MenuItem.Icon>
+              <Image Classes="icon16" Source="{StaticResource IconRescan}" />
+            </MenuItem.Icon>
+          </MenuItem>
+          <MenuItem Header="{loc:Tr Menu_File_OpenProfiles}" Command="{Binding OpenProfilesCommand}">
+            <MenuItem.Icon>
+              <Image Classes="icon16" Source="{StaticResource IconProfiles}" />
+            </MenuItem.Icon>
+          </MenuItem>
+          <Separator />
+          <MenuItem Header="{loc:Tr Menu_File_ExportDiagnostics}" Command="{Binding ExportDiagnosticsCommand}">
+            <MenuItem.Icon>
+              <Image Classes="icon16" Source="{StaticResource IconExport}" />
+            </MenuItem.Icon>
+          </MenuItem>
+          <Separator />
+          <MenuItem Header="{loc:Tr Menu_File_Exit}" InputGesture="Alt+F4" Command="{Binding ExitCommand}">
+            <MenuItem.Icon>
+              <Image Classes="icon16" Source="{StaticResource IconExit}" />
+            </MenuItem.Icon>
+          </MenuItem>
+        </MenuItem>
 
-        <ListBox Name="NavigationList"
-                 ItemsSource="{Binding Pages}"
-                 SelectedItem="{Binding SelectedPage, Mode=TwoWay}"
-                 AutomationProperties.Name="{loc:Tr App_Title}">
-          <ListBox.ItemTemplate>
-            <DataTemplate>
-              <StackPanel Orientation="Horizontal" Margin="4,2">
-                <PathIcon Classes="navIcon"
-                          Data="{Binding IconKey, Converter={x:Static loc:IconLookupConverter.Instance}}" />
-                <TextBlock Text="{Binding NavCaption}" VerticalAlignment="Center" />
-              </StackPanel>
-            </DataTemplate>
-          </ListBox.ItemTemplate>
-        </ListBox>
-      </DockPanel>
+        <MenuItem Header="{loc:Tr Menu_Edit}">
+          <MenuItem Header="{loc:Tr Common_Copy}"
+                    InputGesture="Ctrl+C"
+                    Command="{Binding CopySelectionCommand}"
+                    IsEnabled="{Binding CanCopySelection}">
+            <MenuItem.Icon>
+              <Image Classes="icon16" Source="{StaticResource IconCopy}" />
+            </MenuItem.Icon>
+          </MenuItem>
+          <MenuItem Header="{loc:Tr Common_Properties}"
+                    InputGesture="Alt+Enter"
+                    Command="{Binding ShowPropertiesCommand}"
+                    IsEnabled="{Binding CanCopySelection}">
+            <MenuItem.Icon>
+              <Image Classes="icon16" Source="{StaticResource IconProperties}" />
+            </MenuItem.Icon>
+          </MenuItem>
+        </MenuItem>
+
+        <MenuItem Header="{loc:Tr Menu_View}">
+          <MenuItem Header="{loc:Tr Menu_View_Refresh}"
+                    InputGesture="F5"
+                    Command="{Binding RescanCommand}"
+                    IsEnabled="{Binding IsNotScanning}" />
+          <MenuItem Header="{loc:Tr Menu_View_PropertiesPane}"
+                    Command="{Binding TogglePropertiesPaneCommand}">
+            <MenuItem.Icon>
+              <CheckBox IsChecked="{Binding IsPropertiesPaneVisible}" IsHitTestVisible="False" />
+            </MenuItem.Icon>
+          </MenuItem>
+          <Separator />
+          <MenuItem Header="{loc:Tr Nav_Logs}" Command="{Binding OpenLogsCommand}">
+            <MenuItem.Icon>
+              <Image Classes="icon16" Source="{StaticResource IconLogs}" />
+            </MenuItem.Icon>
+          </MenuItem>
+        </MenuItem>
+
+        <MenuItem Header="{loc:Tr Menu_Tools}">
+          <MenuItem Header="{loc:Tr Menu_Tools_Profiles}" Command="{Binding OpenProfilesCommand}" />
+          <MenuItem Header="{loc:Tr Menu_Tools_Snapshots}" Command="{Binding OpenSnapshotsCommand}" />
+          <Separator />
+          <MenuItem Header="{loc:Tr Menu_Tools_Options}" Command="{Binding OpenOptionsCommand}">
+            <MenuItem.Icon>
+              <Image Classes="icon16" Source="{StaticResource IconOptions}" />
+            </MenuItem.Icon>
+          </MenuItem>
+        </MenuItem>
+
+        <MenuItem Header="{loc:Tr Menu_Help}">
+          <MenuItem Header="{loc:Tr Menu_Help_About}" Command="{Binding ShowAboutCommand}">
+            <MenuItem.Icon>
+              <Image Classes="icon16" Source="{StaticResource IconAbout}" />
+            </MenuItem.Icon>
+          </MenuItem>
+        </MenuItem>
+      </Menu>
     </Border>
 
-    <!-- Page host -->
-    <DockPanel Grid.Column="1">
-      <Border DockPanel.Dock="Top"
-              Padding="24,16"
-              BorderBrush="{DynamicResource CardStrokeColorDefaultBrush}"
-              BorderThickness="0,0,0,1">
-        <Grid ColumnDefinitions="*,Auto,260">
-          <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
-            <PathIcon Classes="titleIcon"
-                      Data="{Binding SelectedPage.IconKey, Converter={x:Static loc:IconLookupConverter.Instance}}" />
-            <TextBlock Classes="pageTitle"
-                       VerticalAlignment="Center"
-                       Text="{Binding SelectedPage.Title}" />
-          </StackPanel>
-
-          <Button Grid.Column="1"
-                  Margin="0,0,12,0"
-                  VerticalAlignment="Center"
+    <!-- ============================================================ toolbar -->
+    <Border DockPanel.Dock="Top" Classes="toolbar">
+      <Grid ColumnDefinitions="Auto,*,Auto">
+        <StackPanel Grid.Column="0" Orientation="Horizontal" Spacing="2">
+          <Button Classes="tool"
                   Command="{Binding RescanCommand}"
-                  IsEnabled="{Binding !IsScanning}"
-                  HotKey="F5"
-                  ToolTip.Tip="{loc:Tr Common_Rescan}">
-            <StackPanel Orientation="Horizontal">
-              <PathIcon Classes="buttonIcon" Data="{StaticResource IconRescan}" />
+                  IsEnabled="{Binding IsNotScanning}"
+                  ToolTip.Tip="{loc:Tr Menu_File_Rescan}">
+            <StackPanel Spacing="1">
+              <Image Classes="icon20" Source="{StaticResource IconRescan}" />
               <TextBlock Text="{loc:Tr Common_Rescan}" />
             </StackPanel>
           </Button>
-          <TextBox Grid.Column="2"
-                   Name="SearchBox"
-                   Watermark="{loc:Tr Common_Search}"
-                   Text="{Binding SearchText, Mode=TwoWay}"
-                   VerticalAlignment="Center" />
-        </Grid>
+
+          <Border Classes="toolSeparator" />
+
+          <Button Classes="tool"
+                  Command="{Binding PreviewActivationCommand}"
+                  ToolTip.Tip="{loc:Tr Toolbar_PreviewTip}">
+            <StackPanel Spacing="1">
+              <Image Classes="icon20" Source="{StaticResource IconPreview}" />
+              <TextBlock Text="{loc:Tr Toolbar_Preview}" />
+            </StackPanel>
+          </Button>
+
+          <Button Classes="tool"
+                  Name="ApplyToolButton"
+                  Command="{Binding ApplyCommand}"
+                  IsEnabled="{Binding CanApply}"
+                  ToolTip.Tip="{loc:Tr Toolbar_ApplyTip}">
+            <StackPanel Spacing="1">
+              <Image Classes="icon20" Source="{StaticResource IconApply}" />
+              <TextBlock Text="{loc:Tr Common_Apply}" />
+            </StackPanel>
+          </Button>
+
+          <Button Classes="tool"
+                  Command="{Binding RollbackCommand}"
+                  IsEnabled="{Binding CanRollback}"
+                  ToolTip.Tip="{loc:Tr Toolbar_RollbackTip}">
+            <StackPanel Spacing="1">
+              <Image Classes="icon20" Source="{StaticResource IconRollback}" />
+              <TextBlock Text="{loc:Tr Profiles_Rollback}" />
+            </StackPanel>
+          </Button>
+
+          <Border Classes="toolSeparator" />
+
+          <Button Classes="tool"
+                  Command="{Binding CopySelectionCommand}"
+                  IsEnabled="{Binding CanCopySelection}">
+            <StackPanel Spacing="1">
+              <Image Classes="icon20" Source="{StaticResource IconCopy}" />
+              <TextBlock Text="{loc:Tr Common_Copy}" />
+            </StackPanel>
+          </Button>
+
+          <Button Classes="tool"
+                  Command="{Binding ShowPropertiesCommand}"
+                  IsEnabled="{Binding CanCopySelection}">
+            <StackPanel Spacing="1">
+              <Image Classes="icon20" Source="{StaticResource IconProperties}" />
+              <TextBlock Text="{loc:Tr Common_Properties}" />
+            </StackPanel>
+          </Button>
+        </StackPanel>
+
+        <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="5" VerticalAlignment="Center">
+          <TextBlock VerticalAlignment="Center" Text="{loc:Tr Common_SearchLabel}" />
+          <TextBox Name="SearchBox"
+                   Width="230"
+                   Watermark="{loc:Tr Common_FilterCurrentView}"
+                   Text="{Binding SearchText, Mode=TwoWay}" />
+        </StackPanel>
+      </Grid>
+    </Border>
+
+    <!-- ============================================================ status bar -->
+    <Border DockPanel.Dock="Bottom" Classes="statusBar">
+      <Grid ColumnDefinitions="*,190,170,90">
+        <Border Grid.Column="0" Classes="statusCell">
+          <TextBlock Name="StatusText" Text="{Binding StatusMessage}" TextTrimming="CharacterEllipsis" />
+        </Border>
+        <Border Grid.Column="1" Classes="statusCell" Margin="3,0,0,0">
+          <TextBlock Text="{Binding ArtifactsCaption}" TextTrimming="CharacterEllipsis" />
+        </Border>
+        <Border Grid.Column="2" Classes="statusCell" Margin="3,0,0,0">
+          <TextBlock Text="{Binding ModeCaption}" TextTrimming="CharacterEllipsis" />
+        </Border>
+        <Border Grid.Column="3" Classes="statusCell" Margin="3,0,0,0">
+          <TextBlock Text="{Binding LanguageCaption}" TextTrimming="CharacterEllipsis" />
+        </Border>
+      </Grid>
+    </Border>
+
+    <!-- ============================================================ content -->
+    <Grid ColumnDefinitions="220,*">
+
+      <!-- Navigation tree -->
+      <Border Grid.Column="0" Classes="sidebar">
+        <DockPanel>
+          <Border DockPanel.Dock="Bottom" Classes="sidebarFoot">
+            <StackPanel Spacing="3">
+              <StackPanel Orientation="Horizontal" Spacing="6">
+                <Ellipse Width="8" Height="8" VerticalAlignment="Center"
+                         Fill="#49A353" Stroke="#2A6B32" StrokeThickness="1" />
+                <TextBlock FontWeight="Bold" Text="{Binding SidebarStatusCaption}"
+                           TextTrimming="CharacterEllipsis" />
+              </StackPanel>
+              <TextBlock Classes="dim" Text="{Binding PendingWritesCaption}" TextWrapping="Wrap" />
+            </StackPanel>
+          </Border>
+
+          <TreeView Name="NavigationTree"
+                    ItemsSource="{Binding RootNodes}"
+                    SelectedItem="{Binding SelectedNode, Mode=TwoWay}"
+                    AutomationProperties.Name="{loc:Tr Nav_ThisComputer}">
+            <TreeView.ItemTemplate>
+              <TreeDataTemplate ItemsSource="{Binding Children}">
+                <StackPanel Orientation="Horizontal" Spacing="5" Height="20">
+                  <Image Classes="icon16" VerticalAlignment="Center"
+                         Source="{Binding IconKey, Converter={x:Static loc:IconLookupConverter.Instance}}" />
+                  <TextBlock VerticalAlignment="Center"
+                             FontWeight="{Binding CaptionWeight}"
+                             Text="{Binding Caption}" />
+                </StackPanel>
+              </TreeDataTemplate>
+            </TreeView.ItemTemplate>
+          </TreeView>
+        </DockPanel>
       </Border>
 
-      <ScrollViewer>
-        <ContentControl Content="{Binding SelectedPage}" Margin="{StaticResource PagePadding}" />
-      </ScrollViewer>
-    </DockPanel>
-  </Grid>
+      <!-- Workspace: tab strip, page, properties pane -->
+      <DockPanel Grid.Column="1" Background="{StaticResource ClassicWindowBrush}">
+
+        <Border DockPanel.Dock="Top" Classes="tabBar">
+          <StackPanel Orientation="Horizontal">
+            <Border Classes="activeTab">
+              <StackPanel Orientation="Horizontal" Spacing="6">
+                <Image Classes="icon16"
+                       Source="{Binding SelectedPage.IconKey, Converter={x:Static loc:IconLookupConverter.Instance}}" />
+                <TextBlock Name="ActiveTabCaption" Text="{Binding SelectedPage.Title}" />
+              </StackPanel>
+            </Border>
+          </StackPanel>
+        </Border>
+
+        <Grid ColumnDefinitions="*,Auto,Auto" Margin="7">
+
+          <!-- Page header plus the page itself -->
+          <DockPanel Grid.Column="0">
+            <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Spacing="9"
+                        Margin="6,4,6,8">
+              <Image Classes="icon32" VerticalAlignment="Top"
+                     Source="{Binding SelectedPage.IconKey, Converter={x:Static loc:IconLookupConverter.Instance}}" />
+              <StackPanel Spacing="1">
+                <TextBlock Classes="pageTitle" Text="{Binding SelectedPage.Title}" />
+                <TextBlock Classes="pageSubtitle" Text="{Binding SelectedPage.Subtitle}" />
+              </StackPanel>
+            </StackPanel>
+
+            <Border DockPanel.Dock="Top" Height="1" Margin="0,0,0,7"
+                    Background="#D4D4D4" />
+
+            <ContentControl Content="{Binding SelectedPage}" />
+          </DockPanel>
+
+          <GridSplitter Grid.Column="1"
+                        ResizeDirection="Columns"
+                        IsVisible="{Binding IsPropertiesPaneVisible}" />
+
+          <!-- Shared properties pane -->
+          <Border Grid.Column="2"
+                  Classes="detail"
+                  Width="285"
+                  IsVisible="{Binding IsPropertiesPaneVisible}">
+            <DockPanel>
+              <TextBlock DockPanel.Dock="Top" FontWeight="Bold" Margin="0,0,0,6"
+                         Text="{loc:Tr Common_Properties}" />
+              <Border DockPanel.Dock="Top" Height="1" Margin="0,0,0,6" Background="#AAAAAA" />
+
+              <TextBlock DockPanel.Dock="Top"
+                         Classes="dim"
+                         TextWrapping="Wrap"
+                         IsVisible="{Binding !SelectedPage.HasSelection}"
+                         Text="{loc:Tr Common_NoSelection}" />
+
+              <ScrollViewer>
+                <v:PropertyList Entries="{Binding SelectedPage.Properties}" />
+              </ScrollViewer>
+            </DockPanel>
+          </Border>
+        </Grid>
+      </DockPanel>
+    </Grid>
+  </DockPanel>
 </Window>

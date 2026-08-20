@@ -55,6 +55,12 @@ public interface IProfileActivator
 /// </remarks>
 public sealed class ProfileActivator : IProfileActivator
 {
+    /// <summary>Operation identifier recorded on a snapshot taken before an activation.</summary>
+    public const string ActivateOperationId = "Activate";
+
+    /// <summary>Operation identifier recorded on a snapshot taken before a deactivation.</summary>
+    public const string DeactivateOperationId = "Deactivate";
+
     /// <summary>Step identifier for the identity keys.</summary>
     public const string IdentityStepId = "Identity";
 
@@ -256,9 +262,18 @@ public sealed class ProfileActivator : IProfileActivator
             };
         }
 
-        // Snapshot first. Everything after this point is recoverable.
+        // Snapshot first. Everything after this point is recoverable. The metadata is what lets
+        // the snapshots page say which operation a snapshot belongs to; the operation identifier
+        // is a localization key suffix rather than text, so the list renders in whatever language
+        // the user reads it in.
         var snapshot = await _snapshots
-            .CaptureAsync(plan.FilesToSnapshot, cancellationToken)
+            .CaptureAsync(
+                plan.FilesToSnapshot,
+                new SnapshotMetadata(
+                    plan.IsDeactivation ? DeactivateOperationId : ActivateOperationId,
+                    plan.ProfileName,
+                    plan.RepositoryPath ?? plan.Scope.ToString()),
+                cancellationToken)
             .ConfigureAwait(false);
 
         var steps = new List<ActivationStepResult>();

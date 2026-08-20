@@ -51,6 +51,8 @@ internal sealed partial class SettingsViewModel : PageViewModel
     private readonly IPlatformPaths _paths;
     private readonly IDiagnosticsBundleBuilder _diagnostics;
     private readonly ScanCoordinator _scans;
+    private readonly IDialogService _dialogs;
+    private readonly StatusService _status;
 
     /// <summary>
     /// Set while the persisted settings are being copied into the bound properties. Suppresses
@@ -74,6 +76,12 @@ internal sealed partial class SettingsViewModel : PageViewModel
     [ObservableProperty]
     private string? _diagnosticsStatus;
 
+    [ObservableProperty]
+    private ScanRoot? _selectedScanRoot;
+
+    [ObservableProperty]
+    private KeyFolder? _selectedKeyFolder;
+
     public SettingsViewModel(
         Localizer localizer,
         ISettingsService settings,
@@ -81,9 +89,13 @@ internal sealed partial class SettingsViewModel : PageViewModel
         IShellLauncher shell,
         IPlatformPaths paths,
         IDiagnosticsBundleBuilder diagnostics,
-        ScanCoordinator scans)
+        ScanCoordinator scans,
+        IDialogService dialogs,
+        StatusService status)
         : base(localizer)
     {
+        ArgumentNullException.ThrowIfNull(dialogs);
+        ArgumentNullException.ThrowIfNull(status);
         ArgumentNullException.ThrowIfNull(settings);
         ArgumentNullException.ThrowIfNull(localization);
         ArgumentNullException.ThrowIfNull(shell);
@@ -97,6 +109,8 @@ internal sealed partial class SettingsViewModel : PageViewModel
         _paths = paths;
         _diagnostics = diagnostics;
         _scans = scans;
+        _dialogs = dialogs;
+        _status = status;
 
         Languages =
         [
@@ -113,6 +127,7 @@ internal sealed partial class SettingsViewModel : PageViewModel
         ];
 
         LoadFrom(_settings.Current);
+        ReloadDiscoveryLists();
     }
 
     /// <summary>Raised when the user picks a different theme, so the shell can apply it.</summary>
@@ -123,7 +138,10 @@ internal sealed partial class SettingsViewModel : PageViewModel
     public override string TitleKey => Keys.Settings_Title;
 
     /// <inheritdoc/>
-    public override string IconKey => "IconSettings";
+    public override string SubtitleKey => Keys.Settings_Subtitle;
+
+    /// <inheritdoc/>
+    public override string IconKey => "IconOptions";
 
     /// <summary>Available UI languages.</summary>
     public ObservableCollection<LanguageOption> Languages { get; }
@@ -156,6 +174,180 @@ internal sealed partial class SettingsViewModel : PageViewModel
 
     /// <summary>Localized explanation of what the bundle does and does not contain.</summary>
     public string DiagnosticsNote => L[Keys.Settings_DiagnosticsNote];
+
+    /// <summary>Scan roots, as the options page lists them.</summary>
+    public ObservableCollection<ScanRoot> ScanRoots { get; } = [];
+
+    /// <summary>Custom SSH key folders, as the options page lists them.</summary>
+    public ObservableCollection<KeyFolder> KeyFolders { get; } = [];
+
+    /// <summary>True when a scan root is selected, so Edit and Remove apply.</summary>
+    public bool HasSelectedScanRoot => SelectedScanRoot is not null;
+
+    /// <summary>True when a key folder is selected, so Edit and Remove apply.</summary>
+    public bool HasSelectedKeyFolder => SelectedKeyFolder is not null;
+
+    /// <summary>Localized note that editing these lists changes settings only.</summary>
+    public string DiscoveryNoteCaption => L[Keys.Options_SettingsOnlyNote];
+
+    /// <summary>Adds a scan root.</summary>
+    /// <param name="cancellationToken">Cancels the write.</param>
+    /// <returns>A task that completes once the list is saved.</returns>
+    [RelayCommand]
+    private async Task AddScanRootAsync(CancellationToken cancellationToken)
+    {
+        var editor = new ScanRootEditorViewModel(L, _dialogs, existing: null);
+        if (await _dialogs.ShowAsync(editor).ConfigureAwait(true))
+        {
+            ScanRoots.Add(editor.ToScanRoot());
+            await SaveDiscoveryListsAsync(cancellationToken).ConfigureAwait(true);
+        }
+    }
+
+    /// <summary>Edits the selected scan root.</summary>
+    /// <param name="cancellationToken">Cancels the write.</param>
+    /// <returns>A task that completes once the list is saved.</returns>
+    [RelayCommand]
+    private async Task EditScanRootAsync(CancellationToken cancellationToken)
+    {
+        if (SelectedScanRoot is not { } root)
+        {
+            return;
+        }
+
+        var editor = new ScanRootEditorViewModel(L, _dialogs, root);
+        if (await _dialogs.ShowAsync(editor).ConfigureAwait(true))
+        {
+            // Replacing the item leaves the selection pointing at the object that was just
+            // dropped, so Remove afterwards would silently do nothing. Re-select the new one.
+            var index = ScanRoots.IndexOf(root);
+            ScanRoots[index] = editor.ToScanRoot();
+            SelectedScanRoot = ScanRoots[index];
+
+            await SaveDiscoveryListsAsync(cancellationToken).ConfigureAwait(true);
+        }
+    }
+
+    /// <summary>Removes the selected scan root from the list GitVault searches.</summary>
+    /// <param name="cancellationToken">Cancels the write.</param>
+    /// <returns>A task that completes once the list is saved.</returns>
+    [RelayCommand]
+    private async Task RemoveScanRootAsync(CancellationToken cancellationToken)
+    {
+        if (SelectedScanRoot is not { } root)
+        {
+            return;
+        }
+
+        // Worth asking, and worth saying what it does not do: removing a root stops GitVault
+        // looking there. The repositories under it are not touched in any way.
+        var confirmation = new ConfirmationViewModel(
+            L,
+            Keys.Options_RemoveScanRoot_Title,
+            L.Format(Keys.Options_RemoveScanRoot_Message, root.Path),
+            L[Keys.Options_SettingsOnlyNote]);
+
+        if (await _dialogs.ShowAsync(confirmation).ConfigureAwait(true))
+        {
+            ScanRoots.Remove(root);
+            await SaveDiscoveryListsAsync(cancellationToken).ConfigureAwait(true);
+        }
+    }
+
+    /// <summary>Adds a custom SSH key folder.</summary>
+    /// <param name="cancellationToken">Cancels the write.</param>
+    /// <returns>A task that completes once the list is saved.</returns>
+    [RelayCommand]
+    private async Task AddKeyFolderAsync(CancellationToken cancellationToken)
+    {
+        var editor = new KeyFolderEditorViewModel(L, _dialogs, existing: null);
+        if (await _dialogs.ShowAsync(editor).ConfigureAwait(true))
+        {
+            KeyFolders.Add(editor.ToKeyFolder());
+            await SaveDiscoveryListsAsync(cancellationToken).ConfigureAwait(true);
+        }
+    }
+
+    /// <summary>Edits the selected key folder.</summary>
+    /// <param name="cancellationToken">Cancels the write.</param>
+    /// <returns>A task that completes once the list is saved.</returns>
+    [RelayCommand]
+    private async Task EditKeyFolderAsync(CancellationToken cancellationToken)
+    {
+        if (SelectedKeyFolder is not { } folder)
+        {
+            return;
+        }
+
+        var editor = new KeyFolderEditorViewModel(L, _dialogs, folder);
+        if (await _dialogs.ShowAsync(editor).ConfigureAwait(true))
+        {
+            // Same as the scan roots: keep the selection on the replacement.
+            var index = KeyFolders.IndexOf(folder);
+            KeyFolders[index] = editor.ToKeyFolder();
+            SelectedKeyFolder = KeyFolders[index];
+
+            await SaveDiscoveryListsAsync(cancellationToken).ConfigureAwait(true);
+        }
+    }
+
+    /// <summary>Removes the selected key folder from the list GitVault searches.</summary>
+    /// <param name="cancellationToken">Cancels the write.</param>
+    /// <returns>A task that completes once the list is saved.</returns>
+    [RelayCommand]
+    private async Task RemoveKeyFolderAsync(CancellationToken cancellationToken)
+    {
+        if (SelectedKeyFolder is not { } folder)
+        {
+            return;
+        }
+
+        // The same reassurance as a scan root, and it matters more here: these are key files.
+        var confirmation = new ConfirmationViewModel(
+            L,
+            Keys.Options_RemoveKeyFolder_Title,
+            L.Format(Keys.Options_RemoveKeyFolder_Message, folder.Path),
+            L[Keys.Options_KeysReadOnlyNote]);
+
+        if (await _dialogs.ShowAsync(confirmation).ConfigureAwait(true))
+        {
+            KeyFolders.Remove(folder);
+            await SaveDiscoveryListsAsync(cancellationToken).ConfigureAwait(true);
+        }
+    }
+
+    /// <summary>Copies the persisted discovery lists into the bound collections.</summary>
+    private void ReloadDiscoveryLists()
+    {
+        ScanRoots.Clear();
+        foreach (var root in _settings.Current.ScanRoots)
+        {
+            ScanRoots.Add(root.Clone());
+        }
+
+        KeyFolders.Clear();
+        foreach (var folder in _settings.Current.KeyFolders)
+        {
+            KeyFolders.Add(folder.Clone());
+        }
+
+        SelectedScanRoot = ScanRoots.FirstOrDefault();
+        SelectedKeyFolder = KeyFolders.FirstOrDefault();
+    }
+
+    /// <summary>Persists the discovery lists and reports it.</summary>
+    private async Task SaveDiscoveryListsAsync(CancellationToken cancellationToken)
+    {
+        var updated = _settings.Current.Clone();
+        updated.ScanRoots = [.. ScanRoots.Select(r => r.Clone())];
+        updated.KeyFolders = [.. KeyFolders.Select(f => f.Clone())];
+
+        await _settings.SaveAsync(updated, cancellationToken).ConfigureAwait(true);
+
+        _status.Report(StatusKind.Done, Keys.Status_OptionsSaved);
+        OnPropertyChanged(nameof(HasSelectedScanRoot));
+        OnPropertyChanged(nameof(HasSelectedKeyFolder));
+    }
 
     /// <summary>Opens the log directory in the platform file manager.</summary>
     [RelayCommand]
@@ -265,6 +457,18 @@ internal sealed partial class SettingsViewModel : PageViewModel
 
         ThemeChangeRequested?.Invoke(this, value.Value);
         Persist(s => s.Theme = value.Value);
+    }
+
+    partial void OnSelectedScanRootChanged(ScanRoot? value)
+    {
+        _ = value;
+        OnPropertyChanged(nameof(HasSelectedScanRoot));
+    }
+
+    partial void OnSelectedKeyFolderChanged(KeyFolder? value)
+    {
+        _ = value;
+        OnPropertyChanged(nameof(HasSelectedKeyFolder));
     }
 
     partial void OnDryRunByDefaultChanged(bool value) => Persist(s => s.DryRunByDefault = value);

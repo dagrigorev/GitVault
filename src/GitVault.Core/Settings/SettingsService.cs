@@ -83,6 +83,11 @@ public sealed class SettingsService : ISettingsService
             loaded = new AppSettings();
         }
 
+        // A file written by an older build carries bare path lists. Folding them into the
+        // structured lists here means every consumer downstream sees one shape, and the
+        // migrated file is written back the next time the user changes anything.
+        loaded.MigrateLegacyEntries();
+
         lock (_gate)
         {
             _current = loaded;

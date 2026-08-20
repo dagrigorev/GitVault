@@ -91,6 +91,9 @@ internal sealed partial class ClientsViewModel : ListPageViewModel
     public override string TitleKey => Keys.Clients_Title;
 
     /// <inheritdoc/>
+    public override string SubtitleKey => Keys.Clients_Subtitle;
+
+    /// <inheritdoc/>
     public override string IconKey => "IconClients";
 
     public override string EmptyKey => Keys.Clients_Empty;
@@ -112,6 +115,19 @@ internal sealed partial class ClientsViewModel : ListPageViewModel
         }
     }
 
+
+    /// <inheritdoc/>
+    internal override void EnsureSelection()
+    {
+        if (Cards.Count == 0)
+        {
+            return;
+        }
+
+        var current = SelectedClient;
+        SelectedClient = null;
+        SelectedClient = current ?? Cards[0];
+    }
     /// <inheritdoc/>
     protected override void OnCultureChanged()
     {
@@ -153,5 +169,53 @@ internal sealed partial class ClientsViewModel : ListPageViewModel
 
         SelectedClient = Cards.FirstOrDefault();
         OnPropertyChanged(nameof(IsEmpty));
+    }
+
+    partial void OnSelectedClientChanged(ClientCard? value)
+    {
+        // A DataGrid pushes null back through the binding when it is first attached. A classic
+        // list always has a current item, so re-assert the first row instead of letting the
+        // properties pane blank itself the moment the page is shown.
+        if (value is null && Cards.Count > 0)
+        {
+            SelectedClient = Cards[0];
+            return;
+        }
+
+        _ = value;
+        RebuildProperties();
+    }
+
+    /// <summary>Fills the properties pane for the selected client.</summary>
+    private void RebuildProperties()
+    {
+        if (SelectedClient is not { } card)
+        {
+            SetProperties([]);
+            return;
+        }
+
+        var entries = new List<PropertyEntry>
+        {
+            Property(Keys.Clients_Column_Client, card.Name),
+            Property(Keys.Clients_Column_Version, card.Version),
+            Property(Keys.Clients_InstallPath, card.InstallPath, PropertyStyle.Mono),
+            Property(Keys.Clients_ConfigRoots, card.ConfigRoots, PropertyStyle.Mono),
+            Property(Keys.Clients_Accounts, card.CredentialCountCaption),
+        };
+
+        // An opaque client is stated as opaque and left alone. GitVault reports what a store is;
+        // it never tries to open one it was not given a supported way to read.
+        if (card.IsOpaque)
+        {
+            entries.Add(Property(Keys.Clients_Column_Storage, card.OpaqueCaption, PropertyStyle.Badge));
+        }
+
+        if (card.SshExecutable.Length > 0)
+        {
+            entries.Add(Property(Keys.Clients_SshCommand, card.SshExecutable, PropertyStyle.Mono));
+        }
+
+        SetProperties(entries);
     }
 }

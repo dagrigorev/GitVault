@@ -45,7 +45,7 @@ public sealed class SshKeyProbe : IProbe
         try
         {
             var keys = await _scanner
-                .ScanAsync(_settings.Current.CustomKeyDirectories, cancellationToken)
+                .ScanAsync(_settings.Current.EnabledKeyDirectories, cancellationToken)
                 .ConfigureAwait(false);
 
             var payload = new ProbePayload

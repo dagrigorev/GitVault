@@ -2,84 +2,37 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:loc="using:GitVault.App.Markup"
              x:Class="GitVault.App.Views.SshKeysView">
-  <StackPanel Spacing="4">
+  <DockPanel>
 
-    <TextBlock Classes="pageSubtitle"
+    <TextBlock DockPanel.Dock="Top"
+               Classes="pageSubtitle"
+               Margin="0,0,0,6"
                IsVisible="{Binding IsEmpty}"
                Text="{Binding EmptyCaption}" />
 
-    <DataGrid ItemsSource="{Binding Rows}"
-              SelectedItem="{Binding SelectedRow, Mode=TwoWay}"
-              IsVisible="{Binding !IsEmpty}"
-              AutoGenerateColumns="False"
-              IsReadOnly="True"
-              CanUserSortColumns="True"
-              GridLinesVisibility="Horizontal"
-              MinHeight="180"
-              MaxHeight="340">
+    <!-- Row actions sit under the grid, the way a classic list view puts its verbs. -->
+    <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" Spacing="5" Margin="0,7,0,0">
+      <Button Command="{Binding CopyPublicKeyCommand}" Content="{loc:Tr Keys_CopyPublicKey}" />
+      <Button Command="{Binding CopyFingerprintCommand}" Content="{loc:Tr Keys_CopyFingerprint}" />
+      <Button Command="{Binding RevealInFileManagerCommand}" Content="{loc:Tr Keys_RevealInFileManager}" />
+      <TextBlock VerticalAlignment="Center"
+                 Classes="dim"
+                 IsVisible="{Binding ShowCopyConfirmation}"
+                 Text="{loc:Tr Keys_Copied}" />
+    </StackPanel>
+
+    <DataGrid Name="KeysGrid"
+              ItemsSource="{Binding Rows}"
+              SelectedItem="{Binding SelectedRow, Mode=TwoWay}">
       <DataGrid.Columns>
-        <DataGridTextColumn Header="{loc:Tr Keys_Column_Algorithm}" Binding="{Binding Algorithm}" Width="Auto" />
-        <DataGridTextColumn Header="{loc:Tr Keys_Column_Bits}" Binding="{Binding Bits}" Width="Auto" />
-        <DataGridTextColumn Header="{loc:Tr Keys_Column_Fingerprint}" Binding="{Binding Fingerprint}" Width="*" />
-        <DataGridTextColumn Header="{loc:Tr Keys_Column_Comment}" Binding="{Binding Comment}" Width="Auto" />
-        <DataGridTextColumn Header="{loc:Tr Keys_Column_Format}" Binding="{Binding Format}" Width="Auto" />
-        <DataGridTextColumn Header="{loc:Tr Keys_Column_Protection}" Binding="{Binding Protection}" Width="Auto" />
+        <DataGridTextColumn Header="{loc:Tr Keys_Column_Path}" Binding="{Binding Path}" Width="2*" />
+        <DataGridTextColumn Header="{loc:Tr Keys_Column_Algorithm}" Binding="{Binding Algorithm}" Width="110" />
+        <DataGridTextColumn Header="{loc:Tr Keys_Column_Bits}" Binding="{Binding Bits}" Width="70" />
+        <DataGridTextColumn Header="{loc:Tr Keys_Column_Fingerprint}" Binding="{Binding Fingerprint}" Width="3*" />
+        <DataGridTextColumn Header="{loc:Tr Keys_Column_Format}" Binding="{Binding Format}" Width="110" />
+        <DataGridTextColumn Header="{loc:Tr Keys_Column_Protection}" Binding="{Binding Protection}" Width="130" />
       </DataGrid.Columns>
     </DataGrid>
 
-    <Border Classes="card"
-            Margin="0,12,0,0"
-            IsVisible="{Binding SelectedRow, Converter={x:Static ObjectConverters.IsNotNull}}">
-      <StackPanel Spacing="6">
-        <TextBlock Classes="sectionHeader" Margin="0,0,0,4" Text="{loc:Tr Common_Details}" />
-
-        <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto,Auto,Auto">
-          <TextBlock Grid.Row="0" Grid.Column="0" Opacity="0.75" Margin="0,0,16,2"
-                     Text="{loc:Tr Keys_Column_Path}" />
-          <TextBlock Grid.Row="0" Grid.Column="1" Classes="mono" Text="{Binding SelectedRow.Path}" />
-
-          <TextBlock Grid.Row="1" Grid.Column="0" Opacity="0.75" Margin="0,0,16,2"
-                     Text="{loc:Tr Keys_Detail_Permissions}" />
-          <TextBlock Grid.Row="1" Grid.Column="1" Classes="mono" Text="{Binding SelectedRow.Permissions}" />
-
-          <TextBlock Grid.Row="2" Grid.Column="0" Opacity="0.75" Margin="0,0,16,2"
-                     Text="{loc:Tr Keys_Detail_KdfRounds}" />
-          <TextBlock Grid.Row="2" Grid.Column="1" Classes="mono" Text="{Binding SelectedRow.KdfRounds}" />
-
-          <TextBlock Grid.Row="3" Grid.Column="0" Opacity="0.75" Margin="0,0,16,2"
-                     Text="{loc:Tr Keys_Column_Fingerprint}" />
-          <TextBlock Grid.Row="3" Grid.Column="1" Classes="mono" Text="{Binding SelectedRow.FingerprintMd5}" />
-        </Grid>
-
-        <TextBlock Classes="sectionHeader" Text="{loc:Tr Keys_Detail_PublicKey}" />
-        <SelectableTextBlock Classes="mono" Text="{Binding SelectedRow.PublicKeyLine}" />
-
-        <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,8,0,0">
-          <Button Command="{Binding CopyPublicKeyCommand}" >
-            <StackPanel Orientation="Horizontal">
-              <PathIcon Classes="buttonIcon" Data="{StaticResource IconCopy}" />
-              <TextBlock Text="{loc:Tr Keys_CopyPublicKey}" />
-            </StackPanel>
-          </Button>
-          <Button Command="{Binding CopyFingerprintCommand}" >
-            <StackPanel Orientation="Horizontal">
-              <PathIcon Classes="buttonIcon" Data="{StaticResource IconCopy}" />
-              <TextBlock Text="{loc:Tr Keys_CopyFingerprint}" />
-            </StackPanel>
-          </Button>
-          <Button Command="{Binding RevealInFileManagerCommand}" >
-            <StackPanel Orientation="Horizontal">
-              <PathIcon Classes="buttonIcon" Data="{StaticResource IconFolderOpen}" />
-              <TextBlock Text="{loc:Tr Keys_RevealInFileManager}" />
-            </StackPanel>
-          </Button>
-          <TextBlock VerticalAlignment="Center"
-                     Opacity="0.7"
-                     IsVisible="{Binding ShowCopyConfirmation}"
-                     Text="{loc:Tr Keys_Copied}" />
-        </StackPanel>
-      </StackPanel>
-    </Border>
-
-  </StackPanel>
+  </DockPanel>
 </UserControl>

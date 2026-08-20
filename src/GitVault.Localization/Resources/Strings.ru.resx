@@ -150,7 +150,7 @@
     <value>Обзор</value>
   </data>
   <data name="Dashboard_Subtitle" xml:space="preserve">
-    <value>Всё, что GitVault нашёл на этом компьютере</value>
+    <value>Состояние идентичности и конфигурации Git на этом компьютере.</value>
   </data>
   <data name="Dashboard_Card_Identities" xml:space="preserve">
     <value>Идентичности</value>
@@ -934,5 +934,599 @@
   </data>
   <data name="Plural_Warnings_Other" xml:space="preserve">
     <value>{0} предупреждения</value>
+  </data>
+  <data name="Nav_ThisComputer" xml:space="preserve">
+    <value>Этот компьютер</value>
+  </data>
+  <data name="Nav_Snapshots" xml:space="preserve">
+    <value>Снимки и откат</value>
+  </data>
+  <data name="Menu_File" xml:space="preserve">
+    <value>_Файл</value>
+  </data>
+  <data name="Menu_File_Rescan" xml:space="preserve">
+    <value>Пересканировать компьютер</value>
+  </data>
+  <data name="Menu_File_OpenProfiles" xml:space="preserve">
+    <value>Открыть профили</value>
+  </data>
+  <data name="Menu_File_ExportDiagnostics" xml:space="preserve">
+    <value>Экспорт диагностики…</value>
+  </data>
+  <data name="Menu_File_Exit" xml:space="preserve">
+    <value>Выход</value>
+  </data>
+  <data name="Menu_Edit" xml:space="preserve">
+    <value>_Правка</value>
+  </data>
+  <data name="Menu_View" xml:space="preserve">
+    <value>_Вид</value>
+  </data>
+  <data name="Menu_View_Refresh" xml:space="preserve">
+    <value>Обновить</value>
+  </data>
+  <data name="Menu_View_PropertiesPane" xml:space="preserve">
+    <value>Панель свойств</value>
+  </data>
+  <data name="Menu_Tools" xml:space="preserve">
+    <value>_Сервис</value>
+  </data>
+  <data name="Menu_Tools_Profiles" xml:space="preserve">
+    <value>Профили…</value>
+  </data>
+  <data name="Menu_Tools_Options" xml:space="preserve">
+    <value>Параметры…</value>
+  </data>
+  <data name="Menu_Tools_Snapshots" xml:space="preserve">
+    <value>Снимки и откат…</value>
+  </data>
+  <data name="Menu_Help" xml:space="preserve">
+    <value>_Справка</value>
+  </data>
+  <data name="Menu_Help_About" xml:space="preserve">
+    <value>О программе GitVault…</value>
+  </data>
+  <data name="Toolbar_Preview" xml:space="preserve">
+    <value>Предпросмотр</value>
+  </data>
+  <data name="Toolbar_PreviewTip" xml:space="preserve">
+    <value>Показать изменения выбранного профиля. Ничего не записывается.</value>
+  </data>
+  <data name="Toolbar_ApplyTip" xml:space="preserve">
+    <value>Применить просмотренный план</value>
+  </data>
+  <data name="Toolbar_RollbackTip" xml:space="preserve">
+    <value>Предпросмотр отката последнего изменения</value>
+  </data>
+  <data name="Common_Properties" xml:space="preserve">
+    <value>Свойства</value>
+  </data>
+  <data name="Common_SearchLabel" xml:space="preserve">
+    <value>Поиск:</value>
+  </data>
+  <data name="Common_FilterCurrentView" xml:space="preserve">
+    <value>Фильтр текущего вида</value>
+  </data>
+  <data name="Common_NoSelection" xml:space="preserve">
+    <value>Выберите элемент, чтобы увидеть его свойства.</value>
+  </data>
+  <data name="Common_Save" xml:space="preserve">
+    <value>Сохранить</value>
+  </data>
+  <data name="Common_Add" xml:space="preserve">
+    <value>Добавить…</value>
+  </data>
+  <data name="Common_Edit" xml:space="preserve">
+    <value>Изменить…</value>
+  </data>
+  <data name="Common_Remove" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
+  <data name="Common_Browse" xml:space="preserve">
+    <value>Обзор…</value>
+  </data>
+  <data name="Common_None" xml:space="preserve">
+    <value>Нет</value>
+  </data>
+  <data name="Common_Refresh" xml:space="preserve">
+    <value>Обновить</value>
+  </data>
+  <data name="Status_Ready" xml:space="preserve">
+    <value>Готово</value>
+  </data>
+  <data name="Status_Scanning" xml:space="preserve">
+    <value>Сканирование… только чтение</value>
+  </data>
+  <data name="Status_ScanCompleted" xml:space="preserve">
+    <value>Сканирование завершено за {0:F0} мс</value>
+  </data>
+  <data name="Status_InsufficientPermissions" xml:space="preserve">
+    <value>Недостаточно прав. Запустить с повышением?</value>
+  </data>
+  <data name="Status_Artifacts" xml:space="preserve">
+    <value>Объектов найдено: {0}</value>
+  </data>
+  <data name="Status_Mode_ReadOnly" xml:space="preserve">
+    <value>Режим: только чтение</value>
+  </data>
+  <data name="Status_Mode_PendingWrite" xml:space="preserve">
+    <value>Режим: ожидается запись</value>
+  </data>
+  <data name="Status_ReadOnlyScanComplete" xml:space="preserve">
+    <value>Сканирование завершено</value>
+  </data>
+  <data name="Status_NoScanYet" xml:space="preserve">
+    <value>Сканирование не выполнялось</value>
+  </data>
+  <data name="Status_NoPendingWrites" xml:space="preserve">
+    <value>Нет ожидающих записей</value>
+  </data>
+  <data name="Status_PendingWrite" xml:space="preserve">
+    <value>Просмотренный план ожидает применения</value>
+  </data>
+  <data name="Status_Viewing" xml:space="preserve">
+    <value>Просмотр: {0}</value>
+  </data>
+  <data name="Status_Copied" xml:space="preserve">
+    <value>Выбранный элемент скопирован</value>
+  </data>
+  <data name="Status_PlanReviewed" xml:space="preserve">
+    <value>План просмотрен — теперь доступно применение</value>
+  </data>
+  <data name="Status_PlanNotApplied" xml:space="preserve">
+    <value>План закрыт — ничего не применено</value>
+  </data>
+  <data name="Status_PlanApplied" xml:space="preserve">
+    <value>План применён. Снимок создан заранее.</value>
+  </data>
+  <data name="Status_RollbackCancelled" xml:space="preserve">
+    <value>Откат отменён — ничего не изменено</value>
+  </data>
+  <data name="Status_RollbackRestored" xml:space="preserve">
+    <value>Откат завершён: восстановлено файлов — {0}</value>
+  </data>
+  <data name="Status_ProfileCreated" xml:space="preserve">
+    <value>Профиль создан</value>
+  </data>
+  <data name="Status_ProfileSaved" xml:space="preserve">
+    <value>Профиль сохранён</value>
+  </data>
+  <data name="Status_ProfileDeleted" xml:space="preserve">
+    <value>Профиль удалён</value>
+  </data>
+  <data name="Status_OptionsSaved" xml:space="preserve">
+    <value>Параметры сохранены</value>
+  </data>
+  <data name="Dialog_PreviewActivation_Title" xml:space="preserve">
+    <value>Предпросмотр изменений — активация</value>
+  </data>
+  <data name="Dialog_PreviewDeactivation_Title" xml:space="preserve">
+    <value>Предпросмотр изменений — деактивация</value>
+  </data>
+  <data name="Dialog_NothingWritten" xml:space="preserve">
+    <value>Изменения не внесены.</value>
+  </data>
+  <data name="Dialog_ReviewBeforeApply" xml:space="preserve">
+    <value>Это пробный план. Применение остаётся недоступным, пока вы не подтвердите, что прочли его.</value>
+  </data>
+  <data name="Dialog_ReviewedPlan" xml:space="preserve">
+    <value>Я просмотрел этот план</value>
+  </data>
+  <data name="Dialog_TargetScope" xml:space="preserve">
+    <value>Целевая область</value>
+  </data>
+  <data name="Dialog_Snapshot" xml:space="preserve">
+    <value>Снимок</value>
+  </data>
+  <data name="Dialog_SnapshotWillBeCreated" xml:space="preserve">
+    <value>Перед записью будет создан снимок №{0:D4}</value>
+  </data>
+  <data name="Dialog_PlanBlocked" xml:space="preserve">
+    <value>Этот план невозможно применить.</value>
+  </data>
+  <data name="Dialog_Guarantee_Permissions" xml:space="preserve">
+    <value>Права доступа к файлам сохраняются.</value>
+  </data>
+  <data name="Dialog_Guarantee_NoSecrets" xml:space="preserve">
+    <value>Секреты не передаются в командной строке.</value>
+  </data>
+  <data name="Dialog_RollbackPreview_Title" xml:space="preserve">
+    <value>Предпросмотр отката</value>
+  </data>
+  <data name="Dialog_RollbackExplains" xml:space="preserve">
+    <value>Здесь показано, что произойдёт при восстановлении снимка. До подтверждения ничего не записывается.</value>
+  </data>
+  <data name="Dialog_RestoreSnapshot" xml:space="preserve">
+    <value>Восстановить снимок</value>
+  </data>
+  <data name="Dialog_FilesRestored" xml:space="preserve">
+    <value>Затрагиваемые файлы</value>
+  </data>
+  <data name="Dialog_About_Title" xml:space="preserve">
+    <value>О программе GitVault</value>
+  </data>
+  <data name="Dialog_About_IconLicense" xml:space="preserve">
+    <value>Классические значки: Tango Icon Library 0.8.90, общественное достояние.</value>
+  </data>
+  <data name="Identities_Subtitle" xml:space="preserve">
+    <value>Авторские идентичности, найденные в конфигурации Git и настройках известных клиентов.</value>
+  </data>
+  <data name="Keys_Subtitle" xml:space="preserve">
+    <value>Приватные и публичные ключи. Приватный материал никогда не отображается и не попадает в журнал.</value>
+  </data>
+  <data name="Agents_Subtitle" xml:space="preserve">
+    <value>Обнаруженные процессы и сокеты SSH-агентов.</value>
+  </data>
+  <data name="Credentials_Subtitle" xml:space="preserve">
+    <value>Метаданные хранилищ учётных данных. Непрозрачные хранилища остаются непрозрачными.</value>
+  </data>
+  <data name="Clients_Subtitle" xml:space="preserve">
+    <value>Обнаруженные сторонние графические клиенты Git и их настройки.</value>
+  </data>
+  <data name="Repositories_Subtitle" xml:space="preserve">
+    <value>Найденные репозитории и переопределения действующей идентичности.</value>
+  </data>
+  <data name="Logs_Subtitle" xml:space="preserve">
+    <value>Журнал работы. Секреты вычищаются до записи в любой приёмник.</value>
+  </data>
+  <data name="Profiles_Subtitle" xml:space="preserve">
+    <value>Переиспользуемые конфигурации идентичности Git, применяемые через предпросмотр и применение.</value>
+  </data>
+  <data name="Settings_Subtitle" xml:space="preserve">
+    <value>Язык, оформление, корни поиска и диагностика.</value>
+  </data>
+  <data name="Snapshots_Subtitle" xml:space="preserve">
+    <value>Побайтовые снимки, создаваемые перед каждым изменением.</value>
+  </data>
+  <data name="Snapshots_Title" xml:space="preserve">
+    <value>Снимки и откат</value>
+  </data>
+  <data name="Snapshots_Empty" xml:space="preserve">
+    <value>Снимков пока нет. Снимок создаётся автоматически перед любым изменением.</value>
+  </data>
+  <data name="Snapshots_Column_Snapshot" xml:space="preserve">
+    <value>Снимок</value>
+  </data>
+  <data name="Snapshots_Column_Created" xml:space="preserve">
+    <value>Создан</value>
+  </data>
+  <data name="Snapshots_Column_Operation" xml:space="preserve">
+    <value>Операция</value>
+  </data>
+  <data name="Snapshots_Column_Target" xml:space="preserve">
+    <value>Цель</value>
+  </data>
+  <data name="Snapshots_Column_State" xml:space="preserve">
+    <value>Состояние</value>
+  </data>
+  <data name="Snapshots_Column_Profile" xml:space="preserve">
+    <value>Профиль</value>
+  </data>
+  <data name="Snapshots_Column_Action" xml:space="preserve">
+    <value>Действие</value>
+  </data>
+  <data name="Snapshots_Detail_Files" xml:space="preserve">
+    <value>Файлов</value>
+  </data>
+  <data name="Snapshots_Operation_Activate" xml:space="preserve">
+    <value>Активация: {0}</value>
+  </data>
+  <data name="Snapshots_Operation_Deactivate" xml:space="preserve">
+    <value>Деактивация: {0}</value>
+  </data>
+  <data name="Snapshots_Operation_Unknown" xml:space="preserve">
+    <value>Операция не записана</value>
+  </data>
+  <data name="Snapshots_State_Available" xml:space="preserve">
+    <value>Доступен</value>
+  </data>
+  <data name="Snapshots_State_Incomplete" xml:space="preserve">
+    <value>Неполный</value>
+  </data>
+  <data name="Snapshots_Action_Restore" xml:space="preserve">
+    <value>Восстановить</value>
+  </data>
+  <data name="Snapshots_Action_Recreate" xml:space="preserve">
+    <value>Создать заново</value>
+  </data>
+  <data name="Snapshots_Action_Delete" xml:space="preserve">
+    <value>Удалить снова</value>
+  </data>
+  <data name="Snapshots_Action_Unchanged" xml:space="preserve">
+    <value>Без изменений</value>
+  </data>
+  <data name="Snapshots_Retention" xml:space="preserve">
+    <value>Хранятся последние {0} снимков; более старые удаляются автоматически.</value>
+  </data>
+  <data name="Snapshots_PreviewRollback" xml:space="preserve">
+    <value>Предпросмотр отката…</value>
+  </data>
+  <data name="Options_Group_ScanRoots" xml:space="preserve">
+    <value>Корни поиска</value>
+  </data>
+  <data name="Options_Group_KeyFolders" xml:space="preserve">
+    <value>Дополнительные папки ключей SSH</value>
+  </data>
+  <data name="Options_Group_Appearance" xml:space="preserve">
+    <value>Оформление и язык</value>
+  </data>
+  <data name="Options_Group_Behaviour" xml:space="preserve">
+    <value>Поведение</value>
+  </data>
+  <data name="Options_AddScanRoot" xml:space="preserve">
+    <value>Добавить корень поиска</value>
+  </data>
+  <data name="Options_EditScanRoot" xml:space="preserve">
+    <value>Изменить корень поиска</value>
+  </data>
+  <data name="Options_AddKeyFolder" xml:space="preserve">
+    <value>Добавить папку ключей</value>
+  </data>
+  <data name="Options_EditKeyFolder" xml:space="preserve">
+    <value>Изменить папку ключей</value>
+  </data>
+  <data name="Options_Field_Path" xml:space="preserve">
+    <value>Путь:</value>
+  </data>
+  <data name="Options_Field_Depth" xml:space="preserve">
+    <value>Глубина:</value>
+  </data>
+  <data name="Options_Field_Material" xml:space="preserve">
+    <value>Содержимое:</value>
+  </data>
+  <data name="Options_Field_Enabled" xml:space="preserve">
+    <value>Включено:</value>
+  </data>
+  <data name="Options_Depth_Recursive" xml:space="preserve">
+    <value>Рекурсивно</value>
+  </data>
+  <data name="Options_Depth_TopLevel" xml:space="preserve">
+    <value>Только верхний уровень</value>
+  </data>
+  <data name="Options_Mode_PrivateAndPublic" xml:space="preserve">
+    <value>Приватные и публичные</value>
+  </data>
+  <data name="Options_Mode_PublicOnly" xml:space="preserve">
+    <value>Только публичные</value>
+  </data>
+  <data name="Options_ScanThisRoot" xml:space="preserve">
+    <value>Искать в этом корне</value>
+  </data>
+  <data name="Options_ScanThisFolder" xml:space="preserve">
+    <value>Искать в этой папке</value>
+  </data>
+  <data name="Options_State_Enabled" xml:space="preserve">
+    <value>Включено</value>
+  </data>
+  <data name="Options_State_Disabled" xml:space="preserve">
+    <value>Отключено</value>
+  </data>
+  <data name="Options_SettingsOnlyNote" xml:space="preserve">
+    <value>Изменение этих списков затрагивает только настройки GitVault. Репозитории, ключи и учётные данные не меняются.</value>
+  </data>
+  <data name="Options_KeysReadOnlyNote" xml:space="preserve">
+    <value>GitVault только читает файлы ключей и никогда не записывает их.</value>
+  </data>
+  <data name="Options_PickScanRoot" xml:space="preserve">
+    <value>Выберите папку для поиска репозиториев</value>
+  </data>
+  <data name="Options_PickKeyFolder" xml:space="preserve">
+    <value>Выберите папку для поиска ключей SSH</value>
+  </data>
+  <data name="Options_RemoveScanRoot_Title" xml:space="preserve">
+    <value>Удалить корень поиска</value>
+  </data>
+  <data name="Options_RemoveScanRoot_Message" xml:space="preserve">
+    <value>Прекратить поиск репозиториев в {0}?</value>
+  </data>
+  <data name="Options_RemoveKeyFolder_Title" xml:space="preserve">
+    <value>Удалить папку ключей</value>
+  </data>
+  <data name="Options_RemoveKeyFolder_Message" xml:space="preserve">
+    <value>Прекратить поиск ключей SSH в {0}?</value>
+  </data>
+  <data name="Options_NoScanRoots" xml:space="preserve">
+    <value>Корни поиска не заданы.</value>
+  </data>
+  <data name="Options_NoKeyFolders" xml:space="preserve">
+    <value>Дополнительные папки ключей не заданы. Стандартные расположения проверяются всегда.</value>
+  </data>
+  <data name="Profiles_Editor" xml:space="preserve">
+    <value>Редактор профиля</value>
+  </data>
+  <data name="Profiles_Activation" xml:space="preserve">
+    <value>Активация</value>
+  </data>
+  <data name="Profiles_Field_Name" xml:space="preserve">
+    <value>Имя профиля:</value>
+  </data>
+  <data name="Profiles_Field_Identity" xml:space="preserve">
+    <value>Идентичность:</value>
+  </data>
+  <data name="Profiles_Field_SshKey" xml:space="preserve">
+    <value>Ключ SSH:</value>
+  </data>
+  <data name="Profiles_Field_Helper" xml:space="preserve">
+    <value>Помощник учётных данных:</value>
+  </data>
+  <data name="Profiles_Field_StoredScope" xml:space="preserve">
+    <value>Сохранённая область:</value>
+  </data>
+  <data name="Profiles_Field_RepositoryPath" xml:space="preserve">
+    <value>Путь к репозиторию:</value>
+  </data>
+  <data name="Profiles_Field_WriteSshCommand" xml:space="preserve">
+    <value>Закреплять ключ через core.sshCommand</value>
+  </data>
+  <data name="Profiles_Column_StoredScope" xml:space="preserve">
+    <value>Сохранённая область</value>
+  </data>
+  <data name="Profiles_Repository" xml:space="preserve">
+    <value>Репозиторий</value>
+  </data>
+  <data name="Profiles_State" xml:space="preserve">
+    <value>Состояние плана</value>
+  </data>
+  <data name="Profiles_State_NotPreviewed" xml:space="preserve">
+    <value>Не просмотрен</value>
+  </data>
+  <data name="Profiles_State_NotReviewed" xml:space="preserve">
+    <value>Просмотрен, но не подтверждён</value>
+  </data>
+  <data name="Profiles_State_Reviewed" xml:space="preserve">
+    <value>Подтверждён</value>
+  </data>
+  <data name="Profiles_New" xml:space="preserve">
+    <value>Создать…</value>
+  </data>
+  <data name="Profiles_Save" xml:space="preserve">
+    <value>Сохранить профиль</value>
+  </data>
+  <data name="Profiles_Delete" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
+  <data name="Profiles_New_Title" xml:space="preserve">
+    <value>Новый профиль</value>
+  </data>
+  <data name="Profiles_New_NoIdentities" xml:space="preserve">
+    <value>Идентичности пока не найдены. Сначала выполните сканирование.</value>
+  </data>
+  <data name="Profiles_Delete_Title" xml:space="preserve">
+    <value>Удалить профиль</value>
+  </data>
+  <data name="Profiles_Delete_Message" xml:space="preserve">
+    <value>Удалить профиль «{0}»?</value>
+  </data>
+  <data name="Profiles_Delete_Detail" xml:space="preserve">
+    <value>Удаляется только профиль. Идентичности, ключи и учётные данные не удаляются, ранее применённые изменения не отменяются.</value>
+  </data>
+  <data name="Profiles_PreviewActivation" xml:space="preserve">
+    <value>Предпросмотр активации…</value>
+  </data>
+  <data name="Profiles_PreviewDeactivation" xml:space="preserve">
+    <value>Предпросмотр деактивации…</value>
+  </data>
+  <data name="Profiles_SnapshotNote" xml:space="preserve">
+    <value>Снимок создаётся перед любым изменением, а применение остаётся недоступным, пока пробный план не просмотрен.</value>
+  </data>
+  <data name="Profiles_StoredScopeNote" xml:space="preserve">
+    <value>Область открывается со значением, сохранённым в профиле, а не сбрасывается на глобальную.</value>
+  </data>
+  <data name="Profiles_UnsavedChanges" xml:space="preserve">
+    <value>Несохранённые изменения</value>
+  </data>
+  <data name="Dashboard_Detail_Platform" xml:space="preserve">
+    <value>Платформа</value>
+  </data>
+  <data name="Dashboard_Detail_Architecture" xml:space="preserve">
+    <value>Архитектура</value>
+  </data>
+  <data name="Dashboard_Detail_Git" xml:space="preserve">
+    <value>Git</value>
+  </data>
+  <data name="Dashboard_Detail_AppData" xml:space="preserve">
+    <value>Папка настроек</value>
+  </data>
+  <data name="Dashboard_Detail_Finding" xml:space="preserve">
+    <value>Находка</value>
+  </data>
+  <data name="Dashboard_Detail_Subject" xml:space="preserve">
+    <value>Объект</value>
+  </data>
+  <data name="Dashboard_Detail_Severity" xml:space="preserve">
+    <value>Важность</value>
+  </data>
+  <data name="Dashboard_Group_Effective" xml:space="preserve">
+    <value>Действующая идентичность Git</value>
+  </data>
+  <data name="Dashboard_Group_Attention" xml:space="preserve">
+    <value>Требует внимания</value>
+  </data>
+  <data name="Severity_High" xml:space="preserve">
+    <value>Высокая</value>
+  </data>
+  <data name="Severity_Medium" xml:space="preserve">
+    <value>Средняя</value>
+  </data>
+  <data name="Severity_Low" xml:space="preserve">
+    <value>Низкая</value>
+  </data>
+  <data name="Keys_Detail_PrivateMaterial" xml:space="preserve">
+    <value>Приватный материал</value>
+  </data>
+  <data name="Keys_HiddenByDesign" xml:space="preserve">
+    <value>Скрыт намеренно</value>
+  </data>
+  <data name="Credentials_Detail_Target" xml:space="preserve">
+    <value>Цель</value>
+  </data>
+  <data name="Credentials_Detail_Storage" xml:space="preserve">
+    <value>Хранение</value>
+  </data>
+  <data name="Credentials_Detail_SecretValue" xml:space="preserve">
+    <value>Значение секрета</value>
+  </data>
+  <data name="Credentials_ProtectedBadge" xml:space="preserve">
+    <value>Защищено средствами ОС</value>
+  </data>
+  <data name="Credentials_NotRead" xml:space="preserve">
+    <value>Не читалось</value>
+  </data>
+  <data name="Agents_Detail_Endpoint" xml:space="preserve">
+    <value>Точка подключения</value>
+  </data>
+  <data name="Agents_Detail_Writable" xml:space="preserve">
+    <value>Загрузка ключей</value>
+  </data>
+  <data name="Agents_ReadOnlyBadge" xml:space="preserve">
+    <value>Только чтение</value>
+  </data>
+  <data name="Agents_WritableBadge" xml:space="preserve">
+    <value>Поддерживается</value>
+  </data>
+  <data name="Agents_Column_Agent" xml:space="preserve">
+    <value>Агент</value>
+  </data>
+  <data name="Agents_Column_State" xml:space="preserve">
+    <value>Состояние</value>
+  </data>
+  <data name="Agents_Column_Source" xml:space="preserve">
+    <value>Источник</value>
+  </data>
+  <data name="Clients_Column_Client" xml:space="preserve">
+    <value>Клиент</value>
+  </data>
+  <data name="Clients_Column_Version" xml:space="preserve">
+    <value>Версия</value>
+  </data>
+  <data name="Clients_Column_Storage" xml:space="preserve">
+    <value>Хранилище секретов</value>
+  </data>
+  <data name="Logs_Column_Time" xml:space="preserve">
+    <value>Время</value>
+  </data>
+  <data name="Logs_Detail_Secrets" xml:space="preserve">
+    <value>Секреты</value>
+  </data>
+  <data name="Logs_Detail_Exception" xml:space="preserve">
+    <value>Исключение</value>
+  </data>
+  <data name="Logs_Redacted" xml:space="preserve">
+    <value>Вычищены до записи</value>
+  </data>
+  <data name="Snapshots_Number" xml:space="preserve">
+    <value>№{0:D4}</value>
+  </data>
+  <data name="Options_Column_Path" xml:space="preserve">
+    <value>Путь</value>
+  </data>
+  <data name="Options_Column_Depth" xml:space="preserve">
+    <value>Глубина</value>
+  </data>
+  <data name="Options_Column_Material" xml:space="preserve">
+    <value>Содержимое</value>
+  </data>
+  <data name="Options_Column_Enabled" xml:space="preserve">
+    <value>Включено</value>
   </data>
 </root>

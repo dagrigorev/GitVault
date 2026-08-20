@@ -1,0 +1,9 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:v="using:GitVault.App.Views"
+             x:Class="GitVault.App.Views.PropertiesDialogView">
+  <StackPanel Spacing="7">
+    <TextBlock FontWeight="Bold" Text="{Binding Subject}" TextWrapping="Wrap" />
+    <v:PropertyList Entries="{Binding Entries}" />
+  </StackPanel>
+</UserControl>

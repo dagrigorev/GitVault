@@ -1,0 +1,48 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="GitVault.App.Views.DialogWindow"
+        Classes="classicDialog"
+        Title="{Binding DialogTitle}"
+        Icon="avares://GitVault/Assets/gitvault.ico"
+        Width="{Binding DialogWidth}"
+        Height="{Binding DialogHeight}"
+        FontFamily="{StaticResource ClassicFontFamily}"
+        FontSize="{StaticResource ClassicFontSize}"
+        Background="{StaticResource ClassicFaceBrush}"
+        CanResize="True">
+
+  <!--
+    One frame for every dialog: caption band, body, footer. The body is resolved from the view
+    model by the same locator the pages use, so adding a dialog means adding a view model and a
+    small UserControl and nothing else.
+  -->
+  <DockPanel>
+
+    <Border DockPanel.Dock="Top" Classes="dialogTitle">
+      <TextBlock Text="{Binding DialogTitle}" />
+    </Border>
+
+    <Border DockPanel.Dock="Bottom" Classes="dialogFooter">
+      <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Spacing="6">
+        <Button Name="CancelButton"
+                Content="{Binding CancelCaption}"
+                IsVisible="{Binding ShowCancel}"
+                IsCancel="True"
+                MinWidth="88"
+                Command="{Binding CancelCommand}" />
+        <Button Name="ConfirmButton"
+                Classes="primary"
+                Content="{Binding ConfirmCaption}"
+                IsDefault="True"
+                MinWidth="88"
+                IsEnabled="{Binding CanConfirm}"
+                Command="{Binding ConfirmCommand}" />
+      </StackPanel>
+    </Border>
+
+    <ScrollViewer Padding="10" HorizontalScrollBarVisibility="Auto">
+      <ContentControl Content="{Binding}" />
+    </ScrollViewer>
+
+  </DockPanel>
+</Window>

@@ -222,6 +222,9 @@ internal sealed partial class AgentsViewModel : ListPageViewModel
     public override string TitleKey => Localization.Keys.Agents_Title;
 
     /// <inheritdoc/>
+    public override string SubtitleKey => Keys.Agents_Subtitle;
+
+    /// <inheritdoc/>
     public override string IconKey => "IconAgents";
 
     public override string EmptyKey => Localization.Keys.Agents_Empty;
@@ -267,6 +270,19 @@ internal sealed partial class AgentsViewModel : ListPageViewModel
         }
     }
 
+
+    /// <inheritdoc/>
+    internal override void EnsureSelection()
+    {
+        if (Cards.Count == 0)
+        {
+            return;
+        }
+
+        var current = SelectedAgent;
+        SelectedAgent = null;
+        SelectedAgent = current ?? Cards[0];
+    }
     /// <inheritdoc/>
     protected override void OnCultureChanged()
     {
@@ -307,5 +323,43 @@ internal sealed partial class AgentsViewModel : ListPageViewModel
 
         SelectedAgent = Cards.FirstOrDefault();
         OnPropertyChanged(nameof(IsEmpty));
+    }
+
+    partial void OnSelectedAgentChanged(AgentCard? value)
+    {
+        // A DataGrid pushes null back through the binding when it is first attached. A classic
+        // list always has a current item, so re-assert the first row instead of letting the
+        // properties pane blank itself the moment the page is shown.
+        if (value is null && Cards.Count > 0)
+        {
+            SelectedAgent = Cards[0];
+            return;
+        }
+
+        _ = value;
+        RebuildProperties();
+    }
+
+    /// <summary>Fills the properties pane for the selected agent.</summary>
+    private void RebuildProperties()
+    {
+        if (SelectedAgent is not { } card)
+        {
+            SetProperties([]);
+            return;
+        }
+
+        SetProperties(
+        [
+            Property(Keys.Agents_Column_Agent, card.KindCaption),
+            Property(Keys.Agents_Column_State, card.StateCaption,
+                card.Agent.IsRunning ? PropertyStyle.BadgeOk : PropertyStyle.Badge),
+            Property(Keys.Agents_Detail_Endpoint, card.Endpoint, PropertyStyle.Mono),
+            Property(Keys.Agents_LoadedKeys, card.KeyCountCaption),
+            Property(
+                Keys.Agents_Detail_Writable,
+                L[card.IsReadOnly ? Keys.Agents_ReadOnlyBadge : Keys.Agents_WritableBadge],
+                card.IsReadOnly ? PropertyStyle.Badge : PropertyStyle.BadgeWarn),
+        ]);
     }
 }

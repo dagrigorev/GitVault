@@ -2,85 +2,169 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:loc="using:GitVault.App.Markup"
              x:Class="GitVault.App.Views.SettingsView">
-  <StackPanel Spacing="6" MaxWidth="620" HorizontalAlignment="Left">
+  <ScrollViewer>
+    <StackPanel Spacing="0">
 
-    <TextBlock Classes="sectionHeader" Text="{loc:Tr Settings_Language}" />
-    <ComboBox ItemsSource="{Binding Languages}"
-              SelectedItem="{Binding SelectedLanguage, Mode=TwoWay}"
-              MinWidth="240"
-              AutomationProperties.Name="{loc:Tr Settings_Language}">
-      <ComboBox.ItemTemplate>
-        <DataTemplate>
-          <TextBlock Text="{Binding Label}" />
-        </DataTemplate>
-      </ComboBox.ItemTemplate>
-    </ComboBox>
+      <!-- ================================================== scan roots -->
+      <Border Classes="group">
+        <DockPanel>
+          <TextBlock DockPanel.Dock="Top" Classes="groupTitle" Margin="0,-16,0,4"
+                     Text="{loc:Tr Options_Group_ScanRoots}" />
 
-    <TextBlock Classes="sectionHeader" Text="{loc:Tr Settings_Theme}" />
-    <ComboBox ItemsSource="{Binding Themes}"
-              SelectedItem="{Binding SelectedTheme, Mode=TwoWay}"
-              MinWidth="240"
-              AutomationProperties.Name="{loc:Tr Settings_Theme}">
-      <ComboBox.ItemTemplate>
-        <DataTemplate>
-          <TextBlock Text="{Binding Label}" />
-        </DataTemplate>
-      </ComboBox.ItemTemplate>
-    </ComboBox>
+          <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" Spacing="5" Margin="0,6,0,0">
+            <Button Name="AddScanRootButton"
+                    Command="{Binding AddScanRootCommand}" Content="{loc:Tr Common_Add}" />
+            <Button Command="{Binding EditScanRootCommand}"
+                    IsEnabled="{Binding HasSelectedScanRoot}" Content="{loc:Tr Common_Edit}" />
+            <Button Command="{Binding RemoveScanRootCommand}"
+                    IsEnabled="{Binding HasSelectedScanRoot}" Content="{loc:Tr Common_Remove}" />
+          </StackPanel>
 
-    <TextBlock Classes="sectionHeader" Text="{loc:Tr Settings_RevealPolicy}" />
-    <TextBlock Text="{Binding AutoHideCaption}" />
-    <TextBlock Text="{Binding ClipboardClearCaption}" />
+          <Border Classes="panelWhite" MinHeight="92" MaxHeight="150">
+            <DataGrid Name="ScanRootsGrid"
+                      ItemsSource="{Binding ScanRoots}"
+                      SelectedItem="{Binding SelectedScanRoot, Mode=TwoWay}"
+                      BorderThickness="0"
+                      CanUserSortColumns="False">
+              <DataGrid.Columns>
+                <DataGridTextColumn Header="{loc:Tr Options_Column_Path}" Binding="{Binding Path}" Width="*" />
+                <DataGridTextColumn Header="{loc:Tr Options_Column_Depth}" Binding="{Binding Depth}" Width="140" />
+                <DataGridCheckBoxColumn Header="{loc:Tr Options_Column_Enabled}" Binding="{Binding Enabled}" Width="90" />
+              </DataGrid.Columns>
+            </DataGrid>
+          </Border>
+        </DockPanel>
+      </Border>
 
-    <CheckBox Margin="0,16,0,0"
-              IsChecked="{Binding DryRunByDefault, Mode=TwoWay}"
-              Content="{loc:Tr Settings_DryRunDefault}" />
-    <CheckBox IsChecked="{Binding WatchForChanges, Mode=TwoWay}"
-              Content="{loc:Tr Settings_WatchForChanges}" />
+      <!-- ================================================== key folders -->
+      <Border Classes="group">
+        <DockPanel>
+          <TextBlock DockPanel.Dock="Top" Classes="groupTitle" Margin="0,-16,0,4"
+                     Text="{loc:Tr Options_Group_KeyFolders}" />
 
-    <TextBlock Classes="sectionHeader" Text="{loc:Tr Nav_Logs}" />
-    <TextBlock Classes="mono" Text="{Binding LogDirectory}" />
-    <Button Command="{Binding OpenLogsFolderCommand}"
-            Content="{loc:Tr Settings_OpenLogsFolder}"
-            HorizontalAlignment="Left" />
+          <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" Spacing="5" Margin="0,6,0,0">
+            <Button Name="AddKeyFolderButton"
+                    Command="{Binding AddKeyFolderCommand}" Content="{loc:Tr Common_Add}" />
+            <Button Command="{Binding EditKeyFolderCommand}"
+                    IsEnabled="{Binding HasSelectedKeyFolder}" Content="{loc:Tr Common_Edit}" />
+            <Button Command="{Binding RemoveKeyFolderCommand}"
+                    IsEnabled="{Binding HasSelectedKeyFolder}" Content="{loc:Tr Common_Remove}" />
+          </StackPanel>
 
-    <TextBlock Classes="sectionHeader" Text="{loc:Tr Settings_Diagnostics}" />
-    <TextBlock TextWrapping="Wrap" Text="{Binding DiagnosticsNote}" />
-    <StackPanel Orientation="Horizontal" Spacing="8">
-      <Button Command="{Binding PreviewDiagnosticsCommand}" >
-            <StackPanel Orientation="Horizontal">
-              <PathIcon Classes="buttonIcon" Data="{StaticResource IconPreview}" />
-              <TextBlock Text="{loc:Tr Settings_PreviewDiagnostics}" />
-            </StackPanel>
-          </Button>
-      <Button Command="{Binding SaveDiagnosticsCommand}"
-              IsEnabled="{Binding CanSaveDiagnostics}"
-              >
-            <StackPanel Orientation="Horizontal">
-              <PathIcon Classes="buttonIcon" Data="{StaticResource IconApply}" />
-              <TextBlock Text="{loc:Tr Settings_SaveDiagnostics}" />
-            </StackPanel>
-          </Button>
+          <Border Classes="panelWhite" MinHeight="92" MaxHeight="150">
+            <DataGrid Name="KeyFoldersGrid"
+                      ItemsSource="{Binding KeyFolders}"
+                      SelectedItem="{Binding SelectedKeyFolder, Mode=TwoWay}"
+                      BorderThickness="0"
+                      CanUserSortColumns="False">
+              <DataGrid.Columns>
+                <DataGridTextColumn Header="{loc:Tr Options_Column_Path}" Binding="{Binding Path}" Width="*" />
+                <DataGridTextColumn Header="{loc:Tr Options_Column_Material}" Binding="{Binding Mode}" Width="160" />
+                <DataGridCheckBoxColumn Header="{loc:Tr Options_Column_Enabled}" Binding="{Binding Enabled}" Width="90" />
+              </DataGrid.Columns>
+            </DataGrid>
+          </Border>
+        </DockPanel>
+      </Border>
+
+      <Border Classes="note">
+        <TextBlock TextWrapping="Wrap" Text="{Binding DiscoveryNoteCaption}" />
+      </Border>
+
+      <!-- ================================================== appearance -->
+      <Border Classes="group">
+        <DockPanel>
+          <TextBlock DockPanel.Dock="Top" Classes="groupTitle" Margin="0,-16,0,4"
+                     Text="{loc:Tr Options_Group_Appearance}" />
+
+          <Grid ColumnDefinitions="135,240" RowDefinitions="Auto,Auto">
+            <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Margin="0,3"
+                       Text="{loc:Tr Settings_Language}" />
+            <ComboBox Grid.Row="0" Grid.Column="1" Margin="0,3" HorizontalAlignment="Stretch"
+                      ItemsSource="{Binding Languages}"
+                      SelectedItem="{Binding SelectedLanguage, Mode=TwoWay}"
+                      AutomationProperties.Name="{loc:Tr Settings_Language}">
+              <ComboBox.ItemTemplate>
+                <DataTemplate>
+                  <TextBlock Text="{Binding Label}" />
+                </DataTemplate>
+              </ComboBox.ItemTemplate>
+            </ComboBox>
+
+            <TextBlock Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Margin="0,3"
+                       Text="{loc:Tr Settings_Theme}" />
+            <ComboBox Grid.Row="1" Grid.Column="1" Margin="0,3" HorizontalAlignment="Stretch"
+                      ItemsSource="{Binding Themes}"
+                      SelectedItem="{Binding SelectedTheme, Mode=TwoWay}"
+                      AutomationProperties.Name="{loc:Tr Settings_Theme}">
+              <ComboBox.ItemTemplate>
+                <DataTemplate>
+                  <TextBlock Text="{Binding Label}" />
+                </DataTemplate>
+              </ComboBox.ItemTemplate>
+            </ComboBox>
+          </Grid>
+        </DockPanel>
+      </Border>
+
+      <!-- ================================================== behaviour -->
+      <Border Classes="group">
+        <DockPanel>
+          <TextBlock DockPanel.Dock="Top" Classes="groupTitle" Margin="0,-16,0,4"
+                     Text="{loc:Tr Options_Group_Behaviour}" />
+
+          <StackPanel Spacing="4">
+            <CheckBox IsChecked="{Binding DryRunByDefault, Mode=TwoWay}"
+                      Content="{loc:Tr Settings_DryRunDefault}" />
+            <CheckBox IsChecked="{Binding WatchForChanges, Mode=TwoWay}"
+                      Content="{loc:Tr Settings_WatchForChanges}" />
+
+            <TextBlock Classes="sectionHeader" Margin="0,8,0,2" Text="{loc:Tr Settings_RevealPolicy}" />
+            <TextBlock Classes="dim" Text="{Binding AutoHideCaption}" />
+            <TextBlock Classes="dim" Text="{Binding ClipboardClearCaption}" />
+          </StackPanel>
+        </DockPanel>
+      </Border>
+
+      <!-- ================================================== diagnostics -->
+      <Border Classes="group">
+        <DockPanel>
+          <TextBlock DockPanel.Dock="Top" Classes="groupTitle" Margin="0,-16,0,4"
+                     Text="{loc:Tr Settings_Diagnostics}" />
+
+          <TextBlock DockPanel.Dock="Top" Classes="dim" TextWrapping="Wrap" Margin="0,0,0,6"
+                     Text="{Binding DiagnosticsNote}" />
+
+          <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Spacing="5">
+            <Button Command="{Binding PreviewDiagnosticsCommand}" Content="{loc:Tr Settings_PreviewDiagnostics}" />
+            <Button Command="{Binding SaveDiagnosticsCommand}"
+                    IsEnabled="{Binding CanSaveDiagnostics}"
+                    Content="{loc:Tr Settings_SaveDiagnostics}" />
+            <Button Command="{Binding OpenLogsFolderCommand}" Content="{loc:Tr Settings_OpenLogsFolder}" />
+          </StackPanel>
+
+          <Border Classes="panelWhite" Margin="0,6,0,0" MaxHeight="160"
+                  IsVisible="{Binding CanSaveDiagnostics}">
+            <DataGrid ItemsSource="{Binding DiagnosticsItems}" BorderThickness="0" CanUserSortColumns="False">
+              <DataGrid.Columns>
+                <DataGridTextColumn Header="{loc:Tr Options_Column_Path}" Binding="{Binding Name}" Width="220" />
+                <DataGridTextColumn Header="{loc:Tr Logs_Column_Message}" Binding="{Binding Content}" Width="*" />
+              </DataGrid.Columns>
+            </DataGrid>
+          </Border>
+
+          <TextBlock DockPanel.Dock="Bottom" Classes="dim" TextWrapping="Wrap" Margin="0,6,0,0"
+                     IsVisible="{Binding DiagnosticsStatus, Converter={x:Static ObjectConverters.IsNotNull}}"
+                     Text="{Binding DiagnosticsStatus}" />
+        </DockPanel>
+      </Border>
+
+      <Border Classes="note">
+        <TextBlock TextWrapping="Wrap" Text="{Binding TelemetryCaption}" />
+      </Border>
+
+      <TextBlock Classes="mono dim" Margin="0,7,0,0" Text="{Binding LogDirectory}" />
+
     </StackPanel>
-    <TextBlock IsVisible="{Binding DiagnosticsStatus, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
-               TextWrapping="Wrap"
-               Text="{Binding DiagnosticsStatus}" />
-
-    <ItemsControl ItemsSource="{Binding DiagnosticsItems}">
-      <ItemsControl.ItemTemplate>
-        <DataTemplate>
-          <Expander Margin="0,4,0,0" Header="{Binding Name}">
-            <StackPanel Spacing="4">
-              <TextBlock Opacity="0.7" TextWrapping="Wrap" Text="{Binding Description}" />
-              <SelectableTextBlock Classes="mono" Text="{Binding Content}" />
-            </StackPanel>
-          </Expander>
-        </DataTemplate>
-      </ItemsControl.ItemTemplate>
-    </ItemsControl>
-
-    <TextBlock Classes="sectionHeader" Text="{loc:Tr Settings_Telemetry}" />
-    <TextBlock TextWrapping="Wrap" Text="{Binding TelemetryCaption}" />
-
-  </StackPanel>
+  </ScrollViewer>
 </UserControl>

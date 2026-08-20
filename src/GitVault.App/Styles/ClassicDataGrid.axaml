@@ -1,0 +1,100 @@
+<!--
+  DataGrid, at desktop density.
+
+  The Fluent DataGrid theme is built for touch: 40px rows, generous cell padding, rounded
+  selection. A classic administration utility fits three times as many rows on the same screen,
+  and that density is the point of the redesign rather than a detail of it.
+
+  Selection and hover live on named parts inside the row template. A selector naming a part that
+  does not exist is ignored rather than fatal, so the worst case of an Avalonia upgrade renaming
+  one is that the row falls back to the theme's own selection colour.
+-->
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+  <Style Selector="DataGrid">
+    <Setter Property="FontSize" Value="{StaticResource ClassicFontSize}" />
+    <Setter Property="Background" Value="{StaticResource ClassicWindowBrush}" />
+    <Setter Property="BorderBrush" Value="#8A8A8A" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="CornerRadius" Value="0" />
+    <Setter Property="RowHeight" Value="22" />
+    <Setter Property="ColumnHeaderHeight" Value="24" />
+    <Setter Property="GridLinesVisibility" Value="Horizontal" />
+    <Setter Property="HorizontalGridLinesBrush" Value="{StaticResource ClassicGridLineBrush}" />
+    <Setter Property="VerticalGridLinesBrush" Value="{StaticResource ClassicGridLineBrush}" />
+    <Setter Property="IsReadOnly" Value="True" />
+    <Setter Property="CanUserSortColumns" Value="True" />
+    <Setter Property="CanUserResizeColumns" Value="True" />
+    <Setter Property="SelectionMode" Value="Single" />
+    <Setter Property="HeadersVisibility" Value="Column" />
+  </Style>
+
+  <Style Selector="DataGridColumnHeader">
+    <Setter Property="FontSize" Value="{StaticResource ClassicFontSize}" />
+    <Setter Property="FontWeight" Value="Normal" />
+    <Setter Property="Padding" Value="6,3" />
+    <Setter Property="MinHeight" Value="24" />
+    <Setter Property="Background" Value="{StaticResource ClassicHeaderBrush}" />
+    <Setter Property="Foreground" Value="{StaticResource ClassicTextBrush}" />
+    <Setter Property="BorderBrush" Value="#888888" />
+    <Setter Property="BorderThickness" Value="0,0,1,1" />
+    <Setter Property="HorizontalContentAlignment" Value="Left" />
+    <Setter Property="SeparatorBrush" Value="#AAAAAA" />
+  </Style>
+
+  <Style Selector="DataGridColumnHeader:pointerover /template/ Grid#PART_ColumnHeaderRoot">
+    <Setter Property="Background" Value="{StaticResource ClassicHoverBrush}" />
+  </Style>
+
+  <Style Selector="DataGridRow">
+    <Setter Property="MinHeight" Value="22" />
+    <Setter Property="Foreground" Value="{StaticResource ClassicTextBrush}" />
+  </Style>
+
+  <Style Selector="DataGridRow:pointerover /template/ Rectangle#BackgroundRectangle">
+    <Setter Property="Fill" Value="{StaticResource ClassicRowHoverBrush}" />
+    <Setter Property="Opacity" Value="1" />
+  </Style>
+
+  <Style Selector="DataGridRow:selected /template/ Rectangle#BackgroundRectangle">
+    <Setter Property="Fill" Value="{StaticResource ClassicSelectionBrush}" />
+    <Setter Property="Opacity" Value="1" />
+  </Style>
+
+  <Style Selector="DataGridRow:selected">
+    <Setter Property="Foreground" Value="{StaticResource ClassicSelectionTextBrush}" />
+  </Style>
+
+  <!--
+    The cell's own text has to be told as well: DataGridTextColumn creates a TextBlock whose
+    foreground comes from the cell, and a selected row's white-on-blue is unreadable otherwise.
+  -->
+  <Style Selector="DataGridRow:selected DataGridCell TextBlock">
+    <Setter Property="Foreground" Value="{StaticResource ClassicSelectionTextBrush}" />
+  </Style>
+
+  <Style Selector="DataGridCell">
+    <Setter Property="FontSize" Value="{StaticResource ClassicFontSize}" />
+    <Setter Property="Padding" Value="6,2" />
+    <Setter Property="MinHeight" Value="22" />
+    <Setter Property="BorderThickness" Value="0" />
+    <Setter Property="Foreground" Value="{StaticResource ClassicTextBrush}" />
+  </Style>
+
+  <!-- No focus rectangle around the current cell; classic grids show selection by row. -->
+  <Style Selector="DataGridCell:current /template/ Rectangle#CurrencyVisual">
+    <Setter Property="IsVisible" Value="False" />
+  </Style>
+
+  <Style Selector="DataGridCell:focus /template/ Rectangle#FocusVisual">
+    <Setter Property="IsVisible" Value="False" />
+  </Style>
+
+  <!-- Long paths truncate with an ellipsis; the full value is on the row's tooltip. -->
+  <Style Selector="DataGridCell TextBlock">
+    <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+    <Setter Property="VerticalAlignment" Value="Center" />
+  </Style>
+
+</Styles>

@@ -68,6 +68,8 @@ internal static class ServiceCollectionExtensions
 
         services.AddSingleton<ClipboardService>();
         services.AddSingleton<IClipboardService>(sp => sp.GetRequiredService<ClipboardService>());
+        services.AddSingleton<StatusService>();
+        services.AddSingleton<IDialogService, DialogService>();
 
         services.AddSingleton<IPluralizer, CldrPluralizer>();
         services.AddSingleton<ILocalizationService, LocalizationService>();
@@ -81,10 +83,11 @@ internal static class ServiceCollectionExtensions
         services.AddSingleton<ClientsViewModel>();
         services.AddSingleton<ProfilesViewModel>();
         services.AddSingleton<RepositoriesViewModel>();
+        services.AddSingleton<SnapshotsViewModel>();
         services.AddSingleton<SettingsViewModel>();
         services.AddSingleton<LogsViewModel>();
 
-        // Rail order. Registering the sequence explicitly keeps navigation deterministic
+        // Tree order. Registering the sequence explicitly keeps navigation deterministic
         // instead of depending on registration order inside the container.
         services.AddSingleton<IEnumerable<PageViewModel>>(sp =>
         [
@@ -96,8 +99,9 @@ internal static class ServiceCollectionExtensions
             sp.GetRequiredService<ClientsViewModel>(),
             sp.GetRequiredService<ProfilesViewModel>(),
             sp.GetRequiredService<RepositoriesViewModel>(),
-            sp.GetRequiredService<SettingsViewModel>(),
+            sp.GetRequiredService<SnapshotsViewModel>(),
             sp.GetRequiredService<LogsViewModel>(),
+            sp.GetRequiredService<SettingsViewModel>(),
         ]);
 
         services.AddSingleton<MainWindowViewModel>();

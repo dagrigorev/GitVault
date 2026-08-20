@@ -1,0 +1,222 @@
+<!--
+  Window chrome: menu bar, toolbar, navigation tree, tab strip, status bar and dialogs.
+
+  Everything here is the frame around the pages rather than the pages themselves, which is why it
+  is one file: these pieces share a vocabulary of one-pixel borders and face-coloured bands, and
+  splitting them across five files would mean chasing the same three brushes between them.
+-->
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+  <!-- =============================================================== menu bar -->
+
+  <Style Selector="Menu">
+    <Setter Property="Background" Value="{StaticResource ClassicFaceBrush}" />
+    <Setter Property="Padding" Value="3,0" />
+    <Setter Property="FontSize" Value="{StaticResource ClassicFontSize}" />
+  </Style>
+
+  <Style Selector="Menu > MenuItem">
+    <Setter Property="Padding" Value="9,3,9,4" />
+    <Setter Property="CornerRadius" Value="0" />
+    <Setter Property="FontSize" Value="{StaticResource ClassicFontSize}" />
+    <Setter Property="Foreground" Value="{StaticResource ClassicTextBrush}" />
+  </Style>
+
+  <Style Selector="Menu > MenuItem:pointerover /template/ Border#PART_LayoutRoot">
+    <Setter Property="Background" Value="#E2EEF8" />
+    <Setter Property="BorderBrush" Value="#9DB7CE" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="CornerRadius" Value="0" />
+  </Style>
+
+  <Style Selector="Menu > MenuItem:open /template/ Border#PART_LayoutRoot">
+    <Setter Property="Background" Value="#E2EEF8" />
+    <Setter Property="BorderBrush" Value="#9DB7CE" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="CornerRadius" Value="0" />
+  </Style>
+
+  <Style Selector="MenuItem">
+    <Setter Property="MinHeight" Value="22" />
+    <Setter Property="CornerRadius" Value="0" />
+    <Setter Property="FontSize" Value="{StaticResource ClassicFontSize}" />
+  </Style>
+
+  <Style Selector="MenuItem:pointerover /template/ Border#PART_LayoutRoot">
+    <Setter Property="Background" Value="{StaticResource ClassicSelectionBrush}" />
+    <Setter Property="CornerRadius" Value="0" />
+  </Style>
+
+  <Style Selector="MenuItem:pointerover /template/ ContentPresenter#PART_HeaderPresenter">
+    <Setter Property="TextElement.Foreground" Value="{StaticResource ClassicSelectionTextBrush}" />
+  </Style>
+
+  <Style Selector="MenuItem:disabled">
+    <Setter Property="Foreground" Value="{StaticResource ClassicDisabledTextBrush}" />
+  </Style>
+
+  <Style Selector="MenuFlyoutPresenter, ContextMenu">
+    <Setter Property="Background" Value="{StaticResource ClassicFaceBrush}" />
+    <Setter Property="BorderBrush" Value="#777777" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="CornerRadius" Value="0" />
+    <Setter Property="Padding" Value="3" />
+  </Style>
+
+  <Style Selector="Separator">
+    <Setter Property="Background" Value="#AAAAAA" />
+    <Setter Property="Height" Value="1" />
+    <Setter Property="Margin" Value="2,3" />
+  </Style>
+
+  <!-- =============================================================== toolbar -->
+
+  <Style Selector="Border.toolbar">
+    <Setter Property="Background" Value="{StaticResource ClassicToolbarBrush}" />
+    <Setter Property="BorderBrush" Value="#999999" />
+    <Setter Property="BorderThickness" Value="0,1,0,1" />
+    <Setter Property="Padding" Value="6,4" />
+  </Style>
+
+  <!-- The etched vertical rule between toolbar groups: dark line, light highlight beside it. -->
+  <Style Selector="Border.toolSeparator">
+    <Setter Property="Width" Value="2" />
+    <Setter Property="Height" Value="31" />
+    <Setter Property="Margin" Value="4,0" />
+    <Setter Property="BorderBrush" Value="#AAAAAA" />
+    <Setter Property="BorderThickness" Value="1,0,0,0" />
+    <Setter Property="Background" Value="{StaticResource ClassicLightBrush}" />
+  </Style>
+
+  <Style Selector="Border.menuBar">
+    <Setter Property="Background" Value="{StaticResource ClassicFaceBrush}" />
+    <Setter Property="BorderBrush" Value="{StaticResource ClassicSoftBorderBrush}" />
+    <Setter Property="BorderThickness" Value="0,0,0,1" />
+  </Style>
+
+  <!-- =============================================================== navigation tree -->
+
+  <Style Selector="Border.sidebar">
+    <Setter Property="Background" Value="{StaticResource ClassicSidebarBrush}" />
+    <Setter Property="BorderBrush" Value="#777777" />
+    <Setter Property="BorderThickness" Value="0,0,1,0" />
+  </Style>
+
+  <Style Selector="Border.sidebarFoot">
+    <Setter Property="Background" Value="{StaticResource ClassicSidebarFootBrush}" />
+    <Setter Property="BorderBrush" Value="#AAAAAA" />
+    <Setter Property="BorderThickness" Value="0,1,0,0" />
+    <Setter Property="Padding" Value="7" />
+  </Style>
+
+  <Style Selector="TreeView">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="BorderThickness" Value="0" />
+    <Setter Property="Padding" Value="4,5" />
+    <Setter Property="FontSize" Value="{StaticResource ClassicFontSize}" />
+  </Style>
+
+  <Style Selector="TreeViewItem">
+    <Setter Property="MinHeight" Value="24" />
+    <Setter Property="Padding" Value="4,2" />
+    <Setter Property="CornerRadius" Value="0" />
+    <Setter Property="FontSize" Value="{StaticResource ClassicFontSize}" />
+    <Setter Property="IsExpanded" Value="True" />
+  </Style>
+
+  <Style Selector="TreeViewItem /template/ Border#PART_LayoutRoot">
+    <Setter Property="CornerRadius" Value="0" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="BorderBrush" Value="Transparent" />
+  </Style>
+
+  <Style Selector="TreeViewItem:pointerover /template/ Border#PART_LayoutRoot">
+    <Setter Property="Background" Value="{StaticResource ClassicHoverBrush}" />
+    <Setter Property="BorderBrush" Value="{StaticResource ClassicHoverBorderBrush}" />
+  </Style>
+
+  <Style Selector="TreeViewItem:selected /template/ Border#PART_LayoutRoot">
+    <Setter Property="Background" Value="{StaticResource ClassicTreeSelectionBrush}" />
+    <Setter Property="BorderBrush" Value="{StaticResource ClassicSelectionBorderBrush}" />
+  </Style>
+
+  <Style Selector="TreeViewItem:selected /template/ ContentPresenter#PART_HeaderPresenter TextBlock">
+    <Setter Property="Foreground" Value="{StaticResource ClassicSelectionTextBrush}" />
+  </Style>
+
+  <Style Selector="TreeViewItem:selected:pointerover /template/ Border#PART_LayoutRoot">
+    <Setter Property="Background" Value="{StaticResource ClassicTreeSelectionBrush}" />
+  </Style>
+
+  <!-- =============================================================== tab strip -->
+
+  <Style Selector="Border.tabBar">
+    <Setter Property="Background" Value="{StaticResource ClassicFaceBrush}" />
+    <Setter Property="BorderBrush" Value="#858585" />
+    <Setter Property="BorderThickness" Value="0,0,0,1" />
+    <Setter Property="Padding" Value="5,3,5,0" />
+  </Style>
+
+  <!-- The single active tab, drawn as a classic folder tab sitting on the content edge. -->
+  <Style Selector="Border.activeTab">
+    <Setter Property="Background" Value="{StaticResource ClassicWindowBrush}" />
+    <Setter Property="BorderBrush" Value="#8A8A8A" />
+    <Setter Property="BorderThickness" Value="1,1,1,0" />
+    <Setter Property="Padding" Value="14,5" />
+    <Setter Property="Margin" Value="0,0,2,-1" />
+    <Setter Property="CornerRadius" Value="0" />
+  </Style>
+
+  <Style Selector="Border.activeTab TextBlock">
+    <Setter Property="FontWeight" Value="Bold" />
+  </Style>
+
+  <!-- =============================================================== status bar -->
+
+  <Style Selector="Border.statusBar">
+    <Setter Property="Background" Value="{StaticResource ClassicFaceBrush}" />
+    <Setter Property="BorderBrush" Value="#999999" />
+    <Setter Property="BorderThickness" Value="0,1,0,0" />
+    <Setter Property="Padding" Value="3,2" />
+  </Style>
+
+  <!-- =============================================================== dialogs -->
+
+  <Style Selector="Window.classicDialog">
+    <Setter Property="Background" Value="{StaticResource ClassicFaceBrush}" />
+    <Setter Property="FontFamily" Value="{StaticResource ClassicFontFamily}" />
+    <Setter Property="FontSize" Value="{StaticResource ClassicFontSize}" />
+    <Setter Property="SizeToContent" Value="Manual" />
+    <Setter Property="ShowInTaskbar" Value="False" />
+    <Setter Property="WindowStartupLocation" Value="CenterOwner" />
+  </Style>
+
+  <Style Selector="Border.dialogTitle">
+    <Setter Property="Background" Value="{StaticResource ClassicDialogTitleBrush}" />
+    <Setter Property="BorderBrush" Value="#597B96" />
+    <Setter Property="BorderThickness" Value="0,0,0,1" />
+    <Setter Property="Padding" Value="8,5" />
+  </Style>
+
+  <Style Selector="Border.dialogTitle TextBlock">
+    <Setter Property="FontWeight" Value="Bold" />
+  </Style>
+
+  <Style Selector="Border.dialogFooter">
+    <Setter Property="Background" Value="{StaticResource ClassicFaceBrush}" />
+    <Setter Property="BorderBrush" Value="#AAAAAA" />
+    <Setter Property="BorderThickness" Value="0,1,0,0" />
+    <Setter Property="Padding" Value="10,8" />
+  </Style>
+
+  <!-- The dry-run diff. Monospaced, sunken, and never wrapped mid-token. -->
+  <Style Selector="Border.diff">
+    <Setter Property="Background" Value="{StaticResource ClassicWindowBrush}" />
+    <Setter Property="BorderBrush" Value="#888888" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="Padding" Value="8" />
+    <Setter Property="CornerRadius" Value="0" />
+  </Style>
+
+</Styles>

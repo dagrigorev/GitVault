@@ -98,6 +98,9 @@ internal sealed partial class SshKeysViewModel : ListPageViewModel
     public override string TitleKey => Keys.Keys_Title;
 
     /// <inheritdoc/>
+    public override string SubtitleKey => Keys.Keys_Subtitle;
+
+    /// <inheritdoc/>
     public override string IconKey => "IconKeys";
 
     public override string EmptyKey => Keys.Keys_Empty;
@@ -151,13 +154,89 @@ internal sealed partial class SshKeysViewModel : ListPageViewModel
         }
     }
 
+
+    /// <inheritdoc/>
+    internal override void EnsureSelection()
+    {
+        if (Rows.Count == 0)
+        {
+            return;
+        }
+
+        var current = SelectedRow;
+        SelectedRow = null;
+        SelectedRow = current ?? Rows[0];
+    }
     /// <inheritdoc/>
     protected override void OnCultureChanged()
     {
+        base.OnCultureChanged();
+
         foreach (var row in Rows)
         {
             row.RefreshCaptions();
         }
+
+        RebuildProperties();
+    }
+
+    partial void OnSelectedRowChanged(SshKeyRow? value)
+    {
+        // A DataGrid pushes null back through the binding when it is first attached. A classic
+        // list always has a current item, so re-assert the first row instead of letting the
+        // properties pane blank itself the moment the page is shown.
+        if (value is null && Rows.Count > 0)
+        {
+            SelectedRow = Rows[0];
+            return;
+        }
+
+        _ = value;
+        RebuildProperties();
+    }
+
+    /// <summary>
+    /// Fills the properties pane for the selected key.
+    /// </summary>
+    /// <remarks>
+    /// The private half is named and then explicitly not shown. Saying "hidden by design" where
+    /// the value would be is the point: it tells the user the material was found and deliberately
+    /// withheld, rather than leaving them to wonder whether the row is simply incomplete.
+    /// </remarks>
+    private void RebuildProperties()
+    {
+        if (SelectedRow is not { } row)
+        {
+            SetProperties([]);
+            return;
+        }
+
+        var entries = new List<PropertyEntry>
+        {
+            Property(Keys.Keys_Column_Algorithm, row.Algorithm),
+            Property(Keys.Keys_Column_Bits, row.Bits),
+            Property(Keys.Keys_Column_Fingerprint, row.Fingerprint, PropertyStyle.Mono),
+            Property(Keys.Keys_Column_Comment, row.Comment),
+            Property(Keys.Keys_Column_Format, row.Format),
+            Property(Keys.Keys_Column_Path, row.Path, PropertyStyle.Mono),
+            Property(Keys.Keys_Detail_PrivateMaterial, L[Keys.Keys_HiddenByDesign], PropertyStyle.Badge),
+            Property(
+                Keys.Keys_Column_Protection,
+                row.Protection,
+                row.Key.IsEncrypted || row.Key.IsHardwareBacked ? PropertyStyle.BadgeOk : PropertyStyle.BadgeWarn),
+        };
+
+        if (row.Permissions.Length > 0)
+        {
+            entries.Add(Property(Keys.Keys_Detail_Permissions, row.Permissions, PropertyStyle.Mono));
+        }
+
+        if (row.KdfRounds.Length > 0)
+        {
+            entries.Add(Property(Keys.Keys_Detail_KdfRounds, row.KdfRounds));
+        }
+
+        SetProperties(entries);
     }
 
     /// <inheritdoc/>

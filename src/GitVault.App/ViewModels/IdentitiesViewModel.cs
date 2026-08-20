@@ -104,6 +104,9 @@ internal sealed partial class IdentitiesViewModel : ListPageViewModel
     public override string TitleKey => Keys.Identities_Title;
 
     /// <inheritdoc/>
+    public override string SubtitleKey => Keys.Identities_Subtitle;
+
+    /// <inheritdoc/>
     public override string IconKey => "IconIdentities";
 
     public override string EmptyKey => Keys.Identities_Empty;
@@ -137,9 +140,24 @@ internal sealed partial class IdentitiesViewModel : ListPageViewModel
         }
     }
 
+
+    /// <inheritdoc/>
+    internal override void EnsureSelection()
+    {
+        if (Rows.Count == 0)
+        {
+            return;
+        }
+
+        var current = SelectedRow;
+        SelectedRow = null;
+        SelectedRow = current ?? Rows[0];
+    }
     /// <inheritdoc/>
     protected override void OnCultureChanged()
     {
+        base.OnCultureChanged();
+
         foreach (var row in Rows)
         {
             row.RefreshCaptions();
@@ -149,6 +167,45 @@ internal sealed partial class IdentitiesViewModel : ListPageViewModel
         {
             row.RefreshCaptions();
         }
+
+        RebuildProperties();
+    }
+
+    partial void OnSelectedRowChanged(IdentityRow? value)
+    {
+        // A DataGrid pushes null back through the binding when it is first attached. A classic
+        // list always has a current item, so re-assert the first row instead of letting the
+        // properties pane blank itself the moment the page is shown.
+        if (value is null && Rows.Count > 0)
+        {
+            SelectedRow = Rows[0];
+            return;
+        }
+
+        _ = value;
+        RebuildProperties();
+    }
+
+    /// <summary>Fills the properties pane for the selected identity.</summary>
+    private void RebuildProperties()
+    {
+        if (SelectedRow is not { } row)
+        {
+            SetProperties([]);
+            return;
+        }
+
+        SetProperties(
+        [
+            Property(Keys.Identities_Column_Name, row.UserName),
+            Property(Keys.Identities_Column_Email, row.Email),
+            Property(Keys.Identities_Column_SigningKey, row.SigningKey, PropertyStyle.Mono),
+            Property(Keys.Identities_Column_Source, row.Source),
+            Property(Keys.Keys_Column_Path, row.Path, PropertyStyle.Mono),
+            Property(Keys.Identities_Column_Hosts, row.Hosts),
+            Property(Keys.Identities_Detail_Occurrences, row.Occurrences),
+            Property(Keys.Identities_Column_Confidence, row.Confidence, PropertyStyle.Badge),
+        ]);
     }
 
     /// <inheritdoc/>

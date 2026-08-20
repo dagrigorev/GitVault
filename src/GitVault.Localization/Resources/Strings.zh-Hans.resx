@@ -96,7 +96,7 @@
     <value>仓库</value>
   </data>
   <data name="Nav_Settings" xml:space="preserve">
-    <value>设置</value>
+    <value>选项</value>
   </data>
   <data name="Nav_Logs" xml:space="preserve">
     <value>日志</value>
@@ -150,7 +150,7 @@
     <value>概览</value>
   </data>
   <data name="Dashboard_Subtitle" xml:space="preserve">
-    <value>GitVault 在本机发现的全部内容</value>
+    <value>此计算机的身份与 Git 配置状态。</value>
   </data>
   <data name="Dashboard_Card_Identities" xml:space="preserve">
     <value>身份</value>
@@ -693,7 +693,7 @@
     <value>未找到仓库</value>
   </data>
   <data name="Settings_Title" xml:space="preserve">
-    <value>设置</value>
+    <value>选项</value>
   </data>
   <data name="Settings_Language" xml:space="preserve">
     <value>语言</value>
@@ -934,5 +934,599 @@
   </data>
   <data name="Plural_Warnings_Other" xml:space="preserve">
     <value>{0} 条警告</value>
+  </data>
+  <data name="Nav_ThisComputer" xml:space="preserve">
+    <value>此计算机</value>
+  </data>
+  <data name="Nav_Snapshots" xml:space="preserve">
+    <value>快照与回滚</value>
+  </data>
+  <data name="Menu_File" xml:space="preserve">
+    <value>文件(_F)</value>
+  </data>
+  <data name="Menu_File_Rescan" xml:space="preserve">
+    <value>重新扫描计算机</value>
+  </data>
+  <data name="Menu_File_OpenProfiles" xml:space="preserve">
+    <value>打开身份配置</value>
+  </data>
+  <data name="Menu_File_ExportDiagnostics" xml:space="preserve">
+    <value>导出诊断信息…</value>
+  </data>
+  <data name="Menu_File_Exit" xml:space="preserve">
+    <value>退出</value>
+  </data>
+  <data name="Menu_Edit" xml:space="preserve">
+    <value>编辑(_E)</value>
+  </data>
+  <data name="Menu_View" xml:space="preserve">
+    <value>查看(_V)</value>
+  </data>
+  <data name="Menu_View_Refresh" xml:space="preserve">
+    <value>刷新</value>
+  </data>
+  <data name="Menu_View_PropertiesPane" xml:space="preserve">
+    <value>属性窗格</value>
+  </data>
+  <data name="Menu_Tools" xml:space="preserve">
+    <value>工具(_T)</value>
+  </data>
+  <data name="Menu_Tools_Profiles" xml:space="preserve">
+    <value>身份配置…</value>
+  </data>
+  <data name="Menu_Tools_Options" xml:space="preserve">
+    <value>选项…</value>
+  </data>
+  <data name="Menu_Tools_Snapshots" xml:space="preserve">
+    <value>快照与回滚…</value>
+  </data>
+  <data name="Menu_Help" xml:space="preserve">
+    <value>帮助(_H)</value>
+  </data>
+  <data name="Menu_Help_About" xml:space="preserve">
+    <value>关于 GitVault…</value>
+  </data>
+  <data name="Toolbar_Preview" xml:space="preserve">
+    <value>预览</value>
+  </data>
+  <data name="Toolbar_PreviewTip" xml:space="preserve">
+    <value>预览所选身份配置的更改。不会写入任何内容。</value>
+  </data>
+  <data name="Toolbar_ApplyTip" xml:space="preserve">
+    <value>应用已审阅的计划</value>
+  </data>
+  <data name="Toolbar_RollbackTip" xml:space="preserve">
+    <value>预览回滚上一次更改</value>
+  </data>
+  <data name="Common_Properties" xml:space="preserve">
+    <value>属性</value>
+  </data>
+  <data name="Common_SearchLabel" xml:space="preserve">
+    <value>搜索：</value>
+  </data>
+  <data name="Common_FilterCurrentView" xml:space="preserve">
+    <value>筛选当前视图</value>
+  </data>
+  <data name="Common_NoSelection" xml:space="preserve">
+    <value>选择一个项目以查看其属性。</value>
+  </data>
+  <data name="Common_Save" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="Common_Add" xml:space="preserve">
+    <value>添加…</value>
+  </data>
+  <data name="Common_Edit" xml:space="preserve">
+    <value>编辑…</value>
+  </data>
+  <data name="Common_Remove" xml:space="preserve">
+    <value>移除</value>
+  </data>
+  <data name="Common_Browse" xml:space="preserve">
+    <value>浏览…</value>
+  </data>
+  <data name="Common_None" xml:space="preserve">
+    <value>无</value>
+  </data>
+  <data name="Common_Refresh" xml:space="preserve">
+    <value>刷新</value>
+  </data>
+  <data name="Status_Ready" xml:space="preserve">
+    <value>就绪</value>
+  </data>
+  <data name="Status_Scanning" xml:space="preserve">
+    <value>正在扫描…只读</value>
+  </data>
+  <data name="Status_ScanCompleted" xml:space="preserve">
+    <value>扫描在 {0:F0} 毫秒内完成</value>
+  </data>
+  <data name="Status_InsufficientPermissions" xml:space="preserve">
+    <value>权限不足。是否以管理员身份运行？</value>
+  </data>
+  <data name="Status_Artifacts" xml:space="preserve">
+    <value>已发现 {0} 项</value>
+  </data>
+  <data name="Status_Mode_ReadOnly" xml:space="preserve">
+    <value>模式：只读</value>
+  </data>
+  <data name="Status_Mode_PendingWrite" xml:space="preserve">
+    <value>模式：待写入</value>
+  </data>
+  <data name="Status_ReadOnlyScanComplete" xml:space="preserve">
+    <value>只读扫描完成</value>
+  </data>
+  <data name="Status_NoScanYet" xml:space="preserve">
+    <value>尚未扫描</value>
+  </data>
+  <data name="Status_NoPendingWrites" xml:space="preserve">
+    <value>没有待写入的更改</value>
+  </data>
+  <data name="Status_PendingWrite" xml:space="preserve">
+    <value>已审阅的计划等待应用</value>
+  </data>
+  <data name="Status_Viewing" xml:space="preserve">
+    <value>正在查看 {0}</value>
+  </data>
+  <data name="Status_Copied" xml:space="preserve">
+    <value>已复制所选项目</value>
+  </data>
+  <data name="Status_PlanReviewed" xml:space="preserve">
+    <value>计划已审阅 — 现在可以应用</value>
+  </data>
+  <data name="Status_PlanNotApplied" xml:space="preserve">
+    <value>计划已关闭 — 未应用任何更改</value>
+  </data>
+  <data name="Status_PlanApplied" xml:space="preserve">
+    <value>计划已应用。已先创建快照。</value>
+  </data>
+  <data name="Status_RollbackCancelled" xml:space="preserve">
+    <value>已取消回滚 — 未更改任何内容</value>
+  </data>
+  <data name="Status_RollbackRestored" xml:space="preserve">
+    <value>回滚完成：已还原 {0} 个文件</value>
+  </data>
+  <data name="Status_ProfileCreated" xml:space="preserve">
+    <value>已创建身份配置</value>
+  </data>
+  <data name="Status_ProfileSaved" xml:space="preserve">
+    <value>已保存身份配置</value>
+  </data>
+  <data name="Status_ProfileDeleted" xml:space="preserve">
+    <value>已删除身份配置</value>
+  </data>
+  <data name="Status_OptionsSaved" xml:space="preserve">
+    <value>已保存选项</value>
+  </data>
+  <data name="Dialog_PreviewActivation_Title" xml:space="preserve">
+    <value>预览更改 — 激活</value>
+  </data>
+  <data name="Dialog_PreviewDeactivation_Title" xml:space="preserve">
+    <value>预览更改 — 停用</value>
+  </data>
+  <data name="Dialog_NothingWritten" xml:space="preserve">
+    <value>尚未进行任何更改。</value>
+  </data>
+  <data name="Dialog_ReviewBeforeApply" xml:space="preserve">
+    <value>这是试运行计划。在您确认已阅读之前，应用将保持禁用。</value>
+  </data>
+  <data name="Dialog_ReviewedPlan" xml:space="preserve">
+    <value>我已审阅此计划</value>
+  </data>
+  <data name="Dialog_TargetScope" xml:space="preserve">
+    <value>目标范围</value>
+  </data>
+  <data name="Dialog_Snapshot" xml:space="preserve">
+    <value>快照</value>
+  </data>
+  <data name="Dialog_SnapshotWillBeCreated" xml:space="preserve">
+    <value>写入前将创建快照 #{0:D4}</value>
+  </data>
+  <data name="Dialog_PlanBlocked" xml:space="preserve">
+    <value>无法应用此计划。</value>
+  </data>
+  <data name="Dialog_Guarantee_Permissions" xml:space="preserve">
+    <value>文件权限将被保留。</value>
+  </data>
+  <data name="Dialog_Guarantee_NoSecrets" xml:space="preserve">
+    <value>不会在命令行中传递任何机密。</value>
+  </data>
+  <data name="Dialog_RollbackPreview_Title" xml:space="preserve">
+    <value>预览回滚</value>
+  </data>
+  <data name="Dialog_RollbackExplains" xml:space="preserve">
+    <value>此处列出还原快照将执行的操作。在您确认之前不会写入任何内容。</value>
+  </data>
+  <data name="Dialog_RestoreSnapshot" xml:space="preserve">
+    <value>还原快照</value>
+  </data>
+  <data name="Dialog_FilesRestored" xml:space="preserve">
+    <value>将涉及的文件</value>
+  </data>
+  <data name="Dialog_About_Title" xml:space="preserve">
+    <value>关于 GitVault</value>
+  </data>
+  <data name="Dialog_About_IconLicense" xml:space="preserve">
+    <value>经典程序图标：Tango Icon Library 0.8.90，公有领域。</value>
+  </data>
+  <data name="Identities_Subtitle" xml:space="preserve">
+    <value>在 Git 配置和已知客户端设置中发现的作者身份。</value>
+  </data>
+  <data name="Keys_Subtitle" xml:space="preserve">
+    <value>私钥与公钥项目。私钥材料从不显示，也不写入日志。</value>
+  </data>
+  <data name="Agents_Subtitle" xml:space="preserve">
+    <value>检测到的 SSH 代理进程和套接字。</value>
+  </data>
+  <data name="Credentials_Subtitle" xml:space="preserve">
+    <value>凭据存储的元数据。不透明的机密存储保持不透明。</value>
+  </data>
+  <data name="Clients_Subtitle" xml:space="preserve">
+    <value>检测到的第三方 Git 图形客户端及其各自的配置。</value>
+  </data>
+  <data name="Repositories_Subtitle" xml:space="preserve">
+    <value>发现的仓库及其生效身份覆盖。</value>
+  </data>
+  <data name="Logs_Subtitle" xml:space="preserve">
+    <value>运行日志。机密在写入任何接收器之前都会被删除。</value>
+  </data>
+  <data name="Profiles_Subtitle" xml:space="preserve">
+    <value>可复用的 Git 身份配置，通过预览与应用来激活。</value>
+  </data>
+  <data name="Settings_Subtitle" xml:space="preserve">
+    <value>语言、外观、发现根目录与诊断。</value>
+  </data>
+  <data name="Snapshots_Subtitle" xml:space="preserve">
+    <value>在每次更改前创建的逐字节快照。</value>
+  </data>
+  <data name="Snapshots_Title" xml:space="preserve">
+    <value>快照与回滚</value>
+  </data>
+  <data name="Snapshots_Empty" xml:space="preserve">
+    <value>尚无快照。每次更改前都会自动创建一个。</value>
+  </data>
+  <data name="Snapshots_Column_Snapshot" xml:space="preserve">
+    <value>快照</value>
+  </data>
+  <data name="Snapshots_Column_Created" xml:space="preserve">
+    <value>创建时间</value>
+  </data>
+  <data name="Snapshots_Column_Operation" xml:space="preserve">
+    <value>操作</value>
+  </data>
+  <data name="Snapshots_Column_Target" xml:space="preserve">
+    <value>目标</value>
+  </data>
+  <data name="Snapshots_Column_State" xml:space="preserve">
+    <value>状态</value>
+  </data>
+  <data name="Snapshots_Column_Profile" xml:space="preserve">
+    <value>身份配置</value>
+  </data>
+  <data name="Snapshots_Column_Action" xml:space="preserve">
+    <value>动作</value>
+  </data>
+  <data name="Snapshots_Detail_Files" xml:space="preserve">
+    <value>文件数</value>
+  </data>
+  <data name="Snapshots_Operation_Activate" xml:space="preserve">
+    <value>激活 {0}</value>
+  </data>
+  <data name="Snapshots_Operation_Deactivate" xml:space="preserve">
+    <value>停用 {0}</value>
+  </data>
+  <data name="Snapshots_Operation_Unknown" xml:space="preserve">
+    <value>未记录的操作</value>
+  </data>
+  <data name="Snapshots_State_Available" xml:space="preserve">
+    <value>可用</value>
+  </data>
+  <data name="Snapshots_State_Incomplete" xml:space="preserve">
+    <value>不完整</value>
+  </data>
+  <data name="Snapshots_Action_Restore" xml:space="preserve">
+    <value>还原</value>
+  </data>
+  <data name="Snapshots_Action_Recreate" xml:space="preserve">
+    <value>重新创建</value>
+  </data>
+  <data name="Snapshots_Action_Delete" xml:space="preserve">
+    <value>再次删除</value>
+  </data>
+  <data name="Snapshots_Action_Unchanged" xml:space="preserve">
+    <value>无变化</value>
+  </data>
+  <data name="Snapshots_Retention" xml:space="preserve">
+    <value>保留最新的 {0} 个快照；更早的会被自动清理。</value>
+  </data>
+  <data name="Snapshots_PreviewRollback" xml:space="preserve">
+    <value>预览回滚…</value>
+  </data>
+  <data name="Options_Group_ScanRoots" xml:space="preserve">
+    <value>扫描根目录</value>
+  </data>
+  <data name="Options_Group_KeyFolders" xml:space="preserve">
+    <value>自定义 SSH 密钥文件夹</value>
+  </data>
+  <data name="Options_Group_Appearance" xml:space="preserve">
+    <value>外观与语言</value>
+  </data>
+  <data name="Options_Group_Behaviour" xml:space="preserve">
+    <value>行为</value>
+  </data>
+  <data name="Options_AddScanRoot" xml:space="preserve">
+    <value>添加扫描根目录</value>
+  </data>
+  <data name="Options_EditScanRoot" xml:space="preserve">
+    <value>编辑扫描根目录</value>
+  </data>
+  <data name="Options_AddKeyFolder" xml:space="preserve">
+    <value>添加密钥文件夹</value>
+  </data>
+  <data name="Options_EditKeyFolder" xml:space="preserve">
+    <value>编辑密钥文件夹</value>
+  </data>
+  <data name="Options_Field_Path" xml:space="preserve">
+    <value>路径：</value>
+  </data>
+  <data name="Options_Field_Depth" xml:space="preserve">
+    <value>深度：</value>
+  </data>
+  <data name="Options_Field_Material" xml:space="preserve">
+    <value>内容：</value>
+  </data>
+  <data name="Options_Field_Enabled" xml:space="preserve">
+    <value>启用：</value>
+  </data>
+  <data name="Options_Depth_Recursive" xml:space="preserve">
+    <value>递归</value>
+  </data>
+  <data name="Options_Depth_TopLevel" xml:space="preserve">
+    <value>仅顶层</value>
+  </data>
+  <data name="Options_Mode_PrivateAndPublic" xml:space="preserve">
+    <value>私钥 + 公钥</value>
+  </data>
+  <data name="Options_Mode_PublicOnly" xml:space="preserve">
+    <value>仅公钥</value>
+  </data>
+  <data name="Options_ScanThisRoot" xml:space="preserve">
+    <value>扫描此根目录</value>
+  </data>
+  <data name="Options_ScanThisFolder" xml:space="preserve">
+    <value>扫描此文件夹</value>
+  </data>
+  <data name="Options_State_Enabled" xml:space="preserve">
+    <value>已启用</value>
+  </data>
+  <data name="Options_State_Disabled" xml:space="preserve">
+    <value>已禁用</value>
+  </data>
+  <data name="Options_SettingsOnlyNote" xml:space="preserve">
+    <value>编辑这些列表只会更改 GitVault 自身的设置。不会修改任何仓库、密钥或凭据。</value>
+  </data>
+  <data name="Options_KeysReadOnlyNote" xml:space="preserve">
+    <value>GitVault 只读取密钥文件，从不写入。</value>
+  </data>
+  <data name="Options_PickScanRoot" xml:space="preserve">
+    <value>选择要搜索仓库的文件夹</value>
+  </data>
+  <data name="Options_PickKeyFolder" xml:space="preserve">
+    <value>选择要搜索 SSH 密钥的文件夹</value>
+  </data>
+  <data name="Options_RemoveScanRoot_Title" xml:space="preserve">
+    <value>移除扫描根目录</value>
+  </data>
+  <data name="Options_RemoveScanRoot_Message" xml:space="preserve">
+    <value>停止在 {0} 中搜索仓库？</value>
+  </data>
+  <data name="Options_RemoveKeyFolder_Title" xml:space="preserve">
+    <value>移除密钥文件夹</value>
+  </data>
+  <data name="Options_RemoveKeyFolder_Message" xml:space="preserve">
+    <value>停止在 {0} 中搜索 SSH 密钥？</value>
+  </data>
+  <data name="Options_NoScanRoots" xml:space="preserve">
+    <value>尚未配置扫描根目录。</value>
+  </data>
+  <data name="Options_NoKeyFolders" xml:space="preserve">
+    <value>未配置额外的密钥文件夹。默认位置始终会被搜索。</value>
+  </data>
+  <data name="Profiles_Editor" xml:space="preserve">
+    <value>身份配置编辑器</value>
+  </data>
+  <data name="Profiles_Activation" xml:space="preserve">
+    <value>激活</value>
+  </data>
+  <data name="Profiles_Field_Name" xml:space="preserve">
+    <value>配置名称：</value>
+  </data>
+  <data name="Profiles_Field_Identity" xml:space="preserve">
+    <value>身份：</value>
+  </data>
+  <data name="Profiles_Field_SshKey" xml:space="preserve">
+    <value>SSH 密钥：</value>
+  </data>
+  <data name="Profiles_Field_Helper" xml:space="preserve">
+    <value>凭据助手：</value>
+  </data>
+  <data name="Profiles_Field_StoredScope" xml:space="preserve">
+    <value>存储的范围：</value>
+  </data>
+  <data name="Profiles_Field_RepositoryPath" xml:space="preserve">
+    <value>仓库路径：</value>
+  </data>
+  <data name="Profiles_Field_WriteSshCommand" xml:space="preserve">
+    <value>使用 core.sshCommand 固定密钥</value>
+  </data>
+  <data name="Profiles_Column_StoredScope" xml:space="preserve">
+    <value>存储的范围</value>
+  </data>
+  <data name="Profiles_Repository" xml:space="preserve">
+    <value>仓库</value>
+  </data>
+  <data name="Profiles_State" xml:space="preserve">
+    <value>计划状态</value>
+  </data>
+  <data name="Profiles_State_NotPreviewed" xml:space="preserve">
+    <value>未预览</value>
+  </data>
+  <data name="Profiles_State_NotReviewed" xml:space="preserve">
+    <value>已预览，未审阅</value>
+  </data>
+  <data name="Profiles_State_Reviewed" xml:space="preserve">
+    <value>已审阅</value>
+  </data>
+  <data name="Profiles_New" xml:space="preserve">
+    <value>新建…</value>
+  </data>
+  <data name="Profiles_Save" xml:space="preserve">
+    <value>保存配置</value>
+  </data>
+  <data name="Profiles_Delete" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="Profiles_New_Title" xml:space="preserve">
+    <value>新建身份配置</value>
+  </data>
+  <data name="Profiles_New_NoIdentities" xml:space="preserve">
+    <value>尚未发现任何身份。请先执行扫描。</value>
+  </data>
+  <data name="Profiles_Delete_Title" xml:space="preserve">
+    <value>删除身份配置</value>
+  </data>
+  <data name="Profiles_Delete_Message" xml:space="preserve">
+    <value>删除身份配置“{0}”？</value>
+  </data>
+  <data name="Profiles_Delete_Detail" xml:space="preserve">
+    <value>这只会移除该配置。不会删除任何身份、密钥或凭据，也不会撤销已应用的更改。</value>
+  </data>
+  <data name="Profiles_PreviewActivation" xml:space="preserve">
+    <value>预览激活…</value>
+  </data>
+  <data name="Profiles_PreviewDeactivation" xml:space="preserve">
+    <value>预览停用…</value>
+  </data>
+  <data name="Profiles_SnapshotNote" xml:space="preserve">
+    <value>每次更改前都会创建快照；在试运行计划被审阅之前，应用将保持禁用。</value>
+  </data>
+  <data name="Profiles_StoredScopeNote" xml:space="preserve">
+    <value>范围将以配置中保存的值打开，而不是默认为全局。</value>
+  </data>
+  <data name="Profiles_UnsavedChanges" xml:space="preserve">
+    <value>未保存的更改</value>
+  </data>
+  <data name="Dashboard_Detail_Platform" xml:space="preserve">
+    <value>平台</value>
+  </data>
+  <data name="Dashboard_Detail_Architecture" xml:space="preserve">
+    <value>体系结构</value>
+  </data>
+  <data name="Dashboard_Detail_Git" xml:space="preserve">
+    <value>Git</value>
+  </data>
+  <data name="Dashboard_Detail_AppData" xml:space="preserve">
+    <value>设置文件夹</value>
+  </data>
+  <data name="Dashboard_Detail_Finding" xml:space="preserve">
+    <value>发现</value>
+  </data>
+  <data name="Dashboard_Detail_Subject" xml:space="preserve">
+    <value>对象</value>
+  </data>
+  <data name="Dashboard_Detail_Severity" xml:space="preserve">
+    <value>严重性</value>
+  </data>
+  <data name="Dashboard_Group_Effective" xml:space="preserve">
+    <value>生效的 Git 身份</value>
+  </data>
+  <data name="Dashboard_Group_Attention" xml:space="preserve">
+    <value>需要注意</value>
+  </data>
+  <data name="Severity_High" xml:space="preserve">
+    <value>高</value>
+  </data>
+  <data name="Severity_Medium" xml:space="preserve">
+    <value>中</value>
+  </data>
+  <data name="Severity_Low" xml:space="preserve">
+    <value>低</value>
+  </data>
+  <data name="Keys_Detail_PrivateMaterial" xml:space="preserve">
+    <value>私钥材料</value>
+  </data>
+  <data name="Keys_HiddenByDesign" xml:space="preserve">
+    <value>按设计隐藏</value>
+  </data>
+  <data name="Credentials_Detail_Target" xml:space="preserve">
+    <value>目标</value>
+  </data>
+  <data name="Credentials_Detail_Storage" xml:space="preserve">
+    <value>存储</value>
+  </data>
+  <data name="Credentials_Detail_SecretValue" xml:space="preserve">
+    <value>机密值</value>
+  </data>
+  <data name="Credentials_ProtectedBadge" xml:space="preserve">
+    <value>由操作系统保护</value>
+  </data>
+  <data name="Credentials_NotRead" xml:space="preserve">
+    <value>未读取</value>
+  </data>
+  <data name="Agents_Detail_Endpoint" xml:space="preserve">
+    <value>端点</value>
+  </data>
+  <data name="Agents_Detail_Writable" xml:space="preserve">
+    <value>密钥加载</value>
+  </data>
+  <data name="Agents_ReadOnlyBadge" xml:space="preserve">
+    <value>只读</value>
+  </data>
+  <data name="Agents_WritableBadge" xml:space="preserve">
+    <value>支持</value>
+  </data>
+  <data name="Agents_Column_Agent" xml:space="preserve">
+    <value>代理</value>
+  </data>
+  <data name="Agents_Column_State" xml:space="preserve">
+    <value>状态</value>
+  </data>
+  <data name="Agents_Column_Source" xml:space="preserve">
+    <value>来源</value>
+  </data>
+  <data name="Clients_Column_Client" xml:space="preserve">
+    <value>客户端</value>
+  </data>
+  <data name="Clients_Column_Version" xml:space="preserve">
+    <value>版本</value>
+  </data>
+  <data name="Clients_Column_Storage" xml:space="preserve">
+    <value>机密存储</value>
+  </data>
+  <data name="Logs_Column_Time" xml:space="preserve">
+    <value>时间</value>
+  </data>
+  <data name="Logs_Detail_Secrets" xml:space="preserve">
+    <value>机密</value>
+  </data>
+  <data name="Logs_Detail_Exception" xml:space="preserve">
+    <value>异常</value>
+  </data>
+  <data name="Logs_Redacted" xml:space="preserve">
+    <value>写入前已删除</value>
+  </data>
+  <data name="Snapshots_Number" xml:space="preserve">
+    <value>#{0:D4}</value>
+  </data>
+  <data name="Options_Column_Path" xml:space="preserve">
+    <value>路径</value>
+  </data>
+  <data name="Options_Column_Depth" xml:space="preserve">
+    <value>深度</value>
+  </data>
+  <data name="Options_Column_Material" xml:space="preserve">
+    <value>内容</value>
+  </data>
+  <data name="Options_Column_Enabled" xml:space="preserve">
+    <value>启用</value>
   </data>
 </root>

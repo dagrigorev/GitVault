@@ -26,7 +26,6 @@
     <PackageReference Include="Avalonia.Fonts.Inter" />
     <PackageReference Include="Avalonia.Controls.DataGrid" />
     <PackageReference Include="Avalonia.Diagnostics" Condition="'$(Configuration)' == 'Debug'" />
-    <PackageReference Include="FluentAvaloniaUI" />
     <PackageReference Include="CommunityToolkit.Mvvm" />
     <PackageReference Include="Microsoft.Extensions.Hosting" />
     <PackageReference Include="Microsoft.Extensions.Configuration" />
@@ -47,8 +46,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <!-- The icon set and the application mark. Icons.axaml is generated; see build/generate-icons.ps1. -->
-    <AvaloniaResource Include="Assets\Icons.axaml" />
+    <!--
+      The classic icon set and the application mark. ClassicIcons.axaml and the PNGs beside it are
+      generated; see build/generate-classic-icons.ps1. They ship inside the assembly, so the
+      running application never fetches an icon.
+    -->
+    <AvaloniaResource Include="Assets\ClassicIcons.axaml" />
+    <AvaloniaResource Include="Assets\ClassicIcons\*.png" />
     <AvaloniaResource Include="Assets\gitvault.png" />
     <AvaloniaResource Include="Assets\gitvault.ico" />
   </ItemGroup>

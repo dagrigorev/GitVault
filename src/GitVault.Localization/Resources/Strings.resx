@@ -72,7 +72,7 @@
     <value>{0} — {1}</value>
   </data>
   <data name="Nav_Dashboard" xml:space="preserve">
-    <value>Dashboard</value>
+    <value>Overview</value>
   </data>
   <data name="Nav_Identities" xml:space="preserve">
     <value>Identities</value>
@@ -96,7 +96,7 @@
     <value>Repositories</value>
   </data>
   <data name="Nav_Settings" xml:space="preserve">
-    <value>Settings</value>
+    <value>Options</value>
   </data>
   <data name="Nav_Logs" xml:space="preserve">
     <value>Logs</value>
@@ -147,10 +147,10 @@
     <value>, </value>
   </data>
   <data name="Dashboard_Title" xml:space="preserve">
-    <value>Dashboard</value>
+    <value>Overview</value>
   </data>
   <data name="Dashboard_Subtitle" xml:space="preserve">
-    <value>Everything GitVault found on this machine</value>
+    <value>Identity and Git configuration status for this computer.</value>
   </data>
   <data name="Dashboard_Card_Identities" xml:space="preserve">
     <value>Identities</value>
@@ -693,7 +693,7 @@
     <value>No repositories found</value>
   </data>
   <data name="Settings_Title" xml:space="preserve">
-    <value>Settings</value>
+    <value>Options</value>
   </data>
   <data name="Settings_Language" xml:space="preserve">
     <value>Language</value>
@@ -934,5 +934,599 @@
   </data>
   <data name="Plural_Warnings_Other" xml:space="preserve">
     <value>{0} warnings</value>
+  </data>
+  <data name="Nav_ThisComputer" xml:space="preserve">
+    <value>This computer</value>
+  </data>
+  <data name="Nav_Snapshots" xml:space="preserve">
+    <value>Snapshots &amp; rollback</value>
+  </data>
+  <data name="Menu_File" xml:space="preserve">
+    <value>_File</value>
+  </data>
+  <data name="Menu_File_Rescan" xml:space="preserve">
+    <value>Rescan computer</value>
+  </data>
+  <data name="Menu_File_OpenProfiles" xml:space="preserve">
+    <value>Open Profiles</value>
+  </data>
+  <data name="Menu_File_ExportDiagnostics" xml:space="preserve">
+    <value>Export diagnostics…</value>
+  </data>
+  <data name="Menu_File_Exit" xml:space="preserve">
+    <value>Exit</value>
+  </data>
+  <data name="Menu_Edit" xml:space="preserve">
+    <value>_Edit</value>
+  </data>
+  <data name="Menu_View" xml:space="preserve">
+    <value>_View</value>
+  </data>
+  <data name="Menu_View_Refresh" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
+  <data name="Menu_View_PropertiesPane" xml:space="preserve">
+    <value>Properties pane</value>
+  </data>
+  <data name="Menu_Tools" xml:space="preserve">
+    <value>_Tools</value>
+  </data>
+  <data name="Menu_Tools_Profiles" xml:space="preserve">
+    <value>Profiles…</value>
+  </data>
+  <data name="Menu_Tools_Options" xml:space="preserve">
+    <value>Options…</value>
+  </data>
+  <data name="Menu_Tools_Snapshots" xml:space="preserve">
+    <value>Snapshots &amp; rollback…</value>
+  </data>
+  <data name="Menu_Help" xml:space="preserve">
+    <value>_Help</value>
+  </data>
+  <data name="Menu_Help_About" xml:space="preserve">
+    <value>About GitVault…</value>
+  </data>
+  <data name="Toolbar_Preview" xml:space="preserve">
+    <value>Preview</value>
+  </data>
+  <data name="Toolbar_PreviewTip" xml:space="preserve">
+    <value>Preview the selected profile&apos;s changes. Nothing is written.</value>
+  </data>
+  <data name="Toolbar_ApplyTip" xml:space="preserve">
+    <value>Apply the plan you reviewed</value>
+  </data>
+  <data name="Toolbar_RollbackTip" xml:space="preserve">
+    <value>Preview rolling back the last mutation</value>
+  </data>
+  <data name="Common_Properties" xml:space="preserve">
+    <value>Properties</value>
+  </data>
+  <data name="Common_SearchLabel" xml:space="preserve">
+    <value>Search:</value>
+  </data>
+  <data name="Common_FilterCurrentView" xml:space="preserve">
+    <value>Filter current view</value>
+  </data>
+  <data name="Common_NoSelection" xml:space="preserve">
+    <value>Select an item to see its properties.</value>
+  </data>
+  <data name="Common_Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="Common_Add" xml:space="preserve">
+    <value>Add…</value>
+  </data>
+  <data name="Common_Edit" xml:space="preserve">
+    <value>Edit…</value>
+  </data>
+  <data name="Common_Remove" xml:space="preserve">
+    <value>Remove</value>
+  </data>
+  <data name="Common_Browse" xml:space="preserve">
+    <value>Browse…</value>
+  </data>
+  <data name="Common_None" xml:space="preserve">
+    <value>None</value>
+  </data>
+  <data name="Common_Refresh" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
+  <data name="Status_Ready" xml:space="preserve">
+    <value>Ready</value>
+  </data>
+  <data name="Status_Scanning" xml:space="preserve">
+    <value>Scanning… read-only</value>
+  </data>
+  <data name="Status_ScanCompleted" xml:space="preserve">
+    <value>Scan completed in {0:F0} ms</value>
+  </data>
+  <data name="Status_InsufficientPermissions" xml:space="preserve">
+    <value>Insufficient permissions. Run elevated?</value>
+  </data>
+  <data name="Status_Artifacts" xml:space="preserve">
+    <value>Artifacts: {0} discovered</value>
+  </data>
+  <data name="Status_Mode_ReadOnly" xml:space="preserve">
+    <value>Mode: Read-only</value>
+  </data>
+  <data name="Status_Mode_PendingWrite" xml:space="preserve">
+    <value>Mode: Write pending</value>
+  </data>
+  <data name="Status_ReadOnlyScanComplete" xml:space="preserve">
+    <value>Read-only scan complete</value>
+  </data>
+  <data name="Status_NoScanYet" xml:space="preserve">
+    <value>No scan yet</value>
+  </data>
+  <data name="Status_NoPendingWrites" xml:space="preserve">
+    <value>No pending writes</value>
+  </data>
+  <data name="Status_PendingWrite" xml:space="preserve">
+    <value>A reviewed plan is waiting to be applied</value>
+  </data>
+  <data name="Status_Viewing" xml:space="preserve">
+    <value>Viewing {0}</value>
+  </data>
+  <data name="Status_Copied" xml:space="preserve">
+    <value>Selected item copied</value>
+  </data>
+  <data name="Status_PlanReviewed" xml:space="preserve">
+    <value>Plan reviewed — Apply is now available</value>
+  </data>
+  <data name="Status_PlanNotApplied" xml:space="preserve">
+    <value>Plan closed — nothing was applied</value>
+  </data>
+  <data name="Status_PlanApplied" xml:space="preserve">
+    <value>Plan applied. A snapshot was created first.</value>
+  </data>
+  <data name="Status_RollbackCancelled" xml:space="preserve">
+    <value>Rollback cancelled — nothing was changed</value>
+  </data>
+  <data name="Status_RollbackRestored" xml:space="preserve">
+    <value>Rollback complete: {0} files restored</value>
+  </data>
+  <data name="Status_ProfileCreated" xml:space="preserve">
+    <value>Profile created</value>
+  </data>
+  <data name="Status_ProfileSaved" xml:space="preserve">
+    <value>Profile saved</value>
+  </data>
+  <data name="Status_ProfileDeleted" xml:space="preserve">
+    <value>Profile deleted</value>
+  </data>
+  <data name="Status_OptionsSaved" xml:space="preserve">
+    <value>Options saved</value>
+  </data>
+  <data name="Dialog_PreviewActivation_Title" xml:space="preserve">
+    <value>Preview changes — activation</value>
+  </data>
+  <data name="Dialog_PreviewDeactivation_Title" xml:space="preserve">
+    <value>Preview changes — deactivation</value>
+  </data>
+  <data name="Dialog_NothingWritten" xml:space="preserve">
+    <value>No changes have been made.</value>
+  </data>
+  <data name="Dialog_ReviewBeforeApply" xml:space="preserve">
+    <value>This is the dry-run plan. Apply stays disabled until you confirm that you have read it.</value>
+  </data>
+  <data name="Dialog_ReviewedPlan" xml:space="preserve">
+    <value>I reviewed this plan</value>
+  </data>
+  <data name="Dialog_TargetScope" xml:space="preserve">
+    <value>Target scope</value>
+  </data>
+  <data name="Dialog_Snapshot" xml:space="preserve">
+    <value>Snapshot</value>
+  </data>
+  <data name="Dialog_SnapshotWillBeCreated" xml:space="preserve">
+    <value>Snapshot #{0:D4} will be created before anything is written</value>
+  </data>
+  <data name="Dialog_PlanBlocked" xml:space="preserve">
+    <value>This plan cannot be applied.</value>
+  </data>
+  <data name="Dialog_Guarantee_Permissions" xml:space="preserve">
+    <value>File permissions are preserved.</value>
+  </data>
+  <data name="Dialog_Guarantee_NoSecrets" xml:space="preserve">
+    <value>No secret is placed on a command line.</value>
+  </data>
+  <data name="Dialog_RollbackPreview_Title" xml:space="preserve">
+    <value>Preview rollback</value>
+  </data>
+  <data name="Dialog_RollbackExplains" xml:space="preserve">
+    <value>This lists what restoring the snapshot would do. Nothing is written until you confirm.</value>
+  </data>
+  <data name="Dialog_RestoreSnapshot" xml:space="preserve">
+    <value>Restore snapshot</value>
+  </data>
+  <data name="Dialog_FilesRestored" xml:space="preserve">
+    <value>Files this would touch</value>
+  </data>
+  <data name="Dialog_About_Title" xml:space="preserve">
+    <value>About GitVault</value>
+  </data>
+  <data name="Dialog_About_IconLicense" xml:space="preserve">
+    <value>Classic program icons: Tango Icon Library 0.8.90, public domain.</value>
+  </data>
+  <data name="Identities_Subtitle" xml:space="preserve">
+    <value>Author identities discovered in Git configuration and known client settings.</value>
+  </data>
+  <data name="Keys_Subtitle" xml:space="preserve">
+    <value>Private and public key artifacts. Private key material is never displayed or logged.</value>
+  </data>
+  <data name="Agents_Subtitle" xml:space="preserve">
+    <value>Detected SSH agent processes and sockets.</value>
+  </data>
+  <data name="Credentials_Subtitle" xml:space="preserve">
+    <value>Credential-store metadata. Opaque secret stores remain opaque.</value>
+  </data>
+  <data name="Clients_Subtitle" xml:space="preserve">
+    <value>Detected third-party Git GUI clients and their per-client configuration.</value>
+  </data>
+  <data name="Repositories_Subtitle" xml:space="preserve">
+    <value>Discovered repositories and their effective identity overrides.</value>
+  </data>
+  <data name="Logs_Subtitle" xml:space="preserve">
+    <value>Operational log. Secrets are redacted before every sink.</value>
+  </data>
+  <data name="Profiles_Subtitle" xml:space="preserve">
+    <value>Reusable Git identity configurations, activated through preview and apply.</value>
+  </data>
+  <data name="Settings_Subtitle" xml:space="preserve">
+    <value>Language, appearance, discovery roots and diagnostics.</value>
+  </data>
+  <data name="Snapshots_Subtitle" xml:space="preserve">
+    <value>Byte-for-byte snapshots taken before every mutation.</value>
+  </data>
+  <data name="Snapshots_Title" xml:space="preserve">
+    <value>Snapshots &amp; rollback</value>
+  </data>
+  <data name="Snapshots_Empty" xml:space="preserve">
+    <value>No snapshots yet. One is taken automatically before any change.</value>
+  </data>
+  <data name="Snapshots_Column_Snapshot" xml:space="preserve">
+    <value>Snapshot</value>
+  </data>
+  <data name="Snapshots_Column_Created" xml:space="preserve">
+    <value>Created</value>
+  </data>
+  <data name="Snapshots_Column_Operation" xml:space="preserve">
+    <value>Operation</value>
+  </data>
+  <data name="Snapshots_Column_Target" xml:space="preserve">
+    <value>Target</value>
+  </data>
+  <data name="Snapshots_Column_State" xml:space="preserve">
+    <value>State</value>
+  </data>
+  <data name="Snapshots_Column_Profile" xml:space="preserve">
+    <value>Profile</value>
+  </data>
+  <data name="Snapshots_Column_Action" xml:space="preserve">
+    <value>Action</value>
+  </data>
+  <data name="Snapshots_Detail_Files" xml:space="preserve">
+    <value>Files</value>
+  </data>
+  <data name="Snapshots_Operation_Activate" xml:space="preserve">
+    <value>Activate {0}</value>
+  </data>
+  <data name="Snapshots_Operation_Deactivate" xml:space="preserve">
+    <value>Deactivate {0}</value>
+  </data>
+  <data name="Snapshots_Operation_Unknown" xml:space="preserve">
+    <value>Unrecorded operation</value>
+  </data>
+  <data name="Snapshots_State_Available" xml:space="preserve">
+    <value>Available</value>
+  </data>
+  <data name="Snapshots_State_Incomplete" xml:space="preserve">
+    <value>Incomplete</value>
+  </data>
+  <data name="Snapshots_Action_Restore" xml:space="preserve">
+    <value>Restore</value>
+  </data>
+  <data name="Snapshots_Action_Recreate" xml:space="preserve">
+    <value>Recreate</value>
+  </data>
+  <data name="Snapshots_Action_Delete" xml:space="preserve">
+    <value>Delete again</value>
+  </data>
+  <data name="Snapshots_Action_Unchanged" xml:space="preserve">
+    <value>Unchanged</value>
+  </data>
+  <data name="Snapshots_Retention" xml:space="preserve">
+    <value>The newest {0} snapshots are kept; older ones are pruned automatically.</value>
+  </data>
+  <data name="Snapshots_PreviewRollback" xml:space="preserve">
+    <value>Preview rollback…</value>
+  </data>
+  <data name="Options_Group_ScanRoots" xml:space="preserve">
+    <value>Scan roots</value>
+  </data>
+  <data name="Options_Group_KeyFolders" xml:space="preserve">
+    <value>Custom SSH key folders</value>
+  </data>
+  <data name="Options_Group_Appearance" xml:space="preserve">
+    <value>Appearance and language</value>
+  </data>
+  <data name="Options_Group_Behaviour" xml:space="preserve">
+    <value>Behaviour</value>
+  </data>
+  <data name="Options_AddScanRoot" xml:space="preserve">
+    <value>Add scan root</value>
+  </data>
+  <data name="Options_EditScanRoot" xml:space="preserve">
+    <value>Edit scan root</value>
+  </data>
+  <data name="Options_AddKeyFolder" xml:space="preserve">
+    <value>Add key folder</value>
+  </data>
+  <data name="Options_EditKeyFolder" xml:space="preserve">
+    <value>Edit key folder</value>
+  </data>
+  <data name="Options_Field_Path" xml:space="preserve">
+    <value>Path:</value>
+  </data>
+  <data name="Options_Field_Depth" xml:space="preserve">
+    <value>Depth:</value>
+  </data>
+  <data name="Options_Field_Material" xml:space="preserve">
+    <value>Material:</value>
+  </data>
+  <data name="Options_Field_Enabled" xml:space="preserve">
+    <value>Enabled:</value>
+  </data>
+  <data name="Options_Depth_Recursive" xml:space="preserve">
+    <value>Recursive</value>
+  </data>
+  <data name="Options_Depth_TopLevel" xml:space="preserve">
+    <value>Top-level only</value>
+  </data>
+  <data name="Options_Mode_PrivateAndPublic" xml:space="preserve">
+    <value>Private + public</value>
+  </data>
+  <data name="Options_Mode_PublicOnly" xml:space="preserve">
+    <value>Public only</value>
+  </data>
+  <data name="Options_ScanThisRoot" xml:space="preserve">
+    <value>Scan this root</value>
+  </data>
+  <data name="Options_ScanThisFolder" xml:space="preserve">
+    <value>Scan this folder</value>
+  </data>
+  <data name="Options_State_Enabled" xml:space="preserve">
+    <value>Enabled</value>
+  </data>
+  <data name="Options_State_Disabled" xml:space="preserve">
+    <value>Disabled</value>
+  </data>
+  <data name="Options_SettingsOnlyNote" xml:space="preserve">
+    <value>Editing these lists changes GitVault&apos;s own settings only. No repository, key or credential is modified.</value>
+  </data>
+  <data name="Options_KeysReadOnlyNote" xml:space="preserve">
+    <value>GitVault reads key files and never writes to them.</value>
+  </data>
+  <data name="Options_PickScanRoot" xml:space="preserve">
+    <value>Choose a folder to search for repositories</value>
+  </data>
+  <data name="Options_PickKeyFolder" xml:space="preserve">
+    <value>Choose a folder to search for SSH keys</value>
+  </data>
+  <data name="Options_RemoveScanRoot_Title" xml:space="preserve">
+    <value>Remove scan root</value>
+  </data>
+  <data name="Options_RemoveScanRoot_Message" xml:space="preserve">
+    <value>Stop searching {0} for repositories?</value>
+  </data>
+  <data name="Options_RemoveKeyFolder_Title" xml:space="preserve">
+    <value>Remove key folder</value>
+  </data>
+  <data name="Options_RemoveKeyFolder_Message" xml:space="preserve">
+    <value>Stop searching {0} for SSH keys?</value>
+  </data>
+  <data name="Options_NoScanRoots" xml:space="preserve">
+    <value>No scan roots configured.</value>
+  </data>
+  <data name="Options_NoKeyFolders" xml:space="preserve">
+    <value>No extra key folders configured. The default locations are always searched.</value>
+  </data>
+  <data name="Profiles_Editor" xml:space="preserve">
+    <value>Profile editor</value>
+  </data>
+  <data name="Profiles_Activation" xml:space="preserve">
+    <value>Activation</value>
+  </data>
+  <data name="Profiles_Field_Name" xml:space="preserve">
+    <value>Profile name:</value>
+  </data>
+  <data name="Profiles_Field_Identity" xml:space="preserve">
+    <value>Identity:</value>
+  </data>
+  <data name="Profiles_Field_SshKey" xml:space="preserve">
+    <value>SSH key:</value>
+  </data>
+  <data name="Profiles_Field_Helper" xml:space="preserve">
+    <value>Credential helper:</value>
+  </data>
+  <data name="Profiles_Field_StoredScope" xml:space="preserve">
+    <value>Stored scope:</value>
+  </data>
+  <data name="Profiles_Field_RepositoryPath" xml:space="preserve">
+    <value>Repository path:</value>
+  </data>
+  <data name="Profiles_Field_WriteSshCommand" xml:space="preserve">
+    <value>Pin the key with core.sshCommand</value>
+  </data>
+  <data name="Profiles_Column_StoredScope" xml:space="preserve">
+    <value>Stored scope</value>
+  </data>
+  <data name="Profiles_Repository" xml:space="preserve">
+    <value>Repository</value>
+  </data>
+  <data name="Profiles_State" xml:space="preserve">
+    <value>Plan state</value>
+  </data>
+  <data name="Profiles_State_NotPreviewed" xml:space="preserve">
+    <value>Not previewed</value>
+  </data>
+  <data name="Profiles_State_NotReviewed" xml:space="preserve">
+    <value>Previewed, not reviewed</value>
+  </data>
+  <data name="Profiles_State_Reviewed" xml:space="preserve">
+    <value>Reviewed</value>
+  </data>
+  <data name="Profiles_New" xml:space="preserve">
+    <value>New…</value>
+  </data>
+  <data name="Profiles_Save" xml:space="preserve">
+    <value>Save profile</value>
+  </data>
+  <data name="Profiles_Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="Profiles_New_Title" xml:space="preserve">
+    <value>New profile</value>
+  </data>
+  <data name="Profiles_New_NoIdentities" xml:space="preserve">
+    <value>No identity has been discovered yet. Run a scan first.</value>
+  </data>
+  <data name="Profiles_Delete_Title" xml:space="preserve">
+    <value>Delete profile</value>
+  </data>
+  <data name="Profiles_Delete_Message" xml:space="preserve">
+    <value>Delete the profile &quot;{0}&quot;?</value>
+  </data>
+  <data name="Profiles_Delete_Detail" xml:space="preserve">
+    <value>This removes the profile only. No identity, key or credential is deleted, and nothing already applied is undone.</value>
+  </data>
+  <data name="Profiles_PreviewActivation" xml:space="preserve">
+    <value>Preview activation…</value>
+  </data>
+  <data name="Profiles_PreviewDeactivation" xml:space="preserve">
+    <value>Preview deactivation…</value>
+  </data>
+  <data name="Profiles_SnapshotNote" xml:space="preserve">
+    <value>A snapshot is created before any mutation, and Apply stays disabled until a dry-run plan has been reviewed.</value>
+  </data>
+  <data name="Profiles_StoredScopeNote" xml:space="preserve">
+    <value>The scope opens with the value saved on the profile rather than defaulting to Global.</value>
+  </data>
+  <data name="Profiles_UnsavedChanges" xml:space="preserve">
+    <value>Unsaved changes</value>
+  </data>
+  <data name="Dashboard_Detail_Platform" xml:space="preserve">
+    <value>Platform</value>
+  </data>
+  <data name="Dashboard_Detail_Architecture" xml:space="preserve">
+    <value>Architecture</value>
+  </data>
+  <data name="Dashboard_Detail_Git" xml:space="preserve">
+    <value>Git</value>
+  </data>
+  <data name="Dashboard_Detail_AppData" xml:space="preserve">
+    <value>Settings folder</value>
+  </data>
+  <data name="Dashboard_Detail_Finding" xml:space="preserve">
+    <value>Finding</value>
+  </data>
+  <data name="Dashboard_Detail_Subject" xml:space="preserve">
+    <value>Subject</value>
+  </data>
+  <data name="Dashboard_Detail_Severity" xml:space="preserve">
+    <value>Severity</value>
+  </data>
+  <data name="Dashboard_Group_Effective" xml:space="preserve">
+    <value>Effective Git identity</value>
+  </data>
+  <data name="Dashboard_Group_Attention" xml:space="preserve">
+    <value>Attention</value>
+  </data>
+  <data name="Severity_High" xml:space="preserve">
+    <value>High</value>
+  </data>
+  <data name="Severity_Medium" xml:space="preserve">
+    <value>Medium</value>
+  </data>
+  <data name="Severity_Low" xml:space="preserve">
+    <value>Low</value>
+  </data>
+  <data name="Keys_Detail_PrivateMaterial" xml:space="preserve">
+    <value>Private material</value>
+  </data>
+  <data name="Keys_HiddenByDesign" xml:space="preserve">
+    <value>Hidden by design</value>
+  </data>
+  <data name="Credentials_Detail_Target" xml:space="preserve">
+    <value>Target</value>
+  </data>
+  <data name="Credentials_Detail_Storage" xml:space="preserve">
+    <value>Storage</value>
+  </data>
+  <data name="Credentials_Detail_SecretValue" xml:space="preserve">
+    <value>Secret value</value>
+  </data>
+  <data name="Credentials_ProtectedBadge" xml:space="preserve">
+    <value>Protected by the OS</value>
+  </data>
+  <data name="Credentials_NotRead" xml:space="preserve">
+    <value>Not read</value>
+  </data>
+  <data name="Agents_Detail_Endpoint" xml:space="preserve">
+    <value>Endpoint</value>
+  </data>
+  <data name="Agents_Detail_Writable" xml:space="preserve">
+    <value>Key loading</value>
+  </data>
+  <data name="Agents_ReadOnlyBadge" xml:space="preserve">
+    <value>Read-only</value>
+  </data>
+  <data name="Agents_WritableBadge" xml:space="preserve">
+    <value>Supported</value>
+  </data>
+  <data name="Agents_Column_Agent" xml:space="preserve">
+    <value>Agent</value>
+  </data>
+  <data name="Agents_Column_State" xml:space="preserve">
+    <value>State</value>
+  </data>
+  <data name="Agents_Column_Source" xml:space="preserve">
+    <value>Source</value>
+  </data>
+  <data name="Clients_Column_Client" xml:space="preserve">
+    <value>Client</value>
+  </data>
+  <data name="Clients_Column_Version" xml:space="preserve">
+    <value>Version</value>
+  </data>
+  <data name="Clients_Column_Storage" xml:space="preserve">
+    <value>Secret storage</value>
+  </data>
+  <data name="Logs_Column_Time" xml:space="preserve">
+    <value>Time</value>
+  </data>
+  <data name="Logs_Detail_Secrets" xml:space="preserve">
+    <value>Secrets</value>
+  </data>
+  <data name="Logs_Detail_Exception" xml:space="preserve">
+    <value>Exception</value>
+  </data>
+  <data name="Logs_Redacted" xml:space="preserve">
+    <value>Redacted before every sink</value>
+  </data>
+  <data name="Snapshots_Number" xml:space="preserve">
+    <value>#{0:D4}</value>
+  </data>
+  <data name="Options_Column_Path" xml:space="preserve">
+    <value>Path</value>
+  </data>
+  <data name="Options_Column_Depth" xml:space="preserve">
+    <value>Depth</value>
+  </data>
+  <data name="Options_Column_Material" xml:space="preserve">
+    <value>Material</value>
+  </data>
+  <data name="Options_Column_Enabled" xml:space="preserve">
+    <value>Enabled</value>
   </data>
 </root>

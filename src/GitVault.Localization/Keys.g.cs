@@ -15,7 +15,7 @@ public static class Keys
     /// <summary>English: {0} — {1}</summary>
     public const string App_WindowTitle = "App_WindowTitle";
 
-    /// <summary>English: Dashboard</summary>
+    /// <summary>English: Overview</summary>
     public const string Nav_Dashboard = "Nav_Dashboard";
 
     /// <summary>English: Identities</summary>
@@ -39,7 +39,7 @@ public static class Keys
     /// <summary>English: Repositories</summary>
     public const string Nav_Repositories = "Nav_Repositories";
 
-    /// <summary>English: Settings</summary>
+    /// <summary>English: Options</summary>
     public const string Nav_Settings = "Nav_Settings";
 
     /// <summary>English: Logs</summary>
@@ -90,10 +90,10 @@ public static class Keys
     /// <summary>English: , </summary>
     public const string Common_ListSeparator = "Common_ListSeparator";
 
-    /// <summary>English: Dashboard</summary>
+    /// <summary>English: Overview</summary>
     public const string Dashboard_Title = "Dashboard_Title";
 
-    /// <summary>English: Everything GitVault found on this machine</summary>
+    /// <summary>English: Identity and Git configuration status for this computer.</summary>
     public const string Dashboard_Subtitle = "Dashboard_Subtitle";
 
     /// <summary>English: Identities</summary>
@@ -636,7 +636,7 @@ public static class Keys
     /// <summary>English: No repositories found</summary>
     public const string Repositories_Empty = "Repositories_Empty";
 
-    /// <summary>English: Settings</summary>
+    /// <summary>English: Options</summary>
     public const string Settings_Title = "Settings_Title";
 
     /// <summary>English: Language</summary>
@@ -878,6 +878,600 @@ public static class Keys
 
     /// <summary>English: {0} warnings</summary>
     public const string Plural_Warnings_Other = "Plural_Warnings_Other";
+
+    /// <summary>English: This computer</summary>
+    public const string Nav_ThisComputer = "Nav_ThisComputer";
+
+    /// <summary>English: Snapshots &amp; rollback</summary>
+    public const string Nav_Snapshots = "Nav_Snapshots";
+
+    /// <summary>English: _File</summary>
+    public const string Menu_File = "Menu_File";
+
+    /// <summary>English: Rescan computer</summary>
+    public const string Menu_File_Rescan = "Menu_File_Rescan";
+
+    /// <summary>English: Open Profiles</summary>
+    public const string Menu_File_OpenProfiles = "Menu_File_OpenProfiles";
+
+    /// <summary>English: Export diagnostics…</summary>
+    public const string Menu_File_ExportDiagnostics = "Menu_File_ExportDiagnostics";
+
+    /// <summary>English: Exit</summary>
+    public const string Menu_File_Exit = "Menu_File_Exit";
+
+    /// <summary>English: _Edit</summary>
+    public const string Menu_Edit = "Menu_Edit";
+
+    /// <summary>English: _View</summary>
+    public const string Menu_View = "Menu_View";
+
+    /// <summary>English: Refresh</summary>
+    public const string Menu_View_Refresh = "Menu_View_Refresh";
+
+    /// <summary>English: Properties pane</summary>
+    public const string Menu_View_PropertiesPane = "Menu_View_PropertiesPane";
+
+    /// <summary>English: _Tools</summary>
+    public const string Menu_Tools = "Menu_Tools";
+
+    /// <summary>English: Profiles…</summary>
+    public const string Menu_Tools_Profiles = "Menu_Tools_Profiles";
+
+    /// <summary>English: Options…</summary>
+    public const string Menu_Tools_Options = "Menu_Tools_Options";
+
+    /// <summary>English: Snapshots &amp; rollback…</summary>
+    public const string Menu_Tools_Snapshots = "Menu_Tools_Snapshots";
+
+    /// <summary>English: _Help</summary>
+    public const string Menu_Help = "Menu_Help";
+
+    /// <summary>English: About GitVault…</summary>
+    public const string Menu_Help_About = "Menu_Help_About";
+
+    /// <summary>English: Preview</summary>
+    public const string Toolbar_Preview = "Toolbar_Preview";
+
+    /// <summary>English: Preview the selected profile&apos;s changes. Nothing is written.</summary>
+    public const string Toolbar_PreviewTip = "Toolbar_PreviewTip";
+
+    /// <summary>English: Apply the plan you reviewed</summary>
+    public const string Toolbar_ApplyTip = "Toolbar_ApplyTip";
+
+    /// <summary>English: Preview rolling back the last mutation</summary>
+    public const string Toolbar_RollbackTip = "Toolbar_RollbackTip";
+
+    /// <summary>English: Properties</summary>
+    public const string Common_Properties = "Common_Properties";
+
+    /// <summary>English: Search:</summary>
+    public const string Common_SearchLabel = "Common_SearchLabel";
+
+    /// <summary>English: Filter current view</summary>
+    public const string Common_FilterCurrentView = "Common_FilterCurrentView";
+
+    /// <summary>English: Select an item to see its properties.</summary>
+    public const string Common_NoSelection = "Common_NoSelection";
+
+    /// <summary>English: Save</summary>
+    public const string Common_Save = "Common_Save";
+
+    /// <summary>English: Add…</summary>
+    public const string Common_Add = "Common_Add";
+
+    /// <summary>English: Edit…</summary>
+    public const string Common_Edit = "Common_Edit";
+
+    /// <summary>English: Remove</summary>
+    public const string Common_Remove = "Common_Remove";
+
+    /// <summary>English: Browse…</summary>
+    public const string Common_Browse = "Common_Browse";
+
+    /// <summary>English: None</summary>
+    public const string Common_None = "Common_None";
+
+    /// <summary>English: Refresh</summary>
+    public const string Common_Refresh = "Common_Refresh";
+
+    /// <summary>English: Ready</summary>
+    public const string Status_Ready = "Status_Ready";
+
+    /// <summary>English: Scanning… read-only</summary>
+    public const string Status_Scanning = "Status_Scanning";
+
+    /// <summary>English: Scan completed in {0:F0} ms</summary>
+    public const string Status_ScanCompleted = "Status_ScanCompleted";
+
+    /// <summary>English: Insufficient permissions. Run elevated?</summary>
+    public const string Status_InsufficientPermissions = "Status_InsufficientPermissions";
+
+    /// <summary>English: Artifacts: {0} discovered</summary>
+    public const string Status_Artifacts = "Status_Artifacts";
+
+    /// <summary>English: Mode: Read-only</summary>
+    public const string Status_Mode_ReadOnly = "Status_Mode_ReadOnly";
+
+    /// <summary>English: Mode: Write pending</summary>
+    public const string Status_Mode_PendingWrite = "Status_Mode_PendingWrite";
+
+    /// <summary>English: Read-only scan complete</summary>
+    public const string Status_ReadOnlyScanComplete = "Status_ReadOnlyScanComplete";
+
+    /// <summary>English: No scan yet</summary>
+    public const string Status_NoScanYet = "Status_NoScanYet";
+
+    /// <summary>English: No pending writes</summary>
+    public const string Status_NoPendingWrites = "Status_NoPendingWrites";
+
+    /// <summary>English: A reviewed plan is waiting to be applied</summary>
+    public const string Status_PendingWrite = "Status_PendingWrite";
+
+    /// <summary>English: Viewing {0}</summary>
+    public const string Status_Viewing = "Status_Viewing";
+
+    /// <summary>English: Selected item copied</summary>
+    public const string Status_Copied = "Status_Copied";
+
+    /// <summary>English: Plan reviewed — Apply is now available</summary>
+    public const string Status_PlanReviewed = "Status_PlanReviewed";
+
+    /// <summary>English: Plan closed — nothing was applied</summary>
+    public const string Status_PlanNotApplied = "Status_PlanNotApplied";
+
+    /// <summary>English: Plan applied. A snapshot was created first.</summary>
+    public const string Status_PlanApplied = "Status_PlanApplied";
+
+    /// <summary>English: Rollback cancelled — nothing was changed</summary>
+    public const string Status_RollbackCancelled = "Status_RollbackCancelled";
+
+    /// <summary>English: Rollback complete: {0} files restored</summary>
+    public const string Status_RollbackRestored = "Status_RollbackRestored";
+
+    /// <summary>English: Profile created</summary>
+    public const string Status_ProfileCreated = "Status_ProfileCreated";
+
+    /// <summary>English: Profile saved</summary>
+    public const string Status_ProfileSaved = "Status_ProfileSaved";
+
+    /// <summary>English: Profile deleted</summary>
+    public const string Status_ProfileDeleted = "Status_ProfileDeleted";
+
+    /// <summary>English: Options saved</summary>
+    public const string Status_OptionsSaved = "Status_OptionsSaved";
+
+    /// <summary>English: Preview changes — activation</summary>
+    public const string Dialog_PreviewActivation_Title = "Dialog_PreviewActivation_Title";
+
+    /// <summary>English: Preview changes — deactivation</summary>
+    public const string Dialog_PreviewDeactivation_Title = "Dialog_PreviewDeactivation_Title";
+
+    /// <summary>English: No changes have been made.</summary>
+    public const string Dialog_NothingWritten = "Dialog_NothingWritten";
+
+    /// <summary>English: This is the dry-run plan. Apply stays disabled until you confirm that you have read it.</summary>
+    public const string Dialog_ReviewBeforeApply = "Dialog_ReviewBeforeApply";
+
+    /// <summary>English: I reviewed this plan</summary>
+    public const string Dialog_ReviewedPlan = "Dialog_ReviewedPlan";
+
+    /// <summary>English: Target scope</summary>
+    public const string Dialog_TargetScope = "Dialog_TargetScope";
+
+    /// <summary>English: Snapshot</summary>
+    public const string Dialog_Snapshot = "Dialog_Snapshot";
+
+    /// <summary>English: Snapshot #{0:D4} will be created before anything is written</summary>
+    public const string Dialog_SnapshotWillBeCreated = "Dialog_SnapshotWillBeCreated";
+
+    /// <summary>English: This plan cannot be applied.</summary>
+    public const string Dialog_PlanBlocked = "Dialog_PlanBlocked";
+
+    /// <summary>English: File permissions are preserved.</summary>
+    public const string Dialog_Guarantee_Permissions = "Dialog_Guarantee_Permissions";
+
+    /// <summary>English: No secret is placed on a command line.</summary>
+    public const string Dialog_Guarantee_NoSecrets = "Dialog_Guarantee_NoSecrets";
+
+    /// <summary>English: Preview rollback</summary>
+    public const string Dialog_RollbackPreview_Title = "Dialog_RollbackPreview_Title";
+
+    /// <summary>English: This lists what restoring the snapshot would do. Nothing is written until you confirm.</summary>
+    public const string Dialog_RollbackExplains = "Dialog_RollbackExplains";
+
+    /// <summary>English: Restore snapshot</summary>
+    public const string Dialog_RestoreSnapshot = "Dialog_RestoreSnapshot";
+
+    /// <summary>English: Files this would touch</summary>
+    public const string Dialog_FilesRestored = "Dialog_FilesRestored";
+
+    /// <summary>English: About GitVault</summary>
+    public const string Dialog_About_Title = "Dialog_About_Title";
+
+    /// <summary>English: Classic program icons: Tango Icon Library 0.8.90, public domain.</summary>
+    public const string Dialog_About_IconLicense = "Dialog_About_IconLicense";
+
+    /// <summary>English: Author identities discovered in Git configuration and known client settings.</summary>
+    public const string Identities_Subtitle = "Identities_Subtitle";
+
+    /// <summary>English: Private and public key artifacts. Private key material is never displayed or logged.</summary>
+    public const string Keys_Subtitle = "Keys_Subtitle";
+
+    /// <summary>English: Detected SSH agent processes and sockets.</summary>
+    public const string Agents_Subtitle = "Agents_Subtitle";
+
+    /// <summary>English: Credential-store metadata. Opaque secret stores remain opaque.</summary>
+    public const string Credentials_Subtitle = "Credentials_Subtitle";
+
+    /// <summary>English: Detected third-party Git GUI clients and their per-client configuration.</summary>
+    public const string Clients_Subtitle = "Clients_Subtitle";
+
+    /// <summary>English: Discovered repositories and their effective identity overrides.</summary>
+    public const string Repositories_Subtitle = "Repositories_Subtitle";
+
+    /// <summary>English: Operational log. Secrets are redacted before every sink.</summary>
+    public const string Logs_Subtitle = "Logs_Subtitle";
+
+    /// <summary>English: Reusable Git identity configurations, activated through preview and apply.</summary>
+    public const string Profiles_Subtitle = "Profiles_Subtitle";
+
+    /// <summary>English: Language, appearance, discovery roots and diagnostics.</summary>
+    public const string Settings_Subtitle = "Settings_Subtitle";
+
+    /// <summary>English: Byte-for-byte snapshots taken before every mutation.</summary>
+    public const string Snapshots_Subtitle = "Snapshots_Subtitle";
+
+    /// <summary>English: Snapshots &amp; rollback</summary>
+    public const string Snapshots_Title = "Snapshots_Title";
+
+    /// <summary>English: No snapshots yet. One is taken automatically before any change.</summary>
+    public const string Snapshots_Empty = "Snapshots_Empty";
+
+    /// <summary>English: Snapshot</summary>
+    public const string Snapshots_Column_Snapshot = "Snapshots_Column_Snapshot";
+
+    /// <summary>English: Created</summary>
+    public const string Snapshots_Column_Created = "Snapshots_Column_Created";
+
+    /// <summary>English: Operation</summary>
+    public const string Snapshots_Column_Operation = "Snapshots_Column_Operation";
+
+    /// <summary>English: Target</summary>
+    public const string Snapshots_Column_Target = "Snapshots_Column_Target";
+
+    /// <summary>English: State</summary>
+    public const string Snapshots_Column_State = "Snapshots_Column_State";
+
+    /// <summary>English: Profile</summary>
+    public const string Snapshots_Column_Profile = "Snapshots_Column_Profile";
+
+    /// <summary>English: Action</summary>
+    public const string Snapshots_Column_Action = "Snapshots_Column_Action";
+
+    /// <summary>English: Files</summary>
+    public const string Snapshots_Detail_Files = "Snapshots_Detail_Files";
+
+    /// <summary>English: Activate {0}</summary>
+    public const string Snapshots_Operation_Activate = "Snapshots_Operation_Activate";
+
+    /// <summary>English: Deactivate {0}</summary>
+    public const string Snapshots_Operation_Deactivate = "Snapshots_Operation_Deactivate";
+
+    /// <summary>English: Unrecorded operation</summary>
+    public const string Snapshots_Operation_Unknown = "Snapshots_Operation_Unknown";
+
+    /// <summary>English: Available</summary>
+    public const string Snapshots_State_Available = "Snapshots_State_Available";
+
+    /// <summary>English: Incomplete</summary>
+    public const string Snapshots_State_Incomplete = "Snapshots_State_Incomplete";
+
+    /// <summary>English: Restore</summary>
+    public const string Snapshots_Action_Restore = "Snapshots_Action_Restore";
+
+    /// <summary>English: Recreate</summary>
+    public const string Snapshots_Action_Recreate = "Snapshots_Action_Recreate";
+
+    /// <summary>English: Delete again</summary>
+    public const string Snapshots_Action_Delete = "Snapshots_Action_Delete";
+
+    /// <summary>English: Unchanged</summary>
+    public const string Snapshots_Action_Unchanged = "Snapshots_Action_Unchanged";
+
+    /// <summary>English: The newest {0} snapshots are kept; older ones are pruned automatically.</summary>
+    public const string Snapshots_Retention = "Snapshots_Retention";
+
+    /// <summary>English: Preview rollback…</summary>
+    public const string Snapshots_PreviewRollback = "Snapshots_PreviewRollback";
+
+    /// <summary>English: Scan roots</summary>
+    public const string Options_Group_ScanRoots = "Options_Group_ScanRoots";
+
+    /// <summary>English: Custom SSH key folders</summary>
+    public const string Options_Group_KeyFolders = "Options_Group_KeyFolders";
+
+    /// <summary>English: Appearance and language</summary>
+    public const string Options_Group_Appearance = "Options_Group_Appearance";
+
+    /// <summary>English: Behaviour</summary>
+    public const string Options_Group_Behaviour = "Options_Group_Behaviour";
+
+    /// <summary>English: Add scan root</summary>
+    public const string Options_AddScanRoot = "Options_AddScanRoot";
+
+    /// <summary>English: Edit scan root</summary>
+    public const string Options_EditScanRoot = "Options_EditScanRoot";
+
+    /// <summary>English: Add key folder</summary>
+    public const string Options_AddKeyFolder = "Options_AddKeyFolder";
+
+    /// <summary>English: Edit key folder</summary>
+    public const string Options_EditKeyFolder = "Options_EditKeyFolder";
+
+    /// <summary>English: Path:</summary>
+    public const string Options_Field_Path = "Options_Field_Path";
+
+    /// <summary>English: Depth:</summary>
+    public const string Options_Field_Depth = "Options_Field_Depth";
+
+    /// <summary>English: Material:</summary>
+    public const string Options_Field_Material = "Options_Field_Material";
+
+    /// <summary>English: Enabled:</summary>
+    public const string Options_Field_Enabled = "Options_Field_Enabled";
+
+    /// <summary>English: Recursive</summary>
+    public const string Options_Depth_Recursive = "Options_Depth_Recursive";
+
+    /// <summary>English: Top-level only</summary>
+    public const string Options_Depth_TopLevel = "Options_Depth_TopLevel";
+
+    /// <summary>English: Private + public</summary>
+    public const string Options_Mode_PrivateAndPublic = "Options_Mode_PrivateAndPublic";
+
+    /// <summary>English: Public only</summary>
+    public const string Options_Mode_PublicOnly = "Options_Mode_PublicOnly";
+
+    /// <summary>English: Scan this root</summary>
+    public const string Options_ScanThisRoot = "Options_ScanThisRoot";
+
+    /// <summary>English: Scan this folder</summary>
+    public const string Options_ScanThisFolder = "Options_ScanThisFolder";
+
+    /// <summary>English: Enabled</summary>
+    public const string Options_State_Enabled = "Options_State_Enabled";
+
+    /// <summary>English: Disabled</summary>
+    public const string Options_State_Disabled = "Options_State_Disabled";
+
+    /// <summary>English: Editing these lists changes GitVault&apos;s own settings only. No repository, key or credential is modified.</summary>
+    public const string Options_SettingsOnlyNote = "Options_SettingsOnlyNote";
+
+    /// <summary>English: GitVault reads key files and never writes to them.</summary>
+    public const string Options_KeysReadOnlyNote = "Options_KeysReadOnlyNote";
+
+    /// <summary>English: Choose a folder to search for repositories</summary>
+    public const string Options_PickScanRoot = "Options_PickScanRoot";
+
+    /// <summary>English: Choose a folder to search for SSH keys</summary>
+    public const string Options_PickKeyFolder = "Options_PickKeyFolder";
+
+    /// <summary>English: Remove scan root</summary>
+    public const string Options_RemoveScanRoot_Title = "Options_RemoveScanRoot_Title";
+
+    /// <summary>English: Stop searching {0} for repositories?</summary>
+    public const string Options_RemoveScanRoot_Message = "Options_RemoveScanRoot_Message";
+
+    /// <summary>English: Remove key folder</summary>
+    public const string Options_RemoveKeyFolder_Title = "Options_RemoveKeyFolder_Title";
+
+    /// <summary>English: Stop searching {0} for SSH keys?</summary>
+    public const string Options_RemoveKeyFolder_Message = "Options_RemoveKeyFolder_Message";
+
+    /// <summary>English: No scan roots configured.</summary>
+    public const string Options_NoScanRoots = "Options_NoScanRoots";
+
+    /// <summary>English: No extra key folders configured. The default locations are always searched.</summary>
+    public const string Options_NoKeyFolders = "Options_NoKeyFolders";
+
+    /// <summary>English: Profile editor</summary>
+    public const string Profiles_Editor = "Profiles_Editor";
+
+    /// <summary>English: Activation</summary>
+    public const string Profiles_Activation = "Profiles_Activation";
+
+    /// <summary>English: Profile name:</summary>
+    public const string Profiles_Field_Name = "Profiles_Field_Name";
+
+    /// <summary>English: Identity:</summary>
+    public const string Profiles_Field_Identity = "Profiles_Field_Identity";
+
+    /// <summary>English: SSH key:</summary>
+    public const string Profiles_Field_SshKey = "Profiles_Field_SshKey";
+
+    /// <summary>English: Credential helper:</summary>
+    public const string Profiles_Field_Helper = "Profiles_Field_Helper";
+
+    /// <summary>English: Stored scope:</summary>
+    public const string Profiles_Field_StoredScope = "Profiles_Field_StoredScope";
+
+    /// <summary>English: Repository path:</summary>
+    public const string Profiles_Field_RepositoryPath = "Profiles_Field_RepositoryPath";
+
+    /// <summary>English: Pin the key with core.sshCommand</summary>
+    public const string Profiles_Field_WriteSshCommand = "Profiles_Field_WriteSshCommand";
+
+    /// <summary>English: Stored scope</summary>
+    public const string Profiles_Column_StoredScope = "Profiles_Column_StoredScope";
+
+    /// <summary>English: Repository</summary>
+    public const string Profiles_Repository = "Profiles_Repository";
+
+    /// <summary>English: Plan state</summary>
+    public const string Profiles_State = "Profiles_State";
+
+    /// <summary>English: Not previewed</summary>
+    public const string Profiles_State_NotPreviewed = "Profiles_State_NotPreviewed";
+
+    /// <summary>English: Previewed, not reviewed</summary>
+    public const string Profiles_State_NotReviewed = "Profiles_State_NotReviewed";
+
+    /// <summary>English: Reviewed</summary>
+    public const string Profiles_State_Reviewed = "Profiles_State_Reviewed";
+
+    /// <summary>English: New…</summary>
+    public const string Profiles_New = "Profiles_New";
+
+    /// <summary>English: Save profile</summary>
+    public const string Profiles_Save = "Profiles_Save";
+
+    /// <summary>English: Delete</summary>
+    public const string Profiles_Delete = "Profiles_Delete";
+
+    /// <summary>English: New profile</summary>
+    public const string Profiles_New_Title = "Profiles_New_Title";
+
+    /// <summary>English: No identity has been discovered yet. Run a scan first.</summary>
+    public const string Profiles_New_NoIdentities = "Profiles_New_NoIdentities";
+
+    /// <summary>English: Delete profile</summary>
+    public const string Profiles_Delete_Title = "Profiles_Delete_Title";
+
+    /// <summary>English: Delete the profile &quot;{0}&quot;?</summary>
+    public const string Profiles_Delete_Message = "Profiles_Delete_Message";
+
+    /// <summary>English: This removes the profile only. No identity, key or credential is deleted, and nothing already applied is undone.</summary>
+    public const string Profiles_Delete_Detail = "Profiles_Delete_Detail";
+
+    /// <summary>English: Preview activation…</summary>
+    public const string Profiles_PreviewActivation = "Profiles_PreviewActivation";
+
+    /// <summary>English: Preview deactivation…</summary>
+    public const string Profiles_PreviewDeactivation = "Profiles_PreviewDeactivation";
+
+    /// <summary>English: A snapshot is created before any mutation, and Apply stays disabled until a dry-run plan has been reviewed.</summary>
+    public const string Profiles_SnapshotNote = "Profiles_SnapshotNote";
+
+    /// <summary>English: The scope opens with the value saved on the profile rather than defaulting to Global.</summary>
+    public const string Profiles_StoredScopeNote = "Profiles_StoredScopeNote";
+
+    /// <summary>English: Unsaved changes</summary>
+    public const string Profiles_UnsavedChanges = "Profiles_UnsavedChanges";
+
+    /// <summary>English: Platform</summary>
+    public const string Dashboard_Detail_Platform = "Dashboard_Detail_Platform";
+
+    /// <summary>English: Architecture</summary>
+    public const string Dashboard_Detail_Architecture = "Dashboard_Detail_Architecture";
+
+    /// <summary>English: Git</summary>
+    public const string Dashboard_Detail_Git = "Dashboard_Detail_Git";
+
+    /// <summary>English: Settings folder</summary>
+    public const string Dashboard_Detail_AppData = "Dashboard_Detail_AppData";
+
+    /// <summary>English: Finding</summary>
+    public const string Dashboard_Detail_Finding = "Dashboard_Detail_Finding";
+
+    /// <summary>English: Subject</summary>
+    public const string Dashboard_Detail_Subject = "Dashboard_Detail_Subject";
+
+    /// <summary>English: Severity</summary>
+    public const string Dashboard_Detail_Severity = "Dashboard_Detail_Severity";
+
+    /// <summary>English: Effective Git identity</summary>
+    public const string Dashboard_Group_Effective = "Dashboard_Group_Effective";
+
+    /// <summary>English: Attention</summary>
+    public const string Dashboard_Group_Attention = "Dashboard_Group_Attention";
+
+    /// <summary>English: High</summary>
+    public const string Severity_High = "Severity_High";
+
+    /// <summary>English: Medium</summary>
+    public const string Severity_Medium = "Severity_Medium";
+
+    /// <summary>English: Low</summary>
+    public const string Severity_Low = "Severity_Low";
+
+    /// <summary>English: Private material</summary>
+    public const string Keys_Detail_PrivateMaterial = "Keys_Detail_PrivateMaterial";
+
+    /// <summary>English: Hidden by design</summary>
+    public const string Keys_HiddenByDesign = "Keys_HiddenByDesign";
+
+    /// <summary>English: Target</summary>
+    public const string Credentials_Detail_Target = "Credentials_Detail_Target";
+
+    /// <summary>English: Storage</summary>
+    public const string Credentials_Detail_Storage = "Credentials_Detail_Storage";
+
+    /// <summary>English: Secret value</summary>
+    public const string Credentials_Detail_SecretValue = "Credentials_Detail_SecretValue";
+
+    /// <summary>English: Protected by the OS</summary>
+    public const string Credentials_ProtectedBadge = "Credentials_ProtectedBadge";
+
+    /// <summary>English: Not read</summary>
+    public const string Credentials_NotRead = "Credentials_NotRead";
+
+    /// <summary>English: Endpoint</summary>
+    public const string Agents_Detail_Endpoint = "Agents_Detail_Endpoint";
+
+    /// <summary>English: Key loading</summary>
+    public const string Agents_Detail_Writable = "Agents_Detail_Writable";
+
+    /// <summary>English: Read-only</summary>
+    public const string Agents_ReadOnlyBadge = "Agents_ReadOnlyBadge";
+
+    /// <summary>English: Supported</summary>
+    public const string Agents_WritableBadge = "Agents_WritableBadge";
+
+    /// <summary>English: Agent</summary>
+    public const string Agents_Column_Agent = "Agents_Column_Agent";
+
+    /// <summary>English: State</summary>
+    public const string Agents_Column_State = "Agents_Column_State";
+
+    /// <summary>English: Source</summary>
+    public const string Agents_Column_Source = "Agents_Column_Source";
+
+    /// <summary>English: Client</summary>
+    public const string Clients_Column_Client = "Clients_Column_Client";
+
+    /// <summary>English: Version</summary>
+    public const string Clients_Column_Version = "Clients_Column_Version";
+
+    /// <summary>English: Secret storage</summary>
+    public const string Clients_Column_Storage = "Clients_Column_Storage";
+
+    /// <summary>English: Time</summary>
+    public const string Logs_Column_Time = "Logs_Column_Time";
+
+    /// <summary>English: Secrets</summary>
+    public const string Logs_Detail_Secrets = "Logs_Detail_Secrets";
+
+    /// <summary>English: Exception</summary>
+    public const string Logs_Detail_Exception = "Logs_Detail_Exception";
+
+    /// <summary>English: Redacted before every sink</summary>
+    public const string Logs_Redacted = "Logs_Redacted";
+
+    /// <summary>English: #{0:D4}</summary>
+    public const string Snapshots_Number = "Snapshots_Number";
+
+    /// <summary>English: Path</summary>
+    public const string Options_Column_Path = "Options_Column_Path";
+
+    /// <summary>English: Depth</summary>
+    public const string Options_Column_Depth = "Options_Column_Depth";
+
+    /// <summary>English: Material</summary>
+    public const string Options_Column_Material = "Options_Column_Material";
+
+    /// <summary>English: Enabled</summary>
+    public const string Options_Column_Enabled = "Options_Column_Enabled";
 
     /// <summary>All keys, in declaration order.</summary>
     public static IReadOnlyList<string> All { get; } =
@@ -1173,5 +1767,203 @@ public static class Keys
         Plural_Warnings_Few,
         Plural_Warnings_Many,
         Plural_Warnings_Other,
+        Nav_ThisComputer,
+        Nav_Snapshots,
+        Menu_File,
+        Menu_File_Rescan,
+        Menu_File_OpenProfiles,
+        Menu_File_ExportDiagnostics,
+        Menu_File_Exit,
+        Menu_Edit,
+        Menu_View,
+        Menu_View_Refresh,
+        Menu_View_PropertiesPane,
+        Menu_Tools,
+        Menu_Tools_Profiles,
+        Menu_Tools_Options,
+        Menu_Tools_Snapshots,
+        Menu_Help,
+        Menu_Help_About,
+        Toolbar_Preview,
+        Toolbar_PreviewTip,
+        Toolbar_ApplyTip,
+        Toolbar_RollbackTip,
+        Common_Properties,
+        Common_SearchLabel,
+        Common_FilterCurrentView,
+        Common_NoSelection,
+        Common_Save,
+        Common_Add,
+        Common_Edit,
+        Common_Remove,
+        Common_Browse,
+        Common_None,
+        Common_Refresh,
+        Status_Ready,
+        Status_Scanning,
+        Status_ScanCompleted,
+        Status_InsufficientPermissions,
+        Status_Artifacts,
+        Status_Mode_ReadOnly,
+        Status_Mode_PendingWrite,
+        Status_ReadOnlyScanComplete,
+        Status_NoScanYet,
+        Status_NoPendingWrites,
+        Status_PendingWrite,
+        Status_Viewing,
+        Status_Copied,
+        Status_PlanReviewed,
+        Status_PlanNotApplied,
+        Status_PlanApplied,
+        Status_RollbackCancelled,
+        Status_RollbackRestored,
+        Status_ProfileCreated,
+        Status_ProfileSaved,
+        Status_ProfileDeleted,
+        Status_OptionsSaved,
+        Dialog_PreviewActivation_Title,
+        Dialog_PreviewDeactivation_Title,
+        Dialog_NothingWritten,
+        Dialog_ReviewBeforeApply,
+        Dialog_ReviewedPlan,
+        Dialog_TargetScope,
+        Dialog_Snapshot,
+        Dialog_SnapshotWillBeCreated,
+        Dialog_PlanBlocked,
+        Dialog_Guarantee_Permissions,
+        Dialog_Guarantee_NoSecrets,
+        Dialog_RollbackPreview_Title,
+        Dialog_RollbackExplains,
+        Dialog_RestoreSnapshot,
+        Dialog_FilesRestored,
+        Dialog_About_Title,
+        Dialog_About_IconLicense,
+        Identities_Subtitle,
+        Keys_Subtitle,
+        Agents_Subtitle,
+        Credentials_Subtitle,
+        Clients_Subtitle,
+        Repositories_Subtitle,
+        Logs_Subtitle,
+        Profiles_Subtitle,
+        Settings_Subtitle,
+        Snapshots_Subtitle,
+        Snapshots_Title,
+        Snapshots_Empty,
+        Snapshots_Column_Snapshot,
+        Snapshots_Column_Created,
+        Snapshots_Column_Operation,
+        Snapshots_Column_Target,
+        Snapshots_Column_State,
+        Snapshots_Column_Profile,
+        Snapshots_Column_Action,
+        Snapshots_Detail_Files,
+        Snapshots_Operation_Activate,
+        Snapshots_Operation_Deactivate,
+        Snapshots_Operation_Unknown,
+        Snapshots_State_Available,
+        Snapshots_State_Incomplete,
+        Snapshots_Action_Restore,
+        Snapshots_Action_Recreate,
+        Snapshots_Action_Delete,
+        Snapshots_Action_Unchanged,
+        Snapshots_Retention,
+        Snapshots_PreviewRollback,
+        Options_Group_ScanRoots,
+        Options_Group_KeyFolders,
+        Options_Group_Appearance,
+        Options_Group_Behaviour,
+        Options_AddScanRoot,
+        Options_EditScanRoot,
+        Options_AddKeyFolder,
+        Options_EditKeyFolder,
+        Options_Field_Path,
+        Options_Field_Depth,
+        Options_Field_Material,
+        Options_Field_Enabled,
+        Options_Depth_Recursive,
+        Options_Depth_TopLevel,
+        Options_Mode_PrivateAndPublic,
+        Options_Mode_PublicOnly,
+        Options_ScanThisRoot,
+        Options_ScanThisFolder,
+        Options_State_Enabled,
+        Options_State_Disabled,
+        Options_SettingsOnlyNote,
+        Options_KeysReadOnlyNote,
+        Options_PickScanRoot,
+        Options_PickKeyFolder,
+        Options_RemoveScanRoot_Title,
+        Options_RemoveScanRoot_Message,
+        Options_RemoveKeyFolder_Title,
+        Options_RemoveKeyFolder_Message,
+        Options_NoScanRoots,
+        Options_NoKeyFolders,
+        Profiles_Editor,
+        Profiles_Activation,
+        Profiles_Field_Name,
+        Profiles_Field_Identity,
+        Profiles_Field_SshKey,
+        Profiles_Field_Helper,
+        Profiles_Field_StoredScope,
+        Profiles_Field_RepositoryPath,
+        Profiles_Field_WriteSshCommand,
+        Profiles_Column_StoredScope,
+        Profiles_Repository,
+        Profiles_State,
+        Profiles_State_NotPreviewed,
+        Profiles_State_NotReviewed,
+        Profiles_State_Reviewed,
+        Profiles_New,
+        Profiles_Save,
+        Profiles_Delete,
+        Profiles_New_Title,
+        Profiles_New_NoIdentities,
+        Profiles_Delete_Title,
+        Profiles_Delete_Message,
+        Profiles_Delete_Detail,
+        Profiles_PreviewActivation,
+        Profiles_PreviewDeactivation,
+        Profiles_SnapshotNote,
+        Profiles_StoredScopeNote,
+        Profiles_UnsavedChanges,
+        Dashboard_Detail_Platform,
+        Dashboard_Detail_Architecture,
+        Dashboard_Detail_Git,
+        Dashboard_Detail_AppData,
+        Dashboard_Detail_Finding,
+        Dashboard_Detail_Subject,
+        Dashboard_Detail_Severity,
+        Dashboard_Group_Effective,
+        Dashboard_Group_Attention,
+        Severity_High,
+        Severity_Medium,
+        Severity_Low,
+        Keys_Detail_PrivateMaterial,
+        Keys_HiddenByDesign,
+        Credentials_Detail_Target,
+        Credentials_Detail_Storage,
+        Credentials_Detail_SecretValue,
+        Credentials_ProtectedBadge,
+        Credentials_NotRead,
+        Agents_Detail_Endpoint,
+        Agents_Detail_Writable,
+        Agents_ReadOnlyBadge,
+        Agents_WritableBadge,
+        Agents_Column_Agent,
+        Agents_Column_State,
+        Agents_Column_Source,
+        Clients_Column_Client,
+        Clients_Column_Version,
+        Clients_Column_Storage,
+        Logs_Column_Time,
+        Logs_Detail_Secrets,
+        Logs_Detail_Exception,
+        Logs_Redacted,
+        Snapshots_Number,
+        Options_Column_Path,
+        Options_Column_Depth,
+        Options_Column_Material,
+        Options_Column_Enabled,
     ];
 }

@@ -1,0 +1,13 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="GitVault.App.Views.ConfirmationView">
+  <StackPanel Orientation="Horizontal" Spacing="12">
+    <Image Classes="icon32" Source="{StaticResource IconSeverityMedium}" VerticalAlignment="Top" />
+    <StackPanel Spacing="8" MaxWidth="370">
+      <TextBlock Text="{Binding Message}" TextWrapping="Wrap" />
+      <TextBlock Classes="dim" TextWrapping="Wrap"
+                 IsVisible="{Binding HasDetail}"
+                 Text="{Binding Detail}" />
+    </StackPanel>
+  </StackPanel>
+</UserControl>

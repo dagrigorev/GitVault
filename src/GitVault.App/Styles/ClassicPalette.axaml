@@ -1,0 +1,113 @@
+<!--
+  The classic palette. Every colour the rest of the styles use is named here once.
+
+  These are literal values rather than references into the Fluent theme, because the point of the
+  redesign is to stop looking like the Fluent theme. They are also deliberately not theme-variant
+  dictionaries: a Win32-era administration utility has one appearance, and half-darkening it
+  produces something that belongs to neither world. The theme setting still switches Avalonia's
+  own variant for controls that fall outside these styles.
+-->
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+  <!-- Window face and 3D edges -->
+  <SolidColorBrush x:Key="ClassicFaceBrush" Color="#F0F0F0" />
+  <SolidColorBrush x:Key="ClassicFaceAltBrush" Color="#E6E6E6" />
+  <SolidColorBrush x:Key="ClassicLightBrush" Color="#FFFFFF" />
+  <SolidColorBrush x:Key="ClassicShadowBrush" Color="#A0A0A0" />
+  <SolidColorBrush x:Key="ClassicDarkBrush" Color="#696969" />
+  <SolidColorBrush x:Key="ClassicBorderBrush" Color="#7A7A7A" />
+  <SolidColorBrush x:Key="ClassicSoftBorderBrush" Color="#B6B6B6" />
+  <SolidColorBrush x:Key="ClassicGridLineBrush" Color="#E4E4E4" />
+
+  <!-- Content -->
+  <SolidColorBrush x:Key="ClassicWindowBrush" Color="#FFFFFF" />
+  <SolidColorBrush x:Key="ClassicTextBrush" Color="#111111" />
+  <SolidColorBrush x:Key="ClassicDimTextBrush" Color="#555555" />
+  <SolidColorBrush x:Key="ClassicDisabledTextBrush" Color="#999999" />
+
+  <!-- Selection: the classic blue, and the softer hover wash above it -->
+  <SolidColorBrush x:Key="ClassicSelectionBrush" Color="#0078D7" />
+  <SolidColorBrush x:Key="ClassicSelectionTextBrush" Color="#FFFFFF" />
+  <SolidColorBrush x:Key="ClassicSelectionBorderBrush" Color="#1F5F99" />
+  <SolidColorBrush x:Key="ClassicHoverBrush" Color="#E7F2FB" />
+  <SolidColorBrush x:Key="ClassicHoverBorderBrush" Color="#C2D8EA" />
+  <SolidColorBrush x:Key="ClassicRowHoverBrush" Color="#EEF6FC" />
+  <SolidColorBrush x:Key="ClassicFieldBorderBrush" Color="#7F9DB9" />
+
+  <!-- Severity and state -->
+  <SolidColorBrush x:Key="ClassicDangerBrush" Color="#B42318" />
+  <SolidColorBrush x:Key="ClassicOkBrush" Color="#1B6B2A" />
+  <SolidColorBrush x:Key="ClassicWarnBrush" Color="#8A5D00" />
+  <SolidColorBrush x:Key="ClassicAddBrush" Color="#0B6D26" />
+  <SolidColorBrush x:Key="ClassicRemoveBrush" Color="#A41919" />
+
+  <!-- Notes: information, warning, error -->
+  <SolidColorBrush x:Key="ClassicNoteBackgroundBrush" Color="#EFF8FF" />
+  <SolidColorBrush x:Key="ClassicNoteBorderBrush" Color="#9BB8D0" />
+  <SolidColorBrush x:Key="ClassicNoteWarnBackgroundBrush" Color="#FFF8DF" />
+  <SolidColorBrush x:Key="ClassicNoteWarnBorderBrush" Color="#C7AB64" />
+  <SolidColorBrush x:Key="ClassicNoteErrorBackgroundBrush" Color="#FFF0EF" />
+  <SolidColorBrush x:Key="ClassicNoteErrorBorderBrush" Color="#CF8C85" />
+
+  <!-- Badges -->
+  <SolidColorBrush x:Key="ClassicBadgeOkBackgroundBrush" Color="#EDF8EF" />
+  <SolidColorBrush x:Key="ClassicBadgeOkBorderBrush" Color="#74A97C" />
+  <SolidColorBrush x:Key="ClassicBadgeWarnBackgroundBrush" Color="#FFF7D9" />
+  <SolidColorBrush x:Key="ClassicBadgeWarnBorderBrush" Color="#C9A853" />
+  <SolidColorBrush x:Key="ClassicBadgeDimBackgroundBrush" Color="#EEEEEE" />
+
+  <!-- Gradients used by the chrome. Kept flat-ish: one stop pair, no glow. -->
+  <LinearGradientBrush x:Key="ClassicToolbarBrush" StartPoint="0%,0%" EndPoint="0%,100%">
+    <GradientStop Offset="0" Color="#FAFAFA" />
+    <GradientStop Offset="1" Color="#E8E8E8" />
+  </LinearGradientBrush>
+
+  <LinearGradientBrush x:Key="ClassicButtonBrush" StartPoint="0%,0%" EndPoint="0%,100%">
+    <GradientStop Offset="0" Color="#FFFFFF" />
+    <GradientStop Offset="1" Color="#DEDEDE" />
+  </LinearGradientBrush>
+
+  <LinearGradientBrush x:Key="ClassicButtonHoverBrush" StartPoint="0%,0%" EndPoint="0%,100%">
+    <GradientStop Offset="0" Color="#FFFFFF" />
+    <GradientStop Offset="1" Color="#DDECF7" />
+  </LinearGradientBrush>
+
+  <LinearGradientBrush x:Key="ClassicHeaderBrush" StartPoint="0%,0%" EndPoint="0%,100%">
+    <GradientStop Offset="0" Color="#FFFFFF" />
+    <GradientStop Offset="1" Color="#E5E5E5" />
+  </LinearGradientBrush>
+
+  <LinearGradientBrush x:Key="ClassicTreeSelectionBrush" StartPoint="0%,0%" EndPoint="0%,100%">
+    <GradientStop Offset="0" Color="#4B95D8" />
+    <GradientStop Offset="1" Color="#2B73B5" />
+  </LinearGradientBrush>
+
+  <LinearGradientBrush x:Key="ClassicDialogTitleBrush" StartPoint="0%,0%" EndPoint="0%,100%">
+    <GradientStop Offset="0" Color="#D8EDF9" />
+    <GradientStop Offset="1" Color="#8BBFE3" />
+  </LinearGradientBrush>
+
+  <LinearGradientBrush x:Key="ClassicSidebarFootBrush" StartPoint="0%,0%" EndPoint="0%,100%">
+    <GradientStop Offset="0" Color="#FFFFFF" />
+    <GradientStop Offset="1" Color="#EDEDED" />
+  </LinearGradientBrush>
+
+  <SolidColorBrush x:Key="ClassicSidebarBrush" Color="#F7F7F7" />
+  <SolidColorBrush x:Key="ClassicButtonPressedBrush" Color="#D1E5F4" />
+  <SolidColorBrush x:Key="ClassicToolPressedBrush" Color="#C9E2F5" />
+  <SolidColorBrush x:Key="ClassicToolHoverBorderBrush" Color="#8AA9C2" />
+
+  <!--
+    Typography. The stack is ordered the way the mockup asks for a Tahoma/Segoe look while
+    staying cross-platform: the classic Windows faces first, then the standard Linux and macOS
+    UI faces, then the CJK families so zh-Hans has glyphs everywhere.
+  -->
+  <FontFamily x:Key="ClassicFontFamily">Tahoma, Segoe UI, DejaVu Sans, Helvetica Neue, $Default, Microsoft YaHei UI, PingFang SC, Noto Sans CJK SC, Noto Sans SC</FontFamily>
+  <FontFamily x:Key="ClassicMonoFontFamily">Consolas, Courier New, Cascadia Mono, DejaVu Sans Mono, Menlo, monospace</FontFamily>
+
+  <x:Double x:Key="ClassicFontSize">12</x:Double>
+  <x:Double x:Key="ClassicSmallFontSize">11</x:Double>
+  <x:Double x:Key="ClassicRowHeight">22</x:Double>
+
+</ResourceDictionary>
