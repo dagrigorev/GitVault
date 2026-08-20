@@ -22,8 +22,14 @@ public abstract class PlatformPathsBase : IPlatformPaths
     /// </param>
     protected PlatformPathsBase(string? homeDirectory)
     {
-        HomeDirectory = string.IsNullOrWhiteSpace(homeDirectory) ? ResolveHomeDirectory() : homeDirectory;
+        // Remembering whether the home was supplied matters for the per-user configuration rule
+        // below: a test given an explicit tree must not have the running developer's
+        // GIT_CONFIG_GLOBAL or XDG_CONFIG_HOME leak into its answers.
+        _homeWasSupplied = !string.IsNullOrWhiteSpace(homeDirectory);
+        HomeDirectory = _homeWasSupplied ? homeDirectory! : ResolveHomeDirectory();
     }
+
+    private readonly bool _homeWasSupplied;
 
     /// <inheritdoc/>
     public string HomeDirectory { get; }
@@ -40,8 +46,54 @@ public abstract class PlatformPathsBase : IPlatformPaths
     /// <inheritdoc/>
     public virtual string DefaultSshDirectory => Path.Combine(HomeDirectory, ".ssh");
 
-    /// <inheritdoc/>
-    public virtual string GlobalGitConfigPath => Path.Combine(HomeDirectory, ".gitconfig");
+    /// <summary>
+    /// The file <c>git config --global</c> reads and writes.
+    /// </summary>
+    /// <remarks>
+    /// This has to match git's own choice rather than assume <c>~/.gitconfig</c>, because
+    /// GitVault snapshots the file a plan will change and restores <em>that</em> file on
+    /// deactivation or rollback. If the two disagree — and on a Linux machine that keeps its
+    /// configuration in the XDG location they do — the change is real and the undo silently
+    /// does nothing, which is the one failure the snapshot design exists to prevent.
+    ///
+    /// Git's documented order is: <c>$GIT_CONFIG_GLOBAL</c> when set; otherwise
+    /// <c>~/.gitconfig</c> when it exists; otherwise <c>$XDG_CONFIG_HOME/git/config</c>
+    /// (defaulting to <c>~/.config/git/config</c>) when <em>it</em> exists; otherwise
+    /// <c>~/.gitconfig</c>, which git creates on first write. <c>GlobalConfigTargetTests</c>
+    /// pins each branch against the real binary.
+    /// </remarks>
+    public virtual string GlobalGitConfigPath
+    {
+        get
+        {
+            var overridden = _homeWasSupplied ? null : Environment.GetEnvironmentVariable("GIT_CONFIG_GLOBAL");
+            if (!string.IsNullOrWhiteSpace(overridden))
+            {
+                return overridden;
+            }
+
+            var home = Path.Combine(HomeDirectory, ".gitconfig");
+            if (File.Exists(home))
+            {
+                return home;
+            }
+
+            return File.Exists(XdgGitConfigPath) ? XdgGitConfigPath : home;
+        }
+    }
+
+    /// <summary>The XDG location of the per-user configuration, whether or not it exists.</summary>
+    public string XdgGitConfigPath
+    {
+        get
+        {
+            var xdg = _homeWasSupplied ? null : Environment.GetEnvironmentVariable("XDG_CONFIG_HOME");
+
+            return string.IsNullOrWhiteSpace(xdg)
+                ? Path.Combine(HomeDirectory, ".config", "git", "config")
+                : Path.Combine(xdg, "git", "config");
+        }
+    }
 
     /// <inheritdoc/>
     public abstract IReadOnlyList<string> SystemGitConfigCandidates { get; }
