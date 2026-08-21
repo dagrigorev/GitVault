@@ -1,0 +1,47 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:loc="using:GitVault.App.Markup"
+             x:Class="GitVault.App.Views.TagsView">
+  <DockPanel>
+
+    <Border DockPanel.Dock="Top" Classes="note" Margin="0,0,0,6"
+            IsVisible="{Binding !HasRepository}">
+      <TextBlock TextWrapping="Wrap" Text="{Binding NoRepositoryCaption}" />
+    </Border>
+
+    <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Spacing="5" Margin="0,0,0,6"
+                IsVisible="{Binding HasRepository}">
+      <Button Name="CreateTagButton" Command="{Binding CreateCommand}" Content="{loc:Tr Tags_Create}" />
+      <Button Classes="danger" Command="{Binding DeleteCommand}"
+              IsEnabled="{Binding HasSelectedTag}" Content="{loc:Tr Common_Remove}" />
+    </StackPanel>
+
+    <Border DockPanel.Dock="Bottom" Classes="note" Margin="0,7,0,0">
+      <TextBlock TextWrapping="Wrap" Text="{Binding SigningNoteCaption}" />
+    </Border>
+
+    <TextBlock DockPanel.Dock="Top"
+               Classes="pageSubtitle"
+               Margin="0,0,0,6"
+               IsVisible="{Binding IsEmpty}"
+               Text="{Binding EmptyCaption}" />
+
+    <DataGrid Name="TagsGrid"
+              ItemsSource="{Binding Rows}"
+              SelectedItem="{Binding SelectedRow, Mode=TwoWay}">
+      <DataGrid.Columns>
+        <DataGridTextColumn Header="{loc:Tr Tags_Column_Name}" Binding="{Binding Name}"
+                            Width="*" MinWidth="150" />
+        <DataGridTextColumn Header="{loc:Tr Tags_Column_Kind}" Binding="{Binding Kind}"
+                            Width="Auto" MinWidth="120" />
+        <DataGridTextColumn Header="{loc:Tr Tags_Column_Target}" Binding="{Binding Target}"
+                            Width="Auto" MinWidth="90" />
+        <DataGridTextColumn Header="{loc:Tr Tags_Column_Message}" Binding="{Binding Message}"
+                            Width="2*" MinWidth="200" />
+        <DataGridTextColumn Header="{loc:Tr Tags_Column_Signature}" Binding="{Binding Signature}"
+                            Width="Auto" MinWidth="110" />
+      </DataGrid.Columns>
+    </DataGrid>
+
+  </DockPanel>
+</UserControl>

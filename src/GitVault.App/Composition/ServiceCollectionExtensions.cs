@@ -65,6 +65,10 @@ internal static class ServiceCollectionExtensions
         services.AddSingleton<IRepositoryScanner, RepositoryScanner>();
         services.AddSingleton<IConfigEditor, ConfigEditor>();
         services.AddSingleton<IProjectSettingsStore, ProjectSettingsStore>();
+        services.AddSingleton<IGitCommandRunner, GitCommandRunner>();
+        services.AddSingleton<IRepositoryInspector, RepositoryInspector>();
+        services.AddSingleton<IRefBackupService, RefBackupService>();
+        services.AddSingleton<IGitObjectEditor, GitObjectEditor>();
         services.AddSingleton<IDiagnosticsBundleBuilder, DiagnosticsBundleBuilder>();
         services.AddSingleton<IDiscoveryOrchestrator, DiscoveryOrchestrator>();
         services.AddSingleton<ScanCoordinator>();
@@ -90,6 +94,9 @@ internal static class ServiceCollectionExtensions
         services.AddSingleton<SnapshotsViewModel>();
         services.AddSingleton<RepositoryConfigViewModel>();
         services.AddSingleton<ProjectSettingsViewModel>();
+        services.AddSingleton<RemotesViewModel>();
+        services.AddSingleton<BranchesViewModel>();
+        services.AddSingleton<TagsViewModel>();
         services.AddSingleton<SettingsViewModel>();
         services.AddSingleton<LogsViewModel>();
 

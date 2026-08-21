@@ -1631,4 +1631,238 @@
   <data name="Status_ProjectSettingsCleared" xml:space="preserve">
     <value>Настройки проекта удалены</value>
   </data>
+  <data name="Nav_Remotes" xml:space="preserve">
+    <value>Удалённые репозитории</value>
+  </data>
+  <data name="Nav_Branches" xml:space="preserve">
+    <value>Ветки</value>
+  </data>
+  <data name="Nav_Tags" xml:space="preserve">
+    <value>Теги</value>
+  </data>
+  <data name="Remotes_Title" xml:space="preserve">
+    <value>Удалённые репозитории</value>
+  </data>
+  <data name="Remotes_Subtitle" xml:space="preserve">
+    <value>Откуда этот репозиторий получает изменения и куда отправляет.</value>
+  </data>
+  <data name="Remotes_Empty" xml:space="preserve">
+    <value>У этого репозитория нет удалённых репозиториев.</value>
+  </data>
+  <data name="Remotes_Column_Name" xml:space="preserve">
+    <value>Имя</value>
+  </data>
+  <data name="Remotes_Column_FetchUrl" xml:space="preserve">
+    <value>URL для получения</value>
+  </data>
+  <data name="Remotes_Column_PushUrl" xml:space="preserve">
+    <value>URL для отправки</value>
+  </data>
+  <data name="Remotes_Add" xml:space="preserve">
+    <value>Добавить удалённый репозиторий</value>
+  </data>
+  <data name="Remotes_Edit" xml:space="preserve">
+    <value>Изменить удалённый репозиторий</value>
+  </data>
+  <data name="Remotes_SeparatePushUrl" xml:space="preserve">
+    <value>Отправлять не туда, откуда получает</value>
+  </data>
+  <data name="Remotes_NoNetworkNote" xml:space="preserve">
+    <value>GitVault меняет только то, куда указывает удалённый репозиторий, и никогда к нему не обращается. Получение и отправка остаются за вами.</value>
+  </data>
+  <data name="Branches_Title" xml:space="preserve">
+    <value>Ветки</value>
+  </data>
+  <data name="Branches_Subtitle" xml:space="preserve">
+    <value>Локальные ветки и отслеживаемые ими ссылки удалённых репозиториев.</value>
+  </data>
+  <data name="Branches_Empty" xml:space="preserve">
+    <value>В этом репозитории пока нет веток.</value>
+  </data>
+  <data name="Branches_Column_Name" xml:space="preserve">
+    <value>Ветка</value>
+  </data>
+  <data name="Branches_Column_Kind" xml:space="preserve">
+    <value>Тип</value>
+  </data>
+  <data name="Branches_Column_Upstream" xml:space="preserve">
+    <value>Отслеживает</value>
+  </data>
+  <data name="Branches_Column_Tracking" xml:space="preserve">
+    <value>Впереди / позади</value>
+  </data>
+  <data name="Branches_Column_Tip" xml:space="preserve">
+    <value>Вершина</value>
+  </data>
+  <data name="Branches_Column_Subject" xml:space="preserve">
+    <value>Последний коммит</value>
+  </data>
+  <data name="Branches_Kind_Local" xml:space="preserve">
+    <value>Локальная</value>
+  </data>
+  <data name="Branches_Kind_Remote" xml:space="preserve">
+    <value>Отслеживающая</value>
+  </data>
+  <data name="Branches_Tracking" xml:space="preserve">
+    <value>впереди {0}, позади {1}</value>
+  </data>
+  <data name="Branches_Current" xml:space="preserve">
+    <value>Извлечена</value>
+  </data>
+  <data name="Branches_Create" xml:space="preserve">
+    <value>Создать ветку</value>
+  </data>
+  <data name="Branches_Rename" xml:space="preserve">
+    <value>Переименовать ветку</value>
+  </data>
+  <data name="Branches_SetUpstream" xml:space="preserve">
+    <value>Задать отслеживаемую ветку</value>
+  </data>
+  <data name="Branches_Field_StartPoint" xml:space="preserve">
+    <value>Начать с:</value>
+  </data>
+  <data name="Branches_StartPointHint" xml:space="preserve">
+    <value>Оставьте пустым, чтобы начать с извлечённого коммита.</value>
+  </data>
+  <data name="Branches_NoUpstreamCandidates" xml:space="preserve">
+    <value>В этом репозитории нет отслеживающих веток, поэтому отслеживать пока нечего.</value>
+  </data>
+  <data name="Branches_BackupNote" xml:space="preserve">
+    <value>Перед удалением или переименованием ветки GitVault сохраняет её позицию как резервную ссылку. Коммиты остаются достижимыми, поэтому удаление можно отменить даже после сборки мусора.</value>
+  </data>
+  <data name="Tags_Title" xml:space="preserve">
+    <value>Теги</value>
+  </data>
+  <data name="Tags_Subtitle" xml:space="preserve">
+    <value>Именованные точки в истории этого репозитория.</value>
+  </data>
+  <data name="Tags_Empty" xml:space="preserve">
+    <value>В этом репозитории нет тегов.</value>
+  </data>
+  <data name="Tags_Column_Name" xml:space="preserve">
+    <value>Тег</value>
+  </data>
+  <data name="Tags_Column_Kind" xml:space="preserve">
+    <value>Тип</value>
+  </data>
+  <data name="Tags_Column_Target" xml:space="preserve">
+    <value>Указывает на</value>
+  </data>
+  <data name="Tags_Column_Message" xml:space="preserve">
+    <value>Сообщение</value>
+  </data>
+  <data name="Tags_Column_Tagger" xml:space="preserve">
+    <value>Автор тега</value>
+  </data>
+  <data name="Tags_Column_Signature" xml:space="preserve">
+    <value>Подпись</value>
+  </data>
+  <data name="Tags_Kind_Annotated" xml:space="preserve">
+    <value>Аннотированный</value>
+  </data>
+  <data name="Tags_Kind_Lightweight" xml:space="preserve">
+    <value>Лёгкий</value>
+  </data>
+  <data name="Tags_Signed" xml:space="preserve">
+    <value>Подписан</value>
+  </data>
+  <data name="Tags_Unsigned" xml:space="preserve">
+    <value>Без подписи</value>
+  </data>
+  <data name="Tags_Create" xml:space="preserve">
+    <value>Создать тег</value>
+  </data>
+  <data name="Tags_Field_Target" xml:space="preserve">
+    <value>Указывает на:</value>
+  </data>
+  <data name="Tags_Field_Annotated" xml:space="preserve">
+    <value>Аннотированный, с сообщением</value>
+  </data>
+  <data name="Tags_TargetHint" xml:space="preserve">
+    <value>Оставьте пустым, чтобы отметить извлечённый коммит.</value>
+  </data>
+  <data name="Tags_SigningNote" xml:space="preserve">
+    <value>GitVault не подписывает создаваемые теги: для подписи нужны ваш ключ и парольная фраза, а приложение не хранит ни того, ни другого.</value>
+  </data>
+  <data name="Dialog_RefBackupExplains" xml:space="preserve">
+    <value>Эти ссылки будут сохранены до любых изменений: коммиты за ними останутся достижимыми, и действие можно будет отменить.</value>
+  </data>
+  <data name="Dialog_PlanWarnings" xml:space="preserve">
+    <value>Стоит знать до подтверждения</value>
+  </data>
+  <data name="Blocker_RemoteNameInvalid" xml:space="preserve">
+    <value>Такое имя git не примет для удалённого репозитория.</value>
+  </data>
+  <data name="Blocker_RemoteExists" xml:space="preserve">
+    <value>Удалённый репозиторий с таким именем уже существует.</value>
+  </data>
+  <data name="Blocker_RemoteMissing" xml:space="preserve">
+    <value>Удалённого репозитория с таким именем нет.</value>
+  </data>
+  <data name="Blocker_RemoteUrlRequired" xml:space="preserve">
+    <value>Удалённому репозиторию нужен URL.</value>
+  </data>
+  <data name="Blocker_RefNameInvalid" xml:space="preserve">
+    <value>Такое имя git не примет для ссылки.</value>
+  </data>
+  <data name="Blocker_BranchExists" xml:space="preserve">
+    <value>Ветка с таким именем уже существует.</value>
+  </data>
+  <data name="Blocker_BranchMissing" xml:space="preserve">
+    <value>Ветки с таким именем нет.</value>
+  </data>
+  <data name="Blocker_BranchIsCurrent" xml:space="preserve">
+    <value>Эта ветка сейчас извлечена. Сначала переключитесь на другую.</value>
+  </data>
+  <data name="Blocker_UpstreamMissing" xml:space="preserve">
+    <value>Выбранная для отслеживания ветка не существует.</value>
+  </data>
+  <data name="Blocker_TagExists" xml:space="preserve">
+    <value>Тег с таким именем уже существует.</value>
+  </data>
+  <data name="Blocker_TagMissing" xml:space="preserve">
+    <value>Тега с таким именем нет.</value>
+  </data>
+  <data name="Blocker_StartPointMissing" xml:space="preserve">
+    <value>Эту начальную точку не удалось разрешить в коммит.</value>
+  </data>
+  <data name="Blocker_OperationInProgress" xml:space="preserve">
+    <value>Git находится в процессе rebase, merge, cherry-pick, revert или bisect. Сначала завершите или отмените операцию.</value>
+  </data>
+  <data name="Warning_BranchNotMerged" xml:space="preserve">
+    <value>У этой ветки есть коммиты, которых нет ни в одной другой. Удаление осиротит их; вернуть их позволит резервная ссылка.</value>
+  </data>
+  <data name="Warning_TagIsSigned" xml:space="preserve">
+    <value>У этого тега есть подпись. Резервная копия восстановит его позицию, но подпись GitVault воссоздать не может.</value>
+  </data>
+  <data name="Warning_RemoteRenameMovesTrackingRefs" xml:space="preserve">
+    <value>Переименование удалённого репозитория переименует и все отслеживающие ветки под ним.</value>
+  </data>
+  <data name="Warning_RemoteRemoveDropsTrackingRefs" xml:space="preserve">
+    <value>Удаление удалённого репозитория отбросит его отслеживающие ветки. Они вернутся при следующем получении.</value>
+  </data>
+  <data name="Status_RemoteSaved" xml:space="preserve">
+    <value>Удалённый репозиторий обновлён</value>
+  </data>
+  <data name="Status_RemoteRemoved" xml:space="preserve">
+    <value>Удалённый репозиторий удалён</value>
+  </data>
+  <data name="Status_BranchCreated" xml:space="preserve">
+    <value>Ветка создана</value>
+  </data>
+  <data name="Status_BranchRenamed" xml:space="preserve">
+    <value>Ветка переименована</value>
+  </data>
+  <data name="Status_BranchDeleted" xml:space="preserve">
+    <value>Ветка удалена; резервная ссылка сохранена заранее</value>
+  </data>
+  <data name="Status_BranchUpstreamSet" xml:space="preserve">
+    <value>Отслеживаемая ветка обновлена</value>
+  </data>
+  <data name="Status_TagCreated" xml:space="preserve">
+    <value>Тег создан</value>
+  </data>
+  <data name="Status_TagDeleted" xml:space="preserve">
+    <value>Тег удалён; резервная ссылка сохранена заранее</value>
+  </data>
 </root>

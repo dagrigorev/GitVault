@@ -1631,4 +1631,238 @@
   <data name="Status_ProjectSettingsCleared" xml:space="preserve">
     <value>项目设置已移除</value>
   </data>
+  <data name="Nav_Remotes" xml:space="preserve">
+    <value>远程仓库</value>
+  </data>
+  <data name="Nav_Branches" xml:space="preserve">
+    <value>分支</value>
+  </data>
+  <data name="Nav_Tags" xml:space="preserve">
+    <value>标签</value>
+  </data>
+  <data name="Remotes_Title" xml:space="preserve">
+    <value>远程仓库</value>
+  </data>
+  <data name="Remotes_Subtitle" xml:space="preserve">
+    <value>此仓库从何处获取以及向何处推送。</value>
+  </data>
+  <data name="Remotes_Empty" xml:space="preserve">
+    <value>此仓库没有远程仓库。</value>
+  </data>
+  <data name="Remotes_Column_Name" xml:space="preserve">
+    <value>远程仓库</value>
+  </data>
+  <data name="Remotes_Column_FetchUrl" xml:space="preserve">
+    <value>获取 URL</value>
+  </data>
+  <data name="Remotes_Column_PushUrl" xml:space="preserve">
+    <value>推送 URL</value>
+  </data>
+  <data name="Remotes_Add" xml:space="preserve">
+    <value>添加远程仓库</value>
+  </data>
+  <data name="Remotes_Edit" xml:space="preserve">
+    <value>编辑远程仓库</value>
+  </data>
+  <data name="Remotes_SeparatePushUrl" xml:space="preserve">
+    <value>推送到与获取位置不同的地方</value>
+  </data>
+  <data name="Remotes_NoNetworkNote" xml:space="preserve">
+    <value>GitVault 只修改远程仓库的指向，从不与其通信。获取与推送仍由你自己执行。</value>
+  </data>
+  <data name="Branches_Title" xml:space="preserve">
+    <value>分支</value>
+  </data>
+  <data name="Branches_Subtitle" xml:space="preserve">
+    <value>本地分支及其跟踪的远程引用。</value>
+  </data>
+  <data name="Branches_Empty" xml:space="preserve">
+    <value>此仓库尚无分支。</value>
+  </data>
+  <data name="Branches_Column_Name" xml:space="preserve">
+    <value>分支</value>
+  </data>
+  <data name="Branches_Column_Kind" xml:space="preserve">
+    <value>类型</value>
+  </data>
+  <data name="Branches_Column_Upstream" xml:space="preserve">
+    <value>上游</value>
+  </data>
+  <data name="Branches_Column_Tracking" xml:space="preserve">
+    <value>领先 / 落后</value>
+  </data>
+  <data name="Branches_Column_Tip" xml:space="preserve">
+    <value>顶端</value>
+  </data>
+  <data name="Branches_Column_Subject" xml:space="preserve">
+    <value>最后提交</value>
+  </data>
+  <data name="Branches_Kind_Local" xml:space="preserve">
+    <value>本地</value>
+  </data>
+  <data name="Branches_Kind_Remote" xml:space="preserve">
+    <value>远程跟踪</value>
+  </data>
+  <data name="Branches_Tracking" xml:space="preserve">
+    <value>领先 {0}，落后 {1}</value>
+  </data>
+  <data name="Branches_Current" xml:space="preserve">
+    <value>已检出</value>
+  </data>
+  <data name="Branches_Create" xml:space="preserve">
+    <value>创建分支</value>
+  </data>
+  <data name="Branches_Rename" xml:space="preserve">
+    <value>重命名分支</value>
+  </data>
+  <data name="Branches_SetUpstream" xml:space="preserve">
+    <value>设置上游</value>
+  </data>
+  <data name="Branches_Field_StartPoint" xml:space="preserve">
+    <value>起点：</value>
+  </data>
+  <data name="Branches_StartPointHint" xml:space="preserve">
+    <value>留空则从当前检出的提交开始。</value>
+  </data>
+  <data name="Branches_NoUpstreamCandidates" xml:space="preserve">
+    <value>此仓库没有远程跟踪分支，因此暂时没有可跟踪的对象。</value>
+  </data>
+  <data name="Branches_BackupNote" xml:space="preserve">
+    <value>在删除或重命名分支之前，GitVault 会将其指向记录为备份引用。这样提交仍可达，即使在垃圾回收后也能撤销删除。</value>
+  </data>
+  <data name="Tags_Title" xml:space="preserve">
+    <value>标签</value>
+  </data>
+  <data name="Tags_Subtitle" xml:space="preserve">
+    <value>此仓库历史中的命名点。</value>
+  </data>
+  <data name="Tags_Empty" xml:space="preserve">
+    <value>此仓库没有标签。</value>
+  </data>
+  <data name="Tags_Column_Name" xml:space="preserve">
+    <value>标签</value>
+  </data>
+  <data name="Tags_Column_Kind" xml:space="preserve">
+    <value>类型</value>
+  </data>
+  <data name="Tags_Column_Target" xml:space="preserve">
+    <value>指向</value>
+  </data>
+  <data name="Tags_Column_Message" xml:space="preserve">
+    <value>消息</value>
+  </data>
+  <data name="Tags_Column_Tagger" xml:space="preserve">
+    <value>标签创建者</value>
+  </data>
+  <data name="Tags_Column_Signature" xml:space="preserve">
+    <value>签名</value>
+  </data>
+  <data name="Tags_Kind_Annotated" xml:space="preserve">
+    <value>附注</value>
+  </data>
+  <data name="Tags_Kind_Lightweight" xml:space="preserve">
+    <value>轻量</value>
+  </data>
+  <data name="Tags_Signed" xml:space="preserve">
+    <value>已签名</value>
+  </data>
+  <data name="Tags_Unsigned" xml:space="preserve">
+    <value>未签名</value>
+  </data>
+  <data name="Tags_Create" xml:space="preserve">
+    <value>创建标签</value>
+  </data>
+  <data name="Tags_Field_Target" xml:space="preserve">
+    <value>指向：</value>
+  </data>
+  <data name="Tags_Field_Annotated" xml:space="preserve">
+    <value>附注标签，带消息</value>
+  </data>
+  <data name="Tags_TargetHint" xml:space="preserve">
+    <value>留空则为当前检出的提交打标签。</value>
+  </data>
+  <data name="Tags_SigningNote" xml:space="preserve">
+    <value>GitVault 不会为其创建的标签签名：签名需要你的密钥和口令，而本应用两者都不持有。</value>
+  </data>
+  <data name="Dialog_RefBackupExplains" xml:space="preserve">
+    <value>这些引用会在任何更改前被记录下来，从而保持其背后的提交可达，使此操作可撤销。</value>
+  </data>
+  <data name="Dialog_PlanWarnings" xml:space="preserve">
+    <value>确认前需要了解</value>
+  </data>
+  <data name="Blocker_RemoteNameInvalid" xml:space="preserve">
+    <value>git 不接受该名称作为远程仓库名。</value>
+  </data>
+  <data name="Blocker_RemoteExists" xml:space="preserve">
+    <value>同名的远程仓库已存在。</value>
+  </data>
+  <data name="Blocker_RemoteMissing" xml:space="preserve">
+    <value>不存在该名称的远程仓库。</value>
+  </data>
+  <data name="Blocker_RemoteUrlRequired" xml:space="preserve">
+    <value>远程仓库需要一个 URL。</value>
+  </data>
+  <data name="Blocker_RefNameInvalid" xml:space="preserve">
+    <value>git 不接受该名称作为引用名。</value>
+  </data>
+  <data name="Blocker_BranchExists" xml:space="preserve">
+    <value>同名分支已存在。</value>
+  </data>
+  <data name="Blocker_BranchMissing" xml:space="preserve">
+    <value>不存在该名称的分支。</value>
+  </data>
+  <data name="Blocker_BranchIsCurrent" xml:space="preserve">
+    <value>该分支是当前检出的分支。请先切换到其他分支。</value>
+  </data>
+  <data name="Blocker_UpstreamMissing" xml:space="preserve">
+    <value>你选择跟踪的分支不存在。</value>
+  </data>
+  <data name="Blocker_TagExists" xml:space="preserve">
+    <value>同名标签已存在。</value>
+  </data>
+  <data name="Blocker_TagMissing" xml:space="preserve">
+    <value>不存在该名称的标签。</value>
+  </data>
+  <data name="Blocker_StartPointMissing" xml:space="preserve">
+    <value>无法将该起点解析为提交。</value>
+  </data>
+  <data name="Blocker_OperationInProgress" xml:space="preserve">
+    <value>Git 正在进行变基、合并、拣选、还原或二分查找。请先完成或中止它。</value>
+  </data>
+  <data name="Warning_BranchNotMerged" xml:space="preserve">
+    <value>此分支包含其他分支所没有的提交。删除会使它们成为孤立提交；备份引用可让你找回它们。</value>
+  </data>
+  <data name="Warning_TagIsSigned" xml:space="preserve">
+    <value>此标签带有签名。备份可恢复其指向，但 GitVault 无法重建签名。</value>
+  </data>
+  <data name="Warning_RemoteRenameMovesTrackingRefs" xml:space="preserve">
+    <value>重命名远程仓库也会重命名其下的所有远程跟踪分支。</value>
+  </data>
+  <data name="Warning_RemoteRemoveDropsTrackingRefs" xml:space="preserve">
+    <value>移除远程仓库会丢弃其远程跟踪分支。下次获取时它们会回来。</value>
+  </data>
+  <data name="Status_RemoteSaved" xml:space="preserve">
+    <value>远程仓库已更新</value>
+  </data>
+  <data name="Status_RemoteRemoved" xml:space="preserve">
+    <value>远程仓库已移除</value>
+  </data>
+  <data name="Status_BranchCreated" xml:space="preserve">
+    <value>分支已创建</value>
+  </data>
+  <data name="Status_BranchRenamed" xml:space="preserve">
+    <value>分支已重命名</value>
+  </data>
+  <data name="Status_BranchDeleted" xml:space="preserve">
+    <value>分支已删除；已先记录备份引用</value>
+  </data>
+  <data name="Status_BranchUpstreamSet" xml:space="preserve">
+    <value>上游已更新</value>
+  </data>
+  <data name="Status_TagCreated" xml:space="preserve">
+    <value>标签已创建</value>
+  </data>
+  <data name="Status_TagDeleted" xml:space="preserve">
+    <value>标签已删除；已先记录备份引用</value>
+  </data>
 </root>

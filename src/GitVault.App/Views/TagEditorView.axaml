@@ -1,0 +1,42 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:loc="using:GitVault.App.Markup"
+             x:Class="GitVault.App.Views.TagEditorView">
+  <StackPanel Spacing="0">
+
+    <Grid ColumnDefinitions="120,*" RowDefinitions="Auto,Auto,Auto,Auto">
+      <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Margin="0,4"
+                 Text="{loc:Tr Tags_Column_Name}" />
+      <TextBox Grid.Row="0" Grid.Column="1" Margin="0,4" Text="{Binding Name, Mode=TwoWay}" />
+
+      <TextBlock Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Margin="0,4"
+                 Text="{loc:Tr Tags_Field_Target}" />
+      <TextBox Grid.Row="1" Grid.Column="1" Margin="0,4" Classes="mono"
+               Text="{Binding Target, Mode=TwoWay}" />
+
+      <CheckBox Grid.Row="2" Grid.Column="1" Margin="0,4"
+                IsChecked="{Binding IsAnnotated, Mode=TwoWay}"
+                Content="{loc:Tr Tags_Field_Annotated}" />
+
+      <TextBlock Grid.Row="3" Grid.Column="0" VerticalAlignment="Top" Margin="0,6,0,4"
+                 IsVisible="{Binding IsAnnotated}"
+                 Text="{loc:Tr Tags_Column_Message}" />
+      <TextBox Grid.Row="3" Grid.Column="1" Margin="0,4"
+               Classes="multiline"
+               Height="60"
+               AcceptsReturn="True"
+               TextWrapping="Wrap"
+               IsVisible="{Binding IsAnnotated}"
+               Text="{Binding Message, Mode=TwoWay}" />
+    </Grid>
+
+    <Border Classes="note">
+      <TextBlock TextWrapping="Wrap" Text="{Binding TargetHintCaption}" />
+    </Border>
+
+    <Border Classes="note warn">
+      <TextBlock TextWrapping="Wrap" Text="{Binding SigningNoteCaption}" />
+    </Border>
+
+  </StackPanel>
+</UserControl>

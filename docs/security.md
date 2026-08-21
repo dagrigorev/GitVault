@@ -161,6 +161,39 @@ Nothing in the section is a secret: a key path, a helper name, a profile name an
 `[gitvault]` section inherited from the user's global configuration is deliberately not treated as
 belonging to a repository, because settings that belong to every repository belong to none.
 
+## Ref backups: the safety net for operations that change refs
+
+A file snapshot is the wrong instrument for a ref. Refs live in loose files, in `packed-refs`, or
+in both at once, and copying whichever file happens to hold one today preserves an implementation
+detail rather than the fact worth preserving — which commit the ref pointed at.
+
+So every operation that deletes or moves a ref records the old position as a ref of its own, under
+`refs/gitvault/backup/<id>/`. That has a property the file copy does not: it keeps the orphaned
+commits *reachable*, so git's garbage collection will not discard the history the operation just
+detached. `RepositoryEditingTests` proves it by running `git gc --prune=now` after a branch
+deletion and asserting the commit is still there.
+
+Restoring is one `update-ref` per entry. A ref that did not exist when the backup was taken is
+recorded as absent, so restoring deletes whatever the operation created.
+
+### Blockers and warnings are different things
+
+A blocker is something the user cannot do: deleting the checked-out branch, editing refs while a
+rebase is half-finished, a ref name git would reject. A warning is something they may not want to:
+deleting a branch whose commits exist nowhere else, deleting a signed tag, renaming a remote that
+moves its tracking refs.
+
+Folding the second group into the first would make GitVault refuse work that is legitimately
+someone's to do. The ref backup is what turns those into decisions rather than losses — except for
+a signature, which is the one thing a backup cannot recreate, and which the warning says plainly.
+
+### What is still not done here
+
+GitVault does not push, fetch or contact a remote in any way. Editing a remote changes what it
+points at; moving those changes to a server stays the user's own action, taken with their own
+tools. `GIT_TERMINAL_PROMPT=0` is set on every invocation so a misconfigured credential helper
+fails immediately rather than blocking on an invisible prompt.
+
 ## Known gaps, collected
 
 | Gap | Consequence | Where |

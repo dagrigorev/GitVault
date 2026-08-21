@@ -1575,6 +1575,240 @@ public static class Keys
     /// <summary>English: Project settings removed</summary>
     public const string Status_ProjectSettingsCleared = "Status_ProjectSettingsCleared";
 
+    /// <summary>English: Remotes</summary>
+    public const string Nav_Remotes = "Nav_Remotes";
+
+    /// <summary>English: Branches</summary>
+    public const string Nav_Branches = "Nav_Branches";
+
+    /// <summary>English: Tags</summary>
+    public const string Nav_Tags = "Nav_Tags";
+
+    /// <summary>English: Remotes</summary>
+    public const string Remotes_Title = "Remotes_Title";
+
+    /// <summary>English: Where this repository fetches from and pushes to.</summary>
+    public const string Remotes_Subtitle = "Remotes_Subtitle";
+
+    /// <summary>English: This repository has no remotes.</summary>
+    public const string Remotes_Empty = "Remotes_Empty";
+
+    /// <summary>English: Remote</summary>
+    public const string Remotes_Column_Name = "Remotes_Column_Name";
+
+    /// <summary>English: Fetch URL</summary>
+    public const string Remotes_Column_FetchUrl = "Remotes_Column_FetchUrl";
+
+    /// <summary>English: Push URL</summary>
+    public const string Remotes_Column_PushUrl = "Remotes_Column_PushUrl";
+
+    /// <summary>English: Add remote</summary>
+    public const string Remotes_Add = "Remotes_Add";
+
+    /// <summary>English: Edit remote</summary>
+    public const string Remotes_Edit = "Remotes_Edit";
+
+    /// <summary>English: Push somewhere other than where it fetches</summary>
+    public const string Remotes_SeparatePushUrl = "Remotes_SeparatePushUrl";
+
+    /// <summary>English: GitVault edits what a remote points at and never contacts it. Fetching and pushing stay in your hands.</summary>
+    public const string Remotes_NoNetworkNote = "Remotes_NoNetworkNote";
+
+    /// <summary>English: Branches</summary>
+    public const string Branches_Title = "Branches_Title";
+
+    /// <summary>English: Local branches and the remote-tracking refs they follow.</summary>
+    public const string Branches_Subtitle = "Branches_Subtitle";
+
+    /// <summary>English: This repository has no branches yet.</summary>
+    public const string Branches_Empty = "Branches_Empty";
+
+    /// <summary>English: Branch</summary>
+    public const string Branches_Column_Name = "Branches_Column_Name";
+
+    /// <summary>English: Kind</summary>
+    public const string Branches_Column_Kind = "Branches_Column_Kind";
+
+    /// <summary>English: Upstream</summary>
+    public const string Branches_Column_Upstream = "Branches_Column_Upstream";
+
+    /// <summary>English: Ahead / behind</summary>
+    public const string Branches_Column_Tracking = "Branches_Column_Tracking";
+
+    /// <summary>English: Tip</summary>
+    public const string Branches_Column_Tip = "Branches_Column_Tip";
+
+    /// <summary>English: Last commit</summary>
+    public const string Branches_Column_Subject = "Branches_Column_Subject";
+
+    /// <summary>English: Local</summary>
+    public const string Branches_Kind_Local = "Branches_Kind_Local";
+
+    /// <summary>English: Remote-tracking</summary>
+    public const string Branches_Kind_Remote = "Branches_Kind_Remote";
+
+    /// <summary>English: {0} ahead, {1} behind</summary>
+    public const string Branches_Tracking = "Branches_Tracking";
+
+    /// <summary>English: Checked out</summary>
+    public const string Branches_Current = "Branches_Current";
+
+    /// <summary>English: Create branch</summary>
+    public const string Branches_Create = "Branches_Create";
+
+    /// <summary>English: Rename branch</summary>
+    public const string Branches_Rename = "Branches_Rename";
+
+    /// <summary>English: Set upstream</summary>
+    public const string Branches_SetUpstream = "Branches_SetUpstream";
+
+    /// <summary>English: Start from:</summary>
+    public const string Branches_Field_StartPoint = "Branches_Field_StartPoint";
+
+    /// <summary>English: Leave empty to start from the commit that is checked out.</summary>
+    public const string Branches_StartPointHint = "Branches_StartPointHint";
+
+    /// <summary>English: This repository has no remote-tracking branches, so there is nothing to track yet.</summary>
+    public const string Branches_NoUpstreamCandidates = "Branches_NoUpstreamCandidates";
+
+    /// <summary>English: Before a branch is deleted or renamed, GitVault records where it pointed as a backup ref. That keeps the commits reachable, so the deletion can be undone even after garbage collection.</summary>
+    public const string Branches_BackupNote = "Branches_BackupNote";
+
+    /// <summary>English: Tags</summary>
+    public const string Tags_Title = "Tags_Title";
+
+    /// <summary>English: Named points in this repository&apos;s history.</summary>
+    public const string Tags_Subtitle = "Tags_Subtitle";
+
+    /// <summary>English: This repository has no tags.</summary>
+    public const string Tags_Empty = "Tags_Empty";
+
+    /// <summary>English: Tag</summary>
+    public const string Tags_Column_Name = "Tags_Column_Name";
+
+    /// <summary>English: Kind</summary>
+    public const string Tags_Column_Kind = "Tags_Column_Kind";
+
+    /// <summary>English: Points at</summary>
+    public const string Tags_Column_Target = "Tags_Column_Target";
+
+    /// <summary>English: Message</summary>
+    public const string Tags_Column_Message = "Tags_Column_Message";
+
+    /// <summary>English: Tagger</summary>
+    public const string Tags_Column_Tagger = "Tags_Column_Tagger";
+
+    /// <summary>English: Signature</summary>
+    public const string Tags_Column_Signature = "Tags_Column_Signature";
+
+    /// <summary>English: Annotated</summary>
+    public const string Tags_Kind_Annotated = "Tags_Kind_Annotated";
+
+    /// <summary>English: Lightweight</summary>
+    public const string Tags_Kind_Lightweight = "Tags_Kind_Lightweight";
+
+    /// <summary>English: Signed</summary>
+    public const string Tags_Signed = "Tags_Signed";
+
+    /// <summary>English: Not signed</summary>
+    public const string Tags_Unsigned = "Tags_Unsigned";
+
+    /// <summary>English: Create tag</summary>
+    public const string Tags_Create = "Tags_Create";
+
+    /// <summary>English: Points at:</summary>
+    public const string Tags_Field_Target = "Tags_Field_Target";
+
+    /// <summary>English: Annotated, with a message</summary>
+    public const string Tags_Field_Annotated = "Tags_Field_Annotated";
+
+    /// <summary>English: Leave empty to tag the commit that is checked out.</summary>
+    public const string Tags_TargetHint = "Tags_TargetHint";
+
+    /// <summary>English: GitVault does not sign the tags it creates: signing needs your key and passphrase, and this application holds neither.</summary>
+    public const string Tags_SigningNote = "Tags_SigningNote";
+
+    /// <summary>English: These refs will be recorded before anything changes, which keeps the commits behind them reachable and makes this reversible.</summary>
+    public const string Dialog_RefBackupExplains = "Dialog_RefBackupExplains";
+
+    /// <summary>English: Worth knowing before you confirm</summary>
+    public const string Dialog_PlanWarnings = "Dialog_PlanWarnings";
+
+    /// <summary>English: That is not a name git accepts for a remote.</summary>
+    public const string Blocker_RemoteNameInvalid = "Blocker_RemoteNameInvalid";
+
+    /// <summary>English: A remote of that name already exists.</summary>
+    public const string Blocker_RemoteExists = "Blocker_RemoteExists";
+
+    /// <summary>English: There is no remote of that name.</summary>
+    public const string Blocker_RemoteMissing = "Blocker_RemoteMissing";
+
+    /// <summary>English: A remote needs a URL.</summary>
+    public const string Blocker_RemoteUrlRequired = "Blocker_RemoteUrlRequired";
+
+    /// <summary>English: That is not a name git accepts for a ref.</summary>
+    public const string Blocker_RefNameInvalid = "Blocker_RefNameInvalid";
+
+    /// <summary>English: A branch of that name already exists.</summary>
+    public const string Blocker_BranchExists = "Blocker_BranchExists";
+
+    /// <summary>English: There is no branch of that name.</summary>
+    public const string Blocker_BranchMissing = "Blocker_BranchMissing";
+
+    /// <summary>English: That branch is the one checked out. Switch to another branch first.</summary>
+    public const string Blocker_BranchIsCurrent = "Blocker_BranchIsCurrent";
+
+    /// <summary>English: The branch you chose to track does not exist.</summary>
+    public const string Blocker_UpstreamMissing = "Blocker_UpstreamMissing";
+
+    /// <summary>English: A tag of that name already exists.</summary>
+    public const string Blocker_TagExists = "Blocker_TagExists";
+
+    /// <summary>English: There is no tag of that name.</summary>
+    public const string Blocker_TagMissing = "Blocker_TagMissing";
+
+    /// <summary>English: That starting point could not be resolved to a commit.</summary>
+    public const string Blocker_StartPointMissing = "Blocker_StartPointMissing";
+
+    /// <summary>English: Git is part-way through a rebase, merge, cherry-pick, revert or bisect. Finish or abort it first.</summary>
+    public const string Blocker_OperationInProgress = "Blocker_OperationInProgress";
+
+    /// <summary>English: This branch has commits that exist on no other branch. Deleting it orphans them; the backup ref is what lets you get them back.</summary>
+    public const string Warning_BranchNotMerged = "Warning_BranchNotMerged";
+
+    /// <summary>English: This tag carries a signature. A backup restores where it pointed, but the signature cannot be recreated by GitVault.</summary>
+    public const string Warning_TagIsSigned = "Warning_TagIsSigned";
+
+    /// <summary>English: Renaming a remote also renames every remote-tracking branch under it.</summary>
+    public const string Warning_RemoteRenameMovesTrackingRefs = "Warning_RemoteRenameMovesTrackingRefs";
+
+    /// <summary>English: Removing a remote discards its remote-tracking branches. They come back the next time you fetch.</summary>
+    public const string Warning_RemoteRemoveDropsTrackingRefs = "Warning_RemoteRemoveDropsTrackingRefs";
+
+    /// <summary>English: Remote updated</summary>
+    public const string Status_RemoteSaved = "Status_RemoteSaved";
+
+    /// <summary>English: Remote removed</summary>
+    public const string Status_RemoteRemoved = "Status_RemoteRemoved";
+
+    /// <summary>English: Branch created</summary>
+    public const string Status_BranchCreated = "Status_BranchCreated";
+
+    /// <summary>English: Branch renamed</summary>
+    public const string Status_BranchRenamed = "Status_BranchRenamed";
+
+    /// <summary>English: Branch deleted; a backup ref was recorded first</summary>
+    public const string Status_BranchDeleted = "Status_BranchDeleted";
+
+    /// <summary>English: Upstream updated</summary>
+    public const string Status_BranchUpstreamSet = "Status_BranchUpstreamSet";
+
+    /// <summary>English: Tag created</summary>
+    public const string Status_TagCreated = "Status_TagCreated";
+
+    /// <summary>English: Tag deleted; a backup ref was recorded first</summary>
+    public const string Status_TagDeleted = "Status_TagDeleted";
+
     /// <summary>All keys, in declaration order.</summary>
     public static IReadOnlyList<string> All { get; } =
     [
@@ -2101,5 +2335,83 @@ public static class Keys
         Status_ConfigFailed,
         Status_ProjectSettingsSaved,
         Status_ProjectSettingsCleared,
+        Nav_Remotes,
+        Nav_Branches,
+        Nav_Tags,
+        Remotes_Title,
+        Remotes_Subtitle,
+        Remotes_Empty,
+        Remotes_Column_Name,
+        Remotes_Column_FetchUrl,
+        Remotes_Column_PushUrl,
+        Remotes_Add,
+        Remotes_Edit,
+        Remotes_SeparatePushUrl,
+        Remotes_NoNetworkNote,
+        Branches_Title,
+        Branches_Subtitle,
+        Branches_Empty,
+        Branches_Column_Name,
+        Branches_Column_Kind,
+        Branches_Column_Upstream,
+        Branches_Column_Tracking,
+        Branches_Column_Tip,
+        Branches_Column_Subject,
+        Branches_Kind_Local,
+        Branches_Kind_Remote,
+        Branches_Tracking,
+        Branches_Current,
+        Branches_Create,
+        Branches_Rename,
+        Branches_SetUpstream,
+        Branches_Field_StartPoint,
+        Branches_StartPointHint,
+        Branches_NoUpstreamCandidates,
+        Branches_BackupNote,
+        Tags_Title,
+        Tags_Subtitle,
+        Tags_Empty,
+        Tags_Column_Name,
+        Tags_Column_Kind,
+        Tags_Column_Target,
+        Tags_Column_Message,
+        Tags_Column_Tagger,
+        Tags_Column_Signature,
+        Tags_Kind_Annotated,
+        Tags_Kind_Lightweight,
+        Tags_Signed,
+        Tags_Unsigned,
+        Tags_Create,
+        Tags_Field_Target,
+        Tags_Field_Annotated,
+        Tags_TargetHint,
+        Tags_SigningNote,
+        Dialog_RefBackupExplains,
+        Dialog_PlanWarnings,
+        Blocker_RemoteNameInvalid,
+        Blocker_RemoteExists,
+        Blocker_RemoteMissing,
+        Blocker_RemoteUrlRequired,
+        Blocker_RefNameInvalid,
+        Blocker_BranchExists,
+        Blocker_BranchMissing,
+        Blocker_BranchIsCurrent,
+        Blocker_UpstreamMissing,
+        Blocker_TagExists,
+        Blocker_TagMissing,
+        Blocker_StartPointMissing,
+        Blocker_OperationInProgress,
+        Warning_BranchNotMerged,
+        Warning_TagIsSigned,
+        Warning_RemoteRenameMovesTrackingRefs,
+        Warning_RemoteRemoveDropsTrackingRefs,
+        Status_RemoteSaved,
+        Status_RemoteRemoved,
+        Status_BranchCreated,
+        Status_BranchRenamed,
+        Status_BranchDeleted,
+        Status_BranchUpstreamSet,
+        Status_TagCreated,
+        Status_TagDeleted,
     ];
 }

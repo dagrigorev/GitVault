@@ -29,6 +29,9 @@ internal sealed partial class MainWindowViewModel : ViewModelBase
     private readonly RepositoryContext _repositoryContext;
     private readonly RepositoryConfigViewModel _repositoryConfig;
     private readonly ProjectSettingsViewModel _projectSettings;
+    private readonly RemotesViewModel _remotes;
+    private readonly BranchesViewModel _branches;
+    private readonly TagsViewModel _tags;
     private readonly HashSet<PageViewModel> _activated = [];
 
     [ObservableProperty]
@@ -56,9 +59,15 @@ internal sealed partial class MainWindowViewModel : ViewModelBase
         RepositoriesViewModel repositories,
         RepositoryContext repositoryContext,
         RepositoryConfigViewModel repositoryConfig,
-        ProjectSettingsViewModel projectSettings)
+        ProjectSettingsViewModel projectSettings,
+        RemotesViewModel remotes,
+        BranchesViewModel branches,
+        TagsViewModel tags)
         : base(localizer)
     {
+        ArgumentNullException.ThrowIfNull(remotes);
+        ArgumentNullException.ThrowIfNull(branches);
+        ArgumentNullException.ThrowIfNull(tags);
         ArgumentNullException.ThrowIfNull(repositories);
         ArgumentNullException.ThrowIfNull(repositoryContext);
         ArgumentNullException.ThrowIfNull(repositoryConfig);
@@ -83,6 +92,9 @@ internal sealed partial class MainWindowViewModel : ViewModelBase
         _repositoryContext = repositoryContext;
         _repositoryConfig = repositoryConfig;
         _projectSettings = projectSettings;
+        _remotes = remotes;
+        _branches = branches;
+        _tags = tags;
 
         _repositories.Rows.CollectionChanged += OnRepositoriesChanged;
         _scans.PropertyChanged += OnScansPropertyChanged;
@@ -134,6 +146,9 @@ internal sealed partial class MainWindowViewModel : ViewModelBase
         {
             var node = NavigationNode.ForRepository(L, row.Name, row.Path);
 
+            node.Children.Add(NavigationNode.ForRepositoryPage(L, _remotes, row.Path));
+            node.Children.Add(NavigationNode.ForRepositoryPage(L, _branches, row.Path));
+            node.Children.Add(NavigationNode.ForRepositoryPage(L, _tags, row.Path));
             node.Children.Add(NavigationNode.ForRepositoryPage(L, _repositoryConfig, row.Path));
             node.Children.Add(NavigationNode.ForRepositoryPage(L, _projectSettings, row.Path));
 
@@ -425,6 +440,9 @@ internal sealed partial class MainWindowViewModel : ViewModelBase
             // by the loop above.
             _repositoryConfig.Dispose();
             _projectSettings.Dispose();
+            _remotes.Dispose();
+            _branches.Dispose();
+            _tags.Dispose();
         }
 
         base.Dispose(disposing);

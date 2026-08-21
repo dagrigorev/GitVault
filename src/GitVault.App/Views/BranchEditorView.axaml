@@ -1,0 +1,26 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:loc="using:GitVault.App.Markup"
+             x:Class="GitVault.App.Views.BranchEditorView">
+  <StackPanel Spacing="0">
+
+    <Grid ColumnDefinitions="120,*" RowDefinitions="Auto,Auto">
+      <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Margin="0,4"
+                 Text="{loc:Tr Branches_Column_Name}" />
+      <TextBox Grid.Row="0" Grid.Column="1" Margin="0,4" Text="{Binding Name, Mode=TwoWay}" />
+
+      <TextBlock Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Margin="0,4"
+                 IsVisible="{Binding ShowStartPoint}"
+                 Text="{loc:Tr Branches_Field_StartPoint}" />
+      <AutoCompleteBox Grid.Row="1" Grid.Column="1" Margin="0,4"
+                       IsVisible="{Binding ShowStartPoint}"
+                       ItemsSource="{Binding KnownRefs}"
+                       Text="{Binding StartPoint, Mode=TwoWay}" />
+    </Grid>
+
+    <Border Classes="note" IsVisible="{Binding ShowStartPoint}">
+      <TextBlock TextWrapping="Wrap" Text="{Binding StartPointHintCaption}" />
+    </Border>
+
+  </StackPanel>
+</UserControl>

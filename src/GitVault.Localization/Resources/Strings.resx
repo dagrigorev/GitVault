@@ -1631,4 +1631,238 @@
   <data name="Status_ProjectSettingsCleared" xml:space="preserve">
     <value>Project settings removed</value>
   </data>
+  <data name="Nav_Remotes" xml:space="preserve">
+    <value>Remotes</value>
+  </data>
+  <data name="Nav_Branches" xml:space="preserve">
+    <value>Branches</value>
+  </data>
+  <data name="Nav_Tags" xml:space="preserve">
+    <value>Tags</value>
+  </data>
+  <data name="Remotes_Title" xml:space="preserve">
+    <value>Remotes</value>
+  </data>
+  <data name="Remotes_Subtitle" xml:space="preserve">
+    <value>Where this repository fetches from and pushes to.</value>
+  </data>
+  <data name="Remotes_Empty" xml:space="preserve">
+    <value>This repository has no remotes.</value>
+  </data>
+  <data name="Remotes_Column_Name" xml:space="preserve">
+    <value>Remote</value>
+  </data>
+  <data name="Remotes_Column_FetchUrl" xml:space="preserve">
+    <value>Fetch URL</value>
+  </data>
+  <data name="Remotes_Column_PushUrl" xml:space="preserve">
+    <value>Push URL</value>
+  </data>
+  <data name="Remotes_Add" xml:space="preserve">
+    <value>Add remote</value>
+  </data>
+  <data name="Remotes_Edit" xml:space="preserve">
+    <value>Edit remote</value>
+  </data>
+  <data name="Remotes_SeparatePushUrl" xml:space="preserve">
+    <value>Push somewhere other than where it fetches</value>
+  </data>
+  <data name="Remotes_NoNetworkNote" xml:space="preserve">
+    <value>GitVault edits what a remote points at and never contacts it. Fetching and pushing stay in your hands.</value>
+  </data>
+  <data name="Branches_Title" xml:space="preserve">
+    <value>Branches</value>
+  </data>
+  <data name="Branches_Subtitle" xml:space="preserve">
+    <value>Local branches and the remote-tracking refs they follow.</value>
+  </data>
+  <data name="Branches_Empty" xml:space="preserve">
+    <value>This repository has no branches yet.</value>
+  </data>
+  <data name="Branches_Column_Name" xml:space="preserve">
+    <value>Branch</value>
+  </data>
+  <data name="Branches_Column_Kind" xml:space="preserve">
+    <value>Kind</value>
+  </data>
+  <data name="Branches_Column_Upstream" xml:space="preserve">
+    <value>Upstream</value>
+  </data>
+  <data name="Branches_Column_Tracking" xml:space="preserve">
+    <value>Ahead / behind</value>
+  </data>
+  <data name="Branches_Column_Tip" xml:space="preserve">
+    <value>Tip</value>
+  </data>
+  <data name="Branches_Column_Subject" xml:space="preserve">
+    <value>Last commit</value>
+  </data>
+  <data name="Branches_Kind_Local" xml:space="preserve">
+    <value>Local</value>
+  </data>
+  <data name="Branches_Kind_Remote" xml:space="preserve">
+    <value>Remote-tracking</value>
+  </data>
+  <data name="Branches_Tracking" xml:space="preserve">
+    <value>{0} ahead, {1} behind</value>
+  </data>
+  <data name="Branches_Current" xml:space="preserve">
+    <value>Checked out</value>
+  </data>
+  <data name="Branches_Create" xml:space="preserve">
+    <value>Create branch</value>
+  </data>
+  <data name="Branches_Rename" xml:space="preserve">
+    <value>Rename branch</value>
+  </data>
+  <data name="Branches_SetUpstream" xml:space="preserve">
+    <value>Set upstream</value>
+  </data>
+  <data name="Branches_Field_StartPoint" xml:space="preserve">
+    <value>Start from:</value>
+  </data>
+  <data name="Branches_StartPointHint" xml:space="preserve">
+    <value>Leave empty to start from the commit that is checked out.</value>
+  </data>
+  <data name="Branches_NoUpstreamCandidates" xml:space="preserve">
+    <value>This repository has no remote-tracking branches, so there is nothing to track yet.</value>
+  </data>
+  <data name="Branches_BackupNote" xml:space="preserve">
+    <value>Before a branch is deleted or renamed, GitVault records where it pointed as a backup ref. That keeps the commits reachable, so the deletion can be undone even after garbage collection.</value>
+  </data>
+  <data name="Tags_Title" xml:space="preserve">
+    <value>Tags</value>
+  </data>
+  <data name="Tags_Subtitle" xml:space="preserve">
+    <value>Named points in this repository&apos;s history.</value>
+  </data>
+  <data name="Tags_Empty" xml:space="preserve">
+    <value>This repository has no tags.</value>
+  </data>
+  <data name="Tags_Column_Name" xml:space="preserve">
+    <value>Tag</value>
+  </data>
+  <data name="Tags_Column_Kind" xml:space="preserve">
+    <value>Kind</value>
+  </data>
+  <data name="Tags_Column_Target" xml:space="preserve">
+    <value>Points at</value>
+  </data>
+  <data name="Tags_Column_Message" xml:space="preserve">
+    <value>Message</value>
+  </data>
+  <data name="Tags_Column_Tagger" xml:space="preserve">
+    <value>Tagger</value>
+  </data>
+  <data name="Tags_Column_Signature" xml:space="preserve">
+    <value>Signature</value>
+  </data>
+  <data name="Tags_Kind_Annotated" xml:space="preserve">
+    <value>Annotated</value>
+  </data>
+  <data name="Tags_Kind_Lightweight" xml:space="preserve">
+    <value>Lightweight</value>
+  </data>
+  <data name="Tags_Signed" xml:space="preserve">
+    <value>Signed</value>
+  </data>
+  <data name="Tags_Unsigned" xml:space="preserve">
+    <value>Not signed</value>
+  </data>
+  <data name="Tags_Create" xml:space="preserve">
+    <value>Create tag</value>
+  </data>
+  <data name="Tags_Field_Target" xml:space="preserve">
+    <value>Points at:</value>
+  </data>
+  <data name="Tags_Field_Annotated" xml:space="preserve">
+    <value>Annotated, with a message</value>
+  </data>
+  <data name="Tags_TargetHint" xml:space="preserve">
+    <value>Leave empty to tag the commit that is checked out.</value>
+  </data>
+  <data name="Tags_SigningNote" xml:space="preserve">
+    <value>GitVault does not sign the tags it creates: signing needs your key and passphrase, and this application holds neither.</value>
+  </data>
+  <data name="Dialog_RefBackupExplains" xml:space="preserve">
+    <value>These refs will be recorded before anything changes, which keeps the commits behind them reachable and makes this reversible.</value>
+  </data>
+  <data name="Dialog_PlanWarnings" xml:space="preserve">
+    <value>Worth knowing before you confirm</value>
+  </data>
+  <data name="Blocker_RemoteNameInvalid" xml:space="preserve">
+    <value>That is not a name git accepts for a remote.</value>
+  </data>
+  <data name="Blocker_RemoteExists" xml:space="preserve">
+    <value>A remote of that name already exists.</value>
+  </data>
+  <data name="Blocker_RemoteMissing" xml:space="preserve">
+    <value>There is no remote of that name.</value>
+  </data>
+  <data name="Blocker_RemoteUrlRequired" xml:space="preserve">
+    <value>A remote needs a URL.</value>
+  </data>
+  <data name="Blocker_RefNameInvalid" xml:space="preserve">
+    <value>That is not a name git accepts for a ref.</value>
+  </data>
+  <data name="Blocker_BranchExists" xml:space="preserve">
+    <value>A branch of that name already exists.</value>
+  </data>
+  <data name="Blocker_BranchMissing" xml:space="preserve">
+    <value>There is no branch of that name.</value>
+  </data>
+  <data name="Blocker_BranchIsCurrent" xml:space="preserve">
+    <value>That branch is the one checked out. Switch to another branch first.</value>
+  </data>
+  <data name="Blocker_UpstreamMissing" xml:space="preserve">
+    <value>The branch you chose to track does not exist.</value>
+  </data>
+  <data name="Blocker_TagExists" xml:space="preserve">
+    <value>A tag of that name already exists.</value>
+  </data>
+  <data name="Blocker_TagMissing" xml:space="preserve">
+    <value>There is no tag of that name.</value>
+  </data>
+  <data name="Blocker_StartPointMissing" xml:space="preserve">
+    <value>That starting point could not be resolved to a commit.</value>
+  </data>
+  <data name="Blocker_OperationInProgress" xml:space="preserve">
+    <value>Git is part-way through a rebase, merge, cherry-pick, revert or bisect. Finish or abort it first.</value>
+  </data>
+  <data name="Warning_BranchNotMerged" xml:space="preserve">
+    <value>This branch has commits that exist on no other branch. Deleting it orphans them; the backup ref is what lets you get them back.</value>
+  </data>
+  <data name="Warning_TagIsSigned" xml:space="preserve">
+    <value>This tag carries a signature. A backup restores where it pointed, but the signature cannot be recreated by GitVault.</value>
+  </data>
+  <data name="Warning_RemoteRenameMovesTrackingRefs" xml:space="preserve">
+    <value>Renaming a remote also renames every remote-tracking branch under it.</value>
+  </data>
+  <data name="Warning_RemoteRemoveDropsTrackingRefs" xml:space="preserve">
+    <value>Removing a remote discards its remote-tracking branches. They come back the next time you fetch.</value>
+  </data>
+  <data name="Status_RemoteSaved" xml:space="preserve">
+    <value>Remote updated</value>
+  </data>
+  <data name="Status_RemoteRemoved" xml:space="preserve">
+    <value>Remote removed</value>
+  </data>
+  <data name="Status_BranchCreated" xml:space="preserve">
+    <value>Branch created</value>
+  </data>
+  <data name="Status_BranchRenamed" xml:space="preserve">
+    <value>Branch renamed</value>
+  </data>
+  <data name="Status_BranchDeleted" xml:space="preserve">
+    <value>Branch deleted; a backup ref was recorded first</value>
+  </data>
+  <data name="Status_BranchUpstreamSet" xml:space="preserve">
+    <value>Upstream updated</value>
+  </data>
+  <data name="Status_TagCreated" xml:space="preserve">
+    <value>Tag created</value>
+  </data>
+  <data name="Status_TagDeleted" xml:space="preserve">
+    <value>Tag deleted; a backup ref was recorded first</value>
+  </data>
 </root>

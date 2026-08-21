@@ -1,0 +1,34 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:loc="using:GitVault.App.Markup"
+             x:Class="GitVault.App.Views.RemoteEditorView">
+  <StackPanel Spacing="0">
+
+    <Grid ColumnDefinitions="120,*" RowDefinitions="Auto,Auto,Auto,Auto">
+      <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Margin="0,4"
+                 Text="{loc:Tr Remotes_Column_Name}" />
+      <TextBox Grid.Row="0" Grid.Column="1" Margin="0,4" Text="{Binding Name, Mode=TwoWay}" />
+
+      <TextBlock Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Margin="0,4"
+                 Text="{loc:Tr Remotes_Column_FetchUrl}" />
+      <TextBox Grid.Row="1" Grid.Column="1" Margin="0,4" Classes="mono"
+               Text="{Binding FetchUrl, Mode=TwoWay}" />
+
+      <CheckBox Grid.Row="2" Grid.Column="1" Margin="0,4"
+                IsChecked="{Binding UsesSeparatePushUrl, Mode=TwoWay}"
+                Content="{loc:Tr Remotes_SeparatePushUrl}" />
+
+      <TextBlock Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" Margin="0,4"
+                 IsVisible="{Binding UsesSeparatePushUrl}"
+                 Text="{loc:Tr Remotes_Column_PushUrl}" />
+      <TextBox Grid.Row="3" Grid.Column="1" Margin="0,4" Classes="mono"
+               IsVisible="{Binding UsesSeparatePushUrl}"
+               Text="{Binding PushUrl, Mode=TwoWay}" />
+    </Grid>
+
+    <Border Classes="note">
+      <TextBlock TextWrapping="Wrap" Text="{Binding NoNetworkCaption}" />
+    </Border>
+
+  </StackPanel>
+</UserControl>
