@@ -141,6 +141,26 @@ key names and origins but never values, because a git config can hold a proxy pa
 with an embedded token. Logs are passed through the redactor a second time on the way out, since
 a bundle leaves the machine and a log file does not.
 
+## Change of posture: GitVault writes its own section
+
+Since the per-repository settings landed, GitVault writes a `[gitvault]` section into a
+repository's own `.git/config`. Previously it only ever wrote to a configuration file as part of a
+profile activation the user had previewed.
+
+The choice was deliberate — settings stored beside the repository survive the folder being moved,
+which application-data storage keyed by path does not — and the cost is paid the same way as every
+other write:
+
+- the change is planned, and the plan is rendered as a diff;
+- the plan is shown in the same review dialog as an activation, and closing it writes nothing;
+- the file is copied into a snapshot before the first byte is written, so it can be rolled back;
+- clearing a field removes its key rather than writing an empty one, so a repository with nothing
+  configured ends up with no `[gitvault]` section at all.
+
+Nothing in the section is a secret: a key path, a helper name, a profile name and a note. A
+`[gitvault]` section inherited from the user's global configuration is deliberately not treated as
+belonging to a repository, because settings that belong to every repository belong to none.
+
 ## Known gaps, collected
 
 | Gap | Consequence | Where |

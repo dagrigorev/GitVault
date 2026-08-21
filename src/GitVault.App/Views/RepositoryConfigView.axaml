@@ -1,0 +1,64 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:loc="using:GitVault.App.Markup"
+             x:Class="GitVault.App.Views.RepositoryConfigView">
+  <DockPanel>
+
+    <Border DockPanel.Dock="Top" Classes="note" Margin="0,0,0,6"
+            IsVisible="{Binding !HasRepository}">
+      <TextBlock TextWrapping="Wrap" Text="{loc:Tr Project_NoRepository}" />
+    </Border>
+
+    <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Spacing="5" Margin="0,0,0,6"
+                IsVisible="{Binding HasRepository}">
+      <TextBlock VerticalAlignment="Center" Text="{loc:Tr Config_Column_Scope}" />
+      <ComboBox MinWidth="170"
+                ItemsSource="{Binding ScopeFilters}"
+                SelectedItem="{Binding SelectedScopeFilter, Mode=TwoWay}"
+                AutomationProperties.Name="{loc:Tr Config_Column_Scope}">
+        <ComboBox.ItemTemplate>
+          <DataTemplate>
+            <TextBlock Text="{Binding Label}" />
+          </DataTemplate>
+        </ComboBox.ItemTemplate>
+      </ComboBox>
+
+      <Border Classes="toolSeparator" Height="22" />
+
+      <Button Name="AddEntryButton" Command="{Binding AddCommand}" Content="{loc:Tr Common_Add}" />
+      <Button Command="{Binding EditSelectedCommand}"
+              IsEnabled="{Binding CanEditSelection}" Content="{loc:Tr Common_Edit}" />
+      <Button Command="{Binding RemoveSelectedCommand}"
+              IsEnabled="{Binding CanEditSelection}" Content="{loc:Tr Common_Remove}" />
+
+      <TextBlock VerticalAlignment="Center" Classes="dim"
+                 IsVisible="{Binding IsLoading}" Text="{loc:Tr Common_Working}" />
+    </StackPanel>
+
+    <Border DockPanel.Dock="Bottom" Classes="note" Margin="0,7,0,0">
+      <TextBlock TextWrapping="Wrap" Text="{Binding PreviewNoteCaption}" />
+    </Border>
+
+    <TextBlock DockPanel.Dock="Top"
+               Classes="pageSubtitle"
+               Margin="0,0,0,6"
+               IsVisible="{Binding IsEmpty}"
+               Text="{Binding EmptyCaption}" />
+
+    <DataGrid Name="ConfigGrid"
+              ItemsSource="{Binding Rows}"
+              SelectedItem="{Binding SelectedRow, Mode=TwoWay}">
+      <DataGrid.Columns>
+        <DataGridTextColumn Header="{loc:Tr Config_Column_Key}" Binding="{Binding Key}"
+                            Width="*" MinWidth="200" />
+        <DataGridTextColumn Header="{loc:Tr Config_Column_Value}" Binding="{Binding Setting}"
+                            Width="2*" MinWidth="220" />
+        <DataGridTextColumn Header="{loc:Tr Config_Column_Scope}" Binding="{Binding Scope}"
+                            Width="Auto" MinWidth="120" />
+        <DataGridTextColumn Header="{loc:Tr Config_Column_Origin}" Binding="{Binding Origin}"
+                            Width="2*" MinWidth="200" />
+      </DataGrid.Columns>
+    </DataGrid>
+
+  </DockPanel>
+</UserControl>

@@ -25,6 +25,10 @@ internal sealed partial class MainWindowViewModel : ViewModelBase
     private readonly ProfilesViewModel _profiles;
     private readonly SnapshotsViewModel _snapshots;
     private readonly SettingsViewModel _settings;
+    private readonly RepositoriesViewModel _repositories;
+    private readonly RepositoryContext _repositoryContext;
+    private readonly RepositoryConfigViewModel _repositoryConfig;
+    private readonly ProjectSettingsViewModel _projectSettings;
     private readonly HashSet<PageViewModel> _activated = [];
 
     [ObservableProperty]
@@ -48,9 +52,17 @@ internal sealed partial class MainWindowViewModel : ViewModelBase
         IClipboardService clipboard,
         ProfilesViewModel profiles,
         SnapshotsViewModel snapshots,
-        SettingsViewModel settings)
+        SettingsViewModel settings,
+        RepositoriesViewModel repositories,
+        RepositoryContext repositoryContext,
+        RepositoryConfigViewModel repositoryConfig,
+        ProjectSettingsViewModel projectSettings)
         : base(localizer)
     {
+        ArgumentNullException.ThrowIfNull(repositories);
+        ArgumentNullException.ThrowIfNull(repositoryContext);
+        ArgumentNullException.ThrowIfNull(repositoryConfig);
+        ArgumentNullException.ThrowIfNull(projectSettings);
         ArgumentNullException.ThrowIfNull(pages);
         ArgumentNullException.ThrowIfNull(scans);
         ArgumentNullException.ThrowIfNull(status);
@@ -67,7 +79,12 @@ internal sealed partial class MainWindowViewModel : ViewModelBase
         _profiles = profiles;
         _snapshots = snapshots;
         _settings = settings;
+        _repositories = repositories;
+        _repositoryContext = repositoryContext;
+        _repositoryConfig = repositoryConfig;
+        _projectSettings = projectSettings;
 
+        _repositories.Rows.CollectionChanged += OnRepositoriesChanged;
         _scans.PropertyChanged += OnScansPropertyChanged;
         _scans.ScanCompleted += OnScanCompleted;
         _status.PropertyChanged += OnStatusPropertyChanged;
@@ -88,6 +105,59 @@ internal sealed partial class MainWindowViewModel : ViewModelBase
 
         SelectedPage = Pages.FirstOrDefault();
         _selectedNode = root.Children.FirstOrDefault();
+    }
+
+    /// <summary>
+    /// Rebuilds the repository subtree from the repositories page's current list.
+    /// </summary>
+    /// <remarks>
+    /// One node per repository, and beneath it the pages that only make sense in a repository's
+    /// context. Those pages are shared instances rather than one set per repository: a machine
+    /// with three hundred repositories would otherwise pay for six hundred view models to render
+    /// one of them.
+    /// </remarks>
+    internal void RebuildRepositoryNodes()
+    {
+        var parent = RootNodes
+            .SelectMany(r => r.Children)
+            .FirstOrDefault(n => n.Page is RepositoriesViewModel);
+
+        if (parent is null)
+        {
+            return;
+        }
+
+        var selectedPath = SelectedNode?.RepositoryPath;
+
+        parent.Children.Clear();
+        foreach (var row in _repositories.Rows)
+        {
+            var node = NavigationNode.ForRepository(L, row.Name, row.Path);
+
+            node.Children.Add(NavigationNode.ForRepositoryPage(L, _repositoryConfig, row.Path));
+            node.Children.Add(NavigationNode.ForRepositoryPage(L, _projectSettings, row.Path));
+
+            parent.Children.Add(node);
+        }
+
+        // A rebuild must not silently move the user somewhere else.
+        if (selectedPath is not null)
+        {
+            var again = parent.Children
+                .SelectMany(n => n.Children.Prepend(n))
+                .FirstOrDefault(n => n.RepositoryPath == selectedPath && n.Page == SelectedNode?.Page);
+
+            if (again is not null)
+            {
+                SelectedNode = again;
+            }
+        }
+    }
+
+    private void OnRepositoriesChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+    {
+        _ = e;
+        Avalonia.Threading.Dispatcher.UIThread.Post(RebuildRepositoryNodes);
     }
 
     /// <summary>Raised when the user picks File &gt; Exit.</summary>
@@ -313,6 +383,20 @@ internal sealed partial class MainWindowViewModel : ViewModelBase
 
     partial void OnSelectedNodeChanged(NavigationNode? value)
     {
+        // The repository has to be in place before the page is shown, or the page renders the
+        // previous repository's configuration for a frame and then corrects itself.
+        if (value?.RepositoryPath is { Length: > 0 } path)
+        {
+            var name = value.Page is null
+                ? value.Caption
+                : RootNodes.SelectMany(r => r.Children)
+                    .SelectMany(n => n.Children)
+                    .FirstOrDefault(n => n.RepositoryPath == path && n.Page is null)?.Caption
+                    ?? System.IO.Path.GetFileName(path.TrimEnd(System.IO.Path.DirectorySeparatorChar));
+
+            _repositoryContext.Select(path, name);
+        }
+
         // Selecting the machine itself is not a navigation: the root is a heading, and blanking
         // the workspace because someone clicked it would be a worse answer than doing nothing.
         if (value?.Page is { } page)
@@ -330,11 +414,17 @@ internal sealed partial class MainWindowViewModel : ViewModelBase
             _scans.ScanCompleted -= OnScanCompleted;
             _status.PropertyChanged -= OnStatusPropertyChanged;
             _profiles.PropertyChanged -= OnProfilesPropertyChanged;
+            _repositories.Rows.CollectionChanged -= OnRepositoriesChanged;
 
             foreach (var page in Pages)
             {
                 page.Dispose();
             }
+
+            // The repository-scoped pages are not in the navigation list, so they are not covered
+            // by the loop above.
+            _repositoryConfig.Dispose();
+            _projectSettings.Dispose();
         }
 
         base.Dispose(disposing);

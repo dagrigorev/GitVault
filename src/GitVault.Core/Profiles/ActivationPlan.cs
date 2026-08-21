@@ -1,4 +1,3 @@
-using System.Text;
 using GitVault.Core.Models;
 
 namespace GitVault.Core.Profiles;
@@ -67,59 +66,8 @@ public sealed record ActivationPlan(
     public bool CanApply => Blockers.Count == 0 && Changes.Any(c => !c.IsNoOp);
 
     /// <summary>
-    /// Renders the plan as a unified-diff-like preview. Values are shown verbatim; a profile
-    /// never carries a secret, so there is nothing here to redact.
+    /// Renders the plan as a unified-diff-like preview.
     /// </summary>
     /// <returns>The preview text.</returns>
-    public string ToDiff()
-    {
-        var builder = new StringBuilder();
-
-        foreach (var change in Changes)
-        {
-            builder.Append(change.Kind switch
-            {
-                ChangeKind.GitConfigSet => "git config ",
-                ChangeKind.GitConfigUnset => "git config --unset ",
-                ChangeKind.SshConfigBlock => "ssh config block ",
-                ChangeKind.SshConfigBlockRemoval => "ssh config block removal ",
-                _ => "agent ",
-            });
-
-            builder.Append(change.Target).Append('\n');
-
-            if (change.IsNoOp)
-            {
-                builder.Append("  (no change)\n");
-                continue;
-            }
-
-            foreach (var line in (change.Before ?? string.Empty).Split('\n'))
-            {
-                if (change.Before is not null)
-                {
-                    builder.Append("  - ").Append(line).Append('\n');
-                }
-            }
-
-            foreach (var line in (change.After ?? string.Empty).Split('\n'))
-            {
-                if (change.After is not null)
-                {
-                    builder.Append("  + ").Append(line).Append('\n');
-                }
-            }
-        }
-
-        if (Blockers.Count > 0)
-        {
-            builder.Append('\n');
-            foreach (var blocker in Blockers)
-            {
-                builder.Append("! ").Append(blocker).Append('\n');
-            }
-        }
-
-        return builder.ToString();
-    }
+    public string ToDiff() => PlanDiff.Render(Changes, Blockers);
 }

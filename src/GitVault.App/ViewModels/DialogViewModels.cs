@@ -1,8 +1,10 @@
+using GitVault.Core.Abstractions;
 using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using GitVault.Core.Models;
 using GitVault.Core.Profiles;
+using GitVault.Core.Repository;
 using GitVault.Core.Settings;
 using GitVault.Localization;
 
@@ -645,4 +647,182 @@ internal sealed partial class NewProfileViewModel : DialogViewModel
         _ = value;
         OnPropertyChanged(nameof(CanConfirm));
     }
+}
+
+/// <summary>
+/// The preview for an operation that is not a profile activation.
+/// </summary>
+/// <remarks>
+/// Deliberately the same shape as <see cref="PlanReviewViewModel"/>: nothing has been written, the
+/// plan is shown line by line, and confirming is what permits the write. A configuration edit is
+/// a smaller change than an activation, but it is a change to the same files, and giving it a
+/// quieter path would be the beginning of having two standards.
+/// </remarks>
+internal sealed partial class OperationReviewViewModel : DialogViewModel
+{
+    private readonly GitOperationPlan _plan;
+
+    internal OperationReviewViewModel(Localizer localizer, GitOperationPlan plan)
+        : base(localizer)
+    {
+        ArgumentNullException.ThrowIfNull(plan);
+
+        _plan = plan;
+
+        foreach (var line in plan.ToDiff().Split('\n', StringSplitOptions.RemoveEmptyEntries))
+        {
+            var trimmed = line.TrimStart();
+            Lines.Add(new PlanLine(line.TrimEnd(), trimmed.StartsWith('+'), trimmed.StartsWith('-')));
+        }
+
+        foreach (var blocker in plan.Blockers)
+        {
+            // A blocker is an identifier so it can be read in the user's language today rather
+            // than the one it was produced in. Anything else is shown as it arrived.
+            Blockers.Add(blocker.StartsWith(BlockerMessages.Prefix, StringComparison.Ordinal) ? localizer[blocker] : blocker);
+        }
+    }
+
+    /// <inheritdoc/>
+    public override string TitleKey => Keys.Dialog_PreviewOperation_Title;
+
+    /// <inheritdoc/>
+    public override string ConfirmKey => Keys.Dialog_ReviewedPlan;
+
+    /// <summary>Localized name of the scope the plan writes at.</summary>
+    public string ScopeLabel => L[DisplayNames.ScopeKey(_plan.Scope)];
+
+    /// <summary>Repository the plan addresses, when it addresses one.</summary>
+    public string RepositoryPath => _plan.RepositoryPath ?? string.Empty;
+
+    /// <summary>True when a repository row is worth showing.</summary>
+    public bool HasRepository => !string.IsNullOrEmpty(_plan.RepositoryPath);
+
+    /// <summary>Files the plan will copy aside before writing.</summary>
+    public string SnapshotFiles => string.Join(Environment.NewLine, _plan.FilesToSnapshot);
+
+    /// <summary>The plan, line by line.</summary>
+    public ObservableCollection<PlanLine> Lines { get; } = [];
+
+    /// <summary>Reasons the plan cannot be applied, localized.</summary>
+    public ObservableCollection<string> Blockers { get; } = [];
+
+    /// <summary>True when the plan is blocked.</summary>
+    public bool HasBlockers => Blockers.Count > 0;
+
+    /// <summary>True when the plan would change nothing.</summary>
+    public bool IsNoOp => Blockers.Count == 0 && !_plan.Changes.Any(c => !c.IsNoOp);
+
+    /// <summary>Localized note that nothing has been written yet.</summary>
+    public string NothingWrittenCaption => L[Keys.Dialog_NothingWritten];
+
+    /// <inheritdoc/>
+    public override bool CanConfirm => _plan.CanApply;
+
+    /// <inheritdoc/>
+    public override double DialogHeight => 480;
+}
+
+/// <summary>Add or edit one configuration key.</summary>
+internal sealed partial class ConfigEntryEditorViewModel : DialogViewModel
+{
+    private readonly bool _isNew;
+
+    [ObservableProperty]
+    private string _key;
+
+    [ObservableProperty]
+    private string _value;
+
+    [ObservableProperty]
+    private ScopeChoice? _selectedScope;
+
+    internal ConfigEntryEditorViewModel(Localizer localizer, GitConfigValue? existing, GitConfigScope defaultScope)
+        : base(localizer)
+    {
+        _isNew = existing is null;
+        _key = existing?.Key ?? string.Empty;
+        _value = existing?.Value ?? string.Empty;
+
+        Scopes =
+        [
+            new ScopeChoice(localizer, GitConfigScope.Local, Keys.Scope_Local),
+            new ScopeChoice(localizer, GitConfigScope.Global, Keys.Scope_Global),
+            new ScopeChoice(localizer, GitConfigScope.System, Keys.Scope_System),
+        ];
+
+        var wanted = existing?.Scope ?? defaultScope;
+        _selectedScope = Scopes.FirstOrDefault(s => s.Value == wanted) ?? Scopes[0];
+    }
+
+    /// <inheritdoc/>
+    public override string TitleKey => _isNew ? Keys.Config_AddEntry : Keys.Config_EditEntry;
+
+    /// <inheritdoc/>
+    public override string ConfirmKey => Keys.Common_Ok;
+
+    /// <summary>Scopes the key can be written at.</summary>
+    public ObservableCollection<ScopeChoice> Scopes { get; }
+
+    /// <summary>The scope the dialog will write at.</summary>
+    public GitConfigScope Scope => SelectedScope?.Value ?? GitConfigScope.Local;
+
+    /// <summary>True when the key can only be edited, not renamed.</summary>
+    public bool IsKeyFixed => !_isNew;
+
+    /// <summary>Localized warning shown when the system scope is chosen.</summary>
+    public string SystemScopeCaption => L[Keys.Config_SystemScopeNote];
+
+    /// <summary>True when the chosen scope needs privileges GitVault will not acquire.</summary>
+    public bool IsSystemScope => Scope == GitConfigScope.System;
+
+    /// <inheritdoc/>
+    public override bool CanConfirm =>
+        !string.IsNullOrWhiteSpace(Key) && Key.Contains('.', StringComparison.Ordinal);
+
+    /// <inheritdoc/>
+    public override double DialogWidth => 540;
+
+    /// <inheritdoc/>
+    public override double DialogHeight => 300;
+
+    partial void OnKeyChanged(string value)
+    {
+        _ = value;
+        OnPropertyChanged(nameof(CanConfirm));
+    }
+
+    partial void OnSelectedScopeChanged(ScopeChoice? value)
+    {
+        _ = value;
+        OnPropertyChanged(nameof(IsSystemScope));
+    }
+
+    /// <inheritdoc/>
+    protected override void OnCultureChanged()
+    {
+        foreach (var scope in Scopes)
+        {
+            scope.RefreshCaptions();
+        }
+    }
+}
+
+/// <summary>A configuration scope the editor can write at.</summary>
+internal sealed class ScopeChoice(Localizer localizer, GitConfigScope value, string labelKey) : ObservableObject
+{
+    /// <summary>Bindable localizer.</summary>
+    public Localizer L { get; } = localizer;
+
+    /// <summary>The scope this choice selects.</summary>
+    public GitConfigScope Value { get; } = value;
+
+    /// <summary>Localized label.</summary>
+    public string Label => L[labelKey];
+
+    /// <inheritdoc/>
+    public override string ToString() => Label;
+
+    /// <summary>Re-reads the label.</summary>
+    internal void RefreshCaptions() => OnPropertyChanged(nameof(Label));
 }

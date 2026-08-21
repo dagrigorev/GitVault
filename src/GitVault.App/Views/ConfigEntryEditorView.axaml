@@ -1,0 +1,43 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:loc="using:GitVault.App.Markup"
+             x:Class="GitVault.App.Views.ConfigEntryEditorView">
+  <StackPanel Spacing="0">
+
+    <Grid ColumnDefinitions="110,*" RowDefinitions="Auto,Auto,Auto">
+      <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Margin="0,4"
+                 Text="{loc:Tr Config_Column_Key}" />
+      <TextBox Grid.Row="0" Grid.Column="1" Margin="0,4"
+               Classes="mono"
+               IsReadOnly="{Binding IsKeyFixed}"
+               Text="{Binding Key, Mode=TwoWay}" />
+
+      <TextBlock Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Margin="0,4"
+                 Text="{loc:Tr Config_Column_Value}" />
+      <TextBox Grid.Row="1" Grid.Column="1" Margin="0,4"
+               Classes="mono"
+               Text="{Binding Value, Mode=TwoWay}" />
+
+      <TextBlock Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" Margin="0,4"
+                 Text="{loc:Tr Config_Column_Scope}" />
+      <ComboBox Grid.Row="2" Grid.Column="1" Margin="0,4" HorizontalAlignment="Stretch"
+                ItemsSource="{Binding Scopes}"
+                SelectedItem="{Binding SelectedScope, Mode=TwoWay}">
+        <ComboBox.ItemTemplate>
+          <DataTemplate>
+            <TextBlock Text="{Binding Label}" />
+          </DataTemplate>
+        </ComboBox.ItemTemplate>
+      </ComboBox>
+    </Grid>
+
+    <Border Classes="note warn" IsVisible="{Binding IsSystemScope}">
+      <TextBlock TextWrapping="Wrap" Text="{Binding SystemScopeCaption}" />
+    </Border>
+
+    <Border Classes="note">
+      <TextBlock TextWrapping="Wrap" Text="{loc:Tr Config_PreviewNote}" />
+    </Border>
+
+  </StackPanel>
+</UserControl>

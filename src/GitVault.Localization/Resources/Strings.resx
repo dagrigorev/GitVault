@@ -1529,4 +1529,106 @@
   <data name="Options_Column_Enabled" xml:space="preserve">
     <value>Enabled</value>
   </data>
+  <data name="Nav_Configuration" xml:space="preserve">
+    <value>Configuration</value>
+  </data>
+  <data name="Nav_ProjectSettings" xml:space="preserve">
+    <value>Project settings</value>
+  </data>
+  <data name="Config_Title" xml:space="preserve">
+    <value>Configuration</value>
+  </data>
+  <data name="Config_Subtitle" xml:space="preserve">
+    <value>Every configuration value that reaches this repository, and the scope it came from.</value>
+  </data>
+  <data name="Config_Empty" xml:space="preserve">
+    <value>No configuration values to show.</value>
+  </data>
+  <data name="Config_Column_Key" xml:space="preserve">
+    <value>Key</value>
+  </data>
+  <data name="Config_Column_Value" xml:space="preserve">
+    <value>Value</value>
+  </data>
+  <data name="Config_Column_Scope" xml:space="preserve">
+    <value>Scope</value>
+  </data>
+  <data name="Config_Column_Origin" xml:space="preserve">
+    <value>Origin</value>
+  </data>
+  <data name="Config_Scope_All" xml:space="preserve">
+    <value>All scopes</value>
+  </data>
+  <data name="Config_AddEntry" xml:space="preserve">
+    <value>Add configuration key</value>
+  </data>
+  <data name="Config_EditEntry" xml:space="preserve">
+    <value>Edit configuration key</value>
+  </data>
+  <data name="Config_PreviewNote" xml:space="preserve">
+    <value>Every edit is previewed before it is written, and the file it changes is copied aside first.</value>
+  </data>
+  <data name="Config_SystemScopeNote" xml:space="preserve">
+    <value>The system scope usually needs elevated privileges. GitVault will not elevate; if the write is refused it says so and changes nothing.</value>
+  </data>
+  <data name="Project_Title" xml:space="preserve">
+    <value>Project settings</value>
+  </data>
+  <data name="Project_Subtitle" xml:space="preserve">
+    <value>What GitVault should assume about this repository.</value>
+  </data>
+  <data name="Project_Group_Repository" xml:space="preserve">
+    <value>Repository</value>
+  </data>
+  <data name="Project_Group_Settings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="Project_Field_Profile" xml:space="preserve">
+    <value>Pinned profile:</value>
+  </data>
+  <data name="Project_Field_Key" xml:space="preserve">
+    <value>SSH key:</value>
+  </data>
+  <data name="Project_Field_Helper" xml:space="preserve">
+    <value>Credential helper:</value>
+  </data>
+  <data name="Project_Field_Note" xml:space="preserve">
+    <value>Note:</value>
+  </data>
+  <data name="Project_Field_Exclude" xml:space="preserve">
+    <value>Skip this repository when scanning</value>
+  </data>
+  <data name="Project_Clear" xml:space="preserve">
+    <value>Remove settings</value>
+  </data>
+  <data name="Project_NoRepository" xml:space="preserve">
+    <value>Select a repository in the tree to see its settings.</value>
+  </data>
+  <data name="Project_StorageNote" xml:space="preserve">
+    <value>These settings are stored in a [gitvault] section of this repository&apos;s own configuration, so they travel with the folder. Saving them is a write to .git/config and is previewed and snapshotted like any other.</value>
+  </data>
+  <data name="Dialog_PreviewOperation_Title" xml:space="preserve">
+    <value>Preview changes</value>
+  </data>
+  <data name="Common_Revert" xml:space="preserve">
+    <value>Revert</value>
+  </data>
+  <data name="Blocker_RepositoryRequired" xml:space="preserve">
+    <value>This scope needs a repository, and none was selected.</value>
+  </data>
+  <data name="Blocker_NoConfigurationFile" xml:space="preserve">
+    <value>There is no configuration file for this scope on this machine.</value>
+  </data>
+  <data name="Status_ConfigSaved" xml:space="preserve">
+    <value>Configuration updated</value>
+  </data>
+  <data name="Status_ConfigFailed" xml:space="preserve">
+    <value>The write was refused; nothing was changed</value>
+  </data>
+  <data name="Status_ProjectSettingsSaved" xml:space="preserve">
+    <value>Project settings saved</value>
+  </data>
+  <data name="Status_ProjectSettingsCleared" xml:space="preserve">
+    <value>Project settings removed</value>
+  </data>
 </root>

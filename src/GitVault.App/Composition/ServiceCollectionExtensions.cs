@@ -9,6 +9,7 @@ using GitVault.Core.Discovery;
 using GitVault.Core.Git;
 using GitVault.Core.Platform;
 using GitVault.Core.Profiles;
+using GitVault.Core.Repository;
 using GitVault.Core.Ssh;
 using GitVault.Core.Ssh.Agent;
 using GitVault.Core.Security;
@@ -62,6 +63,8 @@ internal static class ServiceCollectionExtensions
         services.AddSingleton<IActivationStateStore, ActivationStateStore>();
         services.AddSingleton<IProfileActivator, ProfileActivator>();
         services.AddSingleton<IRepositoryScanner, RepositoryScanner>();
+        services.AddSingleton<IConfigEditor, ConfigEditor>();
+        services.AddSingleton<IProjectSettingsStore, ProjectSettingsStore>();
         services.AddSingleton<IDiagnosticsBundleBuilder, DiagnosticsBundleBuilder>();
         services.AddSingleton<IDiscoveryOrchestrator, DiscoveryOrchestrator>();
         services.AddSingleton<ScanCoordinator>();
@@ -69,6 +72,7 @@ internal static class ServiceCollectionExtensions
         services.AddSingleton<ClipboardService>();
         services.AddSingleton<IClipboardService>(sp => sp.GetRequiredService<ClipboardService>());
         services.AddSingleton<StatusService>();
+        services.AddSingleton<RepositoryContext>();
         services.AddSingleton<IDialogService, DialogService>();
 
         services.AddSingleton<IPluralizer, CldrPluralizer>();
@@ -84,6 +88,8 @@ internal static class ServiceCollectionExtensions
         services.AddSingleton<ProfilesViewModel>();
         services.AddSingleton<RepositoriesViewModel>();
         services.AddSingleton<SnapshotsViewModel>();
+        services.AddSingleton<RepositoryConfigViewModel>();
+        services.AddSingleton<ProjectSettingsViewModel>();
         services.AddSingleton<SettingsViewModel>();
         services.AddSingleton<LogsViewModel>();
 

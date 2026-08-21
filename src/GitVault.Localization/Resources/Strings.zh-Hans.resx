@@ -1529,4 +1529,106 @@
   <data name="Options_Column_Enabled" xml:space="preserve">
     <value>启用</value>
   </data>
+  <data name="Nav_Configuration" xml:space="preserve">
+    <value>配置</value>
+  </data>
+  <data name="Nav_ProjectSettings" xml:space="preserve">
+    <value>项目设置</value>
+  </data>
+  <data name="Config_Title" xml:space="preserve">
+    <value>配置</value>
+  </data>
+  <data name="Config_Subtitle" xml:space="preserve">
+    <value>作用于此仓库的所有配置值，以及它们来自的范围。</value>
+  </data>
+  <data name="Config_Empty" xml:space="preserve">
+    <value>没有可显示的配置值。</value>
+  </data>
+  <data name="Config_Column_Key" xml:space="preserve">
+    <value>键</value>
+  </data>
+  <data name="Config_Column_Value" xml:space="preserve">
+    <value>值</value>
+  </data>
+  <data name="Config_Column_Scope" xml:space="preserve">
+    <value>范围</value>
+  </data>
+  <data name="Config_Column_Origin" xml:space="preserve">
+    <value>来源</value>
+  </data>
+  <data name="Config_Scope_All" xml:space="preserve">
+    <value>所有范围</value>
+  </data>
+  <data name="Config_AddEntry" xml:space="preserve">
+    <value>添加配置键</value>
+  </data>
+  <data name="Config_EditEntry" xml:space="preserve">
+    <value>编辑配置键</value>
+  </data>
+  <data name="Config_PreviewNote" xml:space="preserve">
+    <value>每次编辑都会先预览，被更改的文件也会先复制为快照。</value>
+  </data>
+  <data name="Config_SystemScopeNote" xml:space="preserve">
+    <value>系统范围通常需要提升权限。GitVault 不会提升权限；若写入被拒绝，它会如实报告且不做任何更改。</value>
+  </data>
+  <data name="Project_Title" xml:space="preserve">
+    <value>项目设置</value>
+  </data>
+  <data name="Project_Subtitle" xml:space="preserve">
+    <value>GitVault 对此仓库应作出的假定。</value>
+  </data>
+  <data name="Project_Group_Repository" xml:space="preserve">
+    <value>仓库</value>
+  </data>
+  <data name="Project_Group_Settings" xml:space="preserve">
+    <value>设置</value>
+  </data>
+  <data name="Project_Field_Profile" xml:space="preserve">
+    <value>固定的身份配置：</value>
+  </data>
+  <data name="Project_Field_Key" xml:space="preserve">
+    <value>SSH 密钥：</value>
+  </data>
+  <data name="Project_Field_Helper" xml:space="preserve">
+    <value>凭据助手：</value>
+  </data>
+  <data name="Project_Field_Note" xml:space="preserve">
+    <value>备注：</value>
+  </data>
+  <data name="Project_Field_Exclude" xml:space="preserve">
+    <value>扫描时跳过此仓库</value>
+  </data>
+  <data name="Project_Clear" xml:space="preserve">
+    <value>移除设置</value>
+  </data>
+  <data name="Project_NoRepository" xml:space="preserve">
+    <value>在树中选择一个仓库以查看其设置。</value>
+  </data>
+  <data name="Project_StorageNote" xml:space="preserve">
+    <value>这些设置保存在此仓库自身配置的 [gitvault] 节中，因此会随文件夹一起迁移。保存它们即是对 .git/config 的写入，同样会先预览并创建快照。</value>
+  </data>
+  <data name="Dialog_PreviewOperation_Title" xml:space="preserve">
+    <value>预览更改</value>
+  </data>
+  <data name="Common_Revert" xml:space="preserve">
+    <value>还原</value>
+  </data>
+  <data name="Blocker_RepositoryRequired" xml:space="preserve">
+    <value>此范围需要一个仓库，但未选择任何仓库。</value>
+  </data>
+  <data name="Blocker_NoConfigurationFile" xml:space="preserve">
+    <value>此计算机上没有该范围的配置文件。</value>
+  </data>
+  <data name="Status_ConfigSaved" xml:space="preserve">
+    <value>配置已更新</value>
+  </data>
+  <data name="Status_ConfigFailed" xml:space="preserve">
+    <value>写入被拒绝；未做任何更改</value>
+  </data>
+  <data name="Status_ProjectSettingsSaved" xml:space="preserve">
+    <value>项目设置已保存</value>
+  </data>
+  <data name="Status_ProjectSettingsCleared" xml:space="preserve">
+    <value>项目设置已移除</value>
+  </data>
 </root>

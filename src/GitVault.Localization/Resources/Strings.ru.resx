@@ -1529,4 +1529,106 @@
   <data name="Options_Column_Enabled" xml:space="preserve">
     <value>Включено</value>
   </data>
+  <data name="Nav_Configuration" xml:space="preserve">
+    <value>Конфигурация</value>
+  </data>
+  <data name="Nav_ProjectSettings" xml:space="preserve">
+    <value>Настройки проекта</value>
+  </data>
+  <data name="Config_Title" xml:space="preserve">
+    <value>Конфигурация</value>
+  </data>
+  <data name="Config_Subtitle" xml:space="preserve">
+    <value>Все значения конфигурации, действующие в этом репозитории, и области, из которых они пришли.</value>
+  </data>
+  <data name="Config_Empty" xml:space="preserve">
+    <value>Нет значений конфигурации для отображения.</value>
+  </data>
+  <data name="Config_Column_Key" xml:space="preserve">
+    <value>Ключ</value>
+  </data>
+  <data name="Config_Column_Value" xml:space="preserve">
+    <value>Значение</value>
+  </data>
+  <data name="Config_Column_Scope" xml:space="preserve">
+    <value>Область</value>
+  </data>
+  <data name="Config_Column_Origin" xml:space="preserve">
+    <value>Источник</value>
+  </data>
+  <data name="Config_Scope_All" xml:space="preserve">
+    <value>Все области</value>
+  </data>
+  <data name="Config_AddEntry" xml:space="preserve">
+    <value>Добавить ключ конфигурации</value>
+  </data>
+  <data name="Config_EditEntry" xml:space="preserve">
+    <value>Изменить ключ конфигурации</value>
+  </data>
+  <data name="Config_PreviewNote" xml:space="preserve">
+    <value>Каждое изменение сначала показывается, а затрагиваемый файл предварительно копируется в снимок.</value>
+  </data>
+  <data name="Config_SystemScopeNote" xml:space="preserve">
+    <value>Системная область обычно требует повышенных прав. GitVault не повышает права: если запись отклонена, он сообщит об этом и ничего не изменит.</value>
+  </data>
+  <data name="Project_Title" xml:space="preserve">
+    <value>Настройки проекта</value>
+  </data>
+  <data name="Project_Subtitle" xml:space="preserve">
+    <value>Что GitVault должен считать верным для этого репозитория.</value>
+  </data>
+  <data name="Project_Group_Repository" xml:space="preserve">
+    <value>Репозиторий</value>
+  </data>
+  <data name="Project_Group_Settings" xml:space="preserve">
+    <value>Настройки</value>
+  </data>
+  <data name="Project_Field_Profile" xml:space="preserve">
+    <value>Закреплённый профиль:</value>
+  </data>
+  <data name="Project_Field_Key" xml:space="preserve">
+    <value>Ключ SSH:</value>
+  </data>
+  <data name="Project_Field_Helper" xml:space="preserve">
+    <value>Помощник учётных данных:</value>
+  </data>
+  <data name="Project_Field_Note" xml:space="preserve">
+    <value>Заметка:</value>
+  </data>
+  <data name="Project_Field_Exclude" xml:space="preserve">
+    <value>Пропускать этот репозиторий при сканировании</value>
+  </data>
+  <data name="Project_Clear" xml:space="preserve">
+    <value>Удалить настройки</value>
+  </data>
+  <data name="Project_NoRepository" xml:space="preserve">
+    <value>Выберите репозиторий в дереве, чтобы увидеть его настройки.</value>
+  </data>
+  <data name="Project_StorageNote" xml:space="preserve">
+    <value>Эти настройки хранятся в секции [gitvault] конфигурации самого репозитория, поэтому переезжают вместе с папкой. Их сохранение — это запись в .git/config, которая, как и любая другая, предварительно показывается и снимается в снимок.</value>
+  </data>
+  <data name="Dialog_PreviewOperation_Title" xml:space="preserve">
+    <value>Предпросмотр изменений</value>
+  </data>
+  <data name="Common_Revert" xml:space="preserve">
+    <value>Вернуть</value>
+  </data>
+  <data name="Blocker_RepositoryRequired" xml:space="preserve">
+    <value>Для этой области нужен репозиторий, а он не выбран.</value>
+  </data>
+  <data name="Blocker_NoConfigurationFile" xml:space="preserve">
+    <value>На этом компьютере нет файла конфигурации для этой области.</value>
+  </data>
+  <data name="Status_ConfigSaved" xml:space="preserve">
+    <value>Конфигурация обновлена</value>
+  </data>
+  <data name="Status_ConfigFailed" xml:space="preserve">
+    <value>Запись отклонена, изменений нет</value>
+  </data>
+  <data name="Status_ProjectSettingsSaved" xml:space="preserve">
+    <value>Настройки проекта сохранены</value>
+  </data>
+  <data name="Status_ProjectSettingsCleared" xml:space="preserve">
+    <value>Настройки проекта удалены</value>
+  </data>
 </root>

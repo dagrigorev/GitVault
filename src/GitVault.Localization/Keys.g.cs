@@ -1473,6 +1473,108 @@ public static class Keys
     /// <summary>English: Enabled</summary>
     public const string Options_Column_Enabled = "Options_Column_Enabled";
 
+    /// <summary>English: Configuration</summary>
+    public const string Nav_Configuration = "Nav_Configuration";
+
+    /// <summary>English: Project settings</summary>
+    public const string Nav_ProjectSettings = "Nav_ProjectSettings";
+
+    /// <summary>English: Configuration</summary>
+    public const string Config_Title = "Config_Title";
+
+    /// <summary>English: Every configuration value that reaches this repository, and the scope it came from.</summary>
+    public const string Config_Subtitle = "Config_Subtitle";
+
+    /// <summary>English: No configuration values to show.</summary>
+    public const string Config_Empty = "Config_Empty";
+
+    /// <summary>English: Key</summary>
+    public const string Config_Column_Key = "Config_Column_Key";
+
+    /// <summary>English: Value</summary>
+    public const string Config_Column_Value = "Config_Column_Value";
+
+    /// <summary>English: Scope</summary>
+    public const string Config_Column_Scope = "Config_Column_Scope";
+
+    /// <summary>English: Origin</summary>
+    public const string Config_Column_Origin = "Config_Column_Origin";
+
+    /// <summary>English: All scopes</summary>
+    public const string Config_Scope_All = "Config_Scope_All";
+
+    /// <summary>English: Add configuration key</summary>
+    public const string Config_AddEntry = "Config_AddEntry";
+
+    /// <summary>English: Edit configuration key</summary>
+    public const string Config_EditEntry = "Config_EditEntry";
+
+    /// <summary>English: Every edit is previewed before it is written, and the file it changes is copied aside first.</summary>
+    public const string Config_PreviewNote = "Config_PreviewNote";
+
+    /// <summary>English: The system scope usually needs elevated privileges. GitVault will not elevate; if the write is refused it says so and changes nothing.</summary>
+    public const string Config_SystemScopeNote = "Config_SystemScopeNote";
+
+    /// <summary>English: Project settings</summary>
+    public const string Project_Title = "Project_Title";
+
+    /// <summary>English: What GitVault should assume about this repository.</summary>
+    public const string Project_Subtitle = "Project_Subtitle";
+
+    /// <summary>English: Repository</summary>
+    public const string Project_Group_Repository = "Project_Group_Repository";
+
+    /// <summary>English: Settings</summary>
+    public const string Project_Group_Settings = "Project_Group_Settings";
+
+    /// <summary>English: Pinned profile:</summary>
+    public const string Project_Field_Profile = "Project_Field_Profile";
+
+    /// <summary>English: SSH key:</summary>
+    public const string Project_Field_Key = "Project_Field_Key";
+
+    /// <summary>English: Credential helper:</summary>
+    public const string Project_Field_Helper = "Project_Field_Helper";
+
+    /// <summary>English: Note:</summary>
+    public const string Project_Field_Note = "Project_Field_Note";
+
+    /// <summary>English: Skip this repository when scanning</summary>
+    public const string Project_Field_Exclude = "Project_Field_Exclude";
+
+    /// <summary>English: Remove settings</summary>
+    public const string Project_Clear = "Project_Clear";
+
+    /// <summary>English: Select a repository in the tree to see its settings.</summary>
+    public const string Project_NoRepository = "Project_NoRepository";
+
+    /// <summary>English: These settings are stored in a [gitvault] section of this repository&apos;s own configuration, so they travel with the folder. Saving them is a write to .git/config and is previewed and snapshotted like any other.</summary>
+    public const string Project_StorageNote = "Project_StorageNote";
+
+    /// <summary>English: Preview changes</summary>
+    public const string Dialog_PreviewOperation_Title = "Dialog_PreviewOperation_Title";
+
+    /// <summary>English: Revert</summary>
+    public const string Common_Revert = "Common_Revert";
+
+    /// <summary>English: This scope needs a repository, and none was selected.</summary>
+    public const string Blocker_RepositoryRequired = "Blocker_RepositoryRequired";
+
+    /// <summary>English: There is no configuration file for this scope on this machine.</summary>
+    public const string Blocker_NoConfigurationFile = "Blocker_NoConfigurationFile";
+
+    /// <summary>English: Configuration updated</summary>
+    public const string Status_ConfigSaved = "Status_ConfigSaved";
+
+    /// <summary>English: The write was refused; nothing was changed</summary>
+    public const string Status_ConfigFailed = "Status_ConfigFailed";
+
+    /// <summary>English: Project settings saved</summary>
+    public const string Status_ProjectSettingsSaved = "Status_ProjectSettingsSaved";
+
+    /// <summary>English: Project settings removed</summary>
+    public const string Status_ProjectSettingsCleared = "Status_ProjectSettingsCleared";
+
     /// <summary>All keys, in declaration order.</summary>
     public static IReadOnlyList<string> All { get; } =
     [
@@ -1965,5 +2067,39 @@ public static class Keys
         Options_Column_Depth,
         Options_Column_Material,
         Options_Column_Enabled,
+        Nav_Configuration,
+        Nav_ProjectSettings,
+        Config_Title,
+        Config_Subtitle,
+        Config_Empty,
+        Config_Column_Key,
+        Config_Column_Value,
+        Config_Column_Scope,
+        Config_Column_Origin,
+        Config_Scope_All,
+        Config_AddEntry,
+        Config_EditEntry,
+        Config_PreviewNote,
+        Config_SystemScopeNote,
+        Project_Title,
+        Project_Subtitle,
+        Project_Group_Repository,
+        Project_Group_Settings,
+        Project_Field_Profile,
+        Project_Field_Key,
+        Project_Field_Helper,
+        Project_Field_Note,
+        Project_Field_Exclude,
+        Project_Clear,
+        Project_NoRepository,
+        Project_StorageNote,
+        Dialog_PreviewOperation_Title,
+        Common_Revert,
+        Blocker_RepositoryRequired,
+        Blocker_NoConfigurationFile,
+        Status_ConfigSaved,
+        Status_ConfigFailed,
+        Status_ProjectSettingsSaved,
+        Status_ProjectSettingsCleared,
     ];
 }
