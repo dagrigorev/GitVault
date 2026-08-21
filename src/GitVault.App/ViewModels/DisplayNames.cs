@@ -1,4 +1,5 @@
 using GitVault.Core.Models;
+using GitVault.Core.Repository;
 using GitVault.Localization;
 
 namespace GitVault.App.ViewModels;
@@ -31,6 +32,35 @@ internal static class DisplayNames
         ActivationScope.System => Keys.Profiles_Scope_System,
         ActivationScope.Repository => Keys.Profiles_Scope_Repository,
         _ => Keys.Profiles_Scope_Global,
+    };
+
+    /// <summary>Resource key for a commit signature verdict.</summary>
+    /// <param name="state">Signature state to name.</param>
+    /// <returns>A resource key.</returns>
+    internal static string SignatureKey(SignatureState state) => state switch
+    {
+        SignatureState.Good => Keys.Signature_Good,
+        SignatureState.GoodUntrusted => Keys.Signature_GoodUntrusted,
+        SignatureState.GoodExpiredKey => Keys.Signature_GoodExpiredKey,
+        SignatureState.Expired => Keys.Signature_Expired,
+        SignatureState.Revoked => Keys.Signature_Revoked,
+        SignatureState.Bad => Keys.Signature_Bad,
+        SignatureState.Unverifiable => Keys.Signature_Unverifiable,
+        _ => Keys.Signature_None,
+    };
+
+    /// <summary>Resource key for what happened to a file in a commit.</summary>
+    /// <param name="status">Status to name.</param>
+    /// <returns>A resource key.</returns>
+    internal static string FileChangeKey(FileChangeStatus status) => status switch
+    {
+        FileChangeStatus.Added => Keys.FileChange_Added,
+        FileChangeStatus.Modified => Keys.FileChange_Modified,
+        FileChangeStatus.Deleted => Keys.FileChange_Deleted,
+        FileChangeStatus.Renamed => Keys.FileChange_Renamed,
+        FileChangeStatus.Copied => Keys.FileChange_Copied,
+        FileChangeStatus.TypeChanged => Keys.FileChange_TypeChanged,
+        _ => Keys.FileChange_Unknown,
     };
 
     /// <summary>Resource key for a credential store.</summary>

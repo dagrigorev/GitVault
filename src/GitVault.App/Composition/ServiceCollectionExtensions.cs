@@ -69,6 +69,7 @@ internal static class ServiceCollectionExtensions
         services.AddSingleton<IRepositoryInspector, RepositoryInspector>();
         services.AddSingleton<IRefBackupService, RefBackupService>();
         services.AddSingleton<IGitObjectEditor, GitObjectEditor>();
+        services.AddSingleton<ICommitReader, CommitReader>();
         services.AddSingleton<IDiagnosticsBundleBuilder, DiagnosticsBundleBuilder>();
         services.AddSingleton<IDiscoveryOrchestrator, DiscoveryOrchestrator>();
         services.AddSingleton<ScanCoordinator>();
@@ -97,6 +98,7 @@ internal static class ServiceCollectionExtensions
         services.AddSingleton<RemotesViewModel>();
         services.AddSingleton<BranchesViewModel>();
         services.AddSingleton<TagsViewModel>();
+        services.AddSingleton<CommitsViewModel>();
         services.AddSingleton<SettingsViewModel>();
         services.AddSingleton<LogsViewModel>();
 

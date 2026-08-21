@@ -1809,6 +1809,156 @@ public static class Keys
     /// <summary>English: Tag deleted; a backup ref was recorded first</summary>
     public const string Status_TagDeleted = "Status_TagDeleted";
 
+    /// <summary>English: Commits</summary>
+    public const string Nav_Commits = "Nav_Commits";
+
+    /// <summary>English: Commits</summary>
+    public const string Commits_Title = "Commits_Title";
+
+    /// <summary>English: This repository&apos;s history, with everything a rewrite would have to reproduce.</summary>
+    public const string Commits_Subtitle = "Commits_Subtitle";
+
+    /// <summary>English: No commits to show.</summary>
+    public const string Commits_Empty = "Commits_Empty";
+
+    /// <summary>English: Commit</summary>
+    public const string Commits_Column_Sha = "Commits_Column_Sha";
+
+    /// <summary>English: Subject</summary>
+    public const string Commits_Column_Subject = "Commits_Column_Subject";
+
+    /// <summary>English: Author</summary>
+    public const string Commits_Column_Author = "Commits_Column_Author";
+
+    /// <summary>English: Authored</summary>
+    public const string Commits_Column_Date = "Commits_Column_Date";
+
+    /// <summary>English: Signature</summary>
+    public const string Commits_Column_Signature = "Commits_Column_Signature";
+
+    /// <summary>English: Shape</summary>
+    public const string Commits_Column_Shape = "Commits_Column_Shape";
+
+    /// <summary>English: Tree</summary>
+    public const string Commits_Detail_Tree = "Commits_Detail_Tree";
+
+    /// <summary>English: Author date</summary>
+    public const string Commits_Detail_AuthorDate = "Commits_Detail_AuthorDate";
+
+    /// <summary>English: Committer</summary>
+    public const string Commits_Detail_Committer = "Commits_Detail_Committer";
+
+    /// <summary>English: Committer date</summary>
+    public const string Commits_Detail_CommitterDate = "Commits_Detail_CommitterDate";
+
+    /// <summary>English: Parents</summary>
+    public const string Commits_Detail_Parents = "Commits_Detail_Parents";
+
+    /// <summary>English: Signed by</summary>
+    public const string Commits_Detail_Signer = "Commits_Detail_Signer";
+
+    /// <summary>English: Merge</summary>
+    public const string Commits_Shape_Merge = "Commits_Shape_Merge";
+
+    /// <summary>English: First commit</summary>
+    public const string Commits_Shape_Root = "Commits_Shape_Root";
+
+    /// <summary>English: Message</summary>
+    public const string Commits_Message = "Commits_Message";
+
+    /// <summary>English: Files changed</summary>
+    public const string Commits_Files = "Commits_Files";
+
+    /// <summary>English: Lines</summary>
+    public const string Commits_Column_Lines = "Commits_Column_Lines";
+
+    /// <summary>English: +{0} / -{1}</summary>
+    public const string Commits_LineCounts = "Commits_LineCounts";
+
+    /// <summary>English: Binary</summary>
+    public const string Commits_Binary = "Commits_Binary";
+
+    /// <summary>English: Author:</summary>
+    public const string Commits_Filter_Author = "Commits_Filter_Author";
+
+    /// <summary>English: Message contains:</summary>
+    public const string Commits_Filter_Message = "Commits_Filter_Message";
+
+    /// <summary>English: Read:</summary>
+    public const string Commits_Filter_Limit = "Commits_Filter_Limit";
+
+    /// <summary>English: Follow only the first parent of each merge</summary>
+    public const string Commits_Filter_FirstParent = "Commits_Filter_FirstParent";
+
+    /// <summary>English: 100 commits</summary>
+    public const string Commits_Limit_100 = "Commits_Limit_100";
+
+    /// <summary>English: 500 commits</summary>
+    public const string Commits_Limit_500 = "Commits_Limit_500";
+
+    /// <summary>English: 5000 commits</summary>
+    public const string Commits_Limit_5000 = "Commits_Limit_5000";
+
+    /// <summary>English: This page only reads. Nothing here changes the repository.</summary>
+    public const string Commits_ReadOnlyNote = "Commits_ReadOnlyNote";
+
+    /// <summary>English: This commit is signed. GitVault holds no signing key, so any operation that rebuilds this commit would drop its signature.</summary>
+    public const string Commits_SignatureWarning = "Commits_SignatureWarning";
+
+    /// <summary>English: Not signed</summary>
+    public const string Signature_None = "Signature_None";
+
+    /// <summary>English: Good</summary>
+    public const string Signature_Good = "Signature_Good";
+
+    /// <summary>English: Good, key not trusted</summary>
+    public const string Signature_GoodUntrusted = "Signature_GoodUntrusted";
+
+    /// <summary>English: Good, key expired</summary>
+    public const string Signature_GoodExpiredKey = "Signature_GoodExpiredKey";
+
+    /// <summary>English: Expired</summary>
+    public const string Signature_Expired = "Signature_Expired";
+
+    /// <summary>English: Key revoked</summary>
+    public const string Signature_Revoked = "Signature_Revoked";
+
+    /// <summary>English: Does not match</summary>
+    public const string Signature_Bad = "Signature_Bad";
+
+    /// <summary>English: Cannot be checked here</summary>
+    public const string Signature_Unverifiable = "Signature_Unverifiable";
+
+    /// <summary>English: Changed</summary>
+    public const string FileChange_Unknown = "FileChange_Unknown";
+
+    /// <summary>English: Added</summary>
+    public const string FileChange_Added = "FileChange_Added";
+
+    /// <summary>English: Modified</summary>
+    public const string FileChange_Modified = "FileChange_Modified";
+
+    /// <summary>English: Deleted</summary>
+    public const string FileChange_Deleted = "FileChange_Deleted";
+
+    /// <summary>English: Renamed</summary>
+    public const string FileChange_Renamed = "FileChange_Renamed";
+
+    /// <summary>English: Copied</summary>
+    public const string FileChange_Copied = "FileChange_Copied";
+
+    /// <summary>English: Type changed</summary>
+    public const string FileChange_TypeChanged = "FileChange_TypeChanged";
+
+    /// <summary>English: {0} → {1}</summary>
+    public const string Commits_RenamedPath = "Commits_RenamedPath";
+
+    /// <summary>English: yyyy-MM-dd HH:mm:ss zzz</summary>
+    public const string Commits_DateFormat = "Commits_DateFormat";
+
+    /// <summary>English: Change</summary>
+    public const string Commits_Column_Status = "Commits_Column_Status";
+
     /// <summary>All keys, in declaration order.</summary>
     public static IReadOnlyList<string> All { get; } =
     [
@@ -2413,5 +2563,55 @@ public static class Keys
         Status_BranchUpstreamSet,
         Status_TagCreated,
         Status_TagDeleted,
+        Nav_Commits,
+        Commits_Title,
+        Commits_Subtitle,
+        Commits_Empty,
+        Commits_Column_Sha,
+        Commits_Column_Subject,
+        Commits_Column_Author,
+        Commits_Column_Date,
+        Commits_Column_Signature,
+        Commits_Column_Shape,
+        Commits_Detail_Tree,
+        Commits_Detail_AuthorDate,
+        Commits_Detail_Committer,
+        Commits_Detail_CommitterDate,
+        Commits_Detail_Parents,
+        Commits_Detail_Signer,
+        Commits_Shape_Merge,
+        Commits_Shape_Root,
+        Commits_Message,
+        Commits_Files,
+        Commits_Column_Lines,
+        Commits_LineCounts,
+        Commits_Binary,
+        Commits_Filter_Author,
+        Commits_Filter_Message,
+        Commits_Filter_Limit,
+        Commits_Filter_FirstParent,
+        Commits_Limit_100,
+        Commits_Limit_500,
+        Commits_Limit_5000,
+        Commits_ReadOnlyNote,
+        Commits_SignatureWarning,
+        Signature_None,
+        Signature_Good,
+        Signature_GoodUntrusted,
+        Signature_GoodExpiredKey,
+        Signature_Expired,
+        Signature_Revoked,
+        Signature_Bad,
+        Signature_Unverifiable,
+        FileChange_Unknown,
+        FileChange_Added,
+        FileChange_Modified,
+        FileChange_Deleted,
+        FileChange_Renamed,
+        FileChange_Copied,
+        FileChange_TypeChanged,
+        Commits_RenamedPath,
+        Commits_DateFormat,
+        Commits_Column_Status,
     ];
 }

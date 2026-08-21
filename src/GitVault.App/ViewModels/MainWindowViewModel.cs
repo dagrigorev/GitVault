@@ -32,6 +32,7 @@ internal sealed partial class MainWindowViewModel : ViewModelBase
     private readonly RemotesViewModel _remotes;
     private readonly BranchesViewModel _branches;
     private readonly TagsViewModel _tags;
+    private readonly CommitsViewModel _commits;
     private readonly HashSet<PageViewModel> _activated = [];
 
     [ObservableProperty]
@@ -62,9 +63,11 @@ internal sealed partial class MainWindowViewModel : ViewModelBase
         ProjectSettingsViewModel projectSettings,
         RemotesViewModel remotes,
         BranchesViewModel branches,
-        TagsViewModel tags)
+        TagsViewModel tags,
+        CommitsViewModel commits)
         : base(localizer)
     {
+        ArgumentNullException.ThrowIfNull(commits);
         ArgumentNullException.ThrowIfNull(remotes);
         ArgumentNullException.ThrowIfNull(branches);
         ArgumentNullException.ThrowIfNull(tags);
@@ -95,6 +98,7 @@ internal sealed partial class MainWindowViewModel : ViewModelBase
         _remotes = remotes;
         _branches = branches;
         _tags = tags;
+        _commits = commits;
 
         _repositories.Rows.CollectionChanged += OnRepositoriesChanged;
         _scans.PropertyChanged += OnScansPropertyChanged;
@@ -146,6 +150,7 @@ internal sealed partial class MainWindowViewModel : ViewModelBase
         {
             var node = NavigationNode.ForRepository(L, row.Name, row.Path);
 
+            node.Children.Add(NavigationNode.ForRepositoryPage(L, _commits, row.Path));
             node.Children.Add(NavigationNode.ForRepositoryPage(L, _remotes, row.Path));
             node.Children.Add(NavigationNode.ForRepositoryPage(L, _branches, row.Path));
             node.Children.Add(NavigationNode.ForRepositoryPage(L, _tags, row.Path));
@@ -443,6 +448,7 @@ internal sealed partial class MainWindowViewModel : ViewModelBase
             _remotes.Dispose();
             _branches.Dispose();
             _tags.Dispose();
+            _commits.Dispose();
         }
 
         base.Dispose(disposing);

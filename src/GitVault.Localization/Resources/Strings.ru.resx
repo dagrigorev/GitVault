@@ -1865,4 +1865,154 @@
   <data name="Status_TagDeleted" xml:space="preserve">
     <value>Тег удалён; резервная ссылка сохранена заранее</value>
   </data>
+  <data name="Nav_Commits" xml:space="preserve">
+    <value>Коммиты</value>
+  </data>
+  <data name="Commits_Title" xml:space="preserve">
+    <value>Коммиты</value>
+  </data>
+  <data name="Commits_Subtitle" xml:space="preserve">
+    <value>История этого репозитория со всем, что потребовалось бы воспроизвести при перезаписи.</value>
+  </data>
+  <data name="Commits_Empty" xml:space="preserve">
+    <value>Коммитов нет.</value>
+  </data>
+  <data name="Commits_Column_Sha" xml:space="preserve">
+    <value>Коммит</value>
+  </data>
+  <data name="Commits_Column_Subject" xml:space="preserve">
+    <value>Тема</value>
+  </data>
+  <data name="Commits_Column_Author" xml:space="preserve">
+    <value>Автор</value>
+  </data>
+  <data name="Commits_Column_Date" xml:space="preserve">
+    <value>Создан</value>
+  </data>
+  <data name="Commits_Column_Signature" xml:space="preserve">
+    <value>Подпись</value>
+  </data>
+  <data name="Commits_Column_Shape" xml:space="preserve">
+    <value>Вид</value>
+  </data>
+  <data name="Commits_Detail_Tree" xml:space="preserve">
+    <value>Дерево</value>
+  </data>
+  <data name="Commits_Detail_AuthorDate" xml:space="preserve">
+    <value>Дата автора</value>
+  </data>
+  <data name="Commits_Detail_Committer" xml:space="preserve">
+    <value>Коммиттер</value>
+  </data>
+  <data name="Commits_Detail_CommitterDate" xml:space="preserve">
+    <value>Дата коммиттера</value>
+  </data>
+  <data name="Commits_Detail_Parents" xml:space="preserve">
+    <value>Родители</value>
+  </data>
+  <data name="Commits_Detail_Signer" xml:space="preserve">
+    <value>Подписал</value>
+  </data>
+  <data name="Commits_Shape_Merge" xml:space="preserve">
+    <value>Слияние</value>
+  </data>
+  <data name="Commits_Shape_Root" xml:space="preserve">
+    <value>Первый коммит</value>
+  </data>
+  <data name="Commits_Message" xml:space="preserve">
+    <value>Сообщение</value>
+  </data>
+  <data name="Commits_Files" xml:space="preserve">
+    <value>Изменённые файлы</value>
+  </data>
+  <data name="Commits_Column_Lines" xml:space="preserve">
+    <value>Строки</value>
+  </data>
+  <data name="Commits_LineCounts" xml:space="preserve">
+    <value>+{0} / -{1}</value>
+  </data>
+  <data name="Commits_Binary" xml:space="preserve">
+    <value>Двоичный</value>
+  </data>
+  <data name="Commits_Filter_Author" xml:space="preserve">
+    <value>Автор:</value>
+  </data>
+  <data name="Commits_Filter_Message" xml:space="preserve">
+    <value>Сообщение содержит:</value>
+  </data>
+  <data name="Commits_Filter_Limit" xml:space="preserve">
+    <value>Читать:</value>
+  </data>
+  <data name="Commits_Filter_FirstParent" xml:space="preserve">
+    <value>Идти только по первому родителю каждого слияния</value>
+  </data>
+  <data name="Commits_Limit_100" xml:space="preserve">
+    <value>100 коммитов</value>
+  </data>
+  <data name="Commits_Limit_500" xml:space="preserve">
+    <value>500 коммитов</value>
+  </data>
+  <data name="Commits_Limit_5000" xml:space="preserve">
+    <value>5000 коммитов</value>
+  </data>
+  <data name="Commits_ReadOnlyNote" xml:space="preserve">
+    <value>Эта страница только читает. Ничто здесь не меняет репозиторий.</value>
+  </data>
+  <data name="Commits_SignatureWarning" xml:space="preserve">
+    <value>Этот коммит подписан. У GitVault нет ключа подписи, поэтому любая операция, пересобирающая коммит, потеряет подпись.</value>
+  </data>
+  <data name="Signature_None" xml:space="preserve">
+    <value>Без подписи</value>
+  </data>
+  <data name="Signature_Good" xml:space="preserve">
+    <value>Верна</value>
+  </data>
+  <data name="Signature_GoodUntrusted" xml:space="preserve">
+    <value>Верна, ключ не доверенный</value>
+  </data>
+  <data name="Signature_GoodExpiredKey" xml:space="preserve">
+    <value>Верна, ключ истёк</value>
+  </data>
+  <data name="Signature_Expired" xml:space="preserve">
+    <value>Истекла</value>
+  </data>
+  <data name="Signature_Revoked" xml:space="preserve">
+    <value>Ключ отозван</value>
+  </data>
+  <data name="Signature_Bad" xml:space="preserve">
+    <value>Не совпадает</value>
+  </data>
+  <data name="Signature_Unverifiable" xml:space="preserve">
+    <value>Здесь не проверяется</value>
+  </data>
+  <data name="FileChange_Unknown" xml:space="preserve">
+    <value>Изменён</value>
+  </data>
+  <data name="FileChange_Added" xml:space="preserve">
+    <value>Добавлен</value>
+  </data>
+  <data name="FileChange_Modified" xml:space="preserve">
+    <value>Изменён</value>
+  </data>
+  <data name="FileChange_Deleted" xml:space="preserve">
+    <value>Удалён</value>
+  </data>
+  <data name="FileChange_Renamed" xml:space="preserve">
+    <value>Переименован</value>
+  </data>
+  <data name="FileChange_Copied" xml:space="preserve">
+    <value>Скопирован</value>
+  </data>
+  <data name="FileChange_TypeChanged" xml:space="preserve">
+    <value>Тип изменён</value>
+  </data>
+  <data name="Commits_RenamedPath" xml:space="preserve">
+    <value>{0} → {1}</value>
+  </data>
+  <data name="Commits_DateFormat" xml:space="preserve">
+    <value>yyyy-MM-dd HH:mm:ss zzz</value>
+  </data>
+  <data name="Commits_Column_Status" xml:space="preserve">
+    <value>Изменение</value>
+  </data>
 </root>

@@ -132,16 +132,37 @@ internal sealed class TempGitEnvironment : IDisposable
     /// <param name="arguments">Arguments, already split.</param>
     /// <returns>Trimmed standard output.</returns>
     public string GitWithoutGlobalOverride(string workingDirectory, params string[] arguments) =>
-        Run(workingDirectory, applyGlobalOverride: false, arguments);
+        Run(workingDirectory, applyGlobalOverride: false, null, arguments);
 
     /// <summary>Runs git in the isolated environment and returns its standard output.</summary>
     /// <param name="workingDirectory">Directory to run in.</param>
     /// <param name="arguments">Arguments, already split.</param>
     /// <returns>Trimmed standard output.</returns>
     public string Git(string workingDirectory, params string[] arguments) =>
-        Run(workingDirectory, applyGlobalOverride: true, arguments);
+        Run(workingDirectory, applyGlobalOverride: true, null, arguments);
 
-    private string Run(string workingDirectory, bool applyGlobalOverride, params string[] arguments)
+    /// <summary>
+    /// Runs git with extra environment variables, on top of the isolation.
+    /// </summary>
+    /// <remarks>
+    /// Needed to author commits with a chosen date or identity, which is how the reader's
+    /// handling of offsets and of an author who is not the committer gets exercised at all.
+    /// </remarks>
+    /// <param name="workingDirectory">Directory to run in.</param>
+    /// <param name="environment">Variables to add.</param>
+    /// <param name="arguments">Arguments, already split.</param>
+    /// <returns>Trimmed standard output.</returns>
+    public string GitWithEnvironment(
+        string workingDirectory,
+        IReadOnlyDictionary<string, string?> environment,
+        params string[] arguments) =>
+        Run(workingDirectory, applyGlobalOverride: true, environment, arguments);
+
+    private string Run(
+        string workingDirectory,
+        bool applyGlobalOverride,
+        IReadOnlyDictionary<string, string?>? extraEnvironment,
+        params string[] arguments)
     {
         var start = new ProcessStartInfo(GitExecutable)
         {
@@ -162,6 +183,14 @@ internal sealed class TempGitEnvironment : IDisposable
         if (!applyGlobalOverride)
         {
             start.Environment.Remove("GIT_CONFIG_GLOBAL");
+        }
+
+        if (extraEnvironment is not null)
+        {
+            foreach (var (name, value) in extraEnvironment)
+            {
+                start.Environment[name] = value;
+            }
         }
 
         using var process = Process.Start(start)

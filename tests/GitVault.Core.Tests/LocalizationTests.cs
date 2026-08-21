@@ -88,6 +88,15 @@ public sealed class LocalizationTests
 
             // A snapshot number is a format string around a digit sequence.
             Keys.Snapshots_Number,
+
+            // Format-only strings: an arrow between two paths, and a pair of signed line counts.
+            // There is nothing in either to translate.
+            Keys.Commits_RenamedPath,
+            Keys.Commits_LineCounts,
+
+            // The commit date pattern is deliberately identical everywhere: it exists to show the
+            // exact offset git recorded, and a locale-dependent arrangement would obscure it.
+            Keys.Commits_DateFormat,
         ];
 
         var service = new LocalizationService(new CldrPluralizer());

@@ -1,0 +1,116 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:loc="using:GitVault.App.Markup"
+             x:Class="GitVault.App.Views.CommitsView">
+  <DockPanel>
+
+    <Border DockPanel.Dock="Top" Classes="note" Margin="0,0,0,6"
+            IsVisible="{Binding !HasRepository}">
+      <TextBlock TextWrapping="Wrap" Text="{Binding NoRepositoryCaption}" />
+    </Border>
+
+    <!-- Filters, kept on one dense row the way a classic list view puts its controls. -->
+    <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Spacing="5" Margin="0,0,0,6"
+                IsVisible="{Binding HasRepository}">
+      <TextBlock VerticalAlignment="Center" Text="{loc:Tr Commits_Filter_Message}" />
+      <TextBox Width="170" Text="{Binding SearchText, Mode=TwoWay}" />
+
+      <TextBlock VerticalAlignment="Center" Text="{loc:Tr Commits_Filter_Author}" />
+      <TextBox Width="150" Text="{Binding AuthorFilter, Mode=TwoWay}" />
+
+      <TextBlock VerticalAlignment="Center" Text="{loc:Tr Commits_Filter_Limit}" />
+      <ComboBox MinWidth="130"
+                ItemsSource="{Binding Limits}"
+                SelectedItem="{Binding SelectedLimit, Mode=TwoWay}"
+                AutomationProperties.Name="{loc:Tr Commits_Filter_Limit}">
+        <ComboBox.ItemTemplate>
+          <DataTemplate>
+            <TextBlock Text="{Binding Label}" />
+          </DataTemplate>
+        </ComboBox.ItemTemplate>
+      </ComboBox>
+
+      <Button Name="RefreshCommitsButton" Command="{Binding RefreshCommand}" Content="{loc:Tr Common_Refresh}" />
+
+      <TextBlock VerticalAlignment="Center" Classes="dim"
+                 IsVisible="{Binding IsLoading}" Text="{loc:Tr Common_Working}" />
+    </StackPanel>
+
+    <CheckBox DockPanel.Dock="Top" Margin="0,0,0,6"
+              IsVisible="{Binding HasRepository}"
+              IsChecked="{Binding FirstParentOnly, Mode=TwoWay}"
+              Content="{loc:Tr Commits_Filter_FirstParent}" />
+
+    <Border DockPanel.Dock="Bottom" Classes="note" Margin="0,7,0,0">
+      <TextBlock TextWrapping="Wrap" Text="{Binding ReadOnlyCaption}" />
+    </Border>
+
+    <!--
+      The signature warning sits with the commit rather than in the documentation: a signed commit
+      is the case where a later rewrite loses something GitVault cannot put back.
+    -->
+    <Border DockPanel.Dock="Bottom" Classes="note warn" Margin="0,7,0,0"
+            IsVisible="{Binding SelectionIsSigned}">
+      <TextBlock TextWrapping="Wrap" Text="{Binding SignatureWarningCaption}" />
+    </Border>
+
+    <Border DockPanel.Dock="Bottom" Classes="group" MaxHeight="200"
+            IsVisible="{Binding SelectedRow, Converter={x:Static ObjectConverters.IsNotNull}}">
+      <DockPanel>
+        <TextBlock DockPanel.Dock="Top" Classes="groupTitle" Margin="0,-16,0,4"
+                   Text="{loc:Tr Commits_Files}" />
+        <Border Classes="panelWhite">
+          <DataGrid ItemsSource="{Binding Files}" BorderThickness="0" MaxHeight="150"
+                    CanUserSortColumns="False">
+            <DataGrid.Columns>
+              <DataGridTextColumn Header="{loc:Tr Commits_Column_Status}" Binding="{Binding Status}"
+                                  Width="Auto" MinWidth="120" />
+              <DataGridTextColumn Header="{loc:Tr Keys_Column_Path}" Binding="{Binding Path}"
+                                  Width="*" MinWidth="260" />
+              <DataGridTextColumn Header="{loc:Tr Commits_Column_Lines}" Binding="{Binding Lines}"
+                                  Width="Auto" MinWidth="110" />
+            </DataGrid.Columns>
+          </DataGrid>
+        </Border>
+      </DockPanel>
+    </Border>
+
+    <Border DockPanel.Dock="Bottom" Classes="group" MaxHeight="150"
+            IsVisible="{Binding HasBody}">
+      <DockPanel>
+        <TextBlock DockPanel.Dock="Top" Classes="groupTitle" Margin="0,-16,0,4"
+                   Text="{loc:Tr Commits_Message}" />
+        <ScrollViewer>
+          <SelectableTextBlock Classes="mono" TextWrapping="Wrap" Text="{Binding SelectedBody}" />
+        </ScrollViewer>
+      </DockPanel>
+    </Border>
+
+    <TextBlock DockPanel.Dock="Top"
+               Classes="pageSubtitle"
+               Margin="0,0,0,6"
+               IsVisible="{Binding IsEmpty}"
+               Text="{Binding EmptyCaption}" />
+
+    <DataGrid Name="CommitsGrid"
+              ItemsSource="{Binding Rows}"
+              SelectedItem="{Binding SelectedRow, Mode=TwoWay}"
+              CanUserSortColumns="False">
+      <DataGrid.Columns>
+        <DataGridTextColumn Header="{loc:Tr Commits_Column_Sha}" Binding="{Binding ShortSha}"
+                            Width="Auto" MinWidth="90" />
+        <DataGridTextColumn Header="{loc:Tr Commits_Column_Subject}" Binding="{Binding Subject}"
+                            Width="2*" MinWidth="220" />
+        <DataGridTextColumn Header="{loc:Tr Commits_Column_Author}" Binding="{Binding Author}"
+                            Width="*" MinWidth="180" />
+        <DataGridTextColumn Header="{loc:Tr Commits_Column_Date}" Binding="{Binding AuthorDate}"
+                            Width="Auto" MinWidth="130" />
+        <DataGridTextColumn Header="{loc:Tr Commits_Column_Signature}" Binding="{Binding Signature}"
+                            Width="Auto" MinWidth="120" />
+        <DataGridTextColumn Header="{loc:Tr Commits_Column_Shape}" Binding="{Binding Shape}"
+                            Width="Auto" MinWidth="100" />
+      </DataGrid.Columns>
+    </DataGrid>
+
+  </DockPanel>
+</UserControl>
