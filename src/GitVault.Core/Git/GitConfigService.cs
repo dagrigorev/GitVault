@@ -111,7 +111,13 @@ public sealed class GitConfigService : IGitConfigService
             arguments.AddRange(["--replace-all", key, value]);
 
             var result = await _runner
-                .RunAsync(_binary.Path, arguments, WorkingDirectoryFor(scope, repositoryPath), CommandTimeout, cancellationToken)
+                .RunAsync(
+                    _binary.Path,
+                    arguments,
+                    GitEnvironment(),
+                    WorkingDirectoryFor(scope, repositoryPath),
+                    CommandTimeout,
+                    cancellationToken)
                 .ConfigureAwait(false);
 
             if (result.IsSuccess)
@@ -147,7 +153,13 @@ public sealed class GitConfigService : IGitConfigService
             arguments.AddRange(["--unset-all", key]);
 
             var result = await _runner
-                .RunAsync(_binary.Path, arguments, WorkingDirectoryFor(scope, repositoryPath), CommandTimeout, cancellationToken)
+                .RunAsync(
+                    _binary.Path,
+                    arguments,
+                    GitEnvironment(),
+                    WorkingDirectoryFor(scope, repositoryPath),
+                    CommandTimeout,
+                    cancellationToken)
                 .ConfigureAwait(false);
 
             // Exit code 5 means "the key was not set", which is the state the caller wanted.
@@ -277,6 +289,24 @@ public sealed class GitConfigService : IGitConfigService
         return arguments;
     }
 
+    /// <summary>
+    /// The environment every git invocation is given.
+    /// </summary>
+    /// <remarks>
+    /// <c>GIT_CONFIG_GLOBAL</c> is pinned to the file <see cref="IPlatformPaths"/> resolved, so
+    /// the per-user file GitVault snapshots and the one git writes are the same file by
+    /// construction. Without the pin they are two independent implementations of git's rule, and
+    /// a disagreement means a change that is real and an undo that silently does nothing.
+    ///
+    /// The system file is deliberately left alone. Pinning it would change which machine-wide
+    /// configuration the user sees, and the point here is to remove ambiguity, not to hide data.
+    /// </remarks>
+    private IReadOnlyDictionary<string, string?> GitEnvironment() =>
+        new Dictionary<string, string?>(StringComparer.Ordinal)
+        {
+            ["GIT_CONFIG_GLOBAL"] = _paths.GlobalGitConfigPath,
+        };
+
     private string WorkingDirectoryFor(GitConfigScope scope, string? repositoryPath) =>
         scope is GitConfigScope.Local or GitConfigScope.Worktree && repositoryPath is not null
             ? repositoryPath
@@ -297,7 +327,7 @@ public sealed class GitConfigService : IGitConfigService
 
         var workingDirectory = repositoryPath ?? _paths.HomeDirectory;
         var result = await _runner
-            .RunAsync(binary.Path, arguments, workingDirectory, CommandTimeout, cancellationToken)
+            .RunAsync(binary.Path, arguments, GitEnvironment(), workingDirectory, CommandTimeout, cancellationToken)
             .ConfigureAwait(false);
 
         // Outside a repository git still reports system and global values, so a non-zero exit

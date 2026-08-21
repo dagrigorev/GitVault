@@ -18,7 +18,20 @@ public sealed class ProcessRunner : IProcessRunner
         string? workingDirectory,
         TimeSpan timeout,
         CancellationToken cancellationToken) =>
-        RunCoreAsync(fileName, arguments, null, workingDirectory, timeout, cancellationToken);
+        RunCoreAsync(fileName, arguments, null, null, workingDirectory, timeout, cancellationToken);
+
+    /// <inheritdoc/>
+    public Task<ProcessResult> RunAsync(
+        string fileName,
+        IReadOnlyList<string> arguments,
+        IReadOnlyDictionary<string, string?> environment,
+        string? workingDirectory,
+        TimeSpan timeout,
+        CancellationToken cancellationToken)
+    {
+        ArgumentNullException.ThrowIfNull(environment);
+        return RunCoreAsync(fileName, arguments, null, environment, workingDirectory, timeout, cancellationToken);
+    }
 
     /// <inheritdoc/>
     public Task<ProcessResult> RunWithInputAsync(
@@ -30,13 +43,14 @@ public sealed class ProcessRunner : IProcessRunner
         CancellationToken cancellationToken)
     {
         ArgumentNullException.ThrowIfNull(standardInput);
-        return RunCoreAsync(fileName, arguments, standardInput, workingDirectory, timeout, cancellationToken);
+        return RunCoreAsync(fileName, arguments, standardInput, null, workingDirectory, timeout, cancellationToken);
     }
 
     private async Task<ProcessResult> RunCoreAsync(
         string fileName,
         IReadOnlyList<string> arguments,
         string? standardInput,
+        IReadOnlyDictionary<string, string?>? environment,
         string? workingDirectory,
         TimeSpan timeout,
         CancellationToken cancellationToken)
@@ -59,6 +73,21 @@ public sealed class ProcessRunner : IProcessRunner
         foreach (var argument in arguments)
         {
             startInfo.ArgumentList.Add(argument);
+        }
+
+        if (environment is not null)
+        {
+            foreach (var (name, value) in environment)
+            {
+                if (value is null)
+                {
+                    startInfo.Environment.Remove(name);
+                }
+                else
+                {
+                    startInfo.Environment[name] = value;
+                }
+            }
         }
 
         if (!string.IsNullOrEmpty(workingDirectory) && Directory.Exists(workingDirectory))

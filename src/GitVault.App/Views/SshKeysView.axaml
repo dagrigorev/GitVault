@@ -25,10 +25,10 @@
               ItemsSource="{Binding Rows}"
               SelectedItem="{Binding SelectedRow, Mode=TwoWay}">
       <DataGrid.Columns>
-        <DataGridTextColumn Header="{loc:Tr Keys_Column_Path}" Binding="{Binding Path}" Width="2*" />
+        <DataGridTextColumn Header="{loc:Tr Keys_Column_Path}" Binding="{Binding Path}" Width="2*" MinWidth="180" />
         <DataGridTextColumn Header="{loc:Tr Keys_Column_Algorithm}" Binding="{Binding Algorithm}" Width="110" />
         <DataGridTextColumn Header="{loc:Tr Keys_Column_Bits}" Binding="{Binding Bits}" Width="70" />
-        <DataGridTextColumn Header="{loc:Tr Keys_Column_Fingerprint}" Binding="{Binding Fingerprint}" Width="3*" />
+        <DataGridTextColumn Header="{loc:Tr Keys_Column_Fingerprint}" Binding="{Binding Fingerprint}" Width="3*" MinWidth="200" />
         <DataGridTextColumn Header="{loc:Tr Keys_Column_Format}" Binding="{Binding Format}" Width="110" />
         <DataGridTextColumn Header="{loc:Tr Keys_Column_Protection}" Binding="{Binding Protection}" Width="130" />
       </DataGrid.Columns>

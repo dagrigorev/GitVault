@@ -33,8 +33,8 @@
       <DataGrid.Columns>
         <DataGridTextColumn Header="{loc:Tr Snapshots_Column_Snapshot}" Binding="{Binding Label}" Width="90" />
         <DataGridTextColumn Header="{loc:Tr Snapshots_Column_Created}" Binding="{Binding Created}" Width="150" />
-        <DataGridTextColumn Header="{loc:Tr Snapshots_Column_Operation}" Binding="{Binding Operation}" Width="*" />
-        <DataGridTextColumn Header="{loc:Tr Snapshots_Column_Target}" Binding="{Binding Target}" Width="*" />
+        <DataGridTextColumn Header="{loc:Tr Snapshots_Column_Operation}" Binding="{Binding Operation}" Width="*" MinWidth="160" />
+        <DataGridTextColumn Header="{loc:Tr Snapshots_Column_Target}" Binding="{Binding Target}" Width="*" MinWidth="160" />
         <DataGridTextColumn Header="{loc:Tr Snapshots_Column_State}" Binding="{Binding State}" Width="120" />
       </DataGrid.Columns>
     </DataGrid>

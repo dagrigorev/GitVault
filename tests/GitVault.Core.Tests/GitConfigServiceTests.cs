@@ -113,7 +113,8 @@ public sealed class GitConfigServiceTests
         locator.LocateAsync(Arg.Any<CancellationToken>()).Returns(new GitBinaryInfo("/usr/bin/git", "2.45.0"));
 
         var runner = Substitute.For<IProcessRunner>();
-        runner.RunAsync("/usr/bin/git", Arg.Any<IReadOnlyList<string>>(), Arg.Any<string?>(),
+        runner.RunAsync("/usr/bin/git", Arg.Any<IReadOnlyList<string>>(),
+                Arg.Any<IReadOnlyDictionary<string, string?>>(), Arg.Any<string?>(),
                 Arg.Any<TimeSpan>(), Arg.Any<CancellationToken>())
             .Returns(new ProcessResult(
                 0,
@@ -140,7 +141,8 @@ public sealed class GitConfigServiceTests
         locator.LocateAsync(Arg.Any<CancellationToken>()).Returns(new GitBinaryInfo("/usr/bin/git", "2.45.0"));
 
         var runner = Substitute.For<IProcessRunner>();
-        runner.RunAsync("/usr/bin/git", Arg.Any<IReadOnlyList<string>>(), Arg.Any<string?>(),
+        runner.RunAsync("/usr/bin/git", Arg.Any<IReadOnlyList<string>>(),
+                Arg.Any<IReadOnlyDictionary<string, string?>>(), Arg.Any<string?>(),
                 Arg.Any<TimeSpan>(), Arg.Any<CancellationToken>())
             .Returns(new ProcessResult(4, string.Empty, "could not lock config file", false, false));
 
@@ -162,7 +164,8 @@ public sealed class GitConfigServiceTests
         locator.LocateAsync(Arg.Any<CancellationToken>()).Returns(new GitBinaryInfo("/usr/bin/git", "2.45.0"));
 
         var runner = Substitute.For<IProcessRunner>();
-        runner.RunAsync("/usr/bin/git", Arg.Any<IReadOnlyList<string>>(), Arg.Any<string?>(),
+        runner.RunAsync("/usr/bin/git", Arg.Any<IReadOnlyList<string>>(),
+                Arg.Any<IReadOnlyDictionary<string, string?>>(), Arg.Any<string?>(),
                 Arg.Any<TimeSpan>(), Arg.Any<CancellationToken>())
             .Returns(new ProcessResult(5, string.Empty, string.Empty, false, false));
 

@@ -31,11 +31,11 @@
               ItemsSource="{Binding Rows}"
               SelectedItem="{Binding SelectedRow, Mode=TwoWay}">
       <DataGrid.Columns>
-        <DataGridTextColumn Header="{loc:Tr Identities_Column_Name}" Binding="{Binding UserName}" Width="*" />
-        <DataGridTextColumn Header="{loc:Tr Identities_Column_Email}" Binding="{Binding Email}" Width="*" />
-        <DataGridTextColumn Header="{loc:Tr Identities_Column_Source}" Binding="{Binding Source}" Width="150" />
-        <DataGridTextColumn Header="{loc:Tr Identities_Column_Hosts}" Binding="{Binding Hosts}" Width="180" />
-        <DataGridTextColumn Header="{loc:Tr Identities_Column_Confidence}" Binding="{Binding Confidence}" Width="110" />
+        <DataGridTextColumn Header="{loc:Tr Identities_Column_Name}" Binding="{Binding UserName}" Width="*" MinWidth="140" />
+        <DataGridTextColumn Header="{loc:Tr Identities_Column_Email}" Binding="{Binding Email}" Width="*" MinWidth="170" />
+        <DataGridTextColumn Header="{loc:Tr Identities_Column_Source}" Binding="{Binding Source}" Width="Auto" MinWidth="130" />
+        <DataGridTextColumn Header="{loc:Tr Identities_Column_Hosts}" Binding="{Binding Hosts}" Width="Auto" MinWidth="140" />
+        <DataGridTextColumn Header="{loc:Tr Identities_Column_Confidence}" Binding="{Binding Confidence}" Width="Auto" MinWidth="100" />
       </DataGrid.Columns>
     </DataGrid>
 

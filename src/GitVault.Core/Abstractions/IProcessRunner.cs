@@ -40,6 +40,34 @@ public interface IProcessRunner
         CancellationToken cancellationToken);
 
     /// <summary>
+    /// Runs a process with extra environment variables set for the child only.
+    /// </summary>
+    /// <remarks>
+    /// Git decides which files it reads and writes from its environment. GitVault has to pin
+    /// those decisions rather than predict them: the file a plan snapshots and the file git
+    /// actually writes must be the same file by construction, not by two implementations of the
+    /// same rule happening to agree.
+    ///
+    /// A variable whose value is null is removed from the child's environment. Nothing secret is
+    /// ever passed this way — secrets go on stdin, because an environment block is readable by
+    /// other processes on some systems.
+    /// </remarks>
+    /// <param name="fileName">Executable to run.</param>
+    /// <param name="arguments">Arguments, passed without shell interpretation.</param>
+    /// <param name="environment">Variables to set or, when the value is null, remove.</param>
+    /// <param name="workingDirectory">Working directory, or null for the current one.</param>
+    /// <param name="timeout">Time budget; the process is killed when it elapses.</param>
+    /// <param name="cancellationToken">Cancels the run.</param>
+    /// <returns>What the process produced.</returns>
+    Task<ProcessResult> RunAsync(
+        string fileName,
+        IReadOnlyList<string> arguments,
+        IReadOnlyDictionary<string, string?> environment,
+        string? workingDirectory,
+        TimeSpan timeout,
+        CancellationToken cancellationToken);
+
+    /// <summary>
     /// Runs a process, writing <paramref name="standardInput"/> to its stdin and then closing it.
     /// </summary>
     /// <remarks>

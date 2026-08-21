@@ -62,6 +62,14 @@ Coverage is gated in CI; run the same check locally:
 pwsh build/check-coverage.ps1
 ```
 
+## Verification
+
+[docs/v0-verification.md](docs/v0-verification.md) records the pass made over the existing
+functionality before feature work resumed: what was checked, how, and the five defects it found.
+Two of them were high severity and both were the same mistake — computing where a git operation
+would land instead of pinning it — which is the rule the history-rewriting work has to carry
+forward.
+
 ## Manual QA
 
 [docs/manual-qa.md](docs/manual-qa.md) is the pre-release plan the automated suite cannot cover:
