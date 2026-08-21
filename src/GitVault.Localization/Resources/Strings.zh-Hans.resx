@@ -1955,8 +1955,8 @@
   <data name="Commits_Limit_5000" xml:space="preserve">
     <value>5000 个提交</value>
   </data>
-  <data name="Commits_ReadOnlyNote" xml:space="preserve">
-    <value>此页面只读取。这里的任何操作都不会更改仓库。</value>
+  <data name="Commits_EditingNote" xml:space="preserve">
+    <value>编辑先在此处收集，只有应用时才会写入。在那之前仓库不会发生任何变化。</value>
   </data>
   <data name="Commits_SignatureWarning" xml:space="preserve">
     <value>此提交已签名。GitVault 不持有签名密钥，因此任何重建此提交的操作都会丢弃其签名。</value>
@@ -2014,5 +2014,113 @@
   </data>
   <data name="Commits_Column_Status" xml:space="preserve">
     <value>更改</value>
+  </data>
+  <data name="Commits_Edit" xml:space="preserve">
+    <value>编辑…</value>
+  </data>
+  <data name="Commits_DiscardEdits" xml:space="preserve">
+    <value>放弃编辑</value>
+  </data>
+  <data name="Commits_ApplyEdits" xml:space="preserve">
+    <value>应用…</value>
+  </data>
+  <data name="Commits_Column_Pending" xml:space="preserve">
+    <value>已编辑</value>
+  </data>
+  <data name="Commits_PendingMark" xml:space="preserve">
+    <value>是</value>
+  </data>
+  <data name="Commits_PendingCount" xml:space="preserve">
+    <value>已编辑但未应用的提交：{0}</value>
+  </data>
+  <data name="Rewrite_EditCommit" xml:space="preserve">
+    <value>编辑提交</value>
+  </data>
+  <data name="Rewrite_DateHint" xml:space="preserve">
+    <value>日期必须包含明确的时区偏移，例如 2024-03-01 09:15:00 +03:00。否则 GitVault 只能猜测时区，并把猜测结果写入历史。</value>
+  </data>
+  <data name="Rewrite_Message" xml:space="preserve">
+    <value>提交信息</value>
+  </data>
+  <data name="Rewrite_AuthorName" xml:space="preserve">
+    <value>作者姓名</value>
+  </data>
+  <data name="Rewrite_AuthorEmail" xml:space="preserve">
+    <value>作者邮箱</value>
+  </data>
+  <data name="Rewrite_AuthorDate" xml:space="preserve">
+    <value>作者日期</value>
+  </data>
+  <data name="Rewrite_CommitterName" xml:space="preserve">
+    <value>提交者姓名</value>
+  </data>
+  <data name="Rewrite_CommitterEmail" xml:space="preserve">
+    <value>提交者邮箱</value>
+  </data>
+  <data name="Rewrite_CommitterDate" xml:space="preserve">
+    <value>提交者日期</value>
+  </data>
+  <data name="Rewrite_Preview_Title" xml:space="preserve">
+    <value>检查历史重写</value>
+  </data>
+  <data name="Rewrite_Confirm" xml:space="preserve">
+    <value>重写历史</value>
+  </data>
+  <data name="Rewrite_Branch" xml:space="preserve">
+    <value>分支</value>
+  </data>
+  <data name="Rewrite_Reach" xml:space="preserve">
+    <value>已编辑 {0} 个提交；另有 {1} 个因位于被改提交之后而获得新的标识符。</value>
+  </data>
+  <data name="Rewrite_Reason_Edited" xml:space="preserve">
+    <value>已编辑</value>
+  </data>
+  <data name="Rewrite_Reason_Carried" xml:space="preserve">
+    <value>因先前的提交发生变更而重建</value>
+  </data>
+  <data name="Rewrite_Column_Reason" xml:space="preserve">
+    <value>原因</value>
+  </data>
+  <data name="Rewrite_TypeBranchName" xml:space="preserve">
+    <value>请输入分支名 {0} 以确认。</value>
+  </data>
+  <data name="Rewrite_NoPushNote" xml:space="preserve">
+    <value>GitVault 只修改本地这份克隆。其他拥有这些提交的人仍保留旧提交，直到他们自行 fetch 并 reset。</value>
+  </data>
+  <data name="Rewrite_StrandedRefs" xml:space="preserve">
+    <value>以下引用仍指向将被替换的提交</value>
+  </data>
+  <data name="Rewrite_StrandedExplains" xml:space="preserve">
+    <value>GitVault 不会移动它们，因为移动别人的标签或分支应当是一个有意为之的决定。如果希望它们跟随变更，请事后自行更新。</value>
+  </data>
+  <data name="Blocker_DetachedHead" xml:space="preserve">
+    <value>HEAD 不在任何分支上，因此没有可移动的分支顶端。请先检出一个分支。</value>
+  </data>
+  <data name="Blocker_WorkingTreeDirty" xml:space="preserve">
+    <value>工作区或暂存区存在未提交的更改。重写会在其下方移动分支，请先提交或贮藏。</value>
+  </data>
+  <data name="Blocker_NothingToChange" xml:space="preserve">
+    <value>没有任何提交被实际修改。</value>
+  </data>
+  <data name="Blocker_CommitNotOnBranch" xml:space="preserve">
+    <value>被编辑的提交从当前分支不可达，因此移动该分支并不会带上这个更改。</value>
+  </data>
+  <data name="Warning_SignaturesWillBeLost" xml:space="preserve">
+    <value>该范围内有已签名的提交。GitVault 不持有签名密钥，重建后的提交将没有签名。</value>
+  </data>
+  <data name="Warning_RangeContainsMerges" xml:space="preserve">
+    <value>该范围包含合并提交。所有父提交都会保留，但合并提交本身会获得新的标识符。</value>
+  </data>
+  <data name="Warning_CommitsAlreadyPublished" xml:space="preserve">
+    <value>这些提交已经存在于分支的上游。在本地重写会使两边的历史不一致，已拉取过它们的人需要执行 reset。</value>
+  </data>
+  <data name="Warning_OtherRefsPointIntoRange" xml:space="preserve">
+    <value>标签或其他分支指向该范围内的提交，它们仍将指向旧提交。</value>
+  </data>
+  <data name="Status_HistoryRewritten" xml:space="preserve">
+    <value>历史已重写；原先的分支顶端保留在备份引用中</value>
+  </data>
+  <data name="Status_EditsDiscarded" xml:space="preserve">
+    <value>编辑已放弃</value>
   </data>
 </root>

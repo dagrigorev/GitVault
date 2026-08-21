@@ -1955,8 +1955,8 @@
   <data name="Commits_Limit_5000" xml:space="preserve">
     <value>5000 commits</value>
   </data>
-  <data name="Commits_ReadOnlyNote" xml:space="preserve">
-    <value>This page only reads. Nothing here changes the repository.</value>
+  <data name="Commits_EditingNote" xml:space="preserve">
+    <value>Edits are collected here and written only when you apply them. Nothing changes in the repository until then.</value>
   </data>
   <data name="Commits_SignatureWarning" xml:space="preserve">
     <value>This commit is signed. GitVault holds no signing key, so any operation that rebuilds this commit would drop its signature.</value>
@@ -2014,5 +2014,113 @@
   </data>
   <data name="Commits_Column_Status" xml:space="preserve">
     <value>Change</value>
+  </data>
+  <data name="Commits_Edit" xml:space="preserve">
+    <value>Edit…</value>
+  </data>
+  <data name="Commits_DiscardEdits" xml:space="preserve">
+    <value>Discard edits</value>
+  </data>
+  <data name="Commits_ApplyEdits" xml:space="preserve">
+    <value>Apply…</value>
+  </data>
+  <data name="Commits_Column_Pending" xml:space="preserve">
+    <value>Edited</value>
+  </data>
+  <data name="Commits_PendingMark" xml:space="preserve">
+    <value>yes</value>
+  </data>
+  <data name="Commits_PendingCount" xml:space="preserve">
+    <value>{0} commits edited but not applied</value>
+  </data>
+  <data name="Rewrite_EditCommit" xml:space="preserve">
+    <value>Edit commit</value>
+  </data>
+  <data name="Rewrite_DateHint" xml:space="preserve">
+    <value>Dates must keep an explicit offset, as in 2024-03-01 09:15:00 +03:00. Without one GitVault would have to guess a timezone and write the guess into history.</value>
+  </data>
+  <data name="Rewrite_Message" xml:space="preserve">
+    <value>Message</value>
+  </data>
+  <data name="Rewrite_AuthorName" xml:space="preserve">
+    <value>Author name</value>
+  </data>
+  <data name="Rewrite_AuthorEmail" xml:space="preserve">
+    <value>Author e-mail</value>
+  </data>
+  <data name="Rewrite_AuthorDate" xml:space="preserve">
+    <value>Author date</value>
+  </data>
+  <data name="Rewrite_CommitterName" xml:space="preserve">
+    <value>Committer name</value>
+  </data>
+  <data name="Rewrite_CommitterEmail" xml:space="preserve">
+    <value>Committer e-mail</value>
+  </data>
+  <data name="Rewrite_CommitterDate" xml:space="preserve">
+    <value>Committer date</value>
+  </data>
+  <data name="Rewrite_Preview_Title" xml:space="preserve">
+    <value>Review the rewrite</value>
+  </data>
+  <data name="Rewrite_Confirm" xml:space="preserve">
+    <value>Rewrite history</value>
+  </data>
+  <data name="Rewrite_Branch" xml:space="preserve">
+    <value>Branch</value>
+  </data>
+  <data name="Rewrite_Reach" xml:space="preserve">
+    <value>{0} commits edited; {1} more get a new identifier because they come after one that changed.</value>
+  </data>
+  <data name="Rewrite_Reason_Edited" xml:space="preserve">
+    <value>edited</value>
+  </data>
+  <data name="Rewrite_Reason_Carried" xml:space="preserve">
+    <value>rebuilt because an earlier commit changed</value>
+  </data>
+  <data name="Rewrite_Column_Reason" xml:space="preserve">
+    <value>Why</value>
+  </data>
+  <data name="Rewrite_TypeBranchName" xml:space="preserve">
+    <value>Type the branch name {0} to confirm.</value>
+  </data>
+  <data name="Rewrite_NoPushNote" xml:space="preserve">
+    <value>GitVault changes only this clone. Anyone else who has these commits keeps the old ones until they fetch and reset themselves.</value>
+  </data>
+  <data name="Rewrite_StrandedRefs" xml:space="preserve">
+    <value>These refs keep pointing at the commits being replaced</value>
+  </data>
+  <data name="Rewrite_StrandedExplains" xml:space="preserve">
+    <value>GitVault does not move them, because moving someone else&apos;s tag or branch is a decision to make deliberately. Update them yourself afterwards if you meant them to follow.</value>
+  </data>
+  <data name="Blocker_DetachedHead" xml:space="preserve">
+    <value>HEAD is not on a branch, so there is no branch tip to move. Check out a branch first.</value>
+  </data>
+  <data name="Blocker_WorkingTreeDirty" xml:space="preserve">
+    <value>The working tree or index has uncommitted changes. A rewrite moves the branch under them, so commit or stash first.</value>
+  </data>
+  <data name="Blocker_NothingToChange" xml:space="preserve">
+    <value>No commit was actually changed.</value>
+  </data>
+  <data name="Blocker_CommitNotOnBranch" xml:space="preserve">
+    <value>An edited commit is not reachable from the current branch, so moving that branch would not carry the change.</value>
+  </data>
+  <data name="Warning_SignaturesWillBeLost" xml:space="preserve">
+    <value>A commit in this range is signed. GitVault holds no signing key, so the rebuilt commit will be unsigned.</value>
+  </data>
+  <data name="Warning_RangeContainsMerges" xml:space="preserve">
+    <value>This range contains a merge. Every parent is preserved, but the merge commit itself gets a new identifier.</value>
+  </data>
+  <data name="Warning_CommitsAlreadyPublished" xml:space="preserve">
+    <value>These commits are already on the branch&apos;s upstream. Rewriting them locally makes the two histories disagree, and anyone who pulled them will have to reset.</value>
+  </data>
+  <data name="Warning_OtherRefsPointIntoRange" xml:space="preserve">
+    <value>Tags or other branches point at commits in this range. They keep pointing at the old commits.</value>
+  </data>
+  <data name="Status_HistoryRewritten" xml:space="preserve">
+    <value>History rewritten; the previous tip is kept in a backup ref</value>
+  </data>
+  <data name="Status_EditsDiscarded" xml:space="preserve">
+    <value>Edits discarded</value>
   </data>
 </root>

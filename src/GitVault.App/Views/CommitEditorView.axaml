@@ -1,0 +1,59 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:loc="using:GitVault.App.Markup"
+             x:Class="GitVault.App.Views.CommitEditorView">
+  <StackPanel Spacing="0">
+
+    <Grid ColumnDefinitions="130,*" RowDefinitions="Auto" Margin="0,0,0,6">
+      <TextBlock Grid.Column="0" Classes="dim" Text="{loc:Tr Commits_Column_Sha}" />
+      <SelectableTextBlock Grid.Column="1" Classes="mono" Text="{Binding ShortSha}" />
+    </Grid>
+
+    <Grid ColumnDefinitions="130,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto">
+      <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Top" Margin="0,6,0,4"
+                 Text="{loc:Tr Rewrite_Message}" />
+      <TextBox Grid.Row="0" Grid.Column="1" Margin="0,4"
+               Classes="multiline mono"
+               Height="110"
+               AcceptsReturn="True"
+               TextWrapping="Wrap"
+               Text="{Binding Message, Mode=TwoWay}" />
+
+      <TextBlock Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Margin="0,4"
+                 Text="{loc:Tr Rewrite_AuthorName}" />
+      <TextBox Grid.Row="1" Grid.Column="1" Margin="0,4" Text="{Binding AuthorName, Mode=TwoWay}" />
+
+      <TextBlock Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" Margin="0,4"
+                 Text="{loc:Tr Rewrite_AuthorEmail}" />
+      <TextBox Grid.Row="2" Grid.Column="1" Margin="0,4" Text="{Binding AuthorEmail, Mode=TwoWay}" />
+
+      <TextBlock Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" Margin="0,4"
+                 Text="{loc:Tr Rewrite_AuthorDate}" />
+      <TextBox Grid.Row="3" Grid.Column="1" Margin="0,4" Classes="mono"
+               Text="{Binding AuthorDate, Mode=TwoWay}" />
+
+      <TextBlock Grid.Row="4" Grid.Column="0" VerticalAlignment="Center" Margin="0,4"
+                 Text="{loc:Tr Rewrite_CommitterName}" />
+      <TextBox Grid.Row="4" Grid.Column="1" Margin="0,4" Text="{Binding CommitterName, Mode=TwoWay}" />
+
+      <TextBlock Grid.Row="5" Grid.Column="0" VerticalAlignment="Center" Margin="0,4"
+                 Text="{loc:Tr Rewrite_CommitterEmail}" />
+      <TextBox Grid.Row="5" Grid.Column="1" Margin="0,4" Text="{Binding CommitterEmail, Mode=TwoWay}" />
+
+      <TextBlock Grid.Row="6" Grid.Column="0" VerticalAlignment="Center" Margin="0,4"
+                 Text="{loc:Tr Rewrite_CommitterDate}" />
+      <TextBox Grid.Row="6" Grid.Column="1" Margin="0,4" Classes="mono"
+               Text="{Binding CommitterDate, Mode=TwoWay}" />
+    </Grid>
+
+    <Border Classes="note">
+      <TextBlock TextWrapping="Wrap" Text="{Binding DateHintCaption}" />
+    </Border>
+
+    <!-- Shown on the commit itself, because this is the dialog where the loss is chosen. -->
+    <Border Classes="note warn" IsVisible="{Binding IsSigned}">
+      <TextBlock TextWrapping="Wrap" Text="{Binding SignatureWarningCaption}" />
+    </Border>
+
+  </StackPanel>
+</UserControl>

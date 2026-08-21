@@ -1955,8 +1955,8 @@
   <data name="Commits_Limit_5000" xml:space="preserve">
     <value>5000 коммитов</value>
   </data>
-  <data name="Commits_ReadOnlyNote" xml:space="preserve">
-    <value>Эта страница только читает. Ничто здесь не меняет репозиторий.</value>
+  <data name="Commits_EditingNote" xml:space="preserve">
+    <value>Изменения накапливаются здесь и записываются только при применении. До этого репозиторий не меняется.</value>
   </data>
   <data name="Commits_SignatureWarning" xml:space="preserve">
     <value>Этот коммит подписан. У GitVault нет ключа подписи, поэтому любая операция, пересобирающая коммит, потеряет подпись.</value>
@@ -2014,5 +2014,113 @@
   </data>
   <data name="Commits_Column_Status" xml:space="preserve">
     <value>Изменение</value>
+  </data>
+  <data name="Commits_Edit" xml:space="preserve">
+    <value>Изменить…</value>
+  </data>
+  <data name="Commits_DiscardEdits" xml:space="preserve">
+    <value>Отменить правки</value>
+  </data>
+  <data name="Commits_ApplyEdits" xml:space="preserve">
+    <value>Применить…</value>
+  </data>
+  <data name="Commits_Column_Pending" xml:space="preserve">
+    <value>Правка</value>
+  </data>
+  <data name="Commits_PendingMark" xml:space="preserve">
+    <value>да</value>
+  </data>
+  <data name="Commits_PendingCount" xml:space="preserve">
+    <value>Изменено без применения: {0}</value>
+  </data>
+  <data name="Rewrite_EditCommit" xml:space="preserve">
+    <value>Изменение коммита</value>
+  </data>
+  <data name="Rewrite_DateHint" xml:space="preserve">
+    <value>Дата должна содержать явное смещение, например 2024-03-01 09:15:00 +03:00. Без него GitVault пришлось бы угадывать часовой пояс и записать догадку в историю.</value>
+  </data>
+  <data name="Rewrite_Message" xml:space="preserve">
+    <value>Сообщение</value>
+  </data>
+  <data name="Rewrite_AuthorName" xml:space="preserve">
+    <value>Имя автора</value>
+  </data>
+  <data name="Rewrite_AuthorEmail" xml:space="preserve">
+    <value>Почта автора</value>
+  </data>
+  <data name="Rewrite_AuthorDate" xml:space="preserve">
+    <value>Дата автора</value>
+  </data>
+  <data name="Rewrite_CommitterName" xml:space="preserve">
+    <value>Имя коммитера</value>
+  </data>
+  <data name="Rewrite_CommitterEmail" xml:space="preserve">
+    <value>Почта коммитера</value>
+  </data>
+  <data name="Rewrite_CommitterDate" xml:space="preserve">
+    <value>Дата коммитера</value>
+  </data>
+  <data name="Rewrite_Preview_Title" xml:space="preserve">
+    <value>Проверка перезаписи</value>
+  </data>
+  <data name="Rewrite_Confirm" xml:space="preserve">
+    <value>Перезаписать историю</value>
+  </data>
+  <data name="Rewrite_Branch" xml:space="preserve">
+    <value>Ветка</value>
+  </data>
+  <data name="Rewrite_Reach" xml:space="preserve">
+    <value>Изменено коммитов: {0}; ещё {1} получат новый идентификатор, потому что следуют за изменённым.</value>
+  </data>
+  <data name="Rewrite_Reason_Edited" xml:space="preserve">
+    <value>изменён</value>
+  </data>
+  <data name="Rewrite_Reason_Carried" xml:space="preserve">
+    <value>пересобран из-за изменения более раннего коммита</value>
+  </data>
+  <data name="Rewrite_Column_Reason" xml:space="preserve">
+    <value>Причина</value>
+  </data>
+  <data name="Rewrite_TypeBranchName" xml:space="preserve">
+    <value>Для подтверждения введите имя ветки {0}.</value>
+  </data>
+  <data name="Rewrite_NoPushNote" xml:space="preserve">
+    <value>GitVault меняет только эту копию репозитория. У всех, у кого есть эти коммиты, останутся старые, пока они сами не выполнят fetch и reset.</value>
+  </data>
+  <data name="Rewrite_StrandedRefs" xml:space="preserve">
+    <value>Эти ссылки останутся на заменяемых коммитах</value>
+  </data>
+  <data name="Rewrite_StrandedExplains" xml:space="preserve">
+    <value>GitVault их не перемещает: перенос чужого тега или ветки — осознанное решение. Если они должны были последовать за изменением, обновите их сами.</value>
+  </data>
+  <data name="Blocker_DetachedHead" xml:space="preserve">
+    <value>HEAD не на ветке, поэтому перемещать нечего. Сначала переключитесь на ветку.</value>
+  </data>
+  <data name="Blocker_WorkingTreeDirty" xml:space="preserve">
+    <value>В рабочем каталоге или индексе есть незафиксированные изменения. Перезапись сдвинет ветку под ними — сначала зафиксируйте или прячьте их.</value>
+  </data>
+  <data name="Blocker_NothingToChange" xml:space="preserve">
+    <value>Ни один коммит не изменён.</value>
+  </data>
+  <data name="Blocker_CommitNotOnBranch" xml:space="preserve">
+    <value>Изменённый коммит недостижим из текущей ветки, поэтому перемещение ветки не перенесёт правку.</value>
+  </data>
+  <data name="Warning_SignaturesWillBeLost" xml:space="preserve">
+    <value>Коммит в этом диапазоне подписан. У GitVault нет ключа подписи, поэтому пересобранный коммит останется без подписи.</value>
+  </data>
+  <data name="Warning_RangeContainsMerges" xml:space="preserve">
+    <value>В диапазоне есть слияние. Все родители сохраняются, но сам коммит слияния получит новый идентификатор.</value>
+  </data>
+  <data name="Warning_CommitsAlreadyPublished" xml:space="preserve">
+    <value>Эти коммиты уже есть в вышестоящей ветке. Локальная перезапись разойдётся с ней, а тем, кто их забрал, придётся делать reset.</value>
+  </data>
+  <data name="Warning_OtherRefsPointIntoRange" xml:space="preserve">
+    <value>Теги или другие ветки указывают на коммиты из этого диапазона. Они останутся на старых коммитах.</value>
+  </data>
+  <data name="Status_HistoryRewritten" xml:space="preserve">
+    <value>История перезаписана; прежняя вершина сохранена в резервной ссылке</value>
+  </data>
+  <data name="Status_EditsDiscarded" xml:space="preserve">
+    <value>Правки отменены</value>
   </data>
 </root>

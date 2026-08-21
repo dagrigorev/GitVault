@@ -46,6 +46,23 @@ public sealed class ProcessRunner : IProcessRunner
         return RunCoreAsync(fileName, arguments, standardInput, null, workingDirectory, timeout, cancellationToken);
     }
 
+    /// <inheritdoc/>
+    public Task<ProcessResult> RunWithInputAsync(
+        string fileName,
+        IReadOnlyList<string> arguments,
+        string standardInput,
+        IReadOnlyDictionary<string, string?> environment,
+        string? workingDirectory,
+        TimeSpan timeout,
+        CancellationToken cancellationToken)
+    {
+        ArgumentNullException.ThrowIfNull(standardInput);
+        ArgumentNullException.ThrowIfNull(environment);
+
+        return RunCoreAsync(
+            fileName, arguments, standardInput, environment, workingDirectory, timeout, cancellationToken);
+    }
+
     private async Task<ProcessResult> RunCoreAsync(
         string fileName,
         IReadOnlyList<string> arguments,

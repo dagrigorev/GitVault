@@ -18,6 +18,22 @@ public interface IGitCommandRunner
         IReadOnlyList<string> arguments,
         CancellationToken cancellationToken);
 
+    /// <summary>
+    /// Runs git with a stdin payload and extra environment, and returns what it produced.
+    /// </summary>
+    /// <param name="repositoryPath">Working tree to run in.</param>
+    /// <param name="arguments">Arguments after <c>git</c>, already split.</param>
+    /// <param name="standardInput">Text to write to stdin.</param>
+    /// <param name="extraEnvironment">Variables to add on top of the pinned ones.</param>
+    /// <param name="cancellationToken">Cancels the run.</param>
+    /// <returns>The process result.</returns>
+    Task<ProcessResult> RunWithInputAsync(
+        string repositoryPath,
+        IReadOnlyList<string> arguments,
+        string standardInput,
+        IReadOnlyDictionary<string, string?> extraEnvironment,
+        CancellationToken cancellationToken);
+
     /// <summary>Runs git and returns its trimmed standard output, or null when it failed.</summary>
     /// <param name="repositoryPath">Working tree to run in.</param>
     /// <param name="arguments">Arguments after <c>git</c>, already split.</param>
@@ -89,6 +105,39 @@ public sealed class GitCommandRunner : IGitCommandRunner
 
         return await _runner
             .RunAsync(binary, full, Environment(), repositoryPath, CommandTimeout, cancellationToken)
+            .ConfigureAwait(false);
+    }
+
+    /// <inheritdoc/>
+    public async Task<ProcessResult> RunWithInputAsync(
+        string repositoryPath,
+        IReadOnlyList<string> arguments,
+        string standardInput,
+        IReadOnlyDictionary<string, string?> extraEnvironment,
+        CancellationToken cancellationToken)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(repositoryPath);
+        ArgumentNullException.ThrowIfNull(arguments);
+        ArgumentNullException.ThrowIfNull(standardInput);
+        ArgumentNullException.ThrowIfNull(extraEnvironment);
+
+        if (_config.GitBinaryPath is not { Length: > 0 } binary)
+        {
+            return ProcessResult.LaunchFailed("git is not available");
+        }
+
+        var full = new List<string> { "-C", repositoryPath };
+        full.AddRange(arguments);
+
+        var environment = new Dictionary<string, string?>(Environment(), StringComparer.Ordinal);
+        foreach (var (name, value) in extraEnvironment)
+        {
+            environment[name] = value;
+        }
+
+        return await _runner
+            .RunWithInputAsync(
+                binary, full, standardInput, environment, repositoryPath, CommandTimeout, cancellationToken)
             .ConfigureAwait(false);
     }
 

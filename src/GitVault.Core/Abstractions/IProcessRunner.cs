@@ -89,6 +89,32 @@ public interface IProcessRunner
         string? workingDirectory,
         TimeSpan timeout,
         CancellationToken cancellationToken);
+
+    /// <summary>
+    /// Runs a process with both a standard-input payload and extra environment variables.
+    /// </summary>
+    /// <remarks>
+    /// Rebuilding a commit needs both at once: the message goes on stdin because it is arbitrary
+    /// text of arbitrary length and has no business in an argument list, while the author and
+    /// committer identities and dates go in the environment because that is the only way git
+    /// accepts them for <c>commit-tree</c>.
+    /// </remarks>
+    /// <param name="fileName">Executable to run.</param>
+    /// <param name="arguments">Arguments, passed without shell interpretation.</param>
+    /// <param name="standardInput">Text to write to stdin.</param>
+    /// <param name="environment">Variables to set or, when the value is null, remove.</param>
+    /// <param name="workingDirectory">Working directory, or null for the current one.</param>
+    /// <param name="timeout">Time budget; the process is killed when it elapses.</param>
+    /// <param name="cancellationToken">Cancels the run.</param>
+    /// <returns>What the process produced.</returns>
+    Task<ProcessResult> RunWithInputAsync(
+        string fileName,
+        IReadOnlyList<string> arguments,
+        string standardInput,
+        IReadOnlyDictionary<string, string?> environment,
+        string? workingDirectory,
+        TimeSpan timeout,
+        CancellationToken cancellationToken);
 }
 
 /// <summary>Platform-specific places a <c>git</c> executable is likely to live.</summary>

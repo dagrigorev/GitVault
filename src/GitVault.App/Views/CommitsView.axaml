@@ -32,6 +32,15 @@
 
       <Button Name="RefreshCommitsButton" Command="{Binding RefreshCommand}" Content="{loc:Tr Common_Refresh}" />
 
+      <Border Classes="toolSeparator" Height="22" />
+
+      <Button Name="EditCommitButton" Command="{Binding EditCommand}"
+              IsEnabled="{Binding HasSelectedCommit}" Content="{loc:Tr Commits_Edit}" />
+      <Button Name="ApplyEditsButton" Command="{Binding ApplyEditsCommand}"
+              IsEnabled="{Binding HasPendingEdits}" Content="{loc:Tr Commits_ApplyEdits}" />
+      <Button Name="DiscardEditsButton" Command="{Binding DiscardEditsCommand}"
+              IsEnabled="{Binding HasPendingEdits}" Content="{loc:Tr Commits_DiscardEdits}" />
+
       <TextBlock VerticalAlignment="Center" Classes="dim"
                  IsVisible="{Binding IsLoading}" Text="{loc:Tr Common_Working}" />
     </StackPanel>
@@ -42,7 +51,13 @@
               Content="{loc:Tr Commits_Filter_FirstParent}" />
 
     <Border DockPanel.Dock="Bottom" Classes="note" Margin="0,7,0,0">
-      <TextBlock TextWrapping="Wrap" Text="{Binding ReadOnlyCaption}" />
+      <TextBlock TextWrapping="Wrap" Text="{Binding EditingCaption}" />
+    </Border>
+
+    <!-- Kept next to the buttons that act on them, so the count is where the decision is made. -->
+    <Border DockPanel.Dock="Bottom" Classes="note warn" Margin="0,7,0,0"
+            IsVisible="{Binding HasPendingEdits}">
+      <TextBlock TextWrapping="Wrap" Text="{Binding PendingCountCaption}" />
     </Border>
 
     <!--
@@ -97,6 +112,8 @@
               SelectedItem="{Binding SelectedRow, Mode=TwoWay}"
               CanUserSortColumns="False">
       <DataGrid.Columns>
+        <DataGridTextColumn Header="{loc:Tr Commits_Column_Pending}" Binding="{Binding Pending}"
+                            Width="Auto" MinWidth="80" />
         <DataGridTextColumn Header="{loc:Tr Commits_Column_Sha}" Binding="{Binding ShortSha}"
                             Width="Auto" MinWidth="90" />
         <DataGridTextColumn Header="{loc:Tr Commits_Column_Subject}" Binding="{Binding Subject}"

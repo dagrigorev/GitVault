@@ -194,6 +194,51 @@ points at; moving those changes to a server stays the user's own action, taken w
 tools. `GIT_TERMINAL_PROMPT=0` is set on every invocation so a misconfigured credential helper
 fails immediately rather than blocking on an invisible prompt.
 
+## Rewriting commits: the one operation that asks the user to type
+
+Editing a commit's metadata is the most consequential thing GitVault does. It is also the one
+place where the usual review dialog is not enough on its own, so the gate in front of it is
+different in three ways.
+
+**The rewrite is planned from the edits, not performed as they are made.** Each edit is collected
+on the history page and nothing is written; the rewrite happens once, when the user applies them.
+That is not only caution. Rewriting a branch twice in a row would rebuild the same commits twice
+and hand them a second set of identifiers for no reason, so collecting the edits first is also the
+correct way to do the work.
+
+**The preview says how far the change reaches, not only what was edited.** Changing one commit in
+the middle of a branch gives every commit after it a new identifier, because a commit's name is a
+hash of its contents and its parents. The plan counts both groups separately — edited, and rebuilt
+because something earlier changed — since the second number is the one people are surprised by.
+
+**Confirming requires typing the branch name.** Every other write in GitVault is confirmed by
+acknowledging a plan. This one asks the user to name the branch they are rewriting, in the
+tradition of dialogs that make you spell out what you are about to change, because a button is too
+easy to press by habit and the consequence here reaches every clone of the repository.
+
+The mechanism underneath is `git commit-tree`, walked from the oldest affected commit to the tip.
+Each commit is rebuilt against its already-rebuilt parents with the tree it always had, which is
+why the operation cannot produce a conflict and why the file content is provably unchanged —
+`HistoryRewriteTests` asserts the tree of every rebuilt commit against the original. Identities
+and dates are passed through `GIT_AUTHOR_*` and `GIT_COMMITTER_*`, and the message arrives on
+stdin, so no part of it is ever handed to a shell to re-parse.
+
+Before the first write, `refs/heads/<branch>` is recorded as a ref backup, which is what makes the
+whole rewrite reversible in one `update-ref` — restoring it is tested. The branch is then moved
+with a compare-and-swap against the tip the plan was built from, so a rewrite that raced with
+another process fails instead of overwriting whatever happened in between.
+
+Three things it deliberately does not do. It does not sign: GitVault holds no key, so a signed
+commit in the range loses its signature, and the plan says so rather than the documentation. It
+does not move tags or other branches that point into the rewritten range — they are listed as
+stranded, because moving someone else's ref is a decision to make deliberately. And it does not
+push: the rewrite changes this clone only, and anyone else holding those commits keeps the old
+ones until they fetch and reset themselves.
+
+Dates are the one input the dialog refuses rather than interprets. A date typed without an offset
+would be read in the machine's timezone and that guess written into history, so the field stays
+invalid until an offset is present.
+
 ## Known gaps, collected
 
 | Gap | Consequence | Where |

@@ -1899,8 +1899,8 @@ public static class Keys
     /// <summary>English: 5000 commits</summary>
     public const string Commits_Limit_5000 = "Commits_Limit_5000";
 
-    /// <summary>English: This page only reads. Nothing here changes the repository.</summary>
-    public const string Commits_ReadOnlyNote = "Commits_ReadOnlyNote";
+    /// <summary>English: Edits are collected here and written only when you apply them. Nothing changes in the repository until then.</summary>
+    public const string Commits_EditingNote = "Commits_EditingNote";
 
     /// <summary>English: This commit is signed. GitVault holds no signing key, so any operation that rebuilds this commit would drop its signature.</summary>
     public const string Commits_SignatureWarning = "Commits_SignatureWarning";
@@ -1958,6 +1958,114 @@ public static class Keys
 
     /// <summary>English: Change</summary>
     public const string Commits_Column_Status = "Commits_Column_Status";
+
+    /// <summary>English: Edit…</summary>
+    public const string Commits_Edit = "Commits_Edit";
+
+    /// <summary>English: Discard edits</summary>
+    public const string Commits_DiscardEdits = "Commits_DiscardEdits";
+
+    /// <summary>English: Apply…</summary>
+    public const string Commits_ApplyEdits = "Commits_ApplyEdits";
+
+    /// <summary>English: Edited</summary>
+    public const string Commits_Column_Pending = "Commits_Column_Pending";
+
+    /// <summary>English: yes</summary>
+    public const string Commits_PendingMark = "Commits_PendingMark";
+
+    /// <summary>English: {0} commits edited but not applied</summary>
+    public const string Commits_PendingCount = "Commits_PendingCount";
+
+    /// <summary>English: Edit commit</summary>
+    public const string Rewrite_EditCommit = "Rewrite_EditCommit";
+
+    /// <summary>English: Dates must keep an explicit offset, as in 2024-03-01 09:15:00 +03:00. Without one GitVault would have to guess a timezone and write the guess into history.</summary>
+    public const string Rewrite_DateHint = "Rewrite_DateHint";
+
+    /// <summary>English: Message</summary>
+    public const string Rewrite_Message = "Rewrite_Message";
+
+    /// <summary>English: Author name</summary>
+    public const string Rewrite_AuthorName = "Rewrite_AuthorName";
+
+    /// <summary>English: Author e-mail</summary>
+    public const string Rewrite_AuthorEmail = "Rewrite_AuthorEmail";
+
+    /// <summary>English: Author date</summary>
+    public const string Rewrite_AuthorDate = "Rewrite_AuthorDate";
+
+    /// <summary>English: Committer name</summary>
+    public const string Rewrite_CommitterName = "Rewrite_CommitterName";
+
+    /// <summary>English: Committer e-mail</summary>
+    public const string Rewrite_CommitterEmail = "Rewrite_CommitterEmail";
+
+    /// <summary>English: Committer date</summary>
+    public const string Rewrite_CommitterDate = "Rewrite_CommitterDate";
+
+    /// <summary>English: Review the rewrite</summary>
+    public const string Rewrite_Preview_Title = "Rewrite_Preview_Title";
+
+    /// <summary>English: Rewrite history</summary>
+    public const string Rewrite_Confirm = "Rewrite_Confirm";
+
+    /// <summary>English: Branch</summary>
+    public const string Rewrite_Branch = "Rewrite_Branch";
+
+    /// <summary>English: {0} commits edited; {1} more get a new identifier because they come after one that changed.</summary>
+    public const string Rewrite_Reach = "Rewrite_Reach";
+
+    /// <summary>English: edited</summary>
+    public const string Rewrite_Reason_Edited = "Rewrite_Reason_Edited";
+
+    /// <summary>English: rebuilt because an earlier commit changed</summary>
+    public const string Rewrite_Reason_Carried = "Rewrite_Reason_Carried";
+
+    /// <summary>English: Why</summary>
+    public const string Rewrite_Column_Reason = "Rewrite_Column_Reason";
+
+    /// <summary>English: Type the branch name {0} to confirm.</summary>
+    public const string Rewrite_TypeBranchName = "Rewrite_TypeBranchName";
+
+    /// <summary>English: GitVault changes only this clone. Anyone else who has these commits keeps the old ones until they fetch and reset themselves.</summary>
+    public const string Rewrite_NoPushNote = "Rewrite_NoPushNote";
+
+    /// <summary>English: These refs keep pointing at the commits being replaced</summary>
+    public const string Rewrite_StrandedRefs = "Rewrite_StrandedRefs";
+
+    /// <summary>English: GitVault does not move them, because moving someone else&apos;s tag or branch is a decision to make deliberately. Update them yourself afterwards if you meant them to follow.</summary>
+    public const string Rewrite_StrandedExplains = "Rewrite_StrandedExplains";
+
+    /// <summary>English: HEAD is not on a branch, so there is no branch tip to move. Check out a branch first.</summary>
+    public const string Blocker_DetachedHead = "Blocker_DetachedHead";
+
+    /// <summary>English: The working tree or index has uncommitted changes. A rewrite moves the branch under them, so commit or stash first.</summary>
+    public const string Blocker_WorkingTreeDirty = "Blocker_WorkingTreeDirty";
+
+    /// <summary>English: No commit was actually changed.</summary>
+    public const string Blocker_NothingToChange = "Blocker_NothingToChange";
+
+    /// <summary>English: An edited commit is not reachable from the current branch, so moving that branch would not carry the change.</summary>
+    public const string Blocker_CommitNotOnBranch = "Blocker_CommitNotOnBranch";
+
+    /// <summary>English: A commit in this range is signed. GitVault holds no signing key, so the rebuilt commit will be unsigned.</summary>
+    public const string Warning_SignaturesWillBeLost = "Warning_SignaturesWillBeLost";
+
+    /// <summary>English: This range contains a merge. Every parent is preserved, but the merge commit itself gets a new identifier.</summary>
+    public const string Warning_RangeContainsMerges = "Warning_RangeContainsMerges";
+
+    /// <summary>English: These commits are already on the branch&apos;s upstream. Rewriting them locally makes the two histories disagree, and anyone who pulled them will have to reset.</summary>
+    public const string Warning_CommitsAlreadyPublished = "Warning_CommitsAlreadyPublished";
+
+    /// <summary>English: Tags or other branches point at commits in this range. They keep pointing at the old commits.</summary>
+    public const string Warning_OtherRefsPointIntoRange = "Warning_OtherRefsPointIntoRange";
+
+    /// <summary>English: History rewritten; the previous tip is kept in a backup ref</summary>
+    public const string Status_HistoryRewritten = "Status_HistoryRewritten";
+
+    /// <summary>English: Edits discarded</summary>
+    public const string Status_EditsDiscarded = "Status_EditsDiscarded";
 
     /// <summary>All keys, in declaration order.</summary>
     public static IReadOnlyList<string> All { get; } =
@@ -2593,7 +2701,7 @@ public static class Keys
         Commits_Limit_100,
         Commits_Limit_500,
         Commits_Limit_5000,
-        Commits_ReadOnlyNote,
+        Commits_EditingNote,
         Commits_SignatureWarning,
         Signature_None,
         Signature_Good,
@@ -2613,5 +2721,41 @@ public static class Keys
         Commits_RenamedPath,
         Commits_DateFormat,
         Commits_Column_Status,
+        Commits_Edit,
+        Commits_DiscardEdits,
+        Commits_ApplyEdits,
+        Commits_Column_Pending,
+        Commits_PendingMark,
+        Commits_PendingCount,
+        Rewrite_EditCommit,
+        Rewrite_DateHint,
+        Rewrite_Message,
+        Rewrite_AuthorName,
+        Rewrite_AuthorEmail,
+        Rewrite_AuthorDate,
+        Rewrite_CommitterName,
+        Rewrite_CommitterEmail,
+        Rewrite_CommitterDate,
+        Rewrite_Preview_Title,
+        Rewrite_Confirm,
+        Rewrite_Branch,
+        Rewrite_Reach,
+        Rewrite_Reason_Edited,
+        Rewrite_Reason_Carried,
+        Rewrite_Column_Reason,
+        Rewrite_TypeBranchName,
+        Rewrite_NoPushNote,
+        Rewrite_StrandedRefs,
+        Rewrite_StrandedExplains,
+        Blocker_DetachedHead,
+        Blocker_WorkingTreeDirty,
+        Blocker_NothingToChange,
+        Blocker_CommitNotOnBranch,
+        Warning_SignaturesWillBeLost,
+        Warning_RangeContainsMerges,
+        Warning_CommitsAlreadyPublished,
+        Warning_OtherRefsPointIntoRange,
+        Status_HistoryRewritten,
+        Status_EditsDiscarded,
     ];
 }

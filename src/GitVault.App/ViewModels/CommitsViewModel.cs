@@ -33,6 +33,12 @@ internal sealed class CommitRow(Localizer localizer, GitCommit commit) : Observa
     /// <summary>Localized signature state.</summary>
     public string Signature => L[DisplayNames.SignatureKey(Commit.Signature.State)];
 
+    /// <summary>True when the user has edited this commit but not applied the change.</summary>
+    public bool IsPending { get; private set; }
+
+    /// <summary>Localized mark shown in the pending column, or an empty cell.</summary>
+    public string Pending => IsPending ? L[Keys.Commits_PendingMark] : string.Empty;
+
     /// <summary>Localized description of what kind of commit this is.</summary>
     public string Shape => Commit switch
     {
@@ -40,6 +46,15 @@ internal sealed class CommitRow(Localizer localizer, GitCommit commit) : Observa
         { IsRoot: true } => L[Keys.Commits_Shape_Root],
         _ => string.Empty,
     };
+
+    /// <summary>Records whether an unapplied edit is waiting for this commit.</summary>
+    /// <param name="pending">True when an edit is waiting.</param>
+    internal void SetPending(bool pending)
+    {
+        IsPending = pending;
+        OnPropertyChanged(nameof(IsPending));
+        OnPropertyChanged(nameof(Pending));
+    }
 
     /// <summary>Re-reads the localized members.</summary>
     internal void RefreshCaptions() =>
@@ -74,12 +89,17 @@ internal sealed class CommitFileRow(Localizer localizer, CommitFileChange change
 }
 
 /// <summary>
-/// The history of one repository, read-only.
+/// The history of one repository, and the page from which commits are edited.
 /// </summary>
 /// <remarks>
-/// Deliberately read-only. Everything a rewrite would need is on screen — both identities, both
-/// dates with their offsets, the parents, the tree and the signature state — so that when editing
-/// arrives the user is deciding about facts they can already see rather than about a summary.
+/// Everything a rewrite needs is on screen — both identities, both dates with their offsets, the
+/// parents, the tree and the signature state — so the user is deciding about facts they can see
+/// rather than about a summary.
+///
+/// Editing is deliberately in two stages. Each edit is collected here and nothing is written; the
+/// rewrite happens once, when the user applies them. That is not only caution: rewriting a branch
+/// twice in a row would rebuild the same commits twice and produce a second set of identifiers
+/// for no reason, so collecting the edits is also the correct way to do the work.
 ///
 /// The signature column is not decoration. A rewrite reproduces a commit from its parts, and
 /// GitVault holds no key with which to sign; a signed commit that is rewritten loses its
@@ -89,7 +109,19 @@ internal sealed partial class CommitsViewModel : ListPageViewModel
 {
     private readonly ICommitReader _commits;
     private readonly IRepositoryInspector _inspector;
+    private readonly IHistoryRewriter _rewriter;
+    private readonly IDialogService _dialogs;
+    private readonly StatusService _status;
     private readonly RepositoryContext _repository;
+
+    /// <summary>
+    /// Edits the user has made and not yet applied, keyed by commit.
+    /// </summary>
+    /// <remarks>
+    /// Keyed rather than appended, so editing the same commit twice replaces the earlier edit
+    /// instead of queueing two changes whose order would decide the outcome.
+    /// </remarks>
+    private readonly Dictionary<string, CommitEdit> _pendingEdits = new(StringComparer.Ordinal);
 
     [ObservableProperty]
     private CommitRow? _selectedRow;
@@ -113,15 +145,24 @@ internal sealed partial class CommitsViewModel : ListPageViewModel
         Localizer localizer,
         ICommitReader commits,
         IRepositoryInspector inspector,
+        IHistoryRewriter rewriter,
+        IDialogService dialogs,
+        StatusService status,
         RepositoryContext repository)
         : base(localizer)
     {
         ArgumentNullException.ThrowIfNull(commits);
         ArgumentNullException.ThrowIfNull(inspector);
+        ArgumentNullException.ThrowIfNull(rewriter);
+        ArgumentNullException.ThrowIfNull(dialogs);
+        ArgumentNullException.ThrowIfNull(status);
         ArgumentNullException.ThrowIfNull(repository);
 
         _commits = commits;
         _inspector = inspector;
+        _rewriter = rewriter;
+        _dialogs = dialogs;
+        _status = status;
         _repository = repository;
 
         Limits =
@@ -180,8 +221,17 @@ internal sealed partial class CommitsViewModel : ListPageViewModel
     /// <summary>Localized warning that rewriting a signed commit loses its signature.</summary>
     public string SignatureWarningCaption => L[Keys.Commits_SignatureWarning];
 
-    /// <summary>Localized note that this page only reads.</summary>
-    public string ReadOnlyCaption => L[Keys.Commits_ReadOnlyNote];
+    /// <summary>Localized note that edits are collected before anything is written.</summary>
+    public string EditingCaption => L[Keys.Commits_EditingNote];
+
+    /// <summary>True when a commit is selected, so it can be edited.</summary>
+    public bool HasSelectedCommit => SelectedRow is not null;
+
+    /// <summary>True when edits are waiting to be applied.</summary>
+    public bool HasPendingEdits => _pendingEdits.Count > 0;
+
+    /// <summary>Localized count of the edits waiting to be applied.</summary>
+    public string PendingCountCaption => L.Format(Keys.Commits_PendingCount, _pendingEdits.Count);
 
     /// <inheritdoc/>
     public override Task OnActivatedAsync(CancellationToken cancellationToken) => ReloadAsync(cancellationToken);
@@ -226,7 +276,9 @@ internal sealed partial class CommitsViewModel : ListPageViewModel
             Rows.Clear();
             foreach (var commit in commits)
             {
-                Rows.Add(new CommitRow(L, commit));
+                var row = new CommitRow(L, commit);
+                row.SetPending(_pendingEdits.ContainsKey(commit.Sha));
+                Rows.Add(row);
             }
 
             SelectedRow = Rows.FirstOrDefault(r => r.Commit.Sha == previous) ?? Rows.FirstOrDefault();
@@ -243,6 +295,110 @@ internal sealed partial class CommitsViewModel : ListPageViewModel
     /// <returns>A task that completes once the grid is rebuilt.</returns>
     [RelayCommand]
     private Task RefreshAsync(CancellationToken cancellationToken) => ReloadAsync(cancellationToken);
+
+    /// <summary>Edits the selected commit, collecting the change without writing anything.</summary>
+    /// <returns>A task that completes once the dialog closes.</returns>
+    [RelayCommand]
+    private async Task EditAsync()
+    {
+        if (SelectedRow is not { } row)
+        {
+            return;
+        }
+
+        var dialog = new CommitEditorViewModel(L, row.Commit);
+        if (!await _dialogs.ShowAsync(dialog).ConfigureAwait(true))
+        {
+            return;
+        }
+
+        var edit = dialog.ToEdit();
+        if (edit.IsEmpty)
+        {
+            _pendingEdits.Remove(row.Commit.Sha);
+        }
+        else
+        {
+            _pendingEdits[row.Commit.Sha] = edit;
+        }
+
+        row.SetPending(_pendingEdits.ContainsKey(row.Commit.Sha));
+        NotifyPending();
+    }
+
+    /// <summary>Throws away every collected edit.</summary>
+    [RelayCommand]
+    private void DiscardEdits()
+    {
+        if (_pendingEdits.Count == 0)
+        {
+            return;
+        }
+
+        _pendingEdits.Clear();
+
+        foreach (var row in Rows)
+        {
+            row.SetPending(false);
+        }
+
+        NotifyPending();
+        _status.Report(StatusKind.Ready, Keys.Status_EditsDiscarded);
+    }
+
+    /// <summary>
+    /// Plans the rewrite, shows it, and applies it only if the user types the branch name.
+    /// </summary>
+    /// <param name="cancellationToken">Cancels the work.</param>
+    /// <returns>A task that completes once the dialog closes and any rewrite has run.</returns>
+    [RelayCommand]
+    private async Task ApplyEditsAsync(CancellationToken cancellationToken)
+    {
+        if (_repository.CurrentPath is not { Length: > 0 } path || _pendingEdits.Count == 0)
+        {
+            return;
+        }
+
+        var plan = await _rewriter
+            .PlanAsync(path, [.. _pendingEdits.Values], cancellationToken)
+            .ConfigureAwait(true);
+
+        var review = new RewriteReviewViewModel(L, plan);
+        if (!await _dialogs.ShowAsync(review).ConfigureAwait(true))
+        {
+            // The edits stay collected: the user declined this rewrite, not their own work.
+            _status.Report(StatusKind.Ready, Keys.Status_PlanNotApplied);
+            return;
+        }
+
+        var result = await _rewriter.ApplyAsync(plan, cancellationToken).ConfigureAwait(true);
+
+        if (result.Succeeded)
+        {
+            _pendingEdits.Clear();
+            NotifyPending();
+            _status.Report(StatusKind.Done, Keys.Status_HistoryRewritten);
+        }
+        else
+        {
+            _status.ReportText(
+                StatusKind.Error,
+                string.Join(
+                    L[Keys.Common_ListSeparator],
+                    result.Steps
+                        .Where(s => s.Outcome == GitVault.Core.Models.StepOutcome.Failed)
+                        .Select(s => s.Detail)));
+        }
+
+        await ReloadAsync(cancellationToken).ConfigureAwait(true);
+    }
+
+    private void NotifyPending()
+    {
+        OnPropertyChanged(nameof(HasPendingEdits));
+        OnPropertyChanged(nameof(PendingCountCaption));
+        ApplyEditsCommand.NotifyCanExecuteChanged();
+    }
 
     private void Notify()
     {
@@ -309,6 +465,8 @@ internal sealed partial class CommitsViewModel : ListPageViewModel
         OnPropertyChanged(nameof(SelectedBody));
         OnPropertyChanged(nameof(HasBody));
         OnPropertyChanged(nameof(SelectionIsSigned));
+        OnPropertyChanged(nameof(HasSelectedCommit));
+        EditCommand.NotifyCanExecuteChanged();
 
         RebuildProperties();
         _ = LoadFilesAsync(value);

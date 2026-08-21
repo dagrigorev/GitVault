@@ -1,0 +1,108 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:loc="using:GitVault.App.Markup"
+             x:Class="GitVault.App.Views.RewriteReviewView">
+  <StackPanel Spacing="0">
+
+    <Border Classes="note warn" Margin="0,0,0,7">
+      <StackPanel Orientation="Horizontal" Spacing="7">
+        <Image Classes="icon20" Source="{StaticResource IconSeverityMedium}" VerticalAlignment="Top" />
+        <StackPanel Spacing="2" MaxWidth="540">
+          <TextBlock FontWeight="Bold" Text="{Binding NothingWrittenCaption}" TextWrapping="Wrap" />
+          <TextBlock Classes="dim" TextWrapping="Wrap" Text="{loc:Tr Dialog_ReviewBeforeApply}" />
+        </StackPanel>
+      </StackPanel>
+    </Border>
+
+    <Grid ColumnDefinitions="130,*" RowDefinitions="Auto,Auto" Margin="0,0,0,7">
+      <TextBlock Grid.Row="0" Grid.Column="0" Classes="dim" Text="{loc:Tr Rewrite_Branch}" />
+      <TextBlock Grid.Row="0" Grid.Column="1" Classes="mono" Text="{Binding BranchName}" />
+
+      <TextBlock Grid.Row="1" Grid.Column="1" TextWrapping="Wrap" Margin="0,4,0,0"
+                 Text="{Binding ReachCaption}" />
+    </Grid>
+
+    <TextBlock Classes="sectionHeader" Text="{loc:Tr Profiles_PlannedChanges}" />
+
+    <Border Classes="panelWhite" Height="170">
+      <DataGrid ItemsSource="{Binding Rows}" BorderThickness="0" CanUserSortColumns="False"
+                IsReadOnly="True">
+        <DataGrid.Columns>
+          <DataGridTextColumn Header="{loc:Tr Commits_Column_Sha}" Binding="{Binding ShortSha}"
+                              Width="Auto" MinWidth="90" />
+          <DataGridTextColumn Header="{loc:Tr Commits_Column_Subject}" Binding="{Binding Subject}"
+                              Width="*" MinWidth="220" />
+          <DataGridTextColumn Header="{loc:Tr Rewrite_Column_Reason}" Binding="{Binding Reason}"
+                              Width="Auto" MinWidth="200" />
+        </DataGrid.Columns>
+      </DataGrid>
+    </Border>
+
+    <!-- A warning is something the user may not want; a blocker is something they cannot do. -->
+    <Border Classes="note warn" IsVisible="{Binding HasWarnings}">
+      <StackPanel Orientation="Horizontal" Spacing="7">
+        <Image Classes="icon20" Source="{StaticResource IconSeverityMedium}" VerticalAlignment="Top" />
+        <StackPanel Spacing="2" MaxWidth="540">
+          <TextBlock FontWeight="Bold" Text="{loc:Tr Dialog_PlanWarnings}" />
+          <ItemsControl ItemsSource="{Binding Warnings}">
+            <ItemsControl.ItemTemplate>
+              <DataTemplate>
+                <TextBlock Text="{Binding}" TextWrapping="Wrap" Margin="0,2,0,0" />
+              </DataTemplate>
+            </ItemsControl.ItemTemplate>
+          </ItemsControl>
+        </StackPanel>
+      </StackPanel>
+    </Border>
+
+    <Border Classes="note" IsVisible="{Binding HasStrandedRefs}">
+      <StackPanel Spacing="3" MaxWidth="560">
+        <TextBlock FontWeight="Bold" TextWrapping="Wrap" Text="{loc:Tr Rewrite_StrandedRefs}" />
+        <ItemsControl ItemsSource="{Binding StrandedRefs}">
+          <ItemsControl.ItemTemplate>
+            <DataTemplate>
+              <SelectableTextBlock Classes="mono" Text="{Binding}" />
+            </DataTemplate>
+          </ItemsControl.ItemTemplate>
+        </ItemsControl>
+        <TextBlock Classes="dim" TextWrapping="Wrap" Text="{loc:Tr Rewrite_StrandedExplains}" />
+      </StackPanel>
+    </Border>
+
+    <Border Classes="note">
+      <StackPanel Spacing="3" MaxWidth="560">
+        <TextBlock TextWrapping="Wrap" Text="{Binding BackupExplainsCaption}" />
+        <TextBlock Classes="dim" TextWrapping="Wrap" Text="{Binding NoPushCaption}" />
+      </StackPanel>
+    </Border>
+
+    <Border Classes="note error" IsVisible="{Binding HasBlockers}">
+      <StackPanel Orientation="Horizontal" Spacing="7">
+        <Image Classes="icon20" Source="{StaticResource IconSeverityHigh}" VerticalAlignment="Top" />
+        <StackPanel Spacing="2" MaxWidth="540">
+          <TextBlock FontWeight="Bold" Text="{loc:Tr Dialog_PlanBlocked}" />
+          <ItemsControl ItemsSource="{Binding Blockers}">
+            <ItemsControl.ItemTemplate>
+              <DataTemplate>
+                <TextBlock Text="{Binding}" TextWrapping="Wrap" Margin="0,2,0,0" />
+              </DataTemplate>
+            </ItemsControl.ItemTemplate>
+          </ItemsControl>
+        </StackPanel>
+      </StackPanel>
+    </Border>
+
+    <!--
+      The confirmation is a typed branch name rather than a checkbox. Every other dialog in the
+      application asks the user to acknowledge a plan; this one asks them to name the branch they
+      are rewriting, because a button is too easy to press by habit.
+    -->
+    <StackPanel Spacing="4" Margin="0,7,0,0" IsVisible="{Binding !HasBlockers}">
+      <TextBlock TextWrapping="Wrap" Text="{Binding ConfirmationPromptCaption}" />
+      <TextBox Classes="mono" Width="280" HorizontalAlignment="Left"
+               Text="{Binding TypedConfirmation, Mode=TwoWay}"
+               AutomationProperties.Name="{loc:Tr Rewrite_Branch}" />
+    </StackPanel>
+
+  </StackPanel>
+</UserControl>
