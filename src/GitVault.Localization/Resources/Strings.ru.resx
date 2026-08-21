@@ -2123,4 +2123,64 @@
   <data name="Status_EditsDiscarded" xml:space="preserve">
     <value>Правки отменены</value>
   </data>
+  <data name="Commits_EditFile" xml:space="preserve">
+    <value>Изменить файл…</value>
+  </data>
+  <data name="Commits_FileNotEditable" xml:space="preserve">
+    <value>Этот файл здесь редактировать нельзя: он двоичный, больше 2 МБ, символическая ссылка либо текст, байты которого не переживут чтение и обратную запись.</value>
+  </data>
+  <data name="Rewrite_EditFile" xml:space="preserve">
+    <value>Изменение содержимого файла</value>
+  </data>
+  <data name="Rewrite_FileNote" xml:space="preserve">
+    <value>Это содержимое, которое файл получит на этом коммите. Более поздние коммиты, не трогавшие файл, получат его без изменений; коммит, изменявший тот же файл, будет слит, а обо всём, что git объединить не может, вас спросят.</value>
+  </data>
+  <data name="Rewrite_Conflict_Title" xml:space="preserve">
+    <value>Объединение двух правок одного файла</value>
+  </data>
+  <data name="Rewrite_Conflict_Explains" xml:space="preserve">
+    <value>Этот коммит изменил те же строки, что и вы, и git не смог объединить правки. Приведите текст ниже к тому, что должно быть в этом коммите, убрав все маркеры конфликта.</value>
+  </data>
+  <data name="Rewrite_Conflict_MarkersLeft" xml:space="preserve">
+    <value>Маркеры конфликта ещё на месте. Уберите их, чтобы продолжить.</value>
+  </data>
+  <data name="Rewrite_Conflict_Commit" xml:space="preserve">
+    <value>Конфликтующий коммит</value>
+  </data>
+  <data name="Rewrite_Conflicts" xml:space="preserve">
+    <value>Коммиты, чьи правки требуют вашего решения</value>
+  </data>
+  <data name="Rewrite_Reason_Content" xml:space="preserve">
+    <value>содержимое изменено перенесённой правкой</value>
+  </data>
+  <data name="Rewrite_ContentReach" xml:space="preserve">
+    <value>Изменённое содержимое файлов окажется в {0} коммитах.</value>
+  </data>
+  <data name="Blocker_ContentEditOnMerge" xml:space="preserve">
+    <value>Содержимое файла изменено в коммите слияния, где у правки нет однозначной стороны. Измените его в одном из родительских коммитов.</value>
+  </data>
+  <data name="Blocker_PathNotInCommit" xml:space="preserve">
+    <value>В выбранном для правки коммите этого файла нет.</value>
+  </data>
+  <data name="Blocker_PathRemovedLater" xml:space="preserve">
+    <value>Более поздний коммит удаляет или переименовывает этот файл, поэтому переносить правку некуда.</value>
+  </data>
+  <data name="Blocker_PathAddedLater" xml:space="preserve">
+    <value>Более поздний коммит добавляет этот файл, а не изменяет его, поэтому правка сделана не по его содержимому.</value>
+  </data>
+  <data name="Blocker_PathIsNotAPlainFile" xml:space="preserve">
+    <value>Этот путь — символическая ссылка или подмодуль, а не обычный файл.</value>
+  </data>
+  <data name="Blocker_PathIsNotEditableText" xml:space="preserve">
+    <value>Файл двоичный, больше 2 МБ либо это текст, байты которого не переживут чтение и обратную запись.</value>
+  </data>
+  <data name="Blocker_MergeFailed" xml:space="preserve">
+    <value>Git не смог даже начать слияние.</value>
+  </data>
+  <data name="Blocker_UnresolvedConflicts" xml:space="preserve">
+    <value>Конфликт ещё ждёт вашего решения.</value>
+  </data>
+  <data name="Rewrite_CommitLabel" xml:space="preserve">
+    <value>{0}  {1}</value>
+  </data>
 </root>

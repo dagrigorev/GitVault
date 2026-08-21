@@ -28,11 +28,15 @@ public sealed record CommitEdit(string Sha)
     /// <summary>New committer date, or null to keep the original.</summary>
     public DateTimeOffset? CommitterDate { get; init; }
 
+    /// <summary>Files whose content the user changed at this commit.</summary>
+    public IReadOnlyList<FileEdit> Files { get; init; } = [];
+
     /// <summary>True when nothing was actually changed.</summary>
     public bool IsEmpty =>
         Message is null
         && AuthorName is null && AuthorEmail is null && AuthorDate is null
-        && CommitterName is null && CommitterEmail is null && CommitterDate is null;
+        && CommitterName is null && CommitterEmail is null && CommitterDate is null
+        && Files.Count == 0;
 }
 
 /// <summary>One commit in a rewrite, and what will happen to it.</summary>
@@ -41,6 +45,22 @@ public sealed record CommitEdit(string Sha)
 /// <param name="IsDirectlyEdited">True when the user changed this commit itself.</param>
 public sealed record RewriteStep(GitCommit Original, CommitEdit? Edit, bool IsDirectlyEdited)
 {
+    /// <summary>Files this commit ends up with, when a content edit reached it.</summary>
+    public IReadOnlyList<ResolvedFile> Files { get; init; } = [];
+
+    /// <summary>True when this commit's tree changes, whether the user edited it or not.</summary>
+    public bool ChangesContent => Files.Count > 0;
+
+    /// <summary>
+    /// True when a content edit made somewhere earlier lands in this commit's files.
+    /// </summary>
+    /// <remarks>
+    /// Worth naming separately from a commit that is merely rebuilt. Both get a new identifier,
+    /// but this one also holds different bytes than it did, which is a larger thing to be told
+    /// about in a preview.
+    /// </remarks>
+    public bool CarriesContent => !IsDirectlyEdited && Files.Count > 0;
+
     /// <summary>
     /// True when this commit only moves because something before it did.
     /// </summary>
@@ -73,6 +93,9 @@ public sealed record RewritePlan(string RepositoryPath, string BranchName, strin
     /// <summary>Other refs pointing into the range, which the rewrite leaves behind.</summary>
     public IReadOnlyList<string> StrandedRefs { get; init; } = [];
 
+    /// <summary>Later commits whose own change to an edited file needs the user's decision.</summary>
+    public IReadOnlyList<ContentConflict> Conflicts { get; init; } = [];
+
     /// <summary>Commit the branch points at now.</summary>
     public string OriginalTip { get; init; } = string.Empty;
 
@@ -81,6 +104,9 @@ public sealed record RewritePlan(string RepositoryPath, string BranchName, strin
 
     /// <summary>How many commits get a new identifier only because an earlier one changed.</summary>
     public int CarriedCount => Steps.Count(s => s.IsCarriedAlong);
+
+    /// <summary>How many commits end up holding different file content than they did.</summary>
+    public int ContentCount => Steps.Count(s => s.ChangesContent);
 
     /// <summary>True when the rewrite can be applied.</summary>
     public bool CanApply => Blockers.Count == 0 && EditedCount > 0;
@@ -123,6 +149,21 @@ public interface IHistoryRewriter
     Task<RewritePlan> PlanAsync(
         string repositoryPath,
         IReadOnlyList<CommitEdit> edits,
+        CancellationToken cancellationToken);
+
+    /// <summary>
+    /// Works out what rewriting these commits would change, given what the user decided about
+    /// conflicts an earlier plan reported. Writes nothing.
+    /// </summary>
+    /// <param name="repositoryPath">Working tree.</param>
+    /// <param name="edits">What the user changed.</param>
+    /// <param name="resolutions">Content the user settled on for conflicted files.</param>
+    /// <param name="cancellationToken">Cancels the planning.</param>
+    /// <returns>The plan.</returns>
+    Task<RewritePlan> PlanAsync(
+        string repositoryPath,
+        IReadOnlyList<CommitEdit> edits,
+        IReadOnlyList<ConflictResolution> resolutions,
         CancellationToken cancellationToken);
 
     /// <summary>Applies a rewrite, preserving the affected refs first.</summary>
@@ -168,35 +209,54 @@ public sealed class HistoryRewriter : IHistoryRewriter
     private readonly ICommitReader _commits;
     private readonly IRepositoryInspector _inspector;
     private readonly IRefBackupService _backups;
+    private readonly IContentMerger _merger;
+    private readonly ITreeBuilder _trees;
 
     /// <summary>Creates the rewriter.</summary>
     /// <param name="git">Command runner.</param>
     /// <param name="commits">Commit reader.</param>
     /// <param name="inspector">Inspector used to read repository state.</param>
     /// <param name="backups">Ref backup service.</param>
+    /// <param name="merger">Merger that carries a content edit through later commits.</param>
+    /// <param name="trees">Builder that writes the trees a content edit needs.</param>
     public HistoryRewriter(
         IGitCommandRunner git,
         ICommitReader commits,
         IRepositoryInspector inspector,
-        IRefBackupService backups)
+        IRefBackupService backups,
+        IContentMerger merger,
+        ITreeBuilder trees)
     {
         ArgumentNullException.ThrowIfNull(git);
         ArgumentNullException.ThrowIfNull(commits);
         ArgumentNullException.ThrowIfNull(inspector);
         ArgumentNullException.ThrowIfNull(backups);
+        ArgumentNullException.ThrowIfNull(merger);
+        ArgumentNullException.ThrowIfNull(trees);
 
         _git = git;
         _commits = commits;
         _inspector = inspector;
         _backups = backups;
+        _merger = merger;
+        _trees = trees;
     }
+
+    /// <inheritdoc/>
+    public Task<RewritePlan> PlanAsync(
+        string repositoryPath,
+        IReadOnlyList<CommitEdit> edits,
+        CancellationToken cancellationToken) =>
+        PlanAsync(repositoryPath, edits, [], cancellationToken);
 
     /// <inheritdoc/>
     public async Task<RewritePlan> PlanAsync(
         string repositoryPath,
         IReadOnlyList<CommitEdit> edits,
+        IReadOnlyList<ConflictResolution> resolutions,
         CancellationToken cancellationToken)
     {
+        ArgumentNullException.ThrowIfNull(resolutions);
         ArgumentException.ThrowIfNullOrWhiteSpace(repositoryPath);
         ArgumentNullException.ThrowIfNull(edits);
 
@@ -238,12 +298,25 @@ public sealed class HistoryRewriter : IHistoryRewriter
         }
 
         var byIndex = real.ToDictionary(e => e.Sha, StringComparer.Ordinal);
+
+        // The content side is worked out first, because it can refuse the whole rewrite and
+        // because each commit needs to know which files it ends up holding.
+        var content = await _merger
+            .ResolveAsync(repositoryPath, order, byIndex, resolutions, cancellationToken)
+            .ConfigureAwait(false);
+
+        blockers.AddRange(content.Blockers);
+
         var steps = new List<RewriteStep>();
 
         foreach (var commit in order)
         {
             byIndex.TryGetValue(commit.Sha, out var edit);
-            steps.Add(new RewriteStep(commit, edit, edit is not null));
+
+            steps.Add(new RewriteStep(commit, edit, edit is not null)
+            {
+                Files = content.FilesByCommit.TryGetValue(commit.Sha, out var files) ? files : [],
+            });
         }
 
         if (steps.Any(s => s.Original.Signature.IsPresent))
@@ -276,6 +349,7 @@ public sealed class HistoryRewriter : IHistoryRewriter
             Blockers = blockers,
             Warnings = warnings,
             StrandedRefs = stranded,
+            Conflicts = content.Conflicts,
             OriginalTip = state.HeadCommit ?? string.Empty,
         };
     }
@@ -368,7 +442,25 @@ public sealed class HistoryRewriter : IHistoryRewriter
         var original = step.Original;
         var edit = step.Edit;
 
-        var arguments = new List<string> { "commit-tree", original.TreeSha };
+        // A metadata-only rewrite reuses the tree the commit already had, which is what keeps it
+        // conflict-free. A content edit needs a tree of its own, written from the resolved files.
+        var tree = original.TreeSha;
+
+        if (step.Files.Count > 0)
+        {
+            var built = await _trees
+                .BuildAsync(repositoryPath, original.TreeSha, step.Files, cancellationToken)
+                .ConfigureAwait(false);
+
+            if (built is null)
+            {
+                return null;
+            }
+
+            tree = built;
+        }
+
+        var arguments = new List<string> { "commit-tree", tree };
 
         foreach (var parent in original.Parents)
         {
@@ -575,6 +667,30 @@ public static class RewriteBlockers
 
     /// <summary>An edited commit is not reachable from the current branch.</summary>
     public const string CommitNotOnBranch = "Blocker_CommitNotOnBranch";
+
+    /// <summary>File content was edited on a merge commit, where it has no single meaning.</summary>
+    public const string ContentEditOnMerge = "Blocker_ContentEditOnMerge";
+
+    /// <summary>The commit chosen for the edit does not contain that path.</summary>
+    public const string PathNotInCommit = "Blocker_PathNotInCommit";
+
+    /// <summary>A later commit deletes or renames the edited path.</summary>
+    public const string PathRemovedLater = "Blocker_PathRemovedLater";
+
+    /// <summary>A later commit adds the path, so the edit was not made against what it holds.</summary>
+    public const string PathAddedLater = "Blocker_PathAddedLater";
+
+    /// <summary>The path is a symbolic link or a submodule rather than a file.</summary>
+    public const string PathIsNotAPlainFile = "Blocker_PathIsNotAPlainFile";
+
+    /// <summary>The file is binary, too large, or not text this can carry back unchanged.</summary>
+    public const string PathIsNotEditableText = "Blocker_PathIsNotEditableText";
+
+    /// <summary>Git could not attempt the three-way merge at all.</summary>
+    public const string MergeFailed = "Blocker_MergeFailed";
+
+    /// <summary>A conflict is still waiting for the user to settle it.</summary>
+    public const string UnresolvedConflicts = "Blocker_UnresolvedConflicts";
 }
 
 /// <summary>Warning identifiers for a rewrite. Localization keys, not text.</summary>

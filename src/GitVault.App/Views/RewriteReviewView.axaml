@@ -14,12 +14,16 @@
       </StackPanel>
     </Border>
 
-    <Grid ColumnDefinitions="130,*" RowDefinitions="Auto,Auto" Margin="0,0,0,7">
+    <Grid ColumnDefinitions="130,*" RowDefinitions="Auto,Auto,Auto" Margin="0,0,0,7">
       <TextBlock Grid.Row="0" Grid.Column="0" Classes="dim" Text="{loc:Tr Rewrite_Branch}" />
       <TextBlock Grid.Row="0" Grid.Column="1" Classes="mono" Text="{Binding BranchName}" />
 
       <TextBlock Grid.Row="1" Grid.Column="1" TextWrapping="Wrap" Margin="0,4,0,0"
                  Text="{Binding ReachCaption}" />
+
+      <TextBlock Grid.Row="2" Grid.Column="1" TextWrapping="Wrap" Margin="0,4,0,0"
+                 IsVisible="{Binding ChangesContent}"
+                 Text="{Binding ContentReachCaption}" />
     </Grid>
 
     <TextBlock Classes="sectionHeader" Text="{loc:Tr Profiles_PlannedChanges}" />
@@ -73,6 +77,19 @@
       <StackPanel Spacing="3" MaxWidth="560">
         <TextBlock TextWrapping="Wrap" Text="{Binding BackupExplainsCaption}" />
         <TextBlock Classes="dim" TextWrapping="Wrap" Text="{Binding NoPushCaption}" />
+      </StackPanel>
+    </Border>
+
+    <Border Classes="note error" IsVisible="{Binding HasConflicts}">
+      <StackPanel Spacing="3" MaxWidth="560">
+        <TextBlock FontWeight="Bold" TextWrapping="Wrap" Text="{loc:Tr Rewrite_Conflicts}" />
+        <ItemsControl ItemsSource="{Binding Conflicts}">
+          <ItemsControl.ItemTemplate>
+            <DataTemplate>
+              <SelectableTextBlock Classes="mono" Text="{Binding}" />
+            </DataTemplate>
+          </ItemsControl.ItemTemplate>
+        </ItemsControl>
       </StackPanel>
     </Border>
 

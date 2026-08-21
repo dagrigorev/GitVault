@@ -187,6 +187,160 @@ public sealed class CommitEditingTests
     }
 
     [AvaloniaFact]
+    public async Task Editing_a_file_collects_the_content_without_writing_it()
+    {
+        using var provider = Build(out var rewriter);
+        var page = await OpenAsync(provider);
+        var dialogs = provider.GetRequiredService<FakeDialogService>();
+
+        page.SelectedFile = page.Files[0];
+
+        dialogs.Handler = dialog =>
+        {
+            ((FileEditorViewModel)dialog).Text = "ALPHA\n";
+            return true;
+        };
+
+        await page.EditFileCommand.ExecuteAsync(CancellationToken.None);
+
+        page.HasPendingEdits.Should().BeTrue();
+        rewriter.Planned.Should().BeEmpty("editing a file must not plan a rewrite on its own");
+        rewriter.Applied.Should().BeEmpty();
+    }
+
+    [AvaloniaFact]
+    public async Task A_file_that_cannot_be_edited_is_refused_before_anything_is_typed()
+    {
+        using var provider = Build(out _);
+        var page = await OpenAsync(provider);
+        var dialogs = provider.GetRequiredService<FakeDialogService>();
+
+        provider.GetRequiredService<StubFileReader>().EditablePath = "something.else";
+        page.SelectedFile = page.Files[0];
+
+        await page.EditFileCommand.ExecuteAsync(CancellationToken.None);
+
+        dialogs.Shown.Should().BeEmpty("a binary or oversized file must not open an editor at all");
+        page.HasPendingEdits.Should().BeFalse();
+    }
+
+    [AvaloniaFact]
+    public async Task A_conflict_is_asked_about_before_the_preview_appears()
+    {
+        using var provider = Build(out var rewriter);
+        var page = await OpenAsync(provider);
+        var dialogs = provider.GetRequiredService<FakeDialogService>();
+
+        await StageAnEditAsync(page, dialogs);
+        rewriter.ConflictingPaths.Add("notes.txt");
+
+        dialogs.Handler = dialog => dialog switch
+        {
+            ConflictResolutionViewModel resolution => Resolve(resolution),
+            RewriteReviewViewModel review => Confirm(review),
+            _ => false,
+        };
+
+        await page.ApplyEditsCommand.ExecuteAsync(CancellationToken.None);
+
+        dialogs.Shown.Should().HaveCountGreaterThan(1);
+        dialogs.Shown.OfType<ConflictResolutionViewModel>().Should().ContainSingle(
+            "the conflict is settled once, then the plan is rebuilt");
+
+        rewriter.ResolutionsSeen[^1].Should().ContainSingle(
+            "the resolution is carried into the plan that gets applied");
+
+        rewriter.Applied.Should().ContainSingle();
+    }
+
+    [AvaloniaFact]
+    public async Task Closing_the_conflict_dialog_rewrites_nothing()
+    {
+        using var provider = Build(out var rewriter);
+        var page = await OpenAsync(provider);
+        var dialogs = provider.GetRequiredService<FakeDialogService>();
+
+        await StageAnEditAsync(page, dialogs);
+        rewriter.ConflictingPaths.Add("notes.txt");
+
+        dialogs.Answer = false;
+        await page.ApplyEditsCommand.ExecuteAsync(CancellationToken.None);
+
+        dialogs.ShownOfType<RewriteReviewViewModel>().Should().BeEmpty(
+            "a rewrite nobody can carry out is not worth previewing");
+
+        rewriter.Applied.Should().BeEmpty();
+        page.HasPendingEdits.Should().BeTrue("the edits survive; only this attempt was abandoned");
+    }
+
+    [AvaloniaFact]
+    public void A_conflict_cannot_be_confirmed_while_a_marker_remains()
+    {
+        using var provider = Build(out _);
+        var localizer = provider.GetRequiredService<GitVault.Localization.Localizer>();
+
+        var conflict = new ContentConflict(
+            StubRewriter.Head.Sha,
+            StubRewriter.Head.ShortSha,
+            StubRewriter.Head.Subject,
+            "notes.txt",
+            "<<<<<<< notes.txt\nmine\n=======\ntheirs\n>>>>>>> edited version\n");
+
+        var dialog = new ConflictResolutionViewModel(localizer, conflict);
+
+        dialog.HasMarkers.Should().BeTrue();
+        dialog.CanConfirm.Should().BeFalse("a marker committed into history is a broken file");
+
+        dialog.Text = "settled\n";
+
+        dialog.HasMarkers.Should().BeFalse();
+        dialog.CanConfirm.Should().BeTrue();
+        dialog.ToResolution().Content.Should().Be("settled\n");
+    }
+
+    [AvaloniaFact]
+    public async Task A_file_edit_and_a_message_edit_reach_the_same_commit_together()
+    {
+        using var provider = Build(out var rewriter);
+        var page = await OpenAsync(provider);
+        var dialogs = provider.GetRequiredService<FakeDialogService>();
+
+        await StageAnEditAsync(page, dialogs);
+
+        page.SelectedFile = page.Files[0];
+        dialogs.Handler = dialog =>
+        {
+            ((FileEditorViewModel)dialog).Text = "ALPHA\n";
+            return true;
+        };
+
+        await page.EditFileCommand.ExecuteAsync(CancellationToken.None);
+
+        dialogs.Handler = dialog => dialog is RewriteReviewViewModel review && Confirm(review);
+        await page.ApplyEditsCommand.ExecuteAsync(CancellationToken.None);
+
+        var applied = rewriter.Applied.Should().ContainSingle().Subject;
+        var edit = applied.Steps.Should().ContainSingle().Subject.Edit!;
+
+        edit.Message.Should().Be("A better subject", "the message edit was not lost");
+        edit.Files.Should().ContainSingle().Which.Content.Should().Be("ALPHA\n");
+    }
+
+    /// <summary>Settles a conflict the way a user would, by removing the markers.</summary>
+    private static bool Resolve(ConflictResolutionViewModel dialog)
+    {
+        dialog.Text = "settled\n";
+        return true;
+    }
+
+    /// <summary>Confirms a rewrite the way a user would, by typing the branch name.</summary>
+    private static bool Confirm(RewriteReviewViewModel dialog)
+    {
+        dialog.TypedConfirmation = dialog.BranchName;
+        return true;
+    }
+
+    [AvaloniaFact]
     public void An_edit_that_changes_nothing_is_not_an_edit()
     {
         using var provider = Build(out _);
@@ -296,6 +450,8 @@ public sealed class CommitEditingTests
             services.AddSingleton<IRepositoryInspector>(new StubInspector());
             services.AddSingleton<ICommitReader>(new StubCommitReader());
             services.AddSingleton<IHistoryRewriter>(stub);
+            services.AddSingleton<StubFileReader>();
+            services.AddSingleton<IFileContentReader>(sp => sp.GetRequiredService<StubFileReader>());
         });
     }
 }
@@ -313,7 +469,24 @@ internal sealed class StubCommitReader : ICommitReader
 
     public Task<IReadOnlyList<CommitFileChange>> ReadChangesAsync(
         string repositoryPath, string sha, CancellationToken cancellationToken) =>
-        Task.FromResult<IReadOnlyList<CommitFileChange>>([]);
+        Task.FromResult<IReadOnlyList<CommitFileChange>>(
+            [new CommitFileChange(FileChangeStatus.Modified, "notes.txt", null, 1, 0)]);
+}
+
+/// <summary>A reader that offers one editable file, and refuses anything else.</summary>
+internal sealed class StubFileReader : IFileContentReader
+{
+    /// <summary>Path this reader will hand over.</summary>
+    public string EditablePath { get; set; } = "notes.txt";
+
+    /// <summary>Content it reports for that path.</summary>
+    public string Text { get; set; } = "alpha\n";
+
+    public Task<FileContent?> ReadAsync(
+        string repositoryPath, string sha, string path, CancellationToken cancellationToken) =>
+        Task.FromResult(string.Equals(path, EditablePath, StringComparison.Ordinal)
+            ? new FileContent(path, "100644", Text)
+            : null);
 }
 
 /// <summary>A rewriter that records what it was asked to do, and changes nothing.</summary>
@@ -360,11 +533,47 @@ internal sealed class StubRewriter : IHistoryRewriter
     /// <summary>When true, the next plan built carries a blocker.</summary>
     public bool BlockNextPlan { get; set; }
 
+    /// <summary>
+    /// Conflicts the next plan reports, one for each commit named here.
+    /// </summary>
+    /// <remarks>
+    /// A conflict disappears once a resolution naming the same commit and path arrives, which is
+    /// how the real rewriter behaves and what lets a test drive the resolution loop.
+    /// </remarks>
+    public List<string> ConflictingPaths { get; } = [];
+
+    /// <summary>Resolutions each plan was built with, in order.</summary>
+    public List<IReadOnlyList<ConflictResolution>> ResolutionsSeen { get; } = [];
+
     public Task<RewritePlan> PlanAsync(
-        string repositoryPath, IReadOnlyList<CommitEdit> edits, CancellationToken cancellationToken)
+        string repositoryPath, IReadOnlyList<CommitEdit> edits, CancellationToken cancellationToken) =>
+        PlanAsync(repositoryPath, edits, [], cancellationToken);
+
+    public Task<RewritePlan> PlanAsync(
+        string repositoryPath,
+        IReadOnlyList<CommitEdit> edits,
+        IReadOnlyList<ConflictResolution> resolutions,
+        CancellationToken cancellationToken)
     {
-        var blockers = BlockNextPlan ? new[] { RewriteBlockers.WorkingTreeDirty } : [];
-        BlockNextPlan = false;
+        var blockers = new List<string>();
+
+        if (BlockNextPlan)
+        {
+            blockers.Add(RewriteBlockers.WorkingTreeDirty);
+            BlockNextPlan = false;
+        }
+
+        var conflicts = ConflictingPaths
+            .Where(path => !resolutions.Any(r =>
+                r.Sha == Head.Sha && string.Equals(r.Path, path, StringComparison.Ordinal)))
+            .Select(path => new ContentConflict(
+                Head.Sha, Head.ShortSha, Head.Subject, path, "<<<<<<< " + path + "\n=======\n>>>>>>>\n"))
+            .ToList();
+
+        if (conflicts.Count > 0)
+        {
+            blockers.Add(RewriteBlockers.UnresolvedConflicts);
+        }
 
         var plan = new RewritePlan(repositoryPath, "main", "refs/heads/main")
         {
@@ -372,10 +581,12 @@ internal sealed class StubRewriter : IHistoryRewriter
                 e.Sha == Older.Sha ? Older : Head, e, true))],
             RefsToBackUp = ["refs/heads/main"],
             Blockers = blockers,
+            Conflicts = conflicts,
             OriginalTip = Head.Sha,
         };
 
         Planned.Add(plan);
+        ResolutionsSeen.Add([.. resolutions]);
         return Task.FromResult(plan);
     }
 

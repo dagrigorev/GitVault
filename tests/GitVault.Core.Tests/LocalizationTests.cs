@@ -97,6 +97,10 @@ public sealed class LocalizationTests
             // The commit date pattern is deliberately identical everywhere: it exists to show the
             // exact offset git recorded, and a locale-dependent arrangement would obscure it.
             Keys.Commits_DateFormat,
+
+            // An abbreviated commit name beside what it is: two placeholders and the spacing
+            // between them, with no word to translate.
+            Keys.Rewrite_CommitLabel,
         ];
 
         var service = new LocalizationService(new CldrPluralizer());

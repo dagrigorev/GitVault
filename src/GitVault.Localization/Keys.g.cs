@@ -2067,6 +2067,66 @@ public static class Keys
     /// <summary>English: Edits discarded</summary>
     public const string Status_EditsDiscarded = "Status_EditsDiscarded";
 
+    /// <summary>English: Edit file…</summary>
+    public const string Commits_EditFile = "Commits_EditFile";
+
+    /// <summary>English: That file cannot be edited here: it is binary, larger than 2 MB, a symbolic link, or text whose bytes would not survive being read and written back.</summary>
+    public const string Commits_FileNotEditable = "Commits_FileNotEditable";
+
+    /// <summary>English: Edit file content</summary>
+    public const string Rewrite_EditFile = "Rewrite_EditFile";
+
+    /// <summary>English: This is the content the file will have as of this commit. Later commits that leave the file alone receive it unchanged; a later commit that changed the same file is merged, and you are asked about anything git cannot combine.</summary>
+    public const string Rewrite_FileNote = "Rewrite_FileNote";
+
+    /// <summary>English: Combine two changes to one file</summary>
+    public const string Rewrite_Conflict_Title = "Rewrite_Conflict_Title";
+
+    /// <summary>English: This commit changed the same lines you edited, and git could not combine the two. Edit the text below into what this commit should hold, removing every conflict marker.</summary>
+    public const string Rewrite_Conflict_Explains = "Rewrite_Conflict_Explains";
+
+    /// <summary>English: Conflict markers are still present. Remove them to continue.</summary>
+    public const string Rewrite_Conflict_MarkersLeft = "Rewrite_Conflict_MarkersLeft";
+
+    /// <summary>English: Conflicting commit</summary>
+    public const string Rewrite_Conflict_Commit = "Rewrite_Conflict_Commit";
+
+    /// <summary>English: Commits whose own changes need your decision</summary>
+    public const string Rewrite_Conflicts = "Rewrite_Conflicts";
+
+    /// <summary>English: content changed by the edit carried into it</summary>
+    public const string Rewrite_Reason_Content = "Rewrite_Reason_Content";
+
+    /// <summary>English: {0} commits end up holding different file content.</summary>
+    public const string Rewrite_ContentReach = "Rewrite_ContentReach";
+
+    /// <summary>English: File content was edited on a merge commit, where there is no single side for the change to belong to. Edit it on one of the parents instead.</summary>
+    public const string Blocker_ContentEditOnMerge = "Blocker_ContentEditOnMerge";
+
+    /// <summary>English: The commit chosen for the edit does not contain that file.</summary>
+    public const string Blocker_PathNotInCommit = "Blocker_PathNotInCommit";
+
+    /// <summary>English: A later commit deletes or renames this file, so there is nothing left to carry the edit into.</summary>
+    public const string Blocker_PathRemovedLater = "Blocker_PathRemovedLater";
+
+    /// <summary>English: A later commit adds this file rather than changing it, so the edit was not made against anything it holds.</summary>
+    public const string Blocker_PathAddedLater = "Blocker_PathAddedLater";
+
+    /// <summary>English: This path is a symbolic link or a submodule rather than a plain file.</summary>
+    public const string Blocker_PathIsNotAPlainFile = "Blocker_PathIsNotAPlainFile";
+
+    /// <summary>English: This file is binary, larger than 2 MB, or text whose bytes would not survive being read and written back.</summary>
+    public const string Blocker_PathIsNotEditableText = "Blocker_PathIsNotEditableText";
+
+    /// <summary>English: Git could not attempt the merge at all.</summary>
+    public const string Blocker_MergeFailed = "Blocker_MergeFailed";
+
+    /// <summary>English: A conflict is still waiting for your decision.</summary>
+    public const string Blocker_UnresolvedConflicts = "Blocker_UnresolvedConflicts";
+
+    /// <summary>English: {0}  {1}</summary>
+    public const string Rewrite_CommitLabel = "Rewrite_CommitLabel";
+
     /// <summary>All keys, in declaration order.</summary>
     public static IReadOnlyList<string> All { get; } =
     [
@@ -2757,5 +2817,25 @@ public static class Keys
         Warning_OtherRefsPointIntoRange,
         Status_HistoryRewritten,
         Status_EditsDiscarded,
+        Commits_EditFile,
+        Commits_FileNotEditable,
+        Rewrite_EditFile,
+        Rewrite_FileNote,
+        Rewrite_Conflict_Title,
+        Rewrite_Conflict_Explains,
+        Rewrite_Conflict_MarkersLeft,
+        Rewrite_Conflict_Commit,
+        Rewrite_Conflicts,
+        Rewrite_Reason_Content,
+        Rewrite_ContentReach,
+        Blocker_ContentEditOnMerge,
+        Blocker_PathNotInCommit,
+        Blocker_PathRemovedLater,
+        Blocker_PathAddedLater,
+        Blocker_PathIsNotAPlainFile,
+        Blocker_PathIsNotEditableText,
+        Blocker_MergeFailed,
+        Blocker_UnresolvedConflicts,
+        Rewrite_CommitLabel,
     ];
 }

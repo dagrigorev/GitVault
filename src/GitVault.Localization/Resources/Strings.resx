@@ -2123,4 +2123,64 @@
   <data name="Status_EditsDiscarded" xml:space="preserve">
     <value>Edits discarded</value>
   </data>
+  <data name="Commits_EditFile" xml:space="preserve">
+    <value>Edit file…</value>
+  </data>
+  <data name="Commits_FileNotEditable" xml:space="preserve">
+    <value>That file cannot be edited here: it is binary, larger than 2 MB, a symbolic link, or text whose bytes would not survive being read and written back.</value>
+  </data>
+  <data name="Rewrite_EditFile" xml:space="preserve">
+    <value>Edit file content</value>
+  </data>
+  <data name="Rewrite_FileNote" xml:space="preserve">
+    <value>This is the content the file will have as of this commit. Later commits that leave the file alone receive it unchanged; a later commit that changed the same file is merged, and you are asked about anything git cannot combine.</value>
+  </data>
+  <data name="Rewrite_Conflict_Title" xml:space="preserve">
+    <value>Combine two changes to one file</value>
+  </data>
+  <data name="Rewrite_Conflict_Explains" xml:space="preserve">
+    <value>This commit changed the same lines you edited, and git could not combine the two. Edit the text below into what this commit should hold, removing every conflict marker.</value>
+  </data>
+  <data name="Rewrite_Conflict_MarkersLeft" xml:space="preserve">
+    <value>Conflict markers are still present. Remove them to continue.</value>
+  </data>
+  <data name="Rewrite_Conflict_Commit" xml:space="preserve">
+    <value>Conflicting commit</value>
+  </data>
+  <data name="Rewrite_Conflicts" xml:space="preserve">
+    <value>Commits whose own changes need your decision</value>
+  </data>
+  <data name="Rewrite_Reason_Content" xml:space="preserve">
+    <value>content changed by the edit carried into it</value>
+  </data>
+  <data name="Rewrite_ContentReach" xml:space="preserve">
+    <value>{0} commits end up holding different file content.</value>
+  </data>
+  <data name="Blocker_ContentEditOnMerge" xml:space="preserve">
+    <value>File content was edited on a merge commit, where there is no single side for the change to belong to. Edit it on one of the parents instead.</value>
+  </data>
+  <data name="Blocker_PathNotInCommit" xml:space="preserve">
+    <value>The commit chosen for the edit does not contain that file.</value>
+  </data>
+  <data name="Blocker_PathRemovedLater" xml:space="preserve">
+    <value>A later commit deletes or renames this file, so there is nothing left to carry the edit into.</value>
+  </data>
+  <data name="Blocker_PathAddedLater" xml:space="preserve">
+    <value>A later commit adds this file rather than changing it, so the edit was not made against anything it holds.</value>
+  </data>
+  <data name="Blocker_PathIsNotAPlainFile" xml:space="preserve">
+    <value>This path is a symbolic link or a submodule rather than a plain file.</value>
+  </data>
+  <data name="Blocker_PathIsNotEditableText" xml:space="preserve">
+    <value>This file is binary, larger than 2 MB, or text whose bytes would not survive being read and written back.</value>
+  </data>
+  <data name="Blocker_MergeFailed" xml:space="preserve">
+    <value>Git could not attempt the merge at all.</value>
+  </data>
+  <data name="Blocker_UnresolvedConflicts" xml:space="preserve">
+    <value>A conflict is still waiting for your decision.</value>
+  </data>
+  <data name="Rewrite_CommitLabel" xml:space="preserve">
+    <value>{0}  {1}</value>
+  </data>
 </root>

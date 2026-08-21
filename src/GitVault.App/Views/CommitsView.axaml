@@ -36,6 +36,8 @@
 
       <Button Name="EditCommitButton" Command="{Binding EditCommand}"
               IsEnabled="{Binding HasSelectedCommit}" Content="{loc:Tr Commits_Edit}" />
+      <Button Name="EditFileButton" Command="{Binding EditFileCommand}"
+              IsEnabled="{Binding HasSelectedFile}" Content="{loc:Tr Commits_EditFile}" />
       <Button Name="ApplyEditsButton" Command="{Binding ApplyEditsCommand}"
               IsEnabled="{Binding HasPendingEdits}" Content="{loc:Tr Commits_ApplyEdits}" />
       <Button Name="DiscardEditsButton" Command="{Binding DiscardEditsCommand}"
@@ -75,7 +77,9 @@
         <TextBlock DockPanel.Dock="Top" Classes="groupTitle" Margin="0,-16,0,4"
                    Text="{loc:Tr Commits_Files}" />
         <Border Classes="panelWhite">
-          <DataGrid ItemsSource="{Binding Files}" BorderThickness="0" MaxHeight="150"
+          <DataGrid ItemsSource="{Binding Files}"
+                    SelectedItem="{Binding SelectedFile, Mode=TwoWay}"
+                    BorderThickness="0" MaxHeight="150"
                     CanUserSortColumns="False">
             <DataGrid.Columns>
               <DataGridTextColumn Header="{loc:Tr Commits_Column_Status}" Binding="{Binding Status}"

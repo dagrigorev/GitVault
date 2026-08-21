@@ -110,6 +110,7 @@ internal sealed partial class CommitsViewModel : ListPageViewModel
     private readonly ICommitReader _commits;
     private readonly IRepositoryInspector _inspector;
     private readonly IHistoryRewriter _rewriter;
+    private readonly IFileContentReader _files;
     private readonly IDialogService _dialogs;
     private readonly StatusService _status;
     private readonly RepositoryContext _repository;
@@ -123,8 +124,21 @@ internal sealed partial class CommitsViewModel : ListPageViewModel
     /// </remarks>
     private readonly Dictionary<string, CommitEdit> _pendingEdits = new(StringComparer.Ordinal);
 
+    /// <summary>
+    /// What the user decided about conflicts an earlier plan reported.
+    /// </summary>
+    /// <remarks>
+    /// Kept across re-planning so that settling one conflict does not put the previous ones back
+    /// on screen. Discarding the edits clears these too: a resolution only means anything next to
+    /// the edit it was made for.
+    /// </remarks>
+    private readonly List<ConflictResolution> _resolutions = [];
+
     [ObservableProperty]
     private CommitRow? _selectedRow;
+
+    [ObservableProperty]
+    private CommitFileRow? _selectedFile;
 
     [ObservableProperty]
     private string _searchText = string.Empty;
@@ -146,6 +160,7 @@ internal sealed partial class CommitsViewModel : ListPageViewModel
         ICommitReader commits,
         IRepositoryInspector inspector,
         IHistoryRewriter rewriter,
+        IFileContentReader files,
         IDialogService dialogs,
         StatusService status,
         RepositoryContext repository)
@@ -154,6 +169,7 @@ internal sealed partial class CommitsViewModel : ListPageViewModel
         ArgumentNullException.ThrowIfNull(commits);
         ArgumentNullException.ThrowIfNull(inspector);
         ArgumentNullException.ThrowIfNull(rewriter);
+        ArgumentNullException.ThrowIfNull(files);
         ArgumentNullException.ThrowIfNull(dialogs);
         ArgumentNullException.ThrowIfNull(status);
         ArgumentNullException.ThrowIfNull(repository);
@@ -161,6 +177,7 @@ internal sealed partial class CommitsViewModel : ListPageViewModel
         _commits = commits;
         _inspector = inspector;
         _rewriter = rewriter;
+        _files = files;
         _dialogs = dialogs;
         _status = status;
         _repository = repository;
@@ -226,6 +243,9 @@ internal sealed partial class CommitsViewModel : ListPageViewModel
 
     /// <summary>True when a commit is selected, so it can be edited.</summary>
     public bool HasSelectedCommit => SelectedRow is not null;
+
+    /// <summary>True when a file of the selected commit is selected, so it can be edited.</summary>
+    public bool HasSelectedFile => SelectedRow is not null && SelectedFile is not null;
 
     /// <summary>True when edits are waiting to be applied.</summary>
     public bool HasPendingEdits => _pendingEdits.Count > 0;
@@ -313,17 +333,52 @@ internal sealed partial class CommitsViewModel : ListPageViewModel
         }
 
         var edit = dialog.ToEdit();
-        if (edit.IsEmpty)
+
+        Stage(row, existing => existing with
         {
-            _pendingEdits.Remove(row.Commit.Sha);
-        }
-        else
+            Message = edit.Message,
+            AuthorName = edit.AuthorName,
+            AuthorEmail = edit.AuthorEmail,
+            AuthorDate = edit.AuthorDate,
+            CommitterName = edit.CommitterName,
+            CommitterEmail = edit.CommitterEmail,
+            CommitterDate = edit.CommitterDate,
+        });
+    }
+
+    /// <summary>
+    /// Edits the content of the selected file as of the selected commit.
+    /// </summary>
+    /// <param name="cancellationToken">Cancels the read.</param>
+    /// <returns>A task that completes once the dialog closes.</returns>
+    [RelayCommand]
+    private async Task EditFileAsync(CancellationToken cancellationToken)
+    {
+        if (SelectedRow is not { } row
+            || SelectedFile is not { } file
+            || _repository.CurrentPath is not { Length: > 0 } path)
         {
-            _pendingEdits[row.Commit.Sha] = edit;
+            return;
         }
 
-        row.SetPending(_pendingEdits.ContainsKey(row.Commit.Sha));
-        NotifyPending();
+        var content = await _files
+            .ReadAsync(path, row.Commit.Sha, file.Change.Path, cancellationToken)
+            .ConfigureAwait(true);
+
+        if (content is null)
+        {
+            // The same rules the rewrite would apply, applied before the user types anything.
+            _status.Report(StatusKind.Error, Keys.Commits_FileNotEditable);
+            return;
+        }
+
+        var dialog = new FileEditorViewModel(L, row.Commit, content);
+        if (!await _dialogs.ShowAsync(dialog).ConfigureAwait(true))
+        {
+            return;
+        }
+
+        Stage(row, edit => edit with { Files = Replace(edit.Files, dialog.ToEdit()) });
     }
 
     /// <summary>Throws away every collected edit.</summary>
@@ -336,6 +391,7 @@ internal sealed partial class CommitsViewModel : ListPageViewModel
         }
 
         _pendingEdits.Clear();
+        _resolutions.Clear();
 
         foreach (var row in Rows)
         {
@@ -360,8 +416,32 @@ internal sealed partial class CommitsViewModel : ListPageViewModel
         }
 
         var plan = await _rewriter
-            .PlanAsync(path, [.. _pendingEdits.Values], cancellationToken)
+            .PlanAsync(path, [.. _pendingEdits.Values], [.. _resolutions], cancellationToken)
             .ConfigureAwait(true);
+
+        // A conflict is a question, not a failure. Each one is asked before the preview, so what
+        // the preview finally shows is a rewrite that can actually be carried out.
+        while (plan.Conflicts.Count > 0)
+        {
+            var conflict = plan.Conflicts[0];
+            var resolver = new ConflictResolutionViewModel(L, conflict);
+
+            if (!await _dialogs.ShowAsync(resolver).ConfigureAwait(true))
+            {
+                _status.Report(StatusKind.Ready, Keys.Status_PlanNotApplied);
+                return;
+            }
+
+            _resolutions.RemoveAll(r =>
+                string.Equals(r.Sha, conflict.Sha, StringComparison.Ordinal)
+                && string.Equals(r.Path, conflict.Path, StringComparison.Ordinal));
+
+            _resolutions.Add(resolver.ToResolution());
+
+            plan = await _rewriter
+                .PlanAsync(path, [.. _pendingEdits.Values], [.. _resolutions], cancellationToken)
+                .ConfigureAwait(true);
+        }
 
         var review = new RewriteReviewViewModel(L, plan);
         if (!await _dialogs.ShowAsync(review).ConfigureAwait(true))
@@ -376,6 +456,7 @@ internal sealed partial class CommitsViewModel : ListPageViewModel
         if (result.Succeeded)
         {
             _pendingEdits.Clear();
+            _resolutions.Clear();
             NotifyPending();
             _status.Report(StatusKind.Done, Keys.Status_HistoryRewritten);
         }
@@ -391,6 +472,36 @@ internal sealed partial class CommitsViewModel : ListPageViewModel
         }
 
         await ReloadAsync(cancellationToken).ConfigureAwait(true);
+    }
+
+    /// <summary>Records an edit against a commit, replacing whatever was collected before.</summary>
+    private void Stage(CommitRow row, Func<CommitEdit, CommitEdit> change)
+    {
+        var existing = _pendingEdits.TryGetValue(row.Commit.Sha, out var found)
+            ? found
+            : new CommitEdit(row.Commit.Sha);
+
+        var edited = change(existing);
+
+        if (edited.IsEmpty)
+        {
+            _pendingEdits.Remove(row.Commit.Sha);
+        }
+        else
+        {
+            _pendingEdits[row.Commit.Sha] = edited;
+        }
+
+        row.SetPending(_pendingEdits.ContainsKey(row.Commit.Sha));
+        NotifyPending();
+    }
+
+    /// <summary>Puts one file edit into a list, replacing an earlier edit of the same path.</summary>
+    private static IReadOnlyList<FileEdit> Replace(IReadOnlyList<FileEdit> files, FileEdit edit)
+    {
+        var kept = files.Where(f => !string.Equals(f.Path, edit.Path, StringComparison.Ordinal)).ToList();
+        kept.Add(edit);
+        return kept;
     }
 
     private void NotifyPending()
@@ -472,6 +583,13 @@ internal sealed partial class CommitsViewModel : ListPageViewModel
         _ = LoadFilesAsync(value);
     }
 
+    partial void OnSelectedFileChanged(CommitFileRow? value)
+    {
+        _ = value;
+        OnPropertyChanged(nameof(HasSelectedFile));
+        EditFileCommand.NotifyCanExecuteChanged();
+    }
+
     partial void OnSelectedLimitChanged(CommitLimitOption? value)
     {
         _ = value;
@@ -486,6 +604,7 @@ internal sealed partial class CommitsViewModel : ListPageViewModel
 
     private async Task LoadFilesAsync(CommitRow? row)
     {
+        SelectedFile = null;
         Files.Clear();
 
         if (row is null || _repository.CurrentPath is not { Length: > 0 } path)

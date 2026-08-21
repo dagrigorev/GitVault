@@ -1,0 +1,33 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:loc="using:GitVault.App.Markup"
+             x:Class="GitVault.App.Views.FileEditorView">
+  <DockPanel>
+
+    <Grid DockPanel.Dock="Top" ColumnDefinitions="130,*" RowDefinitions="Auto,Auto" Margin="0,0,0,6">
+      <TextBlock Grid.Row="0" Grid.Column="0" Classes="dim" Text="{loc:Tr Keys_Column_Path}" />
+      <SelectableTextBlock Grid.Row="0" Grid.Column="1" Classes="mono" Text="{Binding Path}" />
+
+      <TextBlock Grid.Row="1" Grid.Column="0" Classes="dim" Text="{loc:Tr Commits_Column_Sha}" />
+      <SelectableTextBlock Grid.Row="1" Grid.Column="1" Classes="mono" Text="{Binding ShortSha}" />
+    </Grid>
+
+    <Border DockPanel.Dock="Bottom" Classes="note" Margin="0,7,0,0">
+      <TextBlock TextWrapping="Wrap" Text="{Binding FileNoteCaption}" />
+    </Border>
+
+    <Border DockPanel.Dock="Bottom" Classes="note warn" Margin="0,7,0,0"
+            IsVisible="{Binding IsSigned}">
+      <TextBlock TextWrapping="Wrap" Text="{Binding SignatureWarningCaption}" />
+    </Border>
+
+    <TextBox Classes="multiline mono"
+             AcceptsReturn="True"
+             AcceptsTab="True"
+             TextWrapping="NoWrap"
+             VerticalContentAlignment="Top"
+             Text="{Binding Text, Mode=TwoWay}"
+             AutomationProperties.Name="{loc:Tr Rewrite_EditFile}" />
+
+  </DockPanel>
+</UserControl>

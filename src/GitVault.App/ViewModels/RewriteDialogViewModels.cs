@@ -161,6 +161,148 @@ internal sealed partial class CommitEditorViewModel : DialogViewModel
             out parsed);
 }
 
+/// <summary>
+/// Editing what one file contains as of one commit.
+/// </summary>
+/// <remarks>
+/// The dialog holds the whole file rather than a diff, because that is the thing the user is
+/// deciding: what this commit should contain. What happens to the commits after it is worked out
+/// afterwards by the plan, and said out loud in the note rather than left to be discovered.
+/// </remarks>
+internal sealed partial class FileEditorViewModel : DialogViewModel
+{
+    private readonly FileContent _original;
+
+    [ObservableProperty]
+    private string _text;
+
+    internal FileEditorViewModel(Localizer localizer, GitCommit commit, FileContent original)
+        : base(localizer)
+    {
+        ArgumentNullException.ThrowIfNull(commit);
+        ArgumentNullException.ThrowIfNull(original);
+
+        Commit = commit;
+        _original = original;
+        _text = original.Text;
+    }
+
+    /// <inheritdoc/>
+    public override string TitleKey => Keys.Rewrite_EditFile;
+
+    /// <inheritdoc/>
+    public override string ConfirmKey => Keys.Common_Ok;
+
+    /// <summary>The commit whose copy of the file is being edited.</summary>
+    internal GitCommit Commit { get; }
+
+    /// <summary>Path being edited, shown verbatim.</summary>
+    public string Path => _original.Path;
+
+    /// <summary>Abbreviated name of the commit being edited.</summary>
+    public string ShortSha => Commit.ShortSha;
+
+    /// <summary>Localized explanation of what happens to later commits.</summary>
+    public string FileNoteCaption => L[Keys.Rewrite_FileNote];
+
+    /// <summary>True when the commit carries a signature a rewrite would drop.</summary>
+    public bool IsSigned => Commit.Signature.IsPresent;
+
+    /// <summary>Localized warning about losing a signature.</summary>
+    public string SignatureWarningCaption => L[Keys.Commits_SignatureWarning];
+
+    /// <inheritdoc/>
+    public override bool CanConfirm => !string.Equals(Text, _original.Text, StringComparison.Ordinal);
+
+    /// <inheritdoc/>
+    public override double DialogWidth => 720;
+
+    /// <inheritdoc/>
+    public override double DialogHeight => 560;
+
+    /// <summary>The edit this dialog describes.</summary>
+    /// <returns>The file edit.</returns>
+    internal FileEdit ToEdit() => new(_original.Path, Text);
+
+    partial void OnTextChanged(string value)
+    {
+        _ = value;
+        OnPropertyChanged(nameof(CanConfirm));
+    }
+}
+
+/// <summary>
+/// Settling one commit's own change against the edit carried into it.
+/// </summary>
+/// <remarks>
+/// The text arrives as git left it, conflict markers included, and the user edits it into what
+/// the commit should hold. Confirming is refused while a marker is still present — not as
+/// pedantry but because a marker committed into history is a broken file, and this is the one
+/// moment where catching it costs nothing.
+///
+/// Nothing has been written when this appears. The conflict was found while planning, so closing
+/// the dialog leaves the repository exactly as it was — which is the difference between this and
+/// a rebase that stops half-way and hands the user a conflicted working tree.
+/// </remarks>
+internal sealed partial class ConflictResolutionViewModel : DialogViewModel
+{
+    private readonly ContentConflict _conflict;
+
+    [ObservableProperty]
+    private string _text;
+
+    internal ConflictResolutionViewModel(Localizer localizer, ContentConflict conflict)
+        : base(localizer)
+    {
+        ArgumentNullException.ThrowIfNull(conflict);
+
+        _conflict = conflict;
+        _text = conflict.MergedText;
+    }
+
+    /// <inheritdoc/>
+    public override string TitleKey => Keys.Rewrite_Conflict_Title;
+
+    /// <inheritdoc/>
+    public override string ConfirmKey => Keys.Common_Ok;
+
+    /// <summary>Path that conflicts, shown verbatim.</summary>
+    public string Path => _conflict.Path;
+
+    /// <summary>The commit whose own change disagrees, named as the user would recognise it.</summary>
+    public string ConflictingCommit =>
+        L.Format(Keys.Rewrite_CommitLabel, _conflict.ShortSha, _conflict.Subject);
+
+    /// <summary>Localized explanation of what has to be done here.</summary>
+    public string ExplainsCaption => L[Keys.Rewrite_Conflict_Explains];
+
+    /// <summary>Localized note that markers are still present.</summary>
+    public string MarkersLeftCaption => L[Keys.Rewrite_Conflict_MarkersLeft];
+
+    /// <summary>True while the text still contains a conflict marker.</summary>
+    public bool HasMarkers => MergeLabels.HasMarkers(Text);
+
+    /// <inheritdoc/>
+    public override bool CanConfirm => !HasMarkers;
+
+    /// <inheritdoc/>
+    public override double DialogWidth => 760;
+
+    /// <inheritdoc/>
+    public override double DialogHeight => 600;
+
+    /// <summary>The resolution this dialog describes.</summary>
+    /// <returns>The resolution.</returns>
+    internal ConflictResolution ToResolution() => new(_conflict.Sha, _conflict.Path, Text);
+
+    partial void OnTextChanged(string value)
+    {
+        _ = value;
+        OnPropertyChanged(nameof(HasMarkers));
+        OnPropertyChanged(nameof(CanConfirm));
+    }
+}
+
 /// <summary>One commit in the rewrite preview.</summary>
 internal sealed class RewriteRow(Localizer localizer, RewriteStep step) : ObservableObject
 {
@@ -179,7 +321,12 @@ internal sealed class RewriteRow(Localizer localizer, RewriteStep step) : Observ
         : Step.Original.Subject;
 
     /// <summary>Localized description of why this commit is being rebuilt.</summary>
-    public string Reason => L[Step.IsDirectlyEdited ? Keys.Rewrite_Reason_Edited : Keys.Rewrite_Reason_Carried];
+    public string Reason => L[Step switch
+    {
+        { IsDirectlyEdited: true } => Keys.Rewrite_Reason_Edited,
+        { CarriesContent: true } => Keys.Rewrite_Reason_Content,
+        _ => Keys.Rewrite_Reason_Carried,
+    }];
 
     /// <summary>Re-reads the localized members.</summary>
     internal void RefreshCaptions() =>
@@ -232,6 +379,11 @@ internal sealed partial class RewriteReviewViewModel : DialogViewModel
         {
             StrandedRefs.Add(reference);
         }
+
+        foreach (var conflict in plan.Conflicts)
+        {
+            Conflicts.Add(localizer.Format(Keys.Rewrite_CommitLabel, conflict.ShortSha, conflict.Path));
+        }
     }
 
     /// <inheritdoc/>
@@ -255,6 +407,12 @@ internal sealed partial class RewriteReviewViewModel : DialogViewModel
     /// <summary>Refs that will keep pointing at replaced commits.</summary>
     public ObservableCollection<string> StrandedRefs { get; } = [];
 
+    /// <summary>Commits whose own change to an edited file is still unsettled.</summary>
+    public ObservableCollection<string> Conflicts { get; } = [];
+
+    /// <summary>True when a conflict is still waiting.</summary>
+    public bool HasConflicts => Conflicts.Count > 0;
+
     /// <summary>True when the plan is blocked.</summary>
     public bool HasBlockers => Blockers.Count > 0;
 
@@ -266,6 +424,12 @@ internal sealed partial class RewriteReviewViewModel : DialogViewModel
 
     /// <summary>Localized summary of how far the rewrite reaches.</summary>
     public string ReachCaption => L.Format(Keys.Rewrite_Reach, _plan.EditedCount, _plan.CarriedCount);
+
+    /// <summary>Localized summary of how many commits end up holding different content.</summary>
+    public string ContentReachCaption => L.Format(Keys.Rewrite_ContentReach, _plan.ContentCount);
+
+    /// <summary>True when the rewrite changes what any file contains.</summary>
+    public bool ChangesContent => _plan.ContentCount > 0;
 
     /// <summary>Localized note that nothing has been written yet.</summary>
     public string NothingWrittenCaption => L[Keys.Dialog_NothingWritten];

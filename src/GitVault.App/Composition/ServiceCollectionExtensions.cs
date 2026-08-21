@@ -70,6 +70,9 @@ internal static class ServiceCollectionExtensions
         services.AddSingleton<IRefBackupService, RefBackupService>();
         services.AddSingleton<IGitObjectEditor, GitObjectEditor>();
         services.AddSingleton<ICommitReader, CommitReader>();
+        services.AddSingleton<IContentMerger, ContentMerger>();
+        services.AddSingleton<IFileContentReader, FileContentReader>();
+        services.AddSingleton<ITreeBuilder, TreeBuilder>();
         services.AddSingleton<IHistoryRewriter, HistoryRewriter>();
         services.AddSingleton<IDiagnosticsBundleBuilder, DiagnosticsBundleBuilder>();
         services.AddSingleton<IDiscoveryOrchestrator, DiscoveryOrchestrator>();

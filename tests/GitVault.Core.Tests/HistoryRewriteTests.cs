@@ -424,7 +424,13 @@ public sealed class HistoryRewriteTests(ITestOutputHelper output)
         var reader = new CommitReader(runner);
 
         return (
-            new HistoryRewriter(runner, reader, new RepositoryInspector(runner), backups ?? new RefBackupService(runner)),
+            new HistoryRewriter(
+                runner,
+                reader,
+                new RepositoryInspector(runner),
+                backups ?? new RefBackupService(runner),
+                new ContentMerger(runner),
+                new TreeBuilder(runner)),
             reader);
     }
 }

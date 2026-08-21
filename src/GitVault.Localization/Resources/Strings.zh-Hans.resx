@@ -2123,4 +2123,64 @@
   <data name="Status_EditsDiscarded" xml:space="preserve">
     <value>编辑已放弃</value>
   </data>
+  <data name="Commits_EditFile" xml:space="preserve">
+    <value>编辑文件…</value>
+  </data>
+  <data name="Commits_FileNotEditable" xml:space="preserve">
+    <value>该文件无法在此编辑：它是二进制文件、大于 2 MB、符号链接，或其字节无法在读取并写回后保持不变。</value>
+  </data>
+  <data name="Rewrite_EditFile" xml:space="preserve">
+    <value>编辑文件内容</value>
+  </data>
+  <data name="Rewrite_FileNote" xml:space="preserve">
+    <value>这是该文件在此提交处将具有的内容。之后未改动该文件的提交会原样接收它；改动过同一文件的提交会进行合并，凡是 git 无法自动合并的地方都会询问你。</value>
+  </data>
+  <data name="Rewrite_Conflict_Title" xml:space="preserve">
+    <value>合并同一文件的两处更改</value>
+  </data>
+  <data name="Rewrite_Conflict_Explains" xml:space="preserve">
+    <value>该提交修改了你所编辑的相同行，git 无法自动合并。请将下面的文本改成该提交应有的内容，并删除所有冲突标记。</value>
+  </data>
+  <data name="Rewrite_Conflict_MarkersLeft" xml:space="preserve">
+    <value>冲突标记仍然存在。请删除后再继续。</value>
+  </data>
+  <data name="Rewrite_Conflict_Commit" xml:space="preserve">
+    <value>冲突的提交</value>
+  </data>
+  <data name="Rewrite_Conflicts" xml:space="preserve">
+    <value>需要你决定的提交</value>
+  </data>
+  <data name="Rewrite_Reason_Content" xml:space="preserve">
+    <value>内容因被带入的编辑而改变</value>
+  </data>
+  <data name="Rewrite_ContentReach" xml:space="preserve">
+    <value>共有 {0} 个提交最终持有不同的文件内容。</value>
+  </data>
+  <data name="Blocker_ContentEditOnMerge" xml:space="preserve">
+    <value>文件内容是在合并提交上编辑的，而该更改无法归属于唯一一侧。请改在其中一个父提交上编辑。</value>
+  </data>
+  <data name="Blocker_PathNotInCommit" xml:space="preserve">
+    <value>所选用于编辑的提交并不包含该文件。</value>
+  </data>
+  <data name="Blocker_PathRemovedLater" xml:space="preserve">
+    <value>之后的某个提交删除或重命名了该文件，因此没有可承接此编辑的对象。</value>
+  </data>
+  <data name="Blocker_PathAddedLater" xml:space="preserve">
+    <value>之后的某个提交是新增而非修改该文件，因此这项编辑并非基于它的内容做出的。</value>
+  </data>
+  <data name="Blocker_PathIsNotAPlainFile" xml:space="preserve">
+    <value>该路径是符号链接或子模块，而非普通文件。</value>
+  </data>
+  <data name="Blocker_PathIsNotEditableText" xml:space="preserve">
+    <value>该文件是二进制文件、大于 2 MB，或其字节无法在读取并写回后保持不变。</value>
+  </data>
+  <data name="Blocker_MergeFailed" xml:space="preserve">
+    <value>Git 根本无法尝试合并。</value>
+  </data>
+  <data name="Blocker_UnresolvedConflicts" xml:space="preserve">
+    <value>仍有冲突等待你的决定。</value>
+  </data>
+  <data name="Rewrite_CommitLabel" xml:space="preserve">
+    <value>{0}  {1}</value>
+  </data>
 </root>

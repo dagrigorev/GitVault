@@ -239,6 +239,45 @@ Dates are the one input the dialog refuses rather than interprets. A date typed 
 would be read in the machine's timezone and that guess written into history, so the field stays
 invalid until an offset is present.
 
+### Editing file content, without ever conflicting the repository
+
+Changing what a file contained at an old commit is the part of a rewrite that can genuinely
+disagree with itself, because the commits after it may have changed the same file. The usual tool
+for that is `git rebase`, and it was deliberately not used here.
+
+A rebase resolves conflicts by stopping. It checks things out, leaves the working tree in a
+conflicted state, and hands the repository back to the user mid-operation — which is precisely
+what this application promises never to do. So the merge is computed instead of performed.
+
+For every commit after the edited one, the file is merged three ways: the base is what the file
+contained at that commit's parent, "ours" is what that commit made of it, and "theirs" is the
+content carried down from the edit. A commit that did not touch the file has ours equal to base,
+so the carried content applies exactly and no merge is needed at all — the ordinary case stays
+deterministic. A commit that did touch it gets a real three-way merge from `git merge-file`.
+
+None of that writes anything. The inputs are read with `cat-file`, the merge runs on temporary
+files outside the repository, and conflicts are therefore discovered *while planning*, before the
+preview appears. A conflict is shown as a question with git's own merged text in an editable box;
+confirming is refused while a conflict marker is still present, because a marker committed into
+history is a broken file and this is the one moment where catching it is free. Closing any of it
+leaves the repository byte-for-byte as it was, which `ContentRewriteTests` asserts by counting
+loose objects and checking the index's timestamp across a full plan.
+
+Only when the user applies does anything get written. Blobs are written with `hash-object -w
+--stdin` — deliberately without `--path`, so the repository's clean filters do not re-filter
+content that came out of a blob already in its stored form — and trees are built through a
+temporary `GIT_INDEX_FILE`, so the repository's own index is never opened. File modes are carried
+across, so editing a script does not quietly cost it its executable bit.
+
+Four things are refused rather than guessed at, each because carrying on would mean silently
+changing something the user did not ask to change:
+
+- a file a later commit deletes or renames, since there is nothing left to carry the edit into;
+- a path that is a symbolic link or a submodule, since neither is text;
+- a file over 2 MB, or one whose bytes do not survive a round trip through UTF-8 — every read is
+  checked against the size git reports for the blob, which also catches a byte-order mark;
+- a content edit on a merge commit, where the change has no single side to belong to.
+
 ## Known gaps, collected
 
 | Gap | Consequence | Where |
@@ -248,3 +287,5 @@ invalid until an offset is present.
 | Windows ACL reading not implemented | An over-exposed key on Windows produces no GitVault warning; OpenSSH still refuses it | item 8 |
 | `bcrypt_pbkdf` not implemented | Encrypted OpenSSH containers cannot be decrypted in-process; `ssh-keygen` is used instead | `docs/architecture.md` |
 | Encrypted PPK v2 MAC unverified | The v2 encrypted path is untested against a real PuTTY | `PuttyKeyFile` |
+| Content edits cannot follow a rename | Editing a file that a later commit renames is refused rather than tracked through the rename | `ContentMerger` |
+| Non-UTF-8 files cannot be edited | A file in another encoding is refused, because rewriting it would change its encoding | `BlobReader` |
