@@ -2183,4 +2183,88 @@
   <data name="Rewrite_CommitLabel" xml:space="preserve">
     <value>{0}  {1}</value>
   </data>
+  <data name="Nav_HistoryTools" xml:space="preserve">
+    <value>History tools</value>
+  </data>
+  <data name="HistoryTools_Title" xml:space="preserve">
+    <value>History tools</value>
+  </data>
+  <data name="HistoryTools_Subtitle" xml:space="preserve">
+    <value>Operations that reach across every commit on the current branch.</value>
+  </data>
+  <data name="HistoryTools_Empty" xml:space="preserve">
+    <value>Select a repository to use these tools.</value>
+  </data>
+  <data name="HistoryTools_Remove_Title" xml:space="preserve">
+    <value>Remove a file from the whole history</value>
+  </data>
+  <data name="HistoryTools_Remove_Explains" xml:space="preserve">
+    <value>Takes a file or a folder out of every commit that ever held it. Everything else comes through unchanged, and commits whose only change was to that path are kept rather than dropped.</value>
+  </data>
+  <data name="HistoryTools_Remove_Warning" xml:space="preserve">
+    <value>Removing a file from history does not undo the fact that it was committed. The content stays in this repository until git prunes it, stays in the backup this operation creates, and stays in every clone and on every server it reached. If it was a key, a token or a password, revoke it — that is the part that actually protects you.</value>
+  </data>
+  <data name="HistoryTools_Rename_Title" xml:space="preserve">
+    <value>Move a file through the whole history</value>
+  </data>
+  <data name="HistoryTools_Rename_Explains" xml:space="preserve">
+    <value>Moves a file or a folder so that history reads as though it had always lived at the new path. The content is not rewritten; the entry moves.</value>
+  </data>
+  <data name="HistoryTools_Identity_Title" xml:space="preserve">
+    <value>Replace an identity through the whole history</value>
+  </data>
+  <data name="HistoryTools_Identity_Explains" xml:space="preserve">
+    <value>Corrects an address that was committed wrongly. Only the commits carrying that address are changed, and on each one only the sides that carry it: someone else&apos;s authorship is not yours to reassign.</value>
+  </data>
+  <data name="HistoryTools_Field_Path" xml:space="preserve">
+    <value>Path</value>
+  </data>
+  <data name="HistoryTools_Field_NewPath" xml:space="preserve">
+    <value>New path</value>
+  </data>
+  <data name="HistoryTools_Field_OldEmail" xml:space="preserve">
+    <value>E-mail to replace</value>
+  </data>
+  <data name="HistoryTools_Field_Name" xml:space="preserve">
+    <value>New name</value>
+  </data>
+  <data name="HistoryTools_Field_Email" xml:space="preserve">
+    <value>New e-mail</value>
+  </data>
+  <data name="HistoryTools_UseMine" xml:space="preserve">
+    <value>Use my configured identity</value>
+  </data>
+  <data name="HistoryTools_Preview" xml:space="preserve">
+    <value>Preview…</value>
+  </data>
+  <data name="HistoryTools_PathHint" xml:space="preserve">
+    <value>A folder takes everything under it. Paths are spelled as git spells them, with forward slashes and no leading slash.</value>
+  </data>
+  <data name="Status_PathRemoved" xml:space="preserve">
+    <value>File removed from the history</value>
+  </data>
+  <data name="Status_PathRenamed" xml:space="preserve">
+    <value>File moved through the history</value>
+  </data>
+  <data name="Status_IdentityReplaced" xml:space="preserve">
+    <value>Identity replaced through the history</value>
+  </data>
+  <data name="Blocker_PathNotInHistory" xml:space="preserve">
+    <value>No commit on this branch holds that path.</value>
+  </data>
+  <data name="Blocker_RenameTargetExists" xml:space="preserve">
+    <value>A commit already holds a file at the new path, and moving onto it would replace it silently.</value>
+  </data>
+  <data name="Blocker_PathNotValid" xml:space="preserve">
+    <value>That is not a path inside the repository. Use forward slashes, no leading slash, and nothing that climbs out of the working tree.</value>
+  </data>
+  <data name="Blocker_IdentityNotFound" xml:space="preserve">
+    <value>No commit on this branch carries that address.</value>
+  </data>
+  <data name="Warning_CommitsBecomeEmpty" xml:space="preserve">
+    <value>Some commits changed nothing but this path, so they will end up holding exactly what their parent holds. GitVault keeps them: their message and authorship are history too, and dropping them would be a second change you did not ask for.</value>
+  </data>
+  <data name="Warning_RemovedContentSurvives" xml:space="preserve">
+    <value>Removing a file from history does not undo the fact that it was committed. Revoke anything secret that was in it.</value>
+  </data>
 </root>

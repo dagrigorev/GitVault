@@ -1,4 +1,5 @@
 using GitVault.Core.Abstractions;
+using GitVault.Core.Git;
 using GitVault.Core.Models;
 
 namespace GitVault.Core.Profiles;
@@ -123,8 +124,8 @@ public sealed class ProfileActivator : IProfileActivator
 
         var current = await ReadScopedAsync(configScope, repositoryPath, cancellationToken).ConfigureAwait(false);
 
-        AddSet(changes, IdentityStepId, "user.name", profile.Identity.UserName, current);
-        AddSet(changes, IdentityStepId, "user.email", profile.Identity.Email, current);
+        AddSet(changes, IdentityStepId, GitConfigKeys.UserName, profile.Identity.UserName, current);
+        AddSet(changes, IdentityStepId, GitConfigKeys.UserEmail, profile.Identity.Email, current);
 
         if (!string.IsNullOrWhiteSpace(profile.Identity.SigningKeyId))
         {

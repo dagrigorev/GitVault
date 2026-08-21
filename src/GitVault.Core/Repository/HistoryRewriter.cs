@@ -31,12 +31,15 @@ public sealed record CommitEdit(string Sha)
     /// <summary>Files whose content the user changed at this commit.</summary>
     public IReadOnlyList<FileEdit> Files { get; init; } = [];
 
+    /// <summary>Paths this commit's tree should lose or move.</summary>
+    public IReadOnlyList<PathOperation> Paths { get; init; } = [];
+
     /// <summary>True when nothing was actually changed.</summary>
     public bool IsEmpty =>
         Message is null
         && AuthorName is null && AuthorEmail is null && AuthorDate is null
         && CommitterName is null && CommitterEmail is null && CommitterDate is null
-        && Files.Count == 0;
+        && Files.Count == 0 && Paths.Count == 0;
 }
 
 /// <summary>One commit in a rewrite, and what will happen to it.</summary>
@@ -48,8 +51,11 @@ public sealed record RewriteStep(GitCommit Original, CommitEdit? Edit, bool IsDi
     /// <summary>Files this commit ends up with, when a content edit reached it.</summary>
     public IReadOnlyList<ResolvedFile> Files { get; init; } = [];
 
+    /// <summary>Paths this commit's tree loses or moves.</summary>
+    public IReadOnlyList<PathOperation> Paths => Edit?.Paths ?? [];
+
     /// <summary>True when this commit's tree changes, whether the user edited it or not.</summary>
-    public bool ChangesContent => Files.Count > 0;
+    public bool ChangesContent => Files.Count > 0 || Paths.Count > 0;
 
     /// <summary>
     /// True when a content edit made somewhere earlier lands in this commit's files.
@@ -446,10 +452,10 @@ public sealed class HistoryRewriter : IHistoryRewriter
         // conflict-free. A content edit needs a tree of its own, written from the resolved files.
         var tree = original.TreeSha;
 
-        if (step.Files.Count > 0)
+        if (step.Files.Count > 0 || step.Paths.Count > 0)
         {
             var built = await _trees
-                .BuildAsync(repositoryPath, original.TreeSha, step.Files, cancellationToken)
+                .BuildAsync(repositoryPath, original.TreeSha, step.Files, step.Paths, cancellationToken)
                 .ConfigureAwait(false);
 
             if (built is null)
@@ -691,6 +697,18 @@ public static class RewriteBlockers
 
     /// <summary>A conflict is still waiting for the user to settle it.</summary>
     public const string UnresolvedConflicts = "Blocker_UnresolvedConflicts";
+
+    /// <summary>No commit on this branch holds the named path.</summary>
+    public const string PathNotInHistory = "Blocker_PathNotInHistory";
+
+    /// <summary>Renaming would land on a path a commit already holds.</summary>
+    public const string RenameTargetExists = "Blocker_RenameTargetExists";
+
+    /// <summary>The new path is not a path git would accept.</summary>
+    public const string PathNotValid = "Blocker_PathNotValid";
+
+    /// <summary>No commit carries the identity the user asked to replace.</summary>
+    public const string IdentityNotFound = "Blocker_IdentityNotFound";
 }
 
 /// <summary>Warning identifiers for a rewrite. Localization keys, not text.</summary>
@@ -707,4 +725,10 @@ public static class RewriteWarnings
 
     /// <summary>Tags or other branches point at commits that will be replaced.</summary>
     public const string OtherRefsPointIntoRange = "Warning_OtherRefsPointIntoRange";
+
+    /// <summary>Some commits will end up holding exactly what their parent holds.</summary>
+    public const string CommitsBecomeEmpty = "Warning_CommitsBecomeEmpty";
+
+    /// <summary>Removing a file from history is not the same as containing what it held.</summary>
+    public const string RemovedContentSurvives = "Warning_RemovedContentSurvives";
 }

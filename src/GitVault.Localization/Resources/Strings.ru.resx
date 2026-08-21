@@ -2183,4 +2183,88 @@
   <data name="Rewrite_CommitLabel" xml:space="preserve">
     <value>{0}  {1}</value>
   </data>
+  <data name="Nav_HistoryTools" xml:space="preserve">
+    <value>Инструменты истории</value>
+  </data>
+  <data name="HistoryTools_Title" xml:space="preserve">
+    <value>Инструменты истории</value>
+  </data>
+  <data name="HistoryTools_Subtitle" xml:space="preserve">
+    <value>Операции, затрагивающие все коммиты текущей ветки.</value>
+  </data>
+  <data name="HistoryTools_Empty" xml:space="preserve">
+    <value>Выберите репозиторий, чтобы пользоваться этими инструментами.</value>
+  </data>
+  <data name="HistoryTools_Remove_Title" xml:space="preserve">
+    <value>Удаление файла из всей истории</value>
+  </data>
+  <data name="HistoryTools_Remove_Explains" xml:space="preserve">
+    <value>Убирает файл или папку из всех коммитов, где они были. Всё остальное проходит без изменений, а коммиты, менявшие только этот путь, сохраняются, а не удаляются.</value>
+  </data>
+  <data name="HistoryTools_Remove_Warning" xml:space="preserve">
+    <value>Удаление файла из истории не отменяет того, что он был закоммичен. Содержимое остаётся в этом репозитории до сборки мусора, остаётся в резервной копии, создаваемой этой операцией, и остаётся во всех клонах и на всех серверах, куда попало. Если это был ключ, токен или пароль — отзовите его: защищает именно это.</value>
+  </data>
+  <data name="HistoryTools_Rename_Title" xml:space="preserve">
+    <value>Перемещение файла во всей истории</value>
+  </data>
+  <data name="HistoryTools_Rename_Explains" xml:space="preserve">
+    <value>Перемещает файл или папку так, чтобы история читалась, будто они всегда лежали по новому пути. Содержимое не переписывается — переносится запись.</value>
+  </data>
+  <data name="HistoryTools_Identity_Title" xml:space="preserve">
+    <value>Замена личности во всей истории</value>
+  </data>
+  <data name="HistoryTools_Identity_Explains" xml:space="preserve">
+    <value>Исправляет ошибочно закоммиченный адрес. Меняются только коммиты с этим адресом, и в каждом — только те стороны, где он есть: чужое авторство переназначать вы не вправе.</value>
+  </data>
+  <data name="HistoryTools_Field_Path" xml:space="preserve">
+    <value>Путь</value>
+  </data>
+  <data name="HistoryTools_Field_NewPath" xml:space="preserve">
+    <value>Новый путь</value>
+  </data>
+  <data name="HistoryTools_Field_OldEmail" xml:space="preserve">
+    <value>Заменяемая почта</value>
+  </data>
+  <data name="HistoryTools_Field_Name" xml:space="preserve">
+    <value>Новое имя</value>
+  </data>
+  <data name="HistoryTools_Field_Email" xml:space="preserve">
+    <value>Новая почта</value>
+  </data>
+  <data name="HistoryTools_UseMine" xml:space="preserve">
+    <value>Подставить мою настроенную личность</value>
+  </data>
+  <data name="HistoryTools_Preview" xml:space="preserve">
+    <value>Предпросмотр…</value>
+  </data>
+  <data name="HistoryTools_PathHint" xml:space="preserve">
+    <value>Папка забирает всё, что внутри. Пути пишутся так, как их пишет git: через прямые слэши и без слэша в начале.</value>
+  </data>
+  <data name="Status_PathRemoved" xml:space="preserve">
+    <value>Файл удалён из истории</value>
+  </data>
+  <data name="Status_PathRenamed" xml:space="preserve">
+    <value>Файл перемещён во всей истории</value>
+  </data>
+  <data name="Status_IdentityReplaced" xml:space="preserve">
+    <value>Личность заменена во всей истории</value>
+  </data>
+  <data name="Blocker_PathNotInHistory" xml:space="preserve">
+    <value>Ни в одном коммите этой ветки такого пути нет.</value>
+  </data>
+  <data name="Blocker_RenameTargetExists" xml:space="preserve">
+    <value>В одном из коммитов по новому пути уже есть файл, и перенос молча заменил бы его.</value>
+  </data>
+  <data name="Blocker_PathNotValid" xml:space="preserve">
+    <value>Это не путь внутри репозитория. Используйте прямые слэши, без слэша в начале и без выхода за пределы рабочего каталога.</value>
+  </data>
+  <data name="Blocker_IdentityNotFound" xml:space="preserve">
+    <value>Ни один коммит этой ветки не содержит такого адреса.</value>
+  </data>
+  <data name="Warning_CommitsBecomeEmpty" xml:space="preserve">
+    <value>Некоторые коммиты не меняли ничего, кроме этого пути, поэтому в итоге будут содержать ровно то же, что и родитель. GitVault их сохраняет: их сообщения и авторство — тоже история, а удаление стало бы вторым изменением, о котором вы не просили.</value>
+  </data>
+  <data name="Warning_RemovedContentSurvives" xml:space="preserve">
+    <value>Удаление файла из истории не отменяет того, что он был закоммичен. Отзовите всё секретное, что в нём было.</value>
+  </data>
 </root>

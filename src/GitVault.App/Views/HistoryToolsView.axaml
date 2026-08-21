@@ -1,0 +1,124 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:loc="using:GitVault.App.Markup"
+             x:Class="GitVault.App.Views.HistoryToolsView">
+  <ScrollViewer>
+    <StackPanel Spacing="0">
+
+      <Border Classes="note" Margin="0,0,0,6" IsVisible="{Binding !HasRepository}">
+        <TextBlock TextWrapping="Wrap" Text="{Binding NoRepositoryCaption}" />
+      </Border>
+
+      <!--
+        Removing a path. The warning sits above the field rather than under the button, because it
+        changes what the user should do next, not merely how they should feel about having done it.
+      -->
+      <Border Classes="group" Margin="0,10,0,0">
+        <StackPanel Spacing="6">
+          <TextBlock Classes="groupTitle" Margin="0,-16,0,4"
+                     Text="{loc:Tr HistoryTools_Remove_Title}" />
+
+          <TextBlock TextWrapping="Wrap" Text="{Binding RemoveExplainsCaption}" />
+
+          <Border Classes="note error">
+            <StackPanel Orientation="Horizontal" Spacing="7">
+              <Image Classes="icon20" Source="{StaticResource IconSeverityHigh}" VerticalAlignment="Top" />
+              <TextBlock TextWrapping="Wrap" MaxWidth="620" Text="{Binding RemoveWarningCaption}" />
+            </StackPanel>
+          </Border>
+
+          <Grid ColumnDefinitions="130,*,Auto" RowDefinitions="Auto">
+            <TextBlock Grid.Column="0" VerticalAlignment="Center"
+                       Text="{loc:Tr HistoryTools_Field_Path}" />
+            <TextBox Grid.Column="1" Classes="mono" Margin="0,0,6,0"
+                     IsEnabled="{Binding HasRepository}"
+                     Text="{Binding RemovePath, Mode=TwoWay}"
+                     AutomationProperties.Name="{loc:Tr HistoryTools_Field_Path}" />
+            <Button Grid.Column="2" Name="RemovePathButton"
+                    Command="{Binding RemoveCommand}"
+                    IsEnabled="{Binding CanRemove}"
+                    Content="{loc:Tr HistoryTools_Preview}" />
+          </Grid>
+
+          <TextBlock Classes="dim" TextWrapping="Wrap" Text="{Binding PathHintCaption}" />
+        </StackPanel>
+      </Border>
+
+      <!-- Moving a path. -->
+      <Border Classes="group" Margin="0,18,0,0">
+        <StackPanel Spacing="6">
+          <TextBlock Classes="groupTitle" Margin="0,-16,0,4"
+                     Text="{loc:Tr HistoryTools_Rename_Title}" />
+
+          <TextBlock TextWrapping="Wrap" Text="{Binding RenameExplainsCaption}" />
+
+          <Grid ColumnDefinitions="130,*" RowDefinitions="Auto,Auto">
+            <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Margin="0,3"
+                       Text="{loc:Tr HistoryTools_Field_Path}" />
+            <TextBox Grid.Row="0" Grid.Column="1" Classes="mono" Margin="0,3"
+                     IsEnabled="{Binding HasRepository}"
+                     Text="{Binding RenamePath, Mode=TwoWay}"
+                     AutomationProperties.Name="{loc:Tr HistoryTools_Field_Path}" />
+
+            <TextBlock Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Margin="0,3"
+                       Text="{loc:Tr HistoryTools_Field_NewPath}" />
+            <TextBox Grid.Row="1" Grid.Column="1" Classes="mono" Margin="0,3"
+                     IsEnabled="{Binding HasRepository}"
+                     Text="{Binding RenameNewPath, Mode=TwoWay}"
+                     AutomationProperties.Name="{loc:Tr HistoryTools_Field_NewPath}" />
+          </Grid>
+
+          <Button Name="RenamePathButton" HorizontalAlignment="Left"
+                  Command="{Binding RenameCommand}"
+                  IsEnabled="{Binding CanRename}"
+                  Content="{loc:Tr HistoryTools_Preview}" />
+        </StackPanel>
+      </Border>
+
+      <!-- Replacing an identity. -->
+      <Border Classes="group" Margin="0,18,0,0">
+        <StackPanel Spacing="6">
+          <TextBlock Classes="groupTitle" Margin="0,-16,0,4"
+                     Text="{loc:Tr HistoryTools_Identity_Title}" />
+
+          <TextBlock TextWrapping="Wrap" Text="{Binding IdentityExplainsCaption}" />
+
+          <Grid ColumnDefinitions="130,*" RowDefinitions="Auto,Auto,Auto">
+            <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Margin="0,3"
+                       Text="{loc:Tr HistoryTools_Field_OldEmail}" />
+            <TextBox Grid.Row="0" Grid.Column="1" Margin="0,3"
+                     IsEnabled="{Binding HasRepository}"
+                     Text="{Binding OldEmail, Mode=TwoWay}"
+                     AutomationProperties.Name="{loc:Tr HistoryTools_Field_OldEmail}" />
+
+            <TextBlock Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Margin="0,3"
+                       Text="{loc:Tr HistoryTools_Field_Name}" />
+            <TextBox Grid.Row="1" Grid.Column="1" Margin="0,3"
+                     IsEnabled="{Binding HasRepository}"
+                     Text="{Binding NewName, Mode=TwoWay}"
+                     AutomationProperties.Name="{loc:Tr HistoryTools_Field_Name}" />
+
+            <TextBlock Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" Margin="0,3"
+                       Text="{loc:Tr HistoryTools_Field_Email}" />
+            <TextBox Grid.Row="2" Grid.Column="1" Margin="0,3"
+                     IsEnabled="{Binding HasRepository}"
+                     Text="{Binding NewEmail, Mode=TwoWay}"
+                     AutomationProperties.Name="{loc:Tr HistoryTools_Field_Email}" />
+          </Grid>
+
+          <StackPanel Orientation="Horizontal" Spacing="5">
+            <Button Name="UseMyIdentityButton"
+                    Command="{Binding UseConfiguredIdentityCommand}"
+                    IsEnabled="{Binding HasRepository}"
+                    Content="{loc:Tr HistoryTools_UseMine}" />
+            <Button Name="ReplaceIdentityButton"
+                    Command="{Binding ReplaceIdentityCommand}"
+                    IsEnabled="{Binding CanReplaceIdentity}"
+                    Content="{loc:Tr HistoryTools_Preview}" />
+          </StackPanel>
+        </StackPanel>
+      </Border>
+
+    </StackPanel>
+  </ScrollViewer>
+</UserControl>

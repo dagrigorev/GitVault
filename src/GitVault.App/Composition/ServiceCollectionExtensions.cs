@@ -74,6 +74,7 @@ internal static class ServiceCollectionExtensions
         services.AddSingleton<IFileContentReader, FileContentReader>();
         services.AddSingleton<ITreeBuilder, TreeBuilder>();
         services.AddSingleton<IHistoryRewriter, HistoryRewriter>();
+        services.AddSingleton<IHistoryTools, HistoryTools>();
         services.AddSingleton<IDiagnosticsBundleBuilder, DiagnosticsBundleBuilder>();
         services.AddSingleton<IDiscoveryOrchestrator, DiscoveryOrchestrator>();
         services.AddSingleton<ScanCoordinator>();
@@ -103,6 +104,7 @@ internal static class ServiceCollectionExtensions
         services.AddSingleton<BranchesViewModel>();
         services.AddSingleton<TagsViewModel>();
         services.AddSingleton<CommitsViewModel>();
+        services.AddSingleton<HistoryToolsViewModel>();
         services.AddSingleton<SettingsViewModel>();
         services.AddSingleton<LogsViewModel>();
 

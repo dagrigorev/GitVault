@@ -278,6 +278,46 @@ changing something the user did not ask to change:
   checked against the size git reports for the blob, which also catches a byte-order mark;
 - a content edit on a merge commit, where the change has no single side to belong to.
 
+### Purging a file: what it does, and what it cannot do
+
+Taking a file out of every commit that ever held it is the operation people reach for after
+committing a key by accident, so it is the one where an over-confident interface does real harm.
+
+The mechanism is the same rewrite as everything else: each affected commit is rebuilt with the
+path dropped from its tree, through a temporary index, with the branch moved once at the end
+behind a ref backup. It works on anything — a binary, a file in an unknown encoding, a whole
+folder — because removing an entry never reads its content. A folder is expanded per commit rather
+than once, since what it contained changed over time.
+
+What it cannot do is unmake the fact that the file was committed, and the interface says so at the
+point of use rather than in a footnote:
+
+- the old objects stay in this repository until git prunes them;
+- they stay reachable through the very backup ref that makes the purge reversible — asserted by a
+  test, because it is the part most likely to be assumed away;
+- they stay in every other clone until its owner rewrites too;
+- they stay on any server the branch was pushed to, and in whatever that server keeps.
+
+So if the file held a key, a token or a password, the remedy is to revoke it. GitVault says this
+in the operation's own warning, because a green result that implies otherwise would be worse than
+no feature at all.
+
+One deliberate difference from `filter-repo`: a commit whose only change was to the purged path is
+kept, holding the same tree as its parent, rather than dropped. Its message and authorship are
+history too, and removing it would be a second change nobody asked for. The plan counts those
+commits and warns instead, so the user can remove them deliberately if that is what they want.
+
+Moving a path through history works the same way and moves the tree entry rather than rewriting
+content, so a moved file keeps the very same blob. A move that would land on a path some commit
+already holds is refused rather than silently replacing it, and a typed path that is absolute,
+climbs out of the working tree, names `.git`, or starts with a dash is refused before any commit
+is touched — a rename git rejects half-way would leave a plan that succeeded on some commits and
+not others.
+
+Replacing an identity across history changes only the commits carrying that address, and on each
+one only the sides that carry it. Someone else's authorship is not the user's to reassign, and a
+bulk correction is exactly where that would happen by accident.
+
 ## Known gaps, collected
 
 | Gap | Consequence | Where |
@@ -289,3 +329,5 @@ changing something the user did not ask to change:
 | Encrypted PPK v2 MAC unverified | The v2 encrypted path is untested against a real PuTTY | `PuttyKeyFile` |
 | Content edits cannot follow a rename | Editing a file that a later commit renames is refused rather than tracked through the rename | `ContentMerger` |
 | Non-UTF-8 files cannot be edited | A file in another encoding is refused, because rewriting it would change its encoding | `BlobReader` |
+| A purge does not prune the object database | The removed content stays reachable through the backup ref, and stays in the repository until git prunes it | `HistoryTools` |
+| Path operations read every commit's tree | Planning a purge on a very large history is slow, because each commit is listed in turn | `HistoryTools.FindHoldersAsync` |

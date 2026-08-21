@@ -56,14 +56,41 @@ public interface IEffectiveIdentityResolver
     Task<EffectiveIdentity> ResolveAsync(string? repositoryPath, CancellationToken cancellationToken);
 }
 
+/// <summary>
+/// The configuration keys GitVault reads and writes by name.
+/// </summary>
+/// <remarks>
+/// Published rather than kept private to each caller. Several places need the same key — the
+/// resolver, the identity probe, profile activation, and the page that offers to fill an identity
+/// in — and a key spelled slightly differently in one of them would fail silently rather than
+/// loudly, because git simply has no such setting.
+/// </remarks>
+public static class GitConfigKeys
+{
+    /// <summary>The committer and author name.</summary>
+    public const string UserName = "user.name";
+
+    /// <summary>The committer and author e-mail address.</summary>
+    public const string UserEmail = "user.email";
+
+    /// <summary>The key commits are signed with.</summary>
+    public const string SigningKey = "user.signingkey";
+
+    /// <summary>The credential helper git asks for passwords.</summary>
+    public const string CredentialHelper = "credential.helper";
+
+    /// <summary>The command git uses in place of ssh.</summary>
+    public const string SshCommand = "core.sshcommand";
+}
+
 /// <summary>Resolves effective settings from a full configuration listing.</summary>
 public sealed class EffectiveIdentityResolver : IEffectiveIdentityResolver
 {
-    private const string UserNameKey = "user.name";
-    private const string EmailKey = "user.email";
-    private const string SigningKeyKey = "user.signingkey";
-    private const string CredentialHelperKey = "credential.helper";
-    private const string SshCommandKey = "core.sshcommand";
+    private const string UserNameKey = GitConfigKeys.UserName;
+    private const string EmailKey = GitConfigKeys.UserEmail;
+    private const string SigningKeyKey = GitConfigKeys.SigningKey;
+    private const string CredentialHelperKey = GitConfigKeys.CredentialHelper;
+    private const string SshCommandKey = GitConfigKeys.SshCommand;
 
     private readonly IGitConfigService _config;
 

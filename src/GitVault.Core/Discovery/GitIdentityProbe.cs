@@ -89,13 +89,13 @@ public sealed class GitIdentityProbe : IProbe
 
             switch (entry.Key.ToLowerInvariant())
             {
-                case "user.name":
+                case GitConfigKeys.UserName:
                     draft.UserName = entry.Value;
                     break;
-                case "user.email":
+                case GitConfigKeys.UserEmail:
                     draft.Email = entry.Value;
                     break;
-                case "user.signingkey":
+                case GitConfigKeys.SigningKey:
                     draft.SigningKey = entry.Value;
                     break;
             }

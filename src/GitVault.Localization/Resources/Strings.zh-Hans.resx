@@ -2183,4 +2183,88 @@
   <data name="Rewrite_CommitLabel" xml:space="preserve">
     <value>{0}  {1}</value>
   </data>
+  <data name="Nav_HistoryTools" xml:space="preserve">
+    <value>历史工具</value>
+  </data>
+  <data name="HistoryTools_Title" xml:space="preserve">
+    <value>历史工具</value>
+  </data>
+  <data name="HistoryTools_Subtitle" xml:space="preserve">
+    <value>作用于当前分支所有提交的操作。</value>
+  </data>
+  <data name="HistoryTools_Empty" xml:space="preserve">
+    <value>请选择一个仓库以使用这些工具。</value>
+  </data>
+  <data name="HistoryTools_Remove_Title" xml:space="preserve">
+    <value>从整个历史中移除文件</value>
+  </data>
+  <data name="HistoryTools_Remove_Explains" xml:space="preserve">
+    <value>将某个文件或文件夹从所有曾包含它的提交中移除。其余内容原样保留；仅改动过该路径的提交会被保留而不是丢弃。</value>
+  </data>
+  <data name="HistoryTools_Remove_Warning" xml:space="preserve">
+    <value>从历史中移除文件并不能撤销它曾被提交这一事实。在 git 清理之前，内容仍留在本仓库中，也留在本次操作创建的备份里，并且留在它到达过的每一个克隆和服务器上。如果那是密钥、令牌或密码，请立即吊销——真正能保护你的是这一步。</value>
+  </data>
+  <data name="HistoryTools_Rename_Title" xml:space="preserve">
+    <value>在整个历史中移动文件</value>
+  </data>
+  <data name="HistoryTools_Rename_Explains" xml:space="preserve">
+    <value>移动文件或文件夹，使历史看起来就像它一直位于新路径一样。内容不会被重写，移动的是条目本身。</value>
+  </data>
+  <data name="HistoryTools_Identity_Title" xml:space="preserve">
+    <value>在整个历史中替换身份</value>
+  </data>
+  <data name="HistoryTools_Identity_Explains" xml:space="preserve">
+    <value>更正被错误提交的地址。只有携带该地址的提交会被更改，且每个提交中只更改携带它的那一侧：他人的作者身份不该由你重新指派。</value>
+  </data>
+  <data name="HistoryTools_Field_Path" xml:space="preserve">
+    <value>路径</value>
+  </data>
+  <data name="HistoryTools_Field_NewPath" xml:space="preserve">
+    <value>新路径</value>
+  </data>
+  <data name="HistoryTools_Field_OldEmail" xml:space="preserve">
+    <value>要替换的邮箱</value>
+  </data>
+  <data name="HistoryTools_Field_Name" xml:space="preserve">
+    <value>新姓名</value>
+  </data>
+  <data name="HistoryTools_Field_Email" xml:space="preserve">
+    <value>新邮箱</value>
+  </data>
+  <data name="HistoryTools_UseMine" xml:space="preserve">
+    <value>使用我配置的身份</value>
+  </data>
+  <data name="HistoryTools_Preview" xml:space="preserve">
+    <value>预览…</value>
+  </data>
+  <data name="HistoryTools_PathHint" xml:space="preserve">
+    <value>指定文件夹会连同其中的所有内容一起处理。路径按 git 的写法书写：使用正斜杠，且开头不加斜杠。</value>
+  </data>
+  <data name="Status_PathRemoved" xml:space="preserve">
+    <value>文件已从历史中移除</value>
+  </data>
+  <data name="Status_PathRenamed" xml:space="preserve">
+    <value>文件已在整个历史中移动</value>
+  </data>
+  <data name="Status_IdentityReplaced" xml:space="preserve">
+    <value>身份已在整个历史中替换</value>
+  </data>
+  <data name="Blocker_PathNotInHistory" xml:space="preserve">
+    <value>该分支上没有任何提交包含此路径。</value>
+  </data>
+  <data name="Blocker_RenameTargetExists" xml:space="preserve">
+    <value>已有提交在新路径上存在文件，移动过去会静默覆盖它。</value>
+  </data>
+  <data name="Blocker_PathNotValid" xml:space="preserve">
+    <value>这不是仓库内的路径。请使用正斜杠、不以斜杠开头，且不得越出工作区。</value>
+  </data>
+  <data name="Blocker_IdentityNotFound" xml:space="preserve">
+    <value>该分支上没有任何提交携带该地址。</value>
+  </data>
+  <data name="Warning_CommitsBecomeEmpty" xml:space="preserve">
+    <value>有些提交除该路径外没有改动任何内容，因此最终将与其父提交持有完全相同的内容。GitVault 会保留它们：其信息和作者身份同样是历史，删除它们等于做出你并未要求的第二处改动。</value>
+  </data>
+  <data name="Warning_RemovedContentSurvives" xml:space="preserve">
+    <value>从历史中移除文件并不能撤销它曾被提交这一事实。请吊销其中包含的任何机密内容。</value>
+  </data>
 </root>

@@ -2127,6 +2127,90 @@ public static class Keys
     /// <summary>English: {0}  {1}</summary>
     public const string Rewrite_CommitLabel = "Rewrite_CommitLabel";
 
+    /// <summary>English: History tools</summary>
+    public const string Nav_HistoryTools = "Nav_HistoryTools";
+
+    /// <summary>English: History tools</summary>
+    public const string HistoryTools_Title = "HistoryTools_Title";
+
+    /// <summary>English: Operations that reach across every commit on the current branch.</summary>
+    public const string HistoryTools_Subtitle = "HistoryTools_Subtitle";
+
+    /// <summary>English: Select a repository to use these tools.</summary>
+    public const string HistoryTools_Empty = "HistoryTools_Empty";
+
+    /// <summary>English: Remove a file from the whole history</summary>
+    public const string HistoryTools_Remove_Title = "HistoryTools_Remove_Title";
+
+    /// <summary>English: Takes a file or a folder out of every commit that ever held it. Everything else comes through unchanged, and commits whose only change was to that path are kept rather than dropped.</summary>
+    public const string HistoryTools_Remove_Explains = "HistoryTools_Remove_Explains";
+
+    /// <summary>English: Removing a file from history does not undo the fact that it was committed. The content stays in this repository until git prunes it, stays in the backup this operation creates, and stays in every clone and on every server it reached. If it was a key, a token or a password, revoke it — that is the part that actually protects you.</summary>
+    public const string HistoryTools_Remove_Warning = "HistoryTools_Remove_Warning";
+
+    /// <summary>English: Move a file through the whole history</summary>
+    public const string HistoryTools_Rename_Title = "HistoryTools_Rename_Title";
+
+    /// <summary>English: Moves a file or a folder so that history reads as though it had always lived at the new path. The content is not rewritten; the entry moves.</summary>
+    public const string HistoryTools_Rename_Explains = "HistoryTools_Rename_Explains";
+
+    /// <summary>English: Replace an identity through the whole history</summary>
+    public const string HistoryTools_Identity_Title = "HistoryTools_Identity_Title";
+
+    /// <summary>English: Corrects an address that was committed wrongly. Only the commits carrying that address are changed, and on each one only the sides that carry it: someone else&apos;s authorship is not yours to reassign.</summary>
+    public const string HistoryTools_Identity_Explains = "HistoryTools_Identity_Explains";
+
+    /// <summary>English: Path</summary>
+    public const string HistoryTools_Field_Path = "HistoryTools_Field_Path";
+
+    /// <summary>English: New path</summary>
+    public const string HistoryTools_Field_NewPath = "HistoryTools_Field_NewPath";
+
+    /// <summary>English: E-mail to replace</summary>
+    public const string HistoryTools_Field_OldEmail = "HistoryTools_Field_OldEmail";
+
+    /// <summary>English: New name</summary>
+    public const string HistoryTools_Field_Name = "HistoryTools_Field_Name";
+
+    /// <summary>English: New e-mail</summary>
+    public const string HistoryTools_Field_Email = "HistoryTools_Field_Email";
+
+    /// <summary>English: Use my configured identity</summary>
+    public const string HistoryTools_UseMine = "HistoryTools_UseMine";
+
+    /// <summary>English: Preview…</summary>
+    public const string HistoryTools_Preview = "HistoryTools_Preview";
+
+    /// <summary>English: A folder takes everything under it. Paths are spelled as git spells them, with forward slashes and no leading slash.</summary>
+    public const string HistoryTools_PathHint = "HistoryTools_PathHint";
+
+    /// <summary>English: File removed from the history</summary>
+    public const string Status_PathRemoved = "Status_PathRemoved";
+
+    /// <summary>English: File moved through the history</summary>
+    public const string Status_PathRenamed = "Status_PathRenamed";
+
+    /// <summary>English: Identity replaced through the history</summary>
+    public const string Status_IdentityReplaced = "Status_IdentityReplaced";
+
+    /// <summary>English: No commit on this branch holds that path.</summary>
+    public const string Blocker_PathNotInHistory = "Blocker_PathNotInHistory";
+
+    /// <summary>English: A commit already holds a file at the new path, and moving onto it would replace it silently.</summary>
+    public const string Blocker_RenameTargetExists = "Blocker_RenameTargetExists";
+
+    /// <summary>English: That is not a path inside the repository. Use forward slashes, no leading slash, and nothing that climbs out of the working tree.</summary>
+    public const string Blocker_PathNotValid = "Blocker_PathNotValid";
+
+    /// <summary>English: No commit on this branch carries that address.</summary>
+    public const string Blocker_IdentityNotFound = "Blocker_IdentityNotFound";
+
+    /// <summary>English: Some commits changed nothing but this path, so they will end up holding exactly what their parent holds. GitVault keeps them: their message and authorship are history too, and dropping them would be a second change you did not ask for.</summary>
+    public const string Warning_CommitsBecomeEmpty = "Warning_CommitsBecomeEmpty";
+
+    /// <summary>English: Removing a file from history does not undo the fact that it was committed. Revoke anything secret that was in it.</summary>
+    public const string Warning_RemovedContentSurvives = "Warning_RemovedContentSurvives";
+
     /// <summary>All keys, in declaration order.</summary>
     public static IReadOnlyList<string> All { get; } =
     [
@@ -2837,5 +2921,33 @@ public static class Keys
         Blocker_MergeFailed,
         Blocker_UnresolvedConflicts,
         Rewrite_CommitLabel,
+        Nav_HistoryTools,
+        HistoryTools_Title,
+        HistoryTools_Subtitle,
+        HistoryTools_Empty,
+        HistoryTools_Remove_Title,
+        HistoryTools_Remove_Explains,
+        HistoryTools_Remove_Warning,
+        HistoryTools_Rename_Title,
+        HistoryTools_Rename_Explains,
+        HistoryTools_Identity_Title,
+        HistoryTools_Identity_Explains,
+        HistoryTools_Field_Path,
+        HistoryTools_Field_NewPath,
+        HistoryTools_Field_OldEmail,
+        HistoryTools_Field_Name,
+        HistoryTools_Field_Email,
+        HistoryTools_UseMine,
+        HistoryTools_Preview,
+        HistoryTools_PathHint,
+        Status_PathRemoved,
+        Status_PathRenamed,
+        Status_IdentityReplaced,
+        Blocker_PathNotInHistory,
+        Blocker_RenameTargetExists,
+        Blocker_PathNotValid,
+        Blocker_IdentityNotFound,
+        Warning_CommitsBecomeEmpty,
+        Warning_RemovedContentSurvives,
     ];
 }

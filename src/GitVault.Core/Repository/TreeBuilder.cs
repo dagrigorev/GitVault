@@ -7,12 +7,14 @@ public interface ITreeBuilder
     /// <param name="repositoryPath">Working tree.</param>
     /// <param name="baseTree">Tree to start from.</param>
     /// <param name="files">Files whose content should differ.</param>
+    /// <param name="paths">Paths the tree should lose or move.</param>
     /// <param name="cancellationToken">Cancels the work.</param>
     /// <returns>Object name of the new tree, or null.</returns>
     Task<string?> BuildAsync(
         string repositoryPath,
         string baseTree,
         IReadOnlyList<ResolvedFile> files,
+        IReadOnlyList<PathOperation> paths,
         CancellationToken cancellationToken);
 }
 
@@ -44,18 +46,30 @@ public sealed class TreeBuilder : ITreeBuilder
         _git = git;
     }
 
+    /// <summary>Reads what a tree records for one path.</summary>
+    private async Task<TreeEntry?> ReadEntryAsync(
+        string repositoryPath,
+        string tree,
+        string path,
+        CancellationToken cancellationToken) =>
+        await new BlobReader(_git, repositoryPath)
+            .ReadEntryAsync(tree, path, cancellationToken)
+            .ConfigureAwait(false);
+
     /// <inheritdoc/>
     public async Task<string?> BuildAsync(
         string repositoryPath,
         string baseTree,
         IReadOnlyList<ResolvedFile> files,
+        IReadOnlyList<PathOperation> paths,
         CancellationToken cancellationToken)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(repositoryPath);
         ArgumentException.ThrowIfNullOrWhiteSpace(baseTree);
         ArgumentNullException.ThrowIfNull(files);
+        ArgumentNullException.ThrowIfNull(paths);
 
-        if (files.Count == 0)
+        if (files.Count == 0 && paths.Count == 0)
         {
             return baseTree;
         }
@@ -106,6 +120,53 @@ public sealed class TreeBuilder : ITreeBuilder
                     .ConfigureAwait(false);
 
                 if (!staged.IsSuccess)
+                {
+                    return null;
+                }
+            }
+
+            foreach (var operation in paths)
+            {
+                cancellationToken.ThrowIfCancellationRequested();
+
+                if (operation.Kind == PathOperationKind.Rename)
+                {
+                    // The entry is read from the tree rather than carried in the operation, so a
+                    // rename moves whatever that commit actually held — text, binary or a mode
+                    // this program would refuse to open. Purging a leaked key must not depend on
+                    // the key being something an editor could display.
+                    var entry = await ReadEntryAsync(repositoryPath, baseTree, operation.Path, cancellationToken)
+                        .ConfigureAwait(false);
+
+                    if (entry is null)
+                    {
+                        return null;
+                    }
+
+                    var moved = await _git
+                        .RunAsync(
+                            repositoryPath,
+                            ["update-index", "--add", "--cacheinfo",
+                             $"{entry.Mode},{entry.Blob},{operation.NewPath}"],
+                            environment,
+                            cancellationToken)
+                        .ConfigureAwait(false);
+
+                    if (!moved.IsSuccess)
+                    {
+                        return null;
+                    }
+                }
+
+                var removed = await _git
+                    .RunAsync(
+                        repositoryPath,
+                        ["update-index", "--force-remove", "--", operation.Path],
+                        environment,
+                        cancellationToken)
+                    .ConfigureAwait(false);
+
+                if (!removed.IsSuccess)
                 {
                     return null;
                 }
