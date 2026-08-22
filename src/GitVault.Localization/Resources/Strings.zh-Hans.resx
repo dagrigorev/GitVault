@@ -2267,4 +2267,142 @@
   <data name="Warning_RemovedContentSurvives" xml:space="preserve">
     <value>从历史中移除文件并不能撤销它曾被提交这一事实。请吊销其中包含的任何机密内容。</value>
   </data>
+  <data name="Nav_RepositoryFiles" xml:space="preserve">
+    <value>忽略与属性</value>
+  </data>
+  <data name="RepositoryFiles_Title" xml:space="preserve">
+    <value>忽略规则、属性与作者映射</value>
+  </data>
+  <data name="RepositoryFiles_Subtitle" xml:space="preserve">
+    <value>决定 git 如何对待此仓库的纯文本文件。</value>
+  </data>
+  <data name="RepositoryFiles_Empty" xml:space="preserve">
+    <value>请选择一个仓库以编辑这些文件。</value>
+  </data>
+  <data name="RepositoryFiles_Kind_Ignore" xml:space="preserve">
+    <value>忽略的路径（.gitignore）</value>
+  </data>
+  <data name="RepositoryFiles_Kind_Exclude" xml:space="preserve">
+    <value>私有忽略路径（.git/info/exclude）</value>
+  </data>
+  <data name="RepositoryFiles_Kind_Attributes" xml:space="preserve">
+    <value>路径属性（.gitattributes）</value>
+  </data>
+  <data name="RepositoryFiles_Kind_Mailmap" xml:space="preserve">
+    <value>作者映射（.mailmap）</value>
+  </data>
+  <data name="RepositoryFiles_Column_File" xml:space="preserve">
+    <value>文件</value>
+  </data>
+  <data name="RepositoryFiles_Column_State" xml:space="preserve">
+    <value>状态</value>
+  </data>
+  <data name="RepositoryFiles_State_Missing" xml:space="preserve">
+    <value>尚未创建</value>
+  </data>
+  <data name="RepositoryFiles_State_Tracked" xml:space="preserve">
+    <value>已纳入版本控制</value>
+  </data>
+  <data name="RepositoryFiles_State_Untracked" xml:space="preserve">
+    <value>未纳入版本控制</value>
+  </data>
+  <data name="RepositoryFiles_State_Unreadable" xml:space="preserve">
+    <value>无法在此编辑</value>
+  </data>
+  <data name="RepositoryFiles_TrackedNote" xml:space="preserve">
+    <value>该文件已纳入版本控制，因此在你提交后，改动会传达给其他人。GitVault 只负责写入文件；提交仍由你自己完成。</value>
+  </data>
+  <data name="RepositoryFiles_UntrackedNote" xml:space="preserve">
+    <value>该文件仅属于本地这份克隆：它不会被提交，因此这里的内容不会传达给任何人。</value>
+  </data>
+  <data name="RepositoryFiles_UnreadableNote" xml:space="preserve">
+    <value>该文件是二进制文件、大于 1 MB，或其字节无法在读取并写回后保持不变，因此 GitVault 不会提供重写它的功能。</value>
+  </data>
+  <data name="RepositoryFiles_Revert" xml:space="preserve">
+    <value>放弃更改</value>
+  </data>
+  <data name="Status_RepositoryFileSaved" xml:space="preserve">
+    <value>文件已写入</value>
+  </data>
+  <data name="Blocker_FileNotEditableText" xml:space="preserve">
+    <value>该文件是二进制文件、过大，或其字节无法在读取并写回后保持不变。</value>
+  </data>
+  <data name="Nav_Hooks" xml:space="preserve">
+    <value>钩子</value>
+  </data>
+  <data name="Hooks_Title" xml:space="preserve">
+    <value>钩子</value>
+  </data>
+  <data name="Hooks_Subtitle" xml:space="preserve">
+    <value>由 git 自行在特定时机运行的脚本。</value>
+  </data>
+  <data name="Hooks_Empty" xml:space="preserve">
+    <value>请选择一个仓库以查看其钩子。</value>
+  </data>
+  <data name="Hooks_Danger" xml:space="preserve">
+    <value>钩子是 git 自行以你的权限运行的程序，每当到达相应时机——提交、推送、检出——它就会执行。编写钩子等于安装软件，而不是修改设置。请阅读你粘贴到此处的一切内容，并像对待任何来路不明的程序那样对待非你所写的钩子。GitVault 从不运行钩子，即使只是为了检查。</value>
+  </data>
+  <data name="Hooks_Redirected" xml:space="preserve">
+    <value>core.hooksPath 将钩子指向了另一个目录，因此 git 实际运行的是这个目录，而不是 .git/hooks。</value>
+  </data>
+  <data name="Hooks_Column_Name" xml:space="preserve">
+    <value>钩子</value>
+  </data>
+  <data name="Hooks_Column_State" xml:space="preserve">
+    <value>状态</value>
+  </data>
+  <data name="Hooks_Column_Size" xml:space="preserve">
+    <value>大小</value>
+  </data>
+  <data name="Hooks_State_Absent" xml:space="preserve">
+    <value>不存在</value>
+  </data>
+  <data name="Hooks_State_Enabled" xml:space="preserve">
+    <value>git 会运行它</value>
+  </data>
+  <data name="Hooks_State_Disabled" xml:space="preserve">
+    <value>存在但不会运行</value>
+  </data>
+  <data name="Hooks_State_Inert" xml:space="preserve">
+    <value>已启用但不可执行</value>
+  </data>
+  <data name="Hooks_InertNote" xml:space="preserve">
+    <value>该钩子已就位，但 git 仍会跳过它，因为文件不可执行。从这里重新保存会设置该权限位。</value>
+  </data>
+  <data name="Hooks_Edit" xml:space="preserve">
+    <value>编辑…</value>
+  </data>
+  <data name="Hooks_Delete" xml:space="preserve">
+    <value>删除…</value>
+  </data>
+  <data name="Hooks_Editor_Title" xml:space="preserve">
+    <value>编辑钩子</value>
+  </data>
+  <data name="Hooks_Editor_Enabled" xml:space="preserve">
+    <value>允许 git 运行此钩子</value>
+  </data>
+  <data name="Hooks_Editor_DisabledNote" xml:space="preserve">
+    <value>取消勾选后，文件将保存为 git 的 .sample 后缀，git 不会运行它。</value>
+  </data>
+  <data name="Hooks_Directory" xml:space="preserve">
+    <value>目录</value>
+  </data>
+  <data name="Status_HookSaved" xml:space="preserve">
+    <value>钩子已写入</value>
+  </data>
+  <data name="Status_HookDeleted" xml:space="preserve">
+    <value>钩子已删除</value>
+  </data>
+  <data name="Blocker_HookNameNotValid" xml:space="preserve">
+    <value>这不是有效的钩子名称。只能使用字母、数字、连字符和下划线。</value>
+  </data>
+  <data name="Blocker_HookNotEditableText" xml:space="preserve">
+    <value>该钩子是二进制文件或并非文本，从这里替换会破坏它。</value>
+  </data>
+  <data name="Blocker_HookNotFound" xml:space="preserve">
+    <value>没有可删除的此钩子。</value>
+  </data>
+  <data name="Hooks_SizeFormat" xml:space="preserve">
+    <value>{0:N0}</value>
+  </data>
 </root>

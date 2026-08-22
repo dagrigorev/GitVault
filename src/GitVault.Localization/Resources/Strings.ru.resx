@@ -2267,4 +2267,142 @@
   <data name="Warning_RemovedContentSurvives" xml:space="preserve">
     <value>Удаление файла из истории не отменяет того, что он был закоммичен. Отзовите всё секретное, что в нём было.</value>
   </data>
+  <data name="Nav_RepositoryFiles" xml:space="preserve">
+    <value>Игнор и атрибуты</value>
+  </data>
+  <data name="RepositoryFiles_Title" xml:space="preserve">
+    <value>Игнорирование, атрибуты и карта авторов</value>
+  </data>
+  <data name="RepositoryFiles_Subtitle" xml:space="preserve">
+    <value>Текстовые файлы, определяющие, как git обращается с этим репозиторием.</value>
+  </data>
+  <data name="RepositoryFiles_Empty" xml:space="preserve">
+    <value>Выберите репозиторий, чтобы править эти файлы.</value>
+  </data>
+  <data name="RepositoryFiles_Kind_Ignore" xml:space="preserve">
+    <value>Игнорируемые пути (.gitignore)</value>
+  </data>
+  <data name="RepositoryFiles_Kind_Exclude" xml:space="preserve">
+    <value>Личные игнорируемые пути (.git/info/exclude)</value>
+  </data>
+  <data name="RepositoryFiles_Kind_Attributes" xml:space="preserve">
+    <value>Атрибуты путей (.gitattributes)</value>
+  </data>
+  <data name="RepositoryFiles_Kind_Mailmap" xml:space="preserve">
+    <value>Карта авторов (.mailmap)</value>
+  </data>
+  <data name="RepositoryFiles_Column_File" xml:space="preserve">
+    <value>Файл</value>
+  </data>
+  <data name="RepositoryFiles_Column_State" xml:space="preserve">
+    <value>Состояние</value>
+  </data>
+  <data name="RepositoryFiles_State_Missing" xml:space="preserve">
+    <value>не создан</value>
+  </data>
+  <data name="RepositoryFiles_State_Tracked" xml:space="preserve">
+    <value>под версионным контролем</value>
+  </data>
+  <data name="RepositoryFiles_State_Untracked" xml:space="preserve">
+    <value>не под версионным контролем</value>
+  </data>
+  <data name="RepositoryFiles_State_Unreadable" xml:space="preserve">
+    <value>здесь править нельзя</value>
+  </data>
+  <data name="RepositoryFiles_TrackedNote" xml:space="preserve">
+    <value>Этот файл под версионным контролем, поэтому ваше изменение дойдёт до остальных после коммита. GitVault только записывает файл; коммит остаётся вашим действием.</value>
+  </data>
+  <data name="RepositoryFiles_UntrackedNote" xml:space="preserve">
+    <value>Этот файл — дело только этой копии репозитория: он не коммитится, поэтому ничего отсюда до других не дойдёт.</value>
+  </data>
+  <data name="RepositoryFiles_UnreadableNote" xml:space="preserve">
+    <value>Файл двоичный, больше 1 МБ либо это текст, байты которого не переживут чтение и обратную запись, поэтому GitVault не предлагает его переписывать.</value>
+  </data>
+  <data name="RepositoryFiles_Revert" xml:space="preserve">
+    <value>Отменить правки</value>
+  </data>
+  <data name="Status_RepositoryFileSaved" xml:space="preserve">
+    <value>Файл записан</value>
+  </data>
+  <data name="Blocker_FileNotEditableText" xml:space="preserve">
+    <value>Файл двоичный, слишком большой либо это текст, байты которого не переживут чтение и обратную запись.</value>
+  </data>
+  <data name="Nav_Hooks" xml:space="preserve">
+    <value>Хуки</value>
+  </data>
+  <data name="Hooks_Title" xml:space="preserve">
+    <value>Хуки</value>
+  </data>
+  <data name="Hooks_Subtitle" xml:space="preserve">
+    <value>Сценарии, которые git запускает сам в выбранные им моменты.</value>
+  </data>
+  <data name="Hooks_Empty" xml:space="preserve">
+    <value>Выберите репозиторий, чтобы увидеть его хуки.</value>
+  </data>
+  <data name="Hooks_Danger" xml:space="preserve">
+    <value>Хук — это программа, которую git запускает сам, с вашими правами, каждый раз, доходя до соответствующего момента: коммит, отправка, переключение веток. Написать хук — значит установить программу, а не изменить настройку. Читайте всё, что сюда вставляете, и относитесь к чужому хуку как к любой другой программе неизвестного происхождения. GitVault не запускает хуки — даже чтобы проверить.</value>
+  </data>
+  <data name="Hooks_Redirected" xml:space="preserve">
+    <value>core.hooksPath направляет хуки в другой каталог, поэтому git запускает именно этот каталог, а не .git/hooks.</value>
+  </data>
+  <data name="Hooks_Column_Name" xml:space="preserve">
+    <value>Хук</value>
+  </data>
+  <data name="Hooks_Column_State" xml:space="preserve">
+    <value>Состояние</value>
+  </data>
+  <data name="Hooks_Column_Size" xml:space="preserve">
+    <value>Размер</value>
+  </data>
+  <data name="Hooks_State_Absent" xml:space="preserve">
+    <value>отсутствует</value>
+  </data>
+  <data name="Hooks_State_Enabled" xml:space="preserve">
+    <value>git его запускает</value>
+  </data>
+  <data name="Hooks_State_Disabled" xml:space="preserve">
+    <value>есть, не запускается</value>
+  </data>
+  <data name="Hooks_State_Inert" xml:space="preserve">
+    <value>включён, но не исполняемый</value>
+  </data>
+  <data name="Hooks_InertNote" xml:space="preserve">
+    <value>Хук на месте, но git его пропустит: файл не исполняемый. Повторное сохранение отсюда выставит бит.</value>
+  </data>
+  <data name="Hooks_Edit" xml:space="preserve">
+    <value>Изменить…</value>
+  </data>
+  <data name="Hooks_Delete" xml:space="preserve">
+    <value>Удалить…</value>
+  </data>
+  <data name="Hooks_Editor_Title" xml:space="preserve">
+    <value>Изменение хука</value>
+  </data>
+  <data name="Hooks_Editor_Enabled" xml:space="preserve">
+    <value>Разрешить git запускать этот хук</value>
+  </data>
+  <data name="Hooks_Editor_DisabledNote" xml:space="preserve">
+    <value>Без флажка файл сохраняется с суффиксом .sample, который git не запускает.</value>
+  </data>
+  <data name="Hooks_Directory" xml:space="preserve">
+    <value>Каталог</value>
+  </data>
+  <data name="Status_HookSaved" xml:space="preserve">
+    <value>Хук записан</value>
+  </data>
+  <data name="Status_HookDeleted" xml:space="preserve">
+    <value>Хук удалён</value>
+  </data>
+  <data name="Blocker_HookNameNotValid" xml:space="preserve">
+    <value>Это не имя хука. Допустимы только буквы, цифры, дефисы и подчёркивания.</value>
+  </data>
+  <data name="Blocker_HookNotEditableText" xml:space="preserve">
+    <value>Этот хук двоичный или иным образом не текст, поэтому замена отсюда его уничтожит.</value>
+  </data>
+  <data name="Blocker_HookNotFound" xml:space="preserve">
+    <value>Такого хука для удаления нет.</value>
+  </data>
+  <data name="Hooks_SizeFormat" xml:space="preserve">
+    <value>{0:N0}</value>
+  </data>
 </root>

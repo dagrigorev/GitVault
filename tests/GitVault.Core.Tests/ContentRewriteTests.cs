@@ -200,6 +200,60 @@ public sealed class ContentRewriteTests(ITestOutputHelper output)
     }
 
     [Fact]
+    public async Task What_happens_to_a_file_with_a_byte_order_mark_is_settled_rather_than_assumed()
+    {
+        using var environment = TempGitEnvironment.TryCreate();
+        if (environment is null)
+        {
+            output.WriteLine("git is not on PATH; skipping.");
+            return;
+        }
+
+        // Whether such a file can be edited depends on whether the reader strips the mark before
+        // the size check sees it. Either answer is defensible; what is not defensible is claiming
+        // one in the documentation without having looked.
+        var repository = environment.CreateRepository("blob-bom");
+        var path = Path.Combine(repository, "notes.txt");
+        File.WriteAllBytes(path, [.. System.Text.Encoding.UTF8.GetPreamble(), .. "alpha\nbeta\n"u8.ToArray()]);
+        environment.Git(repository, "add", "notes.txt");
+        environment.Git(repository, "commit", "--quiet", "-m", "Add notes with a mark");
+        Write(environment, repository, "after.txt", "later\n", "Add a later commit");
+
+        var runner = await BuildRunnerAsync(environment);
+        var reader = new FileContentReader(runner);
+        var head = environment.Git(repository, "rev-parse", "HEAD~1");
+
+        var content = await reader.ReadAsync(repository, head, "notes.txt", CancellationToken.None);
+
+        if (content is null)
+        {
+            output.WriteLine("A blob with a byte-order mark is refused by the content reader.");
+            return;
+        }
+
+        output.WriteLine("A blob with a byte-order mark is readable; checking it survives a rewrite.");
+
+        var (rewriter, commits) = await BuildAsync(environment);
+        var target = (await commits.ReadAsync(repository, new CommitQuery(), CancellationToken.None))
+            .Single(c => c.Subject == "Add notes with a mark");
+
+        var plan = await rewriter.PlanAsync(
+            repository,
+            [new CommitEdit(target.Sha)
+            {
+                Files = [new FileEdit("notes.txt", content.Text.Replace("beta", "BETA", StringComparison.Ordinal))],
+            }],
+            CancellationToken.None);
+
+        plan.CanApply.Should().BeTrue();
+        await rewriter.ApplyAsync(plan, CancellationToken.None);
+
+        var written = environment.Git(repository, "cat-file", "blob", "HEAD:notes.txt");
+        written.Should().Contain("BETA");
+        content.Text[0].Should().Be('\uFEFF', "the mark was carried as text rather than dropped");
+    }
+
+    [Fact]
     public async Task Restoring_the_backup_undoes_a_content_rewrite()
     {
         using var environment = TempGitEnvironment.TryCreate();

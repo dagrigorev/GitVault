@@ -2267,4 +2267,142 @@
   <data name="Warning_RemovedContentSurvives" xml:space="preserve">
     <value>Removing a file from history does not undo the fact that it was committed. Revoke anything secret that was in it.</value>
   </data>
+  <data name="Nav_RepositoryFiles" xml:space="preserve">
+    <value>Ignore &amp; attributes</value>
+  </data>
+  <data name="RepositoryFiles_Title" xml:space="preserve">
+    <value>Ignore, attributes and mailmap</value>
+  </data>
+  <data name="RepositoryFiles_Subtitle" xml:space="preserve">
+    <value>The plain-text files that change how git treats this repository.</value>
+  </data>
+  <data name="RepositoryFiles_Empty" xml:space="preserve">
+    <value>Select a repository to edit these files.</value>
+  </data>
+  <data name="RepositoryFiles_Kind_Ignore" xml:space="preserve">
+    <value>Ignored paths (.gitignore)</value>
+  </data>
+  <data name="RepositoryFiles_Kind_Exclude" xml:space="preserve">
+    <value>Private ignored paths (.git/info/exclude)</value>
+  </data>
+  <data name="RepositoryFiles_Kind_Attributes" xml:space="preserve">
+    <value>Path attributes (.gitattributes)</value>
+  </data>
+  <data name="RepositoryFiles_Kind_Mailmap" xml:space="preserve">
+    <value>Author map (.mailmap)</value>
+  </data>
+  <data name="RepositoryFiles_Column_File" xml:space="preserve">
+    <value>File</value>
+  </data>
+  <data name="RepositoryFiles_Column_State" xml:space="preserve">
+    <value>State</value>
+  </data>
+  <data name="RepositoryFiles_State_Missing" xml:space="preserve">
+    <value>not created</value>
+  </data>
+  <data name="RepositoryFiles_State_Tracked" xml:space="preserve">
+    <value>committed</value>
+  </data>
+  <data name="RepositoryFiles_State_Untracked" xml:space="preserve">
+    <value>not committed</value>
+  </data>
+  <data name="RepositoryFiles_State_Unreadable" xml:space="preserve">
+    <value>cannot be edited here</value>
+  </data>
+  <data name="RepositoryFiles_TrackedNote" xml:space="preserve">
+    <value>This file is committed, so your change will reach everyone else once you commit it. GitVault writes the file and stops there; committing stays your own action.</value>
+  </data>
+  <data name="RepositoryFiles_UntrackedNote" xml:space="preserve">
+    <value>This file is this clone&apos;s own business: it is not committed, so nothing here reaches anyone else.</value>
+  </data>
+  <data name="RepositoryFiles_UnreadableNote" xml:space="preserve">
+    <value>This file is binary, larger than 1 MB, or text whose bytes would not survive being read and written back, so GitVault will not offer to rewrite it.</value>
+  </data>
+  <data name="RepositoryFiles_Revert" xml:space="preserve">
+    <value>Discard changes</value>
+  </data>
+  <data name="Status_RepositoryFileSaved" xml:space="preserve">
+    <value>File written</value>
+  </data>
+  <data name="Blocker_FileNotEditableText" xml:space="preserve">
+    <value>This file is binary, too large, or text whose bytes would not survive being read and written back.</value>
+  </data>
+  <data name="Nav_Hooks" xml:space="preserve">
+    <value>Hooks</value>
+  </data>
+  <data name="Hooks_Title" xml:space="preserve">
+    <value>Hooks</value>
+  </data>
+  <data name="Hooks_Subtitle" xml:space="preserve">
+    <value>Scripts git runs by itself, at the moments it decides.</value>
+  </data>
+  <data name="Hooks_Empty" xml:space="preserve">
+    <value>Select a repository to see its hooks.</value>
+  </data>
+  <data name="Hooks_Danger" xml:space="preserve">
+    <value>A hook is a program git runs by itself, with your privileges, whenever it reaches that point — committing, pushing, checking out. Writing one is installing software, not changing a setting. Read anything you paste here, and treat a hook you did not write like any other untrusted program. GitVault never runs a hook, not even to check it.</value>
+  </data>
+  <data name="Hooks_Redirected" xml:space="preserve">
+    <value>core.hooksPath points hooks at another directory, so this is the directory git actually runs, not .git/hooks.</value>
+  </data>
+  <data name="Hooks_Column_Name" xml:space="preserve">
+    <value>Hook</value>
+  </data>
+  <data name="Hooks_Column_State" xml:space="preserve">
+    <value>State</value>
+  </data>
+  <data name="Hooks_Column_Size" xml:space="preserve">
+    <value>Size</value>
+  </data>
+  <data name="Hooks_State_Absent" xml:space="preserve">
+    <value>not present</value>
+  </data>
+  <data name="Hooks_State_Enabled" xml:space="preserve">
+    <value>git runs it</value>
+  </data>
+  <data name="Hooks_State_Disabled" xml:space="preserve">
+    <value>present, not run</value>
+  </data>
+  <data name="Hooks_State_Inert" xml:space="preserve">
+    <value>enabled but not executable</value>
+  </data>
+  <data name="Hooks_InertNote" xml:space="preserve">
+    <value>This hook is in place and git will skip it anyway, because the file is not executable. Saving it again from here sets the bit.</value>
+  </data>
+  <data name="Hooks_Edit" xml:space="preserve">
+    <value>Edit…</value>
+  </data>
+  <data name="Hooks_Delete" xml:space="preserve">
+    <value>Delete…</value>
+  </data>
+  <data name="Hooks_Editor_Title" xml:space="preserve">
+    <value>Edit hook</value>
+  </data>
+  <data name="Hooks_Editor_Enabled" xml:space="preserve">
+    <value>Let git run this hook</value>
+  </data>
+  <data name="Hooks_Editor_DisabledNote" xml:space="preserve">
+    <value>Unchecked, the file is kept with git&apos;s .sample suffix, which git does not run.</value>
+  </data>
+  <data name="Hooks_Directory" xml:space="preserve">
+    <value>Directory</value>
+  </data>
+  <data name="Status_HookSaved" xml:space="preserve">
+    <value>Hook written</value>
+  </data>
+  <data name="Status_HookDeleted" xml:space="preserve">
+    <value>Hook deleted</value>
+  </data>
+  <data name="Blocker_HookNameNotValid" xml:space="preserve">
+    <value>That is not a hook name. Use letters, digits, hyphens and underscores only.</value>
+  </data>
+  <data name="Blocker_HookNotEditableText" xml:space="preserve">
+    <value>This hook is a binary or otherwise not text, so replacing it here would destroy it.</value>
+  </data>
+  <data name="Blocker_HookNotFound" xml:space="preserve">
+    <value>There is no such hook to delete.</value>
+  </data>
+  <data name="Hooks_SizeFormat" xml:space="preserve">
+    <value>{0:N0}</value>
+  </data>
 </root>

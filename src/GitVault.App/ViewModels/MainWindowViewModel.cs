@@ -34,6 +34,8 @@ internal sealed partial class MainWindowViewModel : ViewModelBase
     private readonly TagsViewModel _tags;
     private readonly CommitsViewModel _commits;
     private readonly HistoryToolsViewModel _historyTools;
+    private readonly RepositoryFilesViewModel _repositoryFiles;
+    private readonly HooksViewModel _hooks;
     private readonly HashSet<PageViewModel> _activated = [];
 
     [ObservableProperty]
@@ -66,7 +68,9 @@ internal sealed partial class MainWindowViewModel : ViewModelBase
         BranchesViewModel branches,
         TagsViewModel tags,
         CommitsViewModel commits,
-        HistoryToolsViewModel historyTools)
+        HistoryToolsViewModel historyTools,
+        RepositoryFilesViewModel repositoryFiles,
+        HooksViewModel hooks)
         : base(localizer)
     {
         ArgumentNullException.ThrowIfNull(commits);
@@ -102,6 +106,8 @@ internal sealed partial class MainWindowViewModel : ViewModelBase
         _tags = tags;
         _commits = commits;
         _historyTools = historyTools;
+        _repositoryFiles = repositoryFiles;
+        _hooks = hooks;
 
         _repositories.Rows.CollectionChanged += OnRepositoriesChanged;
         _scans.PropertyChanged += OnScansPropertyChanged;
@@ -159,6 +165,8 @@ internal sealed partial class MainWindowViewModel : ViewModelBase
             node.Children.Add(NavigationNode.ForRepositoryPage(L, _tags, row.Path));
             node.Children.Add(NavigationNode.ForRepositoryPage(L, _repositoryConfig, row.Path));
             node.Children.Add(NavigationNode.ForRepositoryPage(L, _projectSettings, row.Path));
+            node.Children.Add(NavigationNode.ForRepositoryPage(L, _repositoryFiles, row.Path));
+            node.Children.Add(NavigationNode.ForRepositoryPage(L, _hooks, row.Path));
             node.Children.Add(NavigationNode.ForRepositoryPage(L, _historyTools, row.Path));
 
             parent.Children.Add(node);
@@ -454,6 +462,8 @@ internal sealed partial class MainWindowViewModel : ViewModelBase
             _tags.Dispose();
             _commits.Dispose();
             _historyTools.Dispose();
+            _repositoryFiles.Dispose();
+            _hooks.Dispose();
         }
 
         base.Dispose(disposing);

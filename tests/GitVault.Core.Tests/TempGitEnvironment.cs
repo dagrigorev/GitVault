@@ -158,6 +158,29 @@ internal sealed class TempGitEnvironment : IDisposable
         params string[] arguments) =>
         Run(workingDirectory, applyGlobalOverride: true, environment, arguments);
 
+    /// <summary>
+    /// Runs git and reports whether it succeeded, instead of throwing when it does not.
+    /// </summary>
+    /// <remarks>
+    /// For the cases where a failure is the thing under test — a hook refusing a commit, say —
+    /// rather than a broken harness.
+    /// </remarks>
+    /// <param name="workingDirectory">Directory to run in.</param>
+    /// <param name="arguments">Arguments, already split.</param>
+    /// <returns><see langword="true"/> when git exited successfully.</returns>
+    public bool TryGit(string workingDirectory, params string[] arguments)
+    {
+        try
+        {
+            Run(workingDirectory, applyGlobalOverride: true, null, arguments);
+            return true;
+        }
+        catch (InvalidOperationException)
+        {
+            return false;
+        }
+    }
+
     private string Run(
         string workingDirectory,
         bool applyGlobalOverride,

@@ -19,6 +19,12 @@ public enum ChangeKind
 
     /// <summary>Load a key into an agent.</summary>
     AgentLoad,
+
+    /// <summary>Write a plain-text file in the repository, creating it if need be.</summary>
+    FileWrite,
+
+    /// <summary>Delete a file from the repository.</summary>
+    FileDelete,
 }
 
 /// <summary>One change GitVault intends to make.</summary>

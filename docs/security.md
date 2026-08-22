@@ -318,6 +318,60 @@ Replacing an identity across history changes only the commits carrying that addr
 one only the sides that carry it. Someone else's authorship is not the user's to reassign, and a
 bulk correction is exactly where that would happen by accident.
 
+## Hooks: the one place GitVault installs software
+
+Every other editor in this application changes what git reads. The hook editor changes what git
+executes: a hook is a program git runs by itself, with the user's privileges, when they commit,
+push or check out. Writing one is installing software, and the interface says so unconditionally
+rather than once.
+
+Four rules are enforced in the editor rather than left to the interface.
+
+**GitVault never runs a hook.** Not to validate it, not to check its syntax, not to offer a test.
+There is no safe way to offer that, so it is not offered. A new hook starts as a shebang line and
+nothing else — anything more would be this program putting behaviour into a file git executes.
+
+**The directory is asked for, not assumed.** `core.hooksPath` redirects hooks elsewhere, and an
+editor that wrote to `.git/hooks` regardless would report success while git ran something else
+entirely. The page shows which directory is in play and says when it has been redirected. This is
+the same rule the rest of the project follows: ask git, never deduce.
+
+**Enabling and disabling use git's own `.sample` suffix**, not the executable bit. The bit is not
+reliable across platforms; the suffix is. Disabling is a move rather than a flag, so the plan
+carries the removal of the live copy as its own named change — a "disable" that left a runnable
+file behind would be the worst possible outcome of that dialog, and it is asserted by a test.
+
+**A written hook is executable by its owner and readable by their group, and writable by nobody
+else.** A hook another account can rewrite is a way to run code as this user, so widening those
+permissions to make something work is not a trade this program will make.
+
+Two states the interface names that git will not: a hook that is present, enabled, and skipped
+anyway because the file is not executable — git says nothing at all about that — and a hook that
+is a compiled binary, which is refused for editing rather than silently replaced with text.
+
+### Editing the repository's plain-text files
+
+`.gitignore`, `.gitattributes`, `.mailmap` and `.git/info/exclude` are ordinary files, so the
+safety net is the snapshot service rather than a ref backup, and the route is the usual one: plan,
+preview, snapshot, apply.
+
+Three properties are kept deliberately. The file's own line ending survives a round trip, because
+turning a CRLF file into an LF one is a change to every line shown as a change to one. The bytes
+have to survive being decoded and written back, so a file in another encoding is refused rather
+than re-encoded. And the page says whether the file is committed: editing `.gitignore` reaches
+everyone working on the project once the change is committed, while the exclude file never leaves
+this clone — different decisions, which a page that presented them identically would be hiding.
+
+Writing is not committing. GitVault writes the file and stops; whether the change becomes part of
+the project stays the user's own action.
+
+One asymmetry worth recording, because it looks like an inconsistency and is not. A file carrying
+a byte-order mark is *refused* when it is read out of a commit, and *preserved* when it is read
+from the working tree. The blob path reads through a process pipe whose reader strips the mark, so
+the round-trip check sees a size mismatch and refuses; the working-tree path reads raw bytes, where
+the mark decodes and re-encodes to exactly the same three bytes. Both behaviours are correct for
+their path, and both are now pinned by tests rather than assumed.
+
 ## Known gaps, collected
 
 | Gap | Consequence | Where |
@@ -331,3 +385,5 @@ bulk correction is exactly where that would happen by accident.
 | Non-UTF-8 files cannot be edited | A file in another encoding is refused, because rewriting it would change its encoding | `BlobReader` |
 | A purge does not prune the object database | The removed content stays reachable through the backup ref, and stays in the repository until git prunes it | `HistoryTools` |
 | Path operations read every commit's tree | Planning a purge on a very large history is slow, because each commit is listed in turn | `HistoryTools.FindHoldersAsync` |
+| A hook's content is never checked | GitVault will write whatever script it is given; reading it is the user's job | `HookEditor` |
+| A committed file edit is not committed | `.gitignore` and friends are written to the working tree, leaving the repository dirty until the user commits | `RepositoryFileEditor` |

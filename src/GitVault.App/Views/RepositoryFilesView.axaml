@@ -1,0 +1,69 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:loc="using:GitVault.App.Markup"
+             x:Class="GitVault.App.Views.RepositoryFilesView">
+  <DockPanel>
+
+    <Border DockPanel.Dock="Top" Classes="note" Margin="0,0,0,6"
+            IsVisible="{Binding !HasRepository}">
+      <TextBlock TextWrapping="Wrap" Text="{Binding NoRepositoryCaption}" />
+    </Border>
+
+    <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Spacing="5" Margin="0,0,0,6"
+                IsVisible="{Binding HasRepository}">
+      <Button Name="SaveRepositoryFileButton" Command="{Binding SaveCommand}"
+              IsEnabled="{Binding HasChanges}" Content="{loc:Tr Common_Save}" />
+      <Button Name="RevertRepositoryFileButton" Command="{Binding RevertCommand}"
+              IsEnabled="{Binding HasChanges}" Content="{loc:Tr RepositoryFiles_Revert}" />
+    </StackPanel>
+
+    <!--
+      Which of these files is committed decides who the change reaches, so it is stated beside the
+      editor rather than left to be inferred from the file's name.
+    -->
+    <Border DockPanel.Dock="Bottom" Classes="note" Margin="0,7,0,0"
+            IsVisible="{Binding IsTracked}">
+      <TextBlock TextWrapping="Wrap" Text="{Binding TrackedNoteCaption}" />
+    </Border>
+
+    <Border DockPanel.Dock="Bottom" Classes="note" Margin="0,7,0,0"
+            IsVisible="{Binding !IsTracked}">
+      <TextBlock TextWrapping="Wrap" Text="{Binding UntrackedNoteCaption}" />
+    </Border>
+
+    <Border DockPanel.Dock="Bottom" Classes="note warn" Margin="0,7,0,0"
+            IsVisible="{Binding IsUnreadable}">
+      <TextBlock TextWrapping="Wrap" Text="{Binding UnreadableNoteCaption}" />
+    </Border>
+
+    <Border DockPanel.Dock="Left" Classes="panelWhite" Width="290" Margin="0,0,7,0">
+      <DataGrid Name="RepositoryFilesGrid"
+                ItemsSource="{Binding Rows}"
+                SelectedItem="{Binding SelectedRow, Mode=TwoWay}"
+                BorderThickness="0"
+                CanUserSortColumns="False">
+        <DataGrid.Columns>
+          <DataGridTextColumn Header="{loc:Tr RepositoryFiles_Column_File}" Binding="{Binding Name}"
+                              Width="*" MinWidth="170" />
+          <DataGridTextColumn Header="{loc:Tr RepositoryFiles_Column_State}" Binding="{Binding State}"
+                              Width="Auto" MinWidth="110" />
+        </DataGrid.Columns>
+      </DataGrid>
+    </Border>
+
+    <DockPanel>
+      <SelectableTextBlock DockPanel.Dock="Top" Classes="mono dim" Margin="0,0,0,4"
+                           Text="{Binding SelectedPath}" />
+
+      <TextBox Classes="multiline mono"
+               AcceptsReturn="True"
+               AcceptsTab="True"
+               TextWrapping="NoWrap"
+               VerticalContentAlignment="Top"
+               IsEnabled="{Binding CanEdit}"
+               Text="{Binding Text, Mode=TwoWay}"
+               AutomationProperties.Name="{loc:Tr RepositoryFiles_Title}" />
+    </DockPanel>
+
+  </DockPanel>
+</UserControl>

@@ -101,6 +101,9 @@ public sealed class LocalizationTests
             // An abbreviated commit name beside what it is: two placeholders and the spacing
             // between them, with no word to translate.
             Keys.Rewrite_CommitLabel,
+
+            // A byte count: a placeholder and a numeric format specifier, with no word in it.
+            Keys.Hooks_SizeFormat,
         ];
 
         var service = new LocalizationService(new CldrPluralizer());

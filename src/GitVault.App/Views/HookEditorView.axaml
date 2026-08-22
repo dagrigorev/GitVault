@@ -1,0 +1,38 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:loc="using:GitVault.App.Markup"
+             x:Class="GitVault.App.Views.HookEditorView">
+  <DockPanel>
+
+    <Border DockPanel.Dock="Top" Classes="note error" Margin="0,0,0,7">
+      <StackPanel Orientation="Horizontal" Spacing="7">
+        <Image Classes="icon20" Source="{StaticResource IconSeverityHigh}" VerticalAlignment="Top" />
+        <TextBlock TextWrapping="Wrap" MaxWidth="620" Text="{Binding DangerCaption}" />
+      </StackPanel>
+    </Border>
+
+    <Grid DockPanel.Dock="Top" ColumnDefinitions="120,*" RowDefinitions="Auto,Auto" Margin="0,0,0,6">
+      <TextBlock Grid.Row="0" Grid.Column="0" Classes="dim" Text="{loc:Tr Hooks_Column_Name}" />
+      <SelectableTextBlock Grid.Row="0" Grid.Column="1" Classes="mono" Text="{Binding Name}" />
+
+      <TextBlock Grid.Row="1" Grid.Column="0" Classes="dim" Text="{loc:Tr Keys_Column_Path}" />
+      <SelectableTextBlock Grid.Row="1" Grid.Column="1" Classes="mono" TextWrapping="Wrap"
+                           Text="{Binding Path}" />
+    </Grid>
+
+    <StackPanel DockPanel.Dock="Bottom" Spacing="3" Margin="0,7,0,0">
+      <CheckBox IsChecked="{Binding IsEnabled, Mode=TwoWay}"
+                Content="{loc:Tr Hooks_Editor_Enabled}" />
+      <TextBlock Classes="dim" TextWrapping="Wrap" Text="{Binding DisabledNoteCaption}" />
+    </StackPanel>
+
+    <TextBox Classes="multiline mono"
+             AcceptsReturn="True"
+             AcceptsTab="True"
+             TextWrapping="NoWrap"
+             VerticalContentAlignment="Top"
+             Text="{Binding Script, Mode=TwoWay}"
+             AutomationProperties.Name="{loc:Tr Hooks_Editor_Title}" />
+
+  </DockPanel>
+</UserControl>

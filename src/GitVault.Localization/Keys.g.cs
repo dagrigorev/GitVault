@@ -2211,6 +2211,144 @@ public static class Keys
     /// <summary>English: Removing a file from history does not undo the fact that it was committed. Revoke anything secret that was in it.</summary>
     public const string Warning_RemovedContentSurvives = "Warning_RemovedContentSurvives";
 
+    /// <summary>English: Ignore &amp; attributes</summary>
+    public const string Nav_RepositoryFiles = "Nav_RepositoryFiles";
+
+    /// <summary>English: Ignore, attributes and mailmap</summary>
+    public const string RepositoryFiles_Title = "RepositoryFiles_Title";
+
+    /// <summary>English: The plain-text files that change how git treats this repository.</summary>
+    public const string RepositoryFiles_Subtitle = "RepositoryFiles_Subtitle";
+
+    /// <summary>English: Select a repository to edit these files.</summary>
+    public const string RepositoryFiles_Empty = "RepositoryFiles_Empty";
+
+    /// <summary>English: Ignored paths (.gitignore)</summary>
+    public const string RepositoryFiles_Kind_Ignore = "RepositoryFiles_Kind_Ignore";
+
+    /// <summary>English: Private ignored paths (.git/info/exclude)</summary>
+    public const string RepositoryFiles_Kind_Exclude = "RepositoryFiles_Kind_Exclude";
+
+    /// <summary>English: Path attributes (.gitattributes)</summary>
+    public const string RepositoryFiles_Kind_Attributes = "RepositoryFiles_Kind_Attributes";
+
+    /// <summary>English: Author map (.mailmap)</summary>
+    public const string RepositoryFiles_Kind_Mailmap = "RepositoryFiles_Kind_Mailmap";
+
+    /// <summary>English: File</summary>
+    public const string RepositoryFiles_Column_File = "RepositoryFiles_Column_File";
+
+    /// <summary>English: State</summary>
+    public const string RepositoryFiles_Column_State = "RepositoryFiles_Column_State";
+
+    /// <summary>English: not created</summary>
+    public const string RepositoryFiles_State_Missing = "RepositoryFiles_State_Missing";
+
+    /// <summary>English: committed</summary>
+    public const string RepositoryFiles_State_Tracked = "RepositoryFiles_State_Tracked";
+
+    /// <summary>English: not committed</summary>
+    public const string RepositoryFiles_State_Untracked = "RepositoryFiles_State_Untracked";
+
+    /// <summary>English: cannot be edited here</summary>
+    public const string RepositoryFiles_State_Unreadable = "RepositoryFiles_State_Unreadable";
+
+    /// <summary>English: This file is committed, so your change will reach everyone else once you commit it. GitVault writes the file and stops there; committing stays your own action.</summary>
+    public const string RepositoryFiles_TrackedNote = "RepositoryFiles_TrackedNote";
+
+    /// <summary>English: This file is this clone&apos;s own business: it is not committed, so nothing here reaches anyone else.</summary>
+    public const string RepositoryFiles_UntrackedNote = "RepositoryFiles_UntrackedNote";
+
+    /// <summary>English: This file is binary, larger than 1 MB, or text whose bytes would not survive being read and written back, so GitVault will not offer to rewrite it.</summary>
+    public const string RepositoryFiles_UnreadableNote = "RepositoryFiles_UnreadableNote";
+
+    /// <summary>English: Discard changes</summary>
+    public const string RepositoryFiles_Revert = "RepositoryFiles_Revert";
+
+    /// <summary>English: File written</summary>
+    public const string Status_RepositoryFileSaved = "Status_RepositoryFileSaved";
+
+    /// <summary>English: This file is binary, too large, or text whose bytes would not survive being read and written back.</summary>
+    public const string Blocker_FileNotEditableText = "Blocker_FileNotEditableText";
+
+    /// <summary>English: Hooks</summary>
+    public const string Nav_Hooks = "Nav_Hooks";
+
+    /// <summary>English: Hooks</summary>
+    public const string Hooks_Title = "Hooks_Title";
+
+    /// <summary>English: Scripts git runs by itself, at the moments it decides.</summary>
+    public const string Hooks_Subtitle = "Hooks_Subtitle";
+
+    /// <summary>English: Select a repository to see its hooks.</summary>
+    public const string Hooks_Empty = "Hooks_Empty";
+
+    /// <summary>English: A hook is a program git runs by itself, with your privileges, whenever it reaches that point — committing, pushing, checking out. Writing one is installing software, not changing a setting. Read anything you paste here, and treat a hook you did not write like any other untrusted program. GitVault never runs a hook, not even to check it.</summary>
+    public const string Hooks_Danger = "Hooks_Danger";
+
+    /// <summary>English: core.hooksPath points hooks at another directory, so this is the directory git actually runs, not .git/hooks.</summary>
+    public const string Hooks_Redirected = "Hooks_Redirected";
+
+    /// <summary>English: Hook</summary>
+    public const string Hooks_Column_Name = "Hooks_Column_Name";
+
+    /// <summary>English: State</summary>
+    public const string Hooks_Column_State = "Hooks_Column_State";
+
+    /// <summary>English: Size</summary>
+    public const string Hooks_Column_Size = "Hooks_Column_Size";
+
+    /// <summary>English: not present</summary>
+    public const string Hooks_State_Absent = "Hooks_State_Absent";
+
+    /// <summary>English: git runs it</summary>
+    public const string Hooks_State_Enabled = "Hooks_State_Enabled";
+
+    /// <summary>English: present, not run</summary>
+    public const string Hooks_State_Disabled = "Hooks_State_Disabled";
+
+    /// <summary>English: enabled but not executable</summary>
+    public const string Hooks_State_Inert = "Hooks_State_Inert";
+
+    /// <summary>English: This hook is in place and git will skip it anyway, because the file is not executable. Saving it again from here sets the bit.</summary>
+    public const string Hooks_InertNote = "Hooks_InertNote";
+
+    /// <summary>English: Edit…</summary>
+    public const string Hooks_Edit = "Hooks_Edit";
+
+    /// <summary>English: Delete…</summary>
+    public const string Hooks_Delete = "Hooks_Delete";
+
+    /// <summary>English: Edit hook</summary>
+    public const string Hooks_Editor_Title = "Hooks_Editor_Title";
+
+    /// <summary>English: Let git run this hook</summary>
+    public const string Hooks_Editor_Enabled = "Hooks_Editor_Enabled";
+
+    /// <summary>English: Unchecked, the file is kept with git&apos;s .sample suffix, which git does not run.</summary>
+    public const string Hooks_Editor_DisabledNote = "Hooks_Editor_DisabledNote";
+
+    /// <summary>English: Directory</summary>
+    public const string Hooks_Directory = "Hooks_Directory";
+
+    /// <summary>English: Hook written</summary>
+    public const string Status_HookSaved = "Status_HookSaved";
+
+    /// <summary>English: Hook deleted</summary>
+    public const string Status_HookDeleted = "Status_HookDeleted";
+
+    /// <summary>English: That is not a hook name. Use letters, digits, hyphens and underscores only.</summary>
+    public const string Blocker_HookNameNotValid = "Blocker_HookNameNotValid";
+
+    /// <summary>English: This hook is a binary or otherwise not text, so replacing it here would destroy it.</summary>
+    public const string Blocker_HookNotEditableText = "Blocker_HookNotEditableText";
+
+    /// <summary>English: There is no such hook to delete.</summary>
+    public const string Blocker_HookNotFound = "Blocker_HookNotFound";
+
+    /// <summary>English: {0:N0}</summary>
+    public const string Hooks_SizeFormat = "Hooks_SizeFormat";
+
     /// <summary>All keys, in declaration order.</summary>
     public static IReadOnlyList<string> All { get; } =
     [
@@ -2949,5 +3087,51 @@ public static class Keys
         Blocker_IdentityNotFound,
         Warning_CommitsBecomeEmpty,
         Warning_RemovedContentSurvives,
+        Nav_RepositoryFiles,
+        RepositoryFiles_Title,
+        RepositoryFiles_Subtitle,
+        RepositoryFiles_Empty,
+        RepositoryFiles_Kind_Ignore,
+        RepositoryFiles_Kind_Exclude,
+        RepositoryFiles_Kind_Attributes,
+        RepositoryFiles_Kind_Mailmap,
+        RepositoryFiles_Column_File,
+        RepositoryFiles_Column_State,
+        RepositoryFiles_State_Missing,
+        RepositoryFiles_State_Tracked,
+        RepositoryFiles_State_Untracked,
+        RepositoryFiles_State_Unreadable,
+        RepositoryFiles_TrackedNote,
+        RepositoryFiles_UntrackedNote,
+        RepositoryFiles_UnreadableNote,
+        RepositoryFiles_Revert,
+        Status_RepositoryFileSaved,
+        Blocker_FileNotEditableText,
+        Nav_Hooks,
+        Hooks_Title,
+        Hooks_Subtitle,
+        Hooks_Empty,
+        Hooks_Danger,
+        Hooks_Redirected,
+        Hooks_Column_Name,
+        Hooks_Column_State,
+        Hooks_Column_Size,
+        Hooks_State_Absent,
+        Hooks_State_Enabled,
+        Hooks_State_Disabled,
+        Hooks_State_Inert,
+        Hooks_InertNote,
+        Hooks_Edit,
+        Hooks_Delete,
+        Hooks_Editor_Title,
+        Hooks_Editor_Enabled,
+        Hooks_Editor_DisabledNote,
+        Hooks_Directory,
+        Status_HookSaved,
+        Status_HookDeleted,
+        Blocker_HookNameNotValid,
+        Blocker_HookNotEditableText,
+        Blocker_HookNotFound,
+        Hooks_SizeFormat,
     ];
 }

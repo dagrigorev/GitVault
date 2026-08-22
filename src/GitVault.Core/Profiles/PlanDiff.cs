@@ -36,6 +36,8 @@ public static class PlanDiff
                 ChangeKind.GitConfigUnset => "git config --unset ",
                 ChangeKind.SshConfigBlock => "ssh config block ",
                 ChangeKind.SshConfigBlockRemoval => "ssh config block removal ",
+                ChangeKind.FileWrite => "write ",
+                ChangeKind.FileDelete => "delete ",
                 _ => "agent ",
             });
 
@@ -44,6 +46,15 @@ public static class PlanDiff
             if (change.IsNoOp)
             {
                 builder.Append("  (no change)\n");
+                continue;
+            }
+
+            // A whole file is shown as a difference rather than twice over. Dumping every line as
+            // a removal and then again as an addition is technically complete and practically
+            // unreadable, and a preview nobody reads is not a safety mechanism.
+            if (change.Kind is ChangeKind.FileWrite or ChangeKind.FileDelete)
+            {
+                builder.Append(TextDiff.RenderText(change.Before, change.After));
                 continue;
             }
 
