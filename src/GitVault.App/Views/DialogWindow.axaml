@@ -40,7 +40,16 @@
       </StackPanel>
     </Border>
 
-    <ScrollViewer Padding="10" HorizontalScrollBarVisibility="Auto">
+    <!--
+      Vertical only, deliberately. Allowing horizontal scrolling here measures the body against
+      infinite width, so a star-sized column stops meaning "the space that is left" and starts
+      meaning "as wide as the longest value in it" — which pushed the field labels off the side of
+      the dialog. Anything that genuinely needs more width than the dialog has, such as a diff,
+      carries its own scroller.
+    -->
+    <ScrollViewer Padding="10"
+                  HorizontalScrollBarVisibility="Disabled"
+                  VerticalScrollBarVisibility="Auto">
       <ContentControl Content="{Binding}" />
     </ScrollViewer>
 

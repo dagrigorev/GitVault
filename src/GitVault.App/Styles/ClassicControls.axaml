@@ -173,6 +173,16 @@
 
   <!-- =============================================================== fields -->
 
+  <!--
+    A field's colours are pinned in every state it can be in, not only the idle one.
+
+    Avalonia's own TextBox styles set the foreground and the caret from theme resources, and those
+    resources follow the *theme variant*. This palette is deliberately light in all variants, so
+    anything left unset arrives from a dark-variant theme and lands on a white field: the caret was
+    invisible and the text disappeared the moment the field took focus, on any machine set to dark
+    mode. A `:focus` selector also beats a bare one, so setting the idle colour was not enough —
+    each state has to say it again.
+  -->
   <Style Selector="TextBox">
     <Setter Property="MinHeight" Value="23" />
     <Setter Property="Height" Value="23" />
@@ -183,7 +193,39 @@
     <Setter Property="BorderBrush" Value="{StaticResource ClassicFieldBorderBrush}" />
     <Setter Property="BorderThickness" Value="1" />
     <Setter Property="Foreground" Value="{StaticResource ClassicTextBrush}" />
+    <Setter Property="CaretBrush" Value="{StaticResource ClassicTextBrush}" />
+    <Setter Property="SelectionBrush" Value="{StaticResource ClassicSelectionBrush}" />
+    <Setter Property="SelectionForegroundBrush" Value="{StaticResource ClassicSelectionTextBrush}" />
     <Setter Property="VerticalContentAlignment" Value="Center" />
+  </Style>
+
+  <Style Selector="TextBox:pointerover">
+    <Setter Property="Background" Value="{StaticResource ClassicWindowBrush}" />
+    <Setter Property="Foreground" Value="{StaticResource ClassicTextBrush}" />
+    <Setter Property="CaretBrush" Value="{StaticResource ClassicTextBrush}" />
+  </Style>
+
+  <Style Selector="TextBox:focus">
+    <Setter Property="Background" Value="{StaticResource ClassicWindowBrush}" />
+    <Setter Property="Foreground" Value="{StaticResource ClassicTextBrush}" />
+    <Setter Property="CaretBrush" Value="{StaticResource ClassicTextBrush}" />
+  </Style>
+
+  <Style Selector="TextBox:disabled">
+    <Setter Property="Background" Value="{StaticResource ClassicFaceBrush}" />
+    <Setter Property="Foreground" Value="{StaticResource ClassicDisabledTextBrush}" />
+  </Style>
+
+  <!--
+    The presenter draws the caret and keeps its own brush for it. The text colour it inherits from
+    the field, so only the caret has to be said here.
+  -->
+  <Style Selector="TextBox /template/ TextPresenter#PART_TextPresenter">
+    <Setter Property="CaretBrush" Value="{StaticResource ClassicTextBrush}" />
+  </Style>
+
+  <Style Selector="TextBox /template/ TextBlock#PART_Watermark">
+    <Setter Property="Foreground" Value="{StaticResource ClassicDimTextBrush}" />
   </Style>
 
   <Style Selector="TextBox.multiline">

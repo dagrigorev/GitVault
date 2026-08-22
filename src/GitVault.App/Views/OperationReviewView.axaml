@@ -31,6 +31,9 @@
     <TextBlock Classes="sectionHeader" Text="{loc:Tr Profiles_PlannedChanges}" />
 
     <Border Classes="diff">
+      <!-- A diff line is not wrapped, so it needs somewhere to go when it is longer than the
+           dialog. Scrolling it here keeps the rest of the dialog at the dialog's own width. -->
+      <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
       <ItemsControl ItemsSource="{Binding Lines}">
         <ItemsControl.ItemTemplate>
           <DataTemplate>
@@ -42,6 +45,7 @@
           </DataTemplate>
         </ItemsControl.ItemTemplate>
       </ItemsControl>
+      </ScrollViewer>
     </Border>
 
     <Border Classes="note" IsVisible="{Binding IsNoOp}">
