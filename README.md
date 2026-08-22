@@ -356,22 +356,6 @@ what git decided.** The first serious defect here was a snapshot and a write add
 files because the per-user configuration path had been guessed rather than resolved. The same rule
 now covers the system configuration path, the hooks directory, and every ref a plan touches.
 
----
-
-## Documentation
-
-| Document | What it is |
-|---|---|
-| [docs/architecture.md](docs/architecture.md) | how each subsystem works and why it is shaped that way |
-| [docs/security.md](docs/security.md) | every security requirement, and plainly what is met, partly met and not built |
-| [docs/manual-qa.md](docs/manual-qa.md) | the pre-release manual plan, 157 cases across 31 sections |
-| [docs/packaging.md](docs/packaging.md) | producing installers per platform |
-| [docs/v0-verification.md](docs/v0-verification.md) | the verification pass over existing functionality, and the defects it found |
-| [docs/agent-prompt.md](docs/agent-prompt.md) | onboarding brief for an AI agent working on this repository |
-
-Known gaps are listed in tables at the end of the security document and the QA plan, rather than
-left implicit.
-
 ## Licensing
 
 All third-party packages are MIT, Apache-2.0, BSD or MPL-2.0. `FluentAssertions` is pinned to
