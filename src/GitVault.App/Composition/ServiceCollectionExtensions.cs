@@ -68,6 +68,7 @@ internal static class ServiceCollectionExtensions
         services.AddSingleton<IGitCommandRunner, GitCommandRunner>();
         services.AddSingleton<IRepositoryInspector, RepositoryInspector>();
         services.AddSingleton<IRefBackupService, RefBackupService>();
+        services.AddSingleton<IRepositoryPlanApplier, RepositoryPlanApplier>();
         services.AddSingleton<IGitObjectEditor, GitObjectEditor>();
         services.AddSingleton<ICommitReader, CommitReader>();
         services.AddSingleton<IContentMerger, ContentMerger>();
@@ -77,6 +78,9 @@ internal static class ServiceCollectionExtensions
         services.AddSingleton<IHistoryTools, HistoryTools>();
         services.AddSingleton<IRepositoryFileEditor, RepositoryFileEditor>();
         services.AddSingleton<IHookEditor, HookEditor>();
+        services.AddSingleton<IWorktreeEditor, WorktreeEditor>();
+        services.AddSingleton<IStashEditor, StashEditor>();
+        services.AddSingleton<ISubmoduleEditor, SubmoduleEditor>();
         services.AddSingleton<IDiagnosticsBundleBuilder, DiagnosticsBundleBuilder>();
         services.AddSingleton<IDiscoveryOrchestrator, DiscoveryOrchestrator>();
         services.AddSingleton<ScanCoordinator>();
@@ -109,6 +113,9 @@ internal static class ServiceCollectionExtensions
         services.AddSingleton<HistoryToolsViewModel>();
         services.AddSingleton<RepositoryFilesViewModel>();
         services.AddSingleton<HooksViewModel>();
+        services.AddSingleton<WorktreesViewModel>();
+        services.AddSingleton<StashesViewModel>();
+        services.AddSingleton<SubmodulesViewModel>();
         services.AddSingleton<SettingsViewModel>();
         services.AddSingleton<LogsViewModel>();
 

@@ -35,6 +35,45 @@ public enum RepositoryChangeKind
 
     /// <summary>Delete a tag.</summary>
     TagDelete,
+
+    /// <summary>Attach a working tree.</summary>
+    WorktreeAdd,
+
+    /// <summary>Detach a working tree.</summary>
+    WorktreeRemove,
+
+    /// <summary>Mark a working tree so git will not prune or remove it.</summary>
+    WorktreeLock,
+
+    /// <summary>Clear that mark.</summary>
+    WorktreeUnlock,
+
+    /// <summary>Forget the working trees whose directories are gone.</summary>
+    WorktreePrune,
+
+    /// <summary>Put the working tree's changes aside.</summary>
+    StashPush,
+
+    /// <summary>Put a stash entry's changes back.</summary>
+    StashApply,
+
+    /// <summary>Discard a stash entry.</summary>
+    StashDrop,
+
+    /// <summary>Turn a stash entry into a branch.</summary>
+    StashBranch,
+
+    /// <summary>Change where a submodule comes from.</summary>
+    SubmoduleSetUrl,
+
+    /// <summary>Change which branch a submodule tracks.</summary>
+    SubmoduleSetBranch,
+
+    /// <summary>Copy the recorded URLs into the local configuration.</summary>
+    SubmoduleSync,
+
+    /// <summary>Remove a submodule's working copy, keeping the record.</summary>
+    SubmoduleDeinit,
 }
 
 /// <summary>One change to a repository's refs or remotes.</summary>
@@ -90,8 +129,14 @@ public sealed record RepositoryResult(string OperationId, string? BackupId)
     /// <summary>Per-step outcomes, in execution order.</summary>
     public IReadOnlyList<ActivationStepResult> Steps { get; init; } = [];
 
-    /// <summary>True when no step failed.</summary>
-    public bool Succeeded => Steps.All(s => s.Outcome != StepOutcome.Failed);
+    /// <summary>
+    /// True when the work was carried out and no step failed.
+    /// </summary>
+    /// <remarks>
+    /// A refused plan runs nothing and returns no steps, and "no step failed" is vacuously true of
+    /// an empty list. Requiring at least one step keeps a refusal from reading as a success.
+    /// </remarks>
+    public bool Succeeded => Steps.Count > 0 && Steps.All(s => s.Outcome != StepOutcome.Failed);
 }
 
 /// <summary>Plans and applies changes to remotes, branches and tags.</summary>
@@ -218,21 +263,24 @@ public sealed class GitObjectEditor : IGitObjectEditor
 
     private readonly IGitCommandRunner _git;
     private readonly IRepositoryInspector _inspector;
-    private readonly IRefBackupService _backups;
+    private readonly IRepositoryPlanApplier _applier;
 
     /// <summary>Creates the editor.</summary>
     /// <param name="git">Command runner.</param>
     /// <param name="inspector">Inspector used to read current state.</param>
-    /// <param name="backups">Ref backup service.</param>
-    public GitObjectEditor(IGitCommandRunner git, IRepositoryInspector inspector, IRefBackupService backups)
+    /// <param name="applier">Applier that preserves refs and runs the plan.</param>
+    public GitObjectEditor(
+        IGitCommandRunner git,
+        IRepositoryInspector inspector,
+        IRepositoryPlanApplier applier)
     {
         ArgumentNullException.ThrowIfNull(git);
         ArgumentNullException.ThrowIfNull(inspector);
-        ArgumentNullException.ThrowIfNull(backups);
+        ArgumentNullException.ThrowIfNull(applier);
 
         _git = git;
         _inspector = inspector;
-        _backups = backups;
+        _applier = applier;
     }
 
     /// <inheritdoc/>
@@ -616,50 +664,8 @@ public sealed class GitObjectEditor : IGitObjectEditor
     }
 
     /// <inheritdoc/>
-    public async Task<RepositoryResult> ApplyAsync(RepositoryPlan plan, CancellationToken cancellationToken)
-    {
-        ArgumentNullException.ThrowIfNull(plan);
-
-        if (!plan.CanApply)
-        {
-            // The last place a blocked plan can be stopped before it touches a ref.
-            return new RepositoryResult(plan.OperationId, null);
-        }
-
-        string? backupId = null;
-
-        if (plan.RefsToBackUp.Count > 0)
-        {
-            var backup = await _backups
-                .BackupAsync(
-                    plan.RepositoryPath,
-                    plan.RefsToBackUp,
-                    plan.OperationId,
-                    string.Join(", ", plan.Changes.Select(c => c.Target).Distinct(StringComparer.Ordinal)),
-                    cancellationToken)
-                .ConfigureAwait(false);
-
-            backupId = backup.Id;
-        }
-
-        var steps = new List<ActivationStepResult>();
-
-        foreach (var change in plan.Changes)
-        {
-            cancellationToken.ThrowIfCancellationRequested();
-
-            var result = await _git
-                .RunAsync(plan.RepositoryPath, change.Arguments, cancellationToken)
-                .ConfigureAwait(false);
-
-            steps.Add(new ActivationStepResult(
-                change.Kind.ToString(),
-                result.IsSuccess ? StepOutcome.Applied : StepOutcome.Failed,
-                result.IsSuccess ? change.Target : result.StandardError.Trim()));
-        }
-
-        return new RepositoryResult(plan.OperationId, backupId) { Steps = steps };
-    }
+    public Task<RepositoryResult> ApplyAsync(RepositoryPlan plan, CancellationToken cancellationToken) =>
+        _applier.ApplyAsync(plan, cancellationToken);
 
     /// <summary>True when a branch has commits that exist on no other branch.</summary>
     private async Task<bool> IsUnmergedAsync(

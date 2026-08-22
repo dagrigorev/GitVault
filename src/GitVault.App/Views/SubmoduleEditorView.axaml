@@ -1,0 +1,31 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:loc="using:GitVault.App.Markup"
+             x:Class="GitVault.App.Views.SubmoduleEditorView">
+  <StackPanel Spacing="0">
+
+    <Grid ColumnDefinitions="130,*" RowDefinitions="Auto,Auto,Auto">
+      <TextBlock Grid.Row="0" Grid.Column="0" Classes="dim" Margin="0,4"
+                 Text="{loc:Tr Submodules_Column_Path}" />
+      <SelectableTextBlock Grid.Row="0" Grid.Column="1" Classes="mono" Margin="0,4"
+                           Text="{Binding Path}" />
+
+      <TextBlock Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Margin="0,4"
+                 Text="{loc:Tr Submodules_Field_Url}" />
+      <TextBox Grid.Row="1" Grid.Column="1" Classes="mono" Margin="0,4"
+               Text="{Binding Url, Mode=TwoWay}"
+               AutomationProperties.Name="{loc:Tr Submodules_Field_Url}" />
+
+      <TextBlock Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" Margin="0,4"
+                 Text="{loc:Tr Submodules_Field_Branch}" />
+      <TextBox Grid.Row="2" Grid.Column="1" Margin="0,4"
+               Text="{Binding Branch, Mode=TwoWay}"
+               AutomationProperties.Name="{loc:Tr Submodules_Field_Branch}" />
+    </Grid>
+
+    <Border Classes="note">
+      <TextBlock TextWrapping="Wrap" MaxWidth="560" Text="{Binding NoNetworkCaption}" />
+    </Border>
+
+  </StackPanel>
+</UserControl>

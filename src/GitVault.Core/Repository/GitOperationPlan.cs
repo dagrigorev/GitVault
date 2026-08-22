@@ -50,6 +50,12 @@ public sealed record GitOperationResult(string OperationId, string? SnapshotPath
     /// <summary>Per-step outcomes, in execution order.</summary>
     public IReadOnlyList<ActivationStepResult> Steps { get; init; } = [];
 
-    /// <summary>True when no step failed.</summary>
-    public bool Succeeded => Steps.All(s => s.Outcome != StepOutcome.Failed);
+    /// <summary>
+    /// True when the work was carried out and no step failed.
+    /// </summary>
+    /// <remarks>
+    /// A refused plan runs nothing and returns no steps, and "no step failed" is vacuously true of
+    /// an empty list. Requiring at least one step keeps a refusal from reading as a success.
+    /// </remarks>
+    public bool Succeeded => Steps.Count > 0 && Steps.All(s => s.Outcome != StepOutcome.Failed);
 }

@@ -230,7 +230,11 @@ internal sealed class RecordingObjectEditor : IGitObjectEditor
             Applied.Add(plan);
         }
 
-        return Task.FromResult(new RepositoryResult(plan.OperationId, plan.RefsToBackUp.Count > 0 ? "backup" : null));
+        return Task.FromResult(new RepositoryResult(plan.OperationId, plan.RefsToBackUp.Count > 0 ? "backup" : null)
+        {
+            Steps = [.. plan.Changes.Select(c => new GitVault.Core.Models.ActivationStepResult(
+                c.Kind.ToString(), GitVault.Core.Models.StepOutcome.Applied, c.Target))],
+        });
     }
 
     private Task<RepositoryPlan> Plan(

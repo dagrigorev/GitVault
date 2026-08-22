@@ -1,0 +1,43 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:loc="using:GitVault.App.Markup"
+             x:Class="GitVault.App.Views.WorktreesView">
+  <DockPanel>
+
+    <Border DockPanel.Dock="Top" Classes="note" Margin="0,0,0,6"
+            IsVisible="{Binding !HasRepository}">
+      <TextBlock TextWrapping="Wrap" Text="{Binding NoRepositoryCaption}" />
+    </Border>
+
+    <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Spacing="5" Margin="0,0,0,6"
+                IsVisible="{Binding HasRepository}">
+      <Button Name="AddWorktreeButton" Command="{Binding AddCommand}"
+              Content="{loc:Tr Worktrees_Add}" />
+      <Button Name="RemoveWorktreeButton" Command="{Binding RemoveCommand}"
+              IsEnabled="{Binding CanRemove}" Content="{loc:Tr Worktrees_Remove}" />
+      <Button Name="LockWorktreeButton" Command="{Binding LockCommand}"
+              IsEnabled="{Binding CanLock}" Content="{loc:Tr Worktrees_Lock}" />
+      <Button Name="UnlockWorktreeButton" Command="{Binding UnlockCommand}"
+              IsEnabled="{Binding CanUnlock}" Content="{loc:Tr Worktrees_Unlock}" />
+      <Button Name="PruneWorktreesButton" Command="{Binding PruneCommand}"
+              Content="{loc:Tr Worktrees_Prune}" />
+    </StackPanel>
+
+    <DataGrid Name="WorktreesGrid"
+              ItemsSource="{Binding Rows}"
+              SelectedItem="{Binding SelectedRow, Mode=TwoWay}"
+              CanUserSortColumns="False">
+      <DataGrid.Columns>
+        <DataGridTextColumn Header="{loc:Tr Worktrees_Column_Path}" Binding="{Binding Path}"
+                            Width="2*" MinWidth="260" />
+        <DataGridTextColumn Header="{loc:Tr Worktrees_Column_Branch}" Binding="{Binding Branch}"
+                            Width="*" MinWidth="150" />
+        <DataGridTextColumn Header="{loc:Tr Worktrees_Column_Head}" Binding="{Binding Head}"
+                            Width="Auto" MinWidth="100" />
+        <DataGridTextColumn Header="{loc:Tr Worktrees_Column_State}" Binding="{Binding State}"
+                            Width="Auto" MinWidth="170" />
+      </DataGrid.Columns>
+    </DataGrid>
+
+  </DockPanel>
+</UserControl>

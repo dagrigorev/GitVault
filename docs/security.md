@@ -372,6 +372,45 @@ the round-trip check sees a size mismatch and refuses; the working-tree path rea
 the mark decodes and re-encodes to exactly the same three bytes. Both behaviours are correct for
 their path, and both are now pinned by tests rather than assumed.
 
+## Working trees, stashes and submodules: three refusals kept
+
+These three touch files rather than only refs, and each has one place where the convenient thing
+and the safe thing differ. In all three the safe thing wins, and in all three that means a git
+refusal is allowed to reach the user rather than being overridden.
+
+**`--force` is never passed.** Git refuses to remove a working tree holding uncommitted changes,
+and refuses to deinitialise a submodule with work inside it. Those refusals are the safety net.
+GitVault plans the command without the flag, so the refusal arrives as a failed step with git's
+own message — asserted by a test that dirties a working tree and checks the directory survives.
+
+**There is no "pop".** Git's combined pop applies a stash and then drops it, and when the apply
+conflicts the user is left working out how much of the work landed and whether the entry still
+exists. Putting an entry back and discarding it are separate buttons with separate previews, and
+the page says why rather than leaving the missing button to be noticed.
+
+**Applying a stash is refused while the working tree is dirty.** Merging an entry into work in
+progress can leave conflict markers in a file the user is in the middle of editing. That is the
+same posture the content editor takes, for the same reason: this program does not leave a
+repository in a state nobody chose.
+
+Dropping a stash is the one genuinely destructive operation of the three, because a dropped entry
+is unreachable and git prunes it in its own time. The entry's commit is preserved as a backup ref
+before the drop, which is what makes it recoverable at all; a test drops an entry and then reads
+the file content back out of the preserved commit.
+
+### Submodules stop where the network starts
+
+GitVault makes no network calls, and initialising or updating a submodule means cloning or
+fetching. Those are therefore not offered — not greyed out with a hopeful tooltip, and not quietly
+attempted. The page states it before the buttons rather than after a failure.
+
+What is left is local, and happens to be what goes wrong most: the address the parent records. A
+submodule pointing at a repository that has moved, or at HTTPS when the user authenticates over
+SSH, fails at the least convenient moment. Correcting it is an edit to `.gitmodules`, and telling
+this clone about the correction is a second, separately named step — because editing the file
+alone changes nothing about what git does next, and an interface that ran both together would
+teach the wrong model of what happened.
+
 ## Known gaps, collected
 
 | Gap | Consequence | Where |
@@ -387,3 +426,5 @@ their path, and both are now pinned by tests rather than assumed.
 | Path operations read every commit's tree | Planning a purge on a very large history is slow, because each commit is listed in turn | `HistoryTools.FindHoldersAsync` |
 | A hook's content is never checked | GitVault will write whatever script it is given; reading it is the user's job | `HookEditor` |
 | A committed file edit is not committed | `.gitignore` and friends are written to the working tree, leaving the repository dirty until the user commits | `RepositoryFileEditor` |
+| Submodules cannot be initialised or updated | Both need the network, which this program does not use; the user runs `git submodule update` themselves | `SubmoduleEditor` |
+| Restoring a dropped stash restores the commit, not the entry | The stash list is a reflog and a backup ref does not rebuild it; the work is recoverable, the list position is not | `StashEditor` |

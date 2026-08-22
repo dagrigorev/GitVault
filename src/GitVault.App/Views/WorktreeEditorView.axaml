@@ -1,0 +1,37 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:loc="using:GitVault.App.Markup"
+             x:Class="GitVault.App.Views.WorktreeEditorView">
+  <StackPanel Spacing="0">
+
+    <Grid ColumnDefinitions="130,*,Auto" RowDefinitions="Auto,Auto,Auto,Auto">
+      <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Margin="0,4"
+                 Text="{loc:Tr Worktrees_Field_Directory}" />
+      <TextBox Grid.Row="0" Grid.Column="1" Classes="mono" Margin="0,4,6,4"
+               Text="{Binding Directory, Mode=TwoWay}"
+               AutomationProperties.Name="{loc:Tr Worktrees_Field_Directory}" />
+      <Button Grid.Row="0" Grid.Column="2" Margin="0,4"
+              Command="{Binding BrowseCommand}" Content="{loc:Tr Common_Browse}" />
+
+      <TextBlock Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Margin="0,4"
+                 Text="{loc:Tr Worktrees_Field_StartPoint}" />
+      <TextBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Classes="mono" Margin="0,4"
+               Text="{Binding StartPoint, Mode=TwoWay}"
+               AutomationProperties.Name="{loc:Tr Worktrees_Field_StartPoint}" />
+
+      <CheckBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Margin="0,4"
+                IsChecked="{Binding CreatesBranch, Mode=TwoWay}"
+                Content="{loc:Tr Worktrees_Field_NewBranch}" />
+
+      <TextBox Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Margin="0,4"
+               IsEnabled="{Binding CreatesBranch}"
+               Text="{Binding NewBranch, Mode=TwoWay}"
+               AutomationProperties.Name="{loc:Tr Worktrees_Field_NewBranch}" />
+    </Grid>
+
+    <Border Classes="note">
+      <TextBlock TextWrapping="Wrap" Text="{Binding NoteCaption}" />
+    </Border>
+
+  </StackPanel>
+</UserControl>

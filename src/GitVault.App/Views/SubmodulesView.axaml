@@ -1,0 +1,44 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:loc="using:GitVault.App.Markup"
+             x:Class="GitVault.App.Views.SubmodulesView">
+  <DockPanel>
+
+    <Border DockPanel.Dock="Top" Classes="note" Margin="0,0,0,6"
+            IsVisible="{Binding !HasRepository}">
+      <TextBlock TextWrapping="Wrap" Text="{Binding NoRepositoryCaption}" />
+    </Border>
+
+    <!-- What this page will not do, said before the buttons rather than after a failure. -->
+    <Border DockPanel.Dock="Top" Classes="note" Margin="0,0,0,6">
+      <TextBlock TextWrapping="Wrap" MaxWidth="660" Text="{Binding NoNetworkCaption}" />
+    </Border>
+
+    <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Spacing="5" Margin="0,0,0,6"
+                IsVisible="{Binding HasRepository}">
+      <Button Name="EditSubmoduleButton" Command="{Binding EditCommand}"
+              IsEnabled="{Binding HasSelectedSubmodule}" Content="{loc:Tr Submodules_Edit}" />
+      <Button Name="SyncSubmoduleButton" Command="{Binding SyncCommand}"
+              IsEnabled="{Binding HasSelectedSubmodule}" Content="{loc:Tr Submodules_Sync}" />
+      <Button Name="DeinitSubmoduleButton" Command="{Binding DeinitCommand}"
+              IsEnabled="{Binding CanDeinit}" Content="{loc:Tr Submodules_Deinit}" />
+    </StackPanel>
+
+    <DataGrid Name="SubmodulesGrid"
+              ItemsSource="{Binding Rows}"
+              SelectedItem="{Binding SelectedRow, Mode=TwoWay}"
+              CanUserSortColumns="False">
+      <DataGrid.Columns>
+        <DataGridTextColumn Header="{loc:Tr Submodules_Column_Path}" Binding="{Binding Path}"
+                            Width="*" MinWidth="180" />
+        <DataGridTextColumn Header="{loc:Tr Submodules_Column_Url}" Binding="{Binding Url}"
+                            Width="2*" MinWidth="260" />
+        <DataGridTextColumn Header="{loc:Tr Submodules_Column_Branch}" Binding="{Binding Branch}"
+                            Width="Auto" MinWidth="120" />
+        <DataGridTextColumn Header="{loc:Tr Submodules_Column_State}" Binding="{Binding State}"
+                            Width="Auto" MinWidth="180" />
+      </DataGrid.Columns>
+    </DataGrid>
+
+  </DockPanel>
+</UserControl>

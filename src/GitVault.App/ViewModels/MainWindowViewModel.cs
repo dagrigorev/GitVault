@@ -36,6 +36,9 @@ internal sealed partial class MainWindowViewModel : ViewModelBase
     private readonly HistoryToolsViewModel _historyTools;
     private readonly RepositoryFilesViewModel _repositoryFiles;
     private readonly HooksViewModel _hooks;
+    private readonly WorktreesViewModel _worktrees;
+    private readonly StashesViewModel _stashes;
+    private readonly SubmodulesViewModel _submodules;
     private readonly HashSet<PageViewModel> _activated = [];
 
     [ObservableProperty]
@@ -70,7 +73,10 @@ internal sealed partial class MainWindowViewModel : ViewModelBase
         CommitsViewModel commits,
         HistoryToolsViewModel historyTools,
         RepositoryFilesViewModel repositoryFiles,
-        HooksViewModel hooks)
+        HooksViewModel hooks,
+        WorktreesViewModel worktrees,
+        StashesViewModel stashes,
+        SubmodulesViewModel submodules)
         : base(localizer)
     {
         ArgumentNullException.ThrowIfNull(commits);
@@ -108,6 +114,9 @@ internal sealed partial class MainWindowViewModel : ViewModelBase
         _historyTools = historyTools;
         _repositoryFiles = repositoryFiles;
         _hooks = hooks;
+        _worktrees = worktrees;
+        _stashes = stashes;
+        _submodules = submodules;
 
         _repositories.Rows.CollectionChanged += OnRepositoriesChanged;
         _scans.PropertyChanged += OnScansPropertyChanged;
@@ -167,6 +176,9 @@ internal sealed partial class MainWindowViewModel : ViewModelBase
             node.Children.Add(NavigationNode.ForRepositoryPage(L, _projectSettings, row.Path));
             node.Children.Add(NavigationNode.ForRepositoryPage(L, _repositoryFiles, row.Path));
             node.Children.Add(NavigationNode.ForRepositoryPage(L, _hooks, row.Path));
+            node.Children.Add(NavigationNode.ForRepositoryPage(L, _worktrees, row.Path));
+            node.Children.Add(NavigationNode.ForRepositoryPage(L, _stashes, row.Path));
+            node.Children.Add(NavigationNode.ForRepositoryPage(L, _submodules, row.Path));
             node.Children.Add(NavigationNode.ForRepositoryPage(L, _historyTools, row.Path));
 
             parent.Children.Add(node);
@@ -464,6 +476,9 @@ internal sealed partial class MainWindowViewModel : ViewModelBase
             _historyTools.Dispose();
             _repositoryFiles.Dispose();
             _hooks.Dispose();
+            _worktrees.Dispose();
+            _stashes.Dispose();
+            _submodules.Dispose();
         }
 
         base.Dispose(disposing);

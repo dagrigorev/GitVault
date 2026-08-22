@@ -598,6 +598,12 @@ internal sealed class StubRewriter : IHistoryRewriter
             Applied.Add(plan);
         }
 
-        return Task.FromResult(new RewriteResult("backup", Head.Sha));
+        return Task.FromResult(new RewriteResult("backup", Head.Sha)
+        {
+            Steps = [.. plan.Steps.Select(s => new GitVault.Core.Models.ActivationStepResult(
+                HistoryRewriter.StepId,
+                GitVault.Core.Models.StepOutcome.Applied,
+                s.Original.ShortSha))],
+        });
     }
 }

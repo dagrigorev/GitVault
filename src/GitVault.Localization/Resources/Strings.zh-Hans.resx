@@ -2405,4 +2405,298 @@
   <data name="Hooks_SizeFormat" xml:space="preserve">
     <value>{0:N0}</value>
   </data>
+  <data name="Nav_Worktrees" xml:space="preserve">
+    <value>工作树</value>
+  </data>
+  <data name="Worktrees_Title" xml:space="preserve">
+    <value>工作树</value>
+  </data>
+  <data name="Worktrees_Subtitle" xml:space="preserve">
+    <value>此仓库的其他检出目录。</value>
+  </data>
+  <data name="Worktrees_Empty" xml:space="preserve">
+    <value>请选择一个仓库以查看其工作树。</value>
+  </data>
+  <data name="Worktrees_Column_Path" xml:space="preserve">
+    <value>目录</value>
+  </data>
+  <data name="Worktrees_Column_Branch" xml:space="preserve">
+    <value>分支</value>
+  </data>
+  <data name="Worktrees_Column_Head" xml:space="preserve">
+    <value>提交</value>
+  </data>
+  <data name="Worktrees_Column_State" xml:space="preserve">
+    <value>状态</value>
+  </data>
+  <data name="Worktrees_State_Main" xml:space="preserve">
+    <value>主工作树</value>
+  </data>
+  <data name="Worktrees_State_Detached" xml:space="preserve">
+    <value>已分离</value>
+  </data>
+  <data name="Worktrees_State_Locked" xml:space="preserve">
+    <value>已锁定</value>
+  </data>
+  <data name="Worktrees_State_Missing" xml:space="preserve">
+    <value>目录已不存在</value>
+  </data>
+  <data name="Worktrees_Add" xml:space="preserve">
+    <value>添加…</value>
+  </data>
+  <data name="Worktrees_Remove" xml:space="preserve">
+    <value>移除…</value>
+  </data>
+  <data name="Worktrees_Lock" xml:space="preserve">
+    <value>锁定…</value>
+  </data>
+  <data name="Worktrees_Unlock" xml:space="preserve">
+    <value>解锁…</value>
+  </data>
+  <data name="Worktrees_Prune" xml:space="preserve">
+    <value>忘记缺失的…</value>
+  </data>
+  <data name="Worktrees_Editor_Title" xml:space="preserve">
+    <value>添加工作树</value>
+  </data>
+  <data name="Worktrees_Field_Directory" xml:space="preserve">
+    <value>目录</value>
+  </data>
+  <data name="Worktrees_Field_StartPoint" xml:space="preserve">
+    <value>检出</value>
+  </data>
+  <data name="Worktrees_Field_NewBranch" xml:space="preserve">
+    <value>创建分支</value>
+  </data>
+  <data name="Worktrees_Editor_Note" xml:space="preserve">
+    <value>工作树是同一仓库的第二个目录，拥有自己的检出内容。历史是共享的，只有检出的文件是独立的。同一个分支不能同时在两个工作树中检出。</value>
+  </data>
+  <data name="Worktrees_Lock_Title" xml:space="preserve">
+    <value>锁定工作树</value>
+  </data>
+  <data name="Worktrees_Field_Reason" xml:space="preserve">
+    <value>原因</value>
+  </data>
+  <data name="Worktrees_Lock_Note" xml:space="preserve">
+    <value>被锁定的工作树不会被 git 清理或移除——例如位于并非始终挂载的磁盘上的目录。原因稍后会显示给你自己看。</value>
+  </data>
+  <data name="Status_WorktreeAdded" xml:space="preserve">
+    <value>工作树已添加</value>
+  </data>
+  <data name="Status_WorktreeRemoved" xml:space="preserve">
+    <value>工作树已移除</value>
+  </data>
+  <data name="Status_WorktreeLocked" xml:space="preserve">
+    <value>工作树已锁定</value>
+  </data>
+  <data name="Status_WorktreeUnlocked" xml:space="preserve">
+    <value>工作树已解锁</value>
+  </data>
+  <data name="Status_WorktreePruned" xml:space="preserve">
+    <value>缺失的工作树已被忘记</value>
+  </data>
+  <data name="Blocker_WorktreePathRequired" xml:space="preserve">
+    <value>工作树需要一个目录。</value>
+  </data>
+  <data name="Blocker_WorktreeDirectoryNotEmpty" xml:space="preserve">
+    <value>该目录中已有内容。</value>
+  </data>
+  <data name="Blocker_WorktreeNotFound" xml:space="preserve">
+    <value>该路径下没有此仓库的工作树。</value>
+  </data>
+  <data name="Blocker_WorktreeCannotRemoveMain" xml:space="preserve">
+    <value>那是仓库自身的工作树，而不是附加到它的工作树。</value>
+  </data>
+  <data name="Blocker_WorktreeCannotLockMain" xml:space="preserve">
+    <value>仓库自身的工作树无法锁定。</value>
+  </data>
+  <data name="Blocker_WorktreeLocked" xml:space="preserve">
+    <value>该工作树已锁定，请先解锁。</value>
+  </data>
+  <data name="Blocker_WorktreeNothingToPrune" xml:space="preserve">
+    <value>没有任何工作树的目录缺失。</value>
+  </data>
+  <data name="Warning_WorktreeWillBeDetached" xml:space="preserve">
+    <value>那不是一个分支，因此新工作树将不在任何分支上。在那里创建的提交在你建立分支之前不属于任何分支。</value>
+  </data>
+  <data name="Warning_WorktreeBranchSurvives" xml:space="preserve">
+    <value>被移除的只是检出内容。分支及其提交原封不动。</value>
+  </data>
+  <data name="Nav_Stashes" xml:space="preserve">
+    <value>贮藏</value>
+  </data>
+  <data name="Stashes_Title" xml:space="preserve">
+    <value>贮藏</value>
+  </data>
+  <data name="Stashes_Subtitle" xml:space="preserve">
+    <value>未提交而暂时搁置的更改。</value>
+  </data>
+  <data name="Stashes_Empty" xml:space="preserve">
+    <value>没有搁置任何内容。</value>
+  </data>
+  <data name="Stashes_Column_Reference" xml:space="preserve">
+    <value>条目</value>
+  </data>
+  <data name="Stashes_Column_Message" xml:space="preserve">
+    <value>信息</value>
+  </data>
+  <data name="Stashes_Column_Branch" xml:space="preserve">
+    <value>分支</value>
+  </data>
+  <data name="Stashes_Column_Date" xml:space="preserve">
+    <value>创建于</value>
+  </data>
+  <data name="Stashes_Push" xml:space="preserve">
+    <value>搁置…</value>
+  </data>
+  <data name="Stashes_Apply" xml:space="preserve">
+    <value>放回…</value>
+  </data>
+  <data name="Stashes_Drop" xml:space="preserve">
+    <value>丢弃…</value>
+  </data>
+  <data name="Stashes_Branch" xml:space="preserve">
+    <value>创建分支…</value>
+  </data>
+  <data name="Stashes_Files" xml:space="preserve">
+    <value>此条目中的文件</value>
+  </data>
+  <data name="Stashes_Push_Title" xml:space="preserve">
+    <value>搁置更改</value>
+  </data>
+  <data name="Stashes_Field_Message" xml:space="preserve">
+    <value>信息</value>
+  </data>
+  <data name="Stashes_Field_Untracked" xml:space="preserve">
+    <value>包含 git 尚未跟踪的文件</value>
+  </data>
+  <data name="Stashes_Push_Note" xml:space="preserve">
+    <value>更改会离开工作区，并作为可稍后放回的条目保存。此操作不会创建任何提交。</value>
+  </data>
+  <data name="Stashes_Branch_Title" xml:space="preserve">
+    <value>从条目创建分支</value>
+  </data>
+  <data name="Stashes_Field_Branch" xml:space="preserve">
+    <value>分支名</value>
+  </data>
+  <data name="Stashes_NoPopNote" xml:space="preserve">
+    <value>GitVault 将放回条目与丢弃条目作为两个独立操作提供。git 的 pop 命令会一次完成两者；一旦放回时发生冲突，你就得自己弄清条目的下落。</value>
+  </data>
+  <data name="Status_StashPushed" xml:space="preserve">
+    <value>更改已搁置</value>
+  </data>
+  <data name="Status_StashApplied" xml:space="preserve">
+    <value>更改已放回</value>
+  </data>
+  <data name="Status_StashDropped" xml:space="preserve">
+    <value>条目已丢弃</value>
+  </data>
+  <data name="Status_StashBranched" xml:space="preserve">
+    <value>已从条目创建分支</value>
+  </data>
+  <data name="Blocker_StashNothingToStash" xml:space="preserve">
+    <value>工作区没有可搁置的更改。</value>
+  </data>
+  <data name="Blocker_StashNotFound" xml:space="preserve">
+    <value>没有这样的条目。</value>
+  </data>
+  <data name="Blocker_StashWorkingTreeDirty" xml:space="preserve">
+    <value>工作区中已有你自己的更改。把条目放回其上可能会在你正在编辑的文件中留下冲突标记，请先提交或搁置当前更改。</value>
+  </data>
+  <data name="Warning_StashEntryStays" xml:space="preserve">
+    <value>放回条目不会将其从列表中移除。当不再需要时，请单独丢弃它。</value>
+  </data>
+  <data name="Warning_StashApplyMayConflict" xml:space="preserve">
+    <value>即使工作区是干净的，如果自条目创建以来仓库已发生变化，仍可能产生冲突。冲突需由你自行解决。</value>
+  </data>
+  <data name="Warning_StashDropIsPermanent" xml:space="preserve">
+    <value>被丢弃的条目不再列出，git 会在适当时机将其删除。GitVault 会先把它的提交保存为备份引用，正因如此该操作才可恢复。</value>
+  </data>
+  <data name="Warning_StashUntrackedFilesMove" xml:space="preserve">
+    <value>git 未跟踪的文件会被移入条目而非复制。在你放回该条目之前，它们会从工作区中消失。</value>
+  </data>
+  <data name="Warning_StashBranchChecksOutAndDrops" xml:space="preserve">
+    <value>此操作会创建分支、检出该分支，并在成功后丢弃条目——比名称所暗示的要多。</value>
+  </data>
+  <data name="Nav_Submodules" xml:space="preserve">
+    <value>子模块</value>
+  </data>
+  <data name="Submodules_Title" xml:space="preserve">
+    <value>子模块</value>
+  </data>
+  <data name="Submodules_Subtitle" xml:space="preserve">
+    <value>此仓库记录了其位置的其他仓库。</value>
+  </data>
+  <data name="Submodules_Empty" xml:space="preserve">
+    <value>此仓库未记录任何子模块。</value>
+  </data>
+  <data name="Submodules_Column_Path" xml:space="preserve">
+    <value>路径</value>
+  </data>
+  <data name="Submodules_Column_Url" xml:space="preserve">
+    <value>来源</value>
+  </data>
+  <data name="Submodules_Column_Branch" xml:space="preserve">
+    <value>分支</value>
+  </data>
+  <data name="Submodules_Column_State" xml:space="preserve">
+    <value>状态</value>
+  </data>
+  <data name="Submodules_State_NotInitialized" xml:space="preserve">
+    <value>此处未检出</value>
+  </data>
+  <data name="Submodules_State_UpToDate" xml:space="preserve">
+    <value>位于记录的提交</value>
+  </data>
+  <data name="Submodules_State_Moved" xml:space="preserve">
+    <value>位于其他提交</value>
+  </data>
+  <data name="Submodules_State_Conflicted" xml:space="preserve">
+    <value>存在冲突</value>
+  </data>
+  <data name="Submodules_Edit" xml:space="preserve">
+    <value>编辑…</value>
+  </data>
+  <data name="Submodules_Sync" xml:space="preserve">
+    <value>应用到本克隆…</value>
+  </data>
+  <data name="Submodules_Deinit" xml:space="preserve">
+    <value>移除工作副本…</value>
+  </data>
+  <data name="Submodules_Editor_Title" xml:space="preserve">
+    <value>编辑子模块</value>
+  </data>
+  <data name="Submodules_Field_Url" xml:space="preserve">
+    <value>来源</value>
+  </data>
+  <data name="Submodules_Field_Branch" xml:space="preserve">
+    <value>跟踪的分支</value>
+  </data>
+  <data name="Submodules_NoNetworkNote" xml:space="preserve">
+    <value>GitVault 不进行任何网络调用，因此不会拉取或检出子模块。它编辑的是本仓库对子模块的记录——最常用的是地址，仓库迁移或改用 SSH 而非 HTTPS 认证时正是它出问题。之后请自行运行 git submodule update。</value>
+  </data>
+  <data name="Status_SubmoduleSaved" xml:space="preserve">
+    <value>子模块记录已更新</value>
+  </data>
+  <data name="Status_SubmoduleSynced" xml:space="preserve">
+    <value>记录的地址已应用到本克隆</value>
+  </data>
+  <data name="Status_SubmoduleDeinited" xml:space="preserve">
+    <value>工作副本已移除</value>
+  </data>
+  <data name="Blocker_SubmoduleNotFound" xml:space="preserve">
+    <value>此仓库未记录该子模块。</value>
+  </data>
+  <data name="Blocker_SubmoduleNotInitialized" xml:space="preserve">
+    <value>此处没有可移除的工作副本。</value>
+  </data>
+  <data name="Warning_SubmoduleSyncNeeded" xml:space="preserve">
+    <value>修改记录的地址不会改变 git 接下来的行为。之后请将其应用到本克隆——这是把改动告知本地配置的独立步骤。</value>
+  </data>
+  <data name="Warning_SubmoduleFileIsCommitted" xml:space="preserve">
+    <value>.gitmodules 文件已纳入版本控制，因此在你提交后，此更改会传达给其他人。</value>
+  </data>
+  <data name="Warning_SubmoduleDeinitNeedsNetwork" xml:space="preserve">
+    <value>恢复工作副本需要一次网络拉取，而 GitVault 不会执行。需要时请自行运行 git submodule update --init。</value>
+  </data>
 </root>

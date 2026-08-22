@@ -2405,4 +2405,298 @@
   <data name="Hooks_SizeFormat" xml:space="preserve">
     <value>{0:N0}</value>
   </data>
+  <data name="Nav_Worktrees" xml:space="preserve">
+    <value>Working trees</value>
+  </data>
+  <data name="Worktrees_Title" xml:space="preserve">
+    <value>Working trees</value>
+  </data>
+  <data name="Worktrees_Subtitle" xml:space="preserve">
+    <value>Other directories with a checkout of this repository.</value>
+  </data>
+  <data name="Worktrees_Empty" xml:space="preserve">
+    <value>Select a repository to see its working trees.</value>
+  </data>
+  <data name="Worktrees_Column_Path" xml:space="preserve">
+    <value>Directory</value>
+  </data>
+  <data name="Worktrees_Column_Branch" xml:space="preserve">
+    <value>Branch</value>
+  </data>
+  <data name="Worktrees_Column_Head" xml:space="preserve">
+    <value>Commit</value>
+  </data>
+  <data name="Worktrees_Column_State" xml:space="preserve">
+    <value>State</value>
+  </data>
+  <data name="Worktrees_State_Main" xml:space="preserve">
+    <value>main</value>
+  </data>
+  <data name="Worktrees_State_Detached" xml:space="preserve">
+    <value>detached</value>
+  </data>
+  <data name="Worktrees_State_Locked" xml:space="preserve">
+    <value>locked</value>
+  </data>
+  <data name="Worktrees_State_Missing" xml:space="preserve">
+    <value>directory is gone</value>
+  </data>
+  <data name="Worktrees_Add" xml:space="preserve">
+    <value>Add…</value>
+  </data>
+  <data name="Worktrees_Remove" xml:space="preserve">
+    <value>Remove…</value>
+  </data>
+  <data name="Worktrees_Lock" xml:space="preserve">
+    <value>Lock…</value>
+  </data>
+  <data name="Worktrees_Unlock" xml:space="preserve">
+    <value>Unlock…</value>
+  </data>
+  <data name="Worktrees_Prune" xml:space="preserve">
+    <value>Forget missing…</value>
+  </data>
+  <data name="Worktrees_Editor_Title" xml:space="preserve">
+    <value>Add a working tree</value>
+  </data>
+  <data name="Worktrees_Field_Directory" xml:space="preserve">
+    <value>Directory</value>
+  </data>
+  <data name="Worktrees_Field_StartPoint" xml:space="preserve">
+    <value>Check out</value>
+  </data>
+  <data name="Worktrees_Field_NewBranch" xml:space="preserve">
+    <value>Create branch</value>
+  </data>
+  <data name="Worktrees_Editor_Note" xml:space="preserve">
+    <value>A working tree is a second directory with its own checkout of the same repository. The history is shared; only the checked-out files are separate. A branch cannot be checked out in two working trees at once.</value>
+  </data>
+  <data name="Worktrees_Lock_Title" xml:space="preserve">
+    <value>Lock a working tree</value>
+  </data>
+  <data name="Worktrees_Field_Reason" xml:space="preserve">
+    <value>Reason</value>
+  </data>
+  <data name="Worktrees_Lock_Note" xml:space="preserve">
+    <value>A locked working tree is one git will not prune or remove — for a directory on a disk that is not always mounted, say. The reason is shown back to you later.</value>
+  </data>
+  <data name="Status_WorktreeAdded" xml:space="preserve">
+    <value>Working tree added</value>
+  </data>
+  <data name="Status_WorktreeRemoved" xml:space="preserve">
+    <value>Working tree removed</value>
+  </data>
+  <data name="Status_WorktreeLocked" xml:space="preserve">
+    <value>Working tree locked</value>
+  </data>
+  <data name="Status_WorktreeUnlocked" xml:space="preserve">
+    <value>Working tree unlocked</value>
+  </data>
+  <data name="Status_WorktreePruned" xml:space="preserve">
+    <value>Missing working trees forgotten</value>
+  </data>
+  <data name="Blocker_WorktreePathRequired" xml:space="preserve">
+    <value>A working tree needs a directory.</value>
+  </data>
+  <data name="Blocker_WorktreeDirectoryNotEmpty" xml:space="preserve">
+    <value>That directory already holds something.</value>
+  </data>
+  <data name="Blocker_WorktreeNotFound" xml:space="preserve">
+    <value>No working tree of this repository sits at that path.</value>
+  </data>
+  <data name="Blocker_WorktreeCannotRemoveMain" xml:space="preserve">
+    <value>That is the repository&apos;s own working tree, not one attached to it.</value>
+  </data>
+  <data name="Blocker_WorktreeCannotLockMain" xml:space="preserve">
+    <value>The repository&apos;s own working tree cannot be locked.</value>
+  </data>
+  <data name="Blocker_WorktreeLocked" xml:space="preserve">
+    <value>This working tree is locked. Unlock it first.</value>
+  </data>
+  <data name="Blocker_WorktreeNothingToPrune" xml:space="preserve">
+    <value>No working tree&apos;s directory is missing.</value>
+  </data>
+  <data name="Warning_WorktreeWillBeDetached" xml:space="preserve">
+    <value>That is not a branch, so the new working tree will not be on one. Commits made there belong to no branch until you make one.</value>
+  </data>
+  <data name="Warning_WorktreeBranchSurvives" xml:space="preserve">
+    <value>Only the checkout goes. The branch and its commits stay exactly where they are.</value>
+  </data>
+  <data name="Nav_Stashes" xml:space="preserve">
+    <value>Stashes</value>
+  </data>
+  <data name="Stashes_Title" xml:space="preserve">
+    <value>Stashes</value>
+  </data>
+  <data name="Stashes_Subtitle" xml:space="preserve">
+    <value>Changes set aside without committing them.</value>
+  </data>
+  <data name="Stashes_Empty" xml:space="preserve">
+    <value>Nothing has been set aside.</value>
+  </data>
+  <data name="Stashes_Column_Reference" xml:space="preserve">
+    <value>Entry</value>
+  </data>
+  <data name="Stashes_Column_Message" xml:space="preserve">
+    <value>Message</value>
+  </data>
+  <data name="Stashes_Column_Branch" xml:space="preserve">
+    <value>Branch</value>
+  </data>
+  <data name="Stashes_Column_Date" xml:space="preserve">
+    <value>Made</value>
+  </data>
+  <data name="Stashes_Push" xml:space="preserve">
+    <value>Set aside…</value>
+  </data>
+  <data name="Stashes_Apply" xml:space="preserve">
+    <value>Put back…</value>
+  </data>
+  <data name="Stashes_Drop" xml:space="preserve">
+    <value>Discard…</value>
+  </data>
+  <data name="Stashes_Branch" xml:space="preserve">
+    <value>Make a branch…</value>
+  </data>
+  <data name="Stashes_Files" xml:space="preserve">
+    <value>Files in this entry</value>
+  </data>
+  <data name="Stashes_Push_Title" xml:space="preserve">
+    <value>Set changes aside</value>
+  </data>
+  <data name="Stashes_Field_Message" xml:space="preserve">
+    <value>Message</value>
+  </data>
+  <data name="Stashes_Field_Untracked" xml:space="preserve">
+    <value>Include files git is not tracking yet</value>
+  </data>
+  <data name="Stashes_Push_Note" xml:space="preserve">
+    <value>The changes leave the working tree and are kept as an entry you can put back later. This does not commit anything.</value>
+  </data>
+  <data name="Stashes_Branch_Title" xml:space="preserve">
+    <value>Make a branch from an entry</value>
+  </data>
+  <data name="Stashes_Field_Branch" xml:space="preserve">
+    <value>Branch name</value>
+  </data>
+  <data name="Stashes_NoPopNote" xml:space="preserve">
+    <value>GitVault offers putting an entry back and discarding it as separate actions. Git&apos;s combined &quot;pop&quot; does both at once, and when putting back runs into a conflict it leaves you working out what happened to the entry.</value>
+  </data>
+  <data name="Status_StashPushed" xml:space="preserve">
+    <value>Changes set aside</value>
+  </data>
+  <data name="Status_StashApplied" xml:space="preserve">
+    <value>Changes put back</value>
+  </data>
+  <data name="Status_StashDropped" xml:space="preserve">
+    <value>Entry discarded</value>
+  </data>
+  <data name="Status_StashBranched" xml:space="preserve">
+    <value>Branch made from the entry</value>
+  </data>
+  <data name="Blocker_StashNothingToStash" xml:space="preserve">
+    <value>The working tree has no changes to set aside.</value>
+  </data>
+  <data name="Blocker_StashNotFound" xml:space="preserve">
+    <value>There is no such entry.</value>
+  </data>
+  <data name="Blocker_StashWorkingTreeDirty" xml:space="preserve">
+    <value>The working tree has changes of its own. Putting an entry back on top of them can leave conflict markers in a file you are in the middle of editing, so commit or set aside your current changes first.</value>
+  </data>
+  <data name="Warning_StashEntryStays" xml:space="preserve">
+    <value>Putting an entry back leaves it in the list. Discard it separately when you no longer need it.</value>
+  </data>
+  <data name="Warning_StashApplyMayConflict" xml:space="preserve">
+    <value>Even into a clean working tree this can conflict, if the repository has moved on since the entry was made. Resolving that is yours to do.</value>
+  </data>
+  <data name="Warning_StashDropIsPermanent" xml:space="preserve">
+    <value>A discarded entry is no longer listed and git removes it in its own time. GitVault preserves its commit as a backup ref first, which is what makes this recoverable at all.</value>
+  </data>
+  <data name="Warning_StashUntrackedFilesMove" xml:space="preserve">
+    <value>Files git is not tracking are moved into the entry, not copied. They disappear from the working tree until you put the entry back.</value>
+  </data>
+  <data name="Warning_StashBranchChecksOutAndDrops" xml:space="preserve">
+    <value>This creates the branch, checks it out, and discards the entry once it succeeds — more than the name suggests.</value>
+  </data>
+  <data name="Nav_Submodules" xml:space="preserve">
+    <value>Submodules</value>
+  </data>
+  <data name="Submodules_Title" xml:space="preserve">
+    <value>Submodules</value>
+  </data>
+  <data name="Submodules_Subtitle" xml:space="preserve">
+    <value>Other repositories this one records a position in.</value>
+  </data>
+  <data name="Submodules_Empty" xml:space="preserve">
+    <value>This repository records no submodules.</value>
+  </data>
+  <data name="Submodules_Column_Path" xml:space="preserve">
+    <value>Path</value>
+  </data>
+  <data name="Submodules_Column_Url" xml:space="preserve">
+    <value>Comes from</value>
+  </data>
+  <data name="Submodules_Column_Branch" xml:space="preserve">
+    <value>Branch</value>
+  </data>
+  <data name="Submodules_Column_State" xml:space="preserve">
+    <value>State</value>
+  </data>
+  <data name="Submodules_State_NotInitialized" xml:space="preserve">
+    <value>not checked out here</value>
+  </data>
+  <data name="Submodules_State_UpToDate" xml:space="preserve">
+    <value>at the recorded commit</value>
+  </data>
+  <data name="Submodules_State_Moved" xml:space="preserve">
+    <value>at a different commit</value>
+  </data>
+  <data name="Submodules_State_Conflicted" xml:space="preserve">
+    <value>conflicted</value>
+  </data>
+  <data name="Submodules_Edit" xml:space="preserve">
+    <value>Edit…</value>
+  </data>
+  <data name="Submodules_Sync" xml:space="preserve">
+    <value>Apply to this clone…</value>
+  </data>
+  <data name="Submodules_Deinit" xml:space="preserve">
+    <value>Remove working copy…</value>
+  </data>
+  <data name="Submodules_Editor_Title" xml:space="preserve">
+    <value>Edit a submodule</value>
+  </data>
+  <data name="Submodules_Field_Url" xml:space="preserve">
+    <value>Comes from</value>
+  </data>
+  <data name="Submodules_Field_Branch" xml:space="preserve">
+    <value>Branch to track</value>
+  </data>
+  <data name="Submodules_NoNetworkNote" xml:space="preserve">
+    <value>GitVault makes no network calls, so it will not fetch or check out a submodule. What it edits is what this repository records about them — most usefully the address, which is what breaks when a repository moves or when you authenticate over SSH rather than HTTPS. Run git submodule update yourself afterwards.</value>
+  </data>
+  <data name="Status_SubmoduleSaved" xml:space="preserve">
+    <value>Submodule record updated</value>
+  </data>
+  <data name="Status_SubmoduleSynced" xml:space="preserve">
+    <value>Recorded address applied to this clone</value>
+  </data>
+  <data name="Status_SubmoduleDeinited" xml:space="preserve">
+    <value>Working copy removed</value>
+  </data>
+  <data name="Blocker_SubmoduleNotFound" xml:space="preserve">
+    <value>This repository records no such submodule.</value>
+  </data>
+  <data name="Blocker_SubmoduleNotInitialized" xml:space="preserve">
+    <value>There is no working copy here to remove.</value>
+  </data>
+  <data name="Warning_SubmoduleSyncNeeded" xml:space="preserve">
+    <value>Editing the recorded address changes nothing about what git does next. Apply it to this clone afterwards, which is the separate step that tells the local configuration.</value>
+  </data>
+  <data name="Warning_SubmoduleFileIsCommitted" xml:space="preserve">
+    <value>The .gitmodules file is committed, so this change reaches everyone else once you commit it.</value>
+  </data>
+  <data name="Warning_SubmoduleDeinitNeedsNetwork" xml:space="preserve">
+    <value>Putting the working copy back needs a fetch, which GitVault will not make. Run git submodule update --init yourself when you want it again.</value>
+  </data>
 </root>

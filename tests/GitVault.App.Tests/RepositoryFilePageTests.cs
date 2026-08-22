@@ -302,8 +302,16 @@ internal sealed class StubFileEditor : IRepositoryFileEditor
             Applied.Add(plan);
         }
 
-        return Task.FromResult(new GitOperationResult(plan.OperationId, "snapshot"));
+        return Task.FromResult(Result(plan));
     }
+
+    /// <summary>Mirrors the real editor: an applied plan reports a step for each change.</summary>
+    internal static GitOperationResult Result(GitOperationPlan plan) =>
+        new(plan.OperationId, "snapshot")
+        {
+            Steps = [.. plan.Changes.Select(c => new GitVault.Core.Models.ActivationStepResult(
+                c.StepId, GitVault.Core.Models.StepOutcome.Applied, c.Target))],
+        };
 }
 
 /// <summary>A hook editor that records what it was asked to do, and runs nothing.</summary>
@@ -358,7 +366,7 @@ internal sealed class StubHookEditor : IHookEditor
             Applied.Add(plan);
         }
 
-        return Task.FromResult(new GitOperationResult(plan.OperationId, "snapshot"));
+        return Task.FromResult(StubFileEditor.Result(plan));
     }
 
     private static GitOperationPlan Plan(string repositoryPath, string target, string? after) =>

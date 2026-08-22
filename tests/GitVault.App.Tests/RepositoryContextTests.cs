@@ -38,12 +38,15 @@ public sealed class RepositoryContextTests
         parent.Children.Select(n => n.Caption).Should().Equal("alpha", "beta");
         parent.Children[0].Children.Select(n => n.Page)
             .Should().AllSatisfy(p => p.Should().NotBeNull())
-            .And.HaveCount(9);
+            .And.HaveCount(12);
 
         parent.Children[0].Children.Should().Contain(n => n.Page is CommitsViewModel);
         parent.Children[0].Children.Should().Contain(n => n.Page is HistoryToolsViewModel);
         parent.Children[0].Children.Should().Contain(n => n.Page is RepositoryFilesViewModel);
         parent.Children[0].Children.Should().Contain(n => n.Page is HooksViewModel);
+        parent.Children[0].Children.Should().Contain(n => n.Page is WorktreesViewModel);
+        parent.Children[0].Children.Should().Contain(n => n.Page is StashesViewModel);
+        parent.Children[0].Children.Should().Contain(n => n.Page is SubmodulesViewModel);
         parent.Children[0].Children.Should().Contain(n => n.Page is RemotesViewModel);
         parent.Children[0].Children.Should().Contain(n => n.Page is BranchesViewModel);
         parent.Children[0].Children.Should().Contain(n => n.Page is TagsViewModel);

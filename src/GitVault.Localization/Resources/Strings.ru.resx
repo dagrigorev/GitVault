@@ -2405,4 +2405,298 @@
   <data name="Hooks_SizeFormat" xml:space="preserve">
     <value>{0:N0}</value>
   </data>
+  <data name="Nav_Worktrees" xml:space="preserve">
+    <value>Рабочие каталоги</value>
+  </data>
+  <data name="Worktrees_Title" xml:space="preserve">
+    <value>Рабочие каталоги</value>
+  </data>
+  <data name="Worktrees_Subtitle" xml:space="preserve">
+    <value>Другие каталоги с рабочей копией этого репозитория.</value>
+  </data>
+  <data name="Worktrees_Empty" xml:space="preserve">
+    <value>Выберите репозиторий, чтобы увидеть его рабочие каталоги.</value>
+  </data>
+  <data name="Worktrees_Column_Path" xml:space="preserve">
+    <value>Каталог</value>
+  </data>
+  <data name="Worktrees_Column_Branch" xml:space="preserve">
+    <value>Ветка</value>
+  </data>
+  <data name="Worktrees_Column_Head" xml:space="preserve">
+    <value>Коммит</value>
+  </data>
+  <data name="Worktrees_Column_State" xml:space="preserve">
+    <value>Состояние</value>
+  </data>
+  <data name="Worktrees_State_Main" xml:space="preserve">
+    <value>основной</value>
+  </data>
+  <data name="Worktrees_State_Detached" xml:space="preserve">
+    <value>отсоединён</value>
+  </data>
+  <data name="Worktrees_State_Locked" xml:space="preserve">
+    <value>заблокирован</value>
+  </data>
+  <data name="Worktrees_State_Missing" xml:space="preserve">
+    <value>каталог отсутствует</value>
+  </data>
+  <data name="Worktrees_Add" xml:space="preserve">
+    <value>Добавить…</value>
+  </data>
+  <data name="Worktrees_Remove" xml:space="preserve">
+    <value>Удалить…</value>
+  </data>
+  <data name="Worktrees_Lock" xml:space="preserve">
+    <value>Заблокировать…</value>
+  </data>
+  <data name="Worktrees_Unlock" xml:space="preserve">
+    <value>Разблокировать…</value>
+  </data>
+  <data name="Worktrees_Prune" xml:space="preserve">
+    <value>Забыть отсутствующие…</value>
+  </data>
+  <data name="Worktrees_Editor_Title" xml:space="preserve">
+    <value>Добавление рабочего каталога</value>
+  </data>
+  <data name="Worktrees_Field_Directory" xml:space="preserve">
+    <value>Каталог</value>
+  </data>
+  <data name="Worktrees_Field_StartPoint" xml:space="preserve">
+    <value>Что извлечь</value>
+  </data>
+  <data name="Worktrees_Field_NewBranch" xml:space="preserve">
+    <value>Создать ветку</value>
+  </data>
+  <data name="Worktrees_Editor_Note" xml:space="preserve">
+    <value>Рабочий каталог — это второй каталог с собственной рабочей копией того же репозитория. История общая, отдельны только извлечённые файлы. Одну ветку нельзя извлечь в двух рабочих каталогах сразу.</value>
+  </data>
+  <data name="Worktrees_Lock_Title" xml:space="preserve">
+    <value>Блокировка рабочего каталога</value>
+  </data>
+  <data name="Worktrees_Field_Reason" xml:space="preserve">
+    <value>Причина</value>
+  </data>
+  <data name="Worktrees_Lock_Note" xml:space="preserve">
+    <value>Заблокированный рабочий каталог git не удалит и не забудет — например, каталог на диске, который подключён не всегда. Причина потом показывается вам же.</value>
+  </data>
+  <data name="Status_WorktreeAdded" xml:space="preserve">
+    <value>Рабочий каталог добавлен</value>
+  </data>
+  <data name="Status_WorktreeRemoved" xml:space="preserve">
+    <value>Рабочий каталог удалён</value>
+  </data>
+  <data name="Status_WorktreeLocked" xml:space="preserve">
+    <value>Рабочий каталог заблокирован</value>
+  </data>
+  <data name="Status_WorktreeUnlocked" xml:space="preserve">
+    <value>Рабочий каталог разблокирован</value>
+  </data>
+  <data name="Status_WorktreePruned" xml:space="preserve">
+    <value>Отсутствующие рабочие каталоги забыты</value>
+  </data>
+  <data name="Blocker_WorktreePathRequired" xml:space="preserve">
+    <value>Рабочему каталогу нужен путь.</value>
+  </data>
+  <data name="Blocker_WorktreeDirectoryNotEmpty" xml:space="preserve">
+    <value>В этом каталоге уже что-то есть.</value>
+  </data>
+  <data name="Blocker_WorktreeNotFound" xml:space="preserve">
+    <value>По этому пути нет рабочего каталога этого репозитория.</value>
+  </data>
+  <data name="Blocker_WorktreeCannotRemoveMain" xml:space="preserve">
+    <value>Это собственный рабочий каталог репозитория, а не присоединённый к нему.</value>
+  </data>
+  <data name="Blocker_WorktreeCannotLockMain" xml:space="preserve">
+    <value>Собственный рабочий каталог репозитория заблокировать нельзя.</value>
+  </data>
+  <data name="Blocker_WorktreeLocked" xml:space="preserve">
+    <value>Этот рабочий каталог заблокирован. Сначала разблокируйте его.</value>
+  </data>
+  <data name="Blocker_WorktreeNothingToPrune" xml:space="preserve">
+    <value>Ни один каталог рабочих копий не отсутствует.</value>
+  </data>
+  <data name="Warning_WorktreeWillBeDetached" xml:space="preserve">
+    <value>Это не ветка, поэтому новый рабочий каталог окажется вне ветки. Сделанные там коммиты не будут принадлежать ни одной ветке, пока вы её не создадите.</value>
+  </data>
+  <data name="Warning_WorktreeBranchSurvives" xml:space="preserve">
+    <value>Уходит только рабочая копия. Ветка и её коммиты остаются на месте.</value>
+  </data>
+  <data name="Nav_Stashes" xml:space="preserve">
+    <value>Отложенные изменения</value>
+  </data>
+  <data name="Stashes_Title" xml:space="preserve">
+    <value>Отложенные изменения</value>
+  </data>
+  <data name="Stashes_Subtitle" xml:space="preserve">
+    <value>Изменения, отложенные без коммита.</value>
+  </data>
+  <data name="Stashes_Empty" xml:space="preserve">
+    <value>Ничего не отложено.</value>
+  </data>
+  <data name="Stashes_Column_Reference" xml:space="preserve">
+    <value>Запись</value>
+  </data>
+  <data name="Stashes_Column_Message" xml:space="preserve">
+    <value>Сообщение</value>
+  </data>
+  <data name="Stashes_Column_Branch" xml:space="preserve">
+    <value>Ветка</value>
+  </data>
+  <data name="Stashes_Column_Date" xml:space="preserve">
+    <value>Создано</value>
+  </data>
+  <data name="Stashes_Push" xml:space="preserve">
+    <value>Отложить…</value>
+  </data>
+  <data name="Stashes_Apply" xml:space="preserve">
+    <value>Вернуть…</value>
+  </data>
+  <data name="Stashes_Drop" xml:space="preserve">
+    <value>Отбросить…</value>
+  </data>
+  <data name="Stashes_Branch" xml:space="preserve">
+    <value>Создать ветку…</value>
+  </data>
+  <data name="Stashes_Files" xml:space="preserve">
+    <value>Файлы в этой записи</value>
+  </data>
+  <data name="Stashes_Push_Title" xml:space="preserve">
+    <value>Отложить изменения</value>
+  </data>
+  <data name="Stashes_Field_Message" xml:space="preserve">
+    <value>Сообщение</value>
+  </data>
+  <data name="Stashes_Field_Untracked" xml:space="preserve">
+    <value>Включить файлы, ещё не отслеживаемые git</value>
+  </data>
+  <data name="Stashes_Push_Note" xml:space="preserve">
+    <value>Изменения покидают рабочий каталог и сохраняются как запись, которую можно вернуть позже. Коммит при этом не создаётся.</value>
+  </data>
+  <data name="Stashes_Branch_Title" xml:space="preserve">
+    <value>Ветка из отложенной записи</value>
+  </data>
+  <data name="Stashes_Field_Branch" xml:space="preserve">
+    <value>Имя ветки</value>
+  </data>
+  <data name="Stashes_NoPopNote" xml:space="preserve">
+    <value>GitVault предлагает возврат записи и её удаление как отдельные действия. Объединённая команда git «pop» делает и то и другое сразу, и при конфликте вы остаётесь разбираться, что стало с записью.</value>
+  </data>
+  <data name="Status_StashPushed" xml:space="preserve">
+    <value>Изменения отложены</value>
+  </data>
+  <data name="Status_StashApplied" xml:space="preserve">
+    <value>Изменения возвращены</value>
+  </data>
+  <data name="Status_StashDropped" xml:space="preserve">
+    <value>Запись отброшена</value>
+  </data>
+  <data name="Status_StashBranched" xml:space="preserve">
+    <value>Ветка создана из записи</value>
+  </data>
+  <data name="Blocker_StashNothingToStash" xml:space="preserve">
+    <value>В рабочем каталоге нечего откладывать.</value>
+  </data>
+  <data name="Blocker_StashNotFound" xml:space="preserve">
+    <value>Такой записи нет.</value>
+  </data>
+  <data name="Blocker_StashWorkingTreeDirty" xml:space="preserve">
+    <value>В рабочем каталоге есть собственные изменения. Возврат записи поверх них может оставить маркеры конфликта в файле, который вы правите прямо сейчас, — сначала зафиксируйте или отложите текущие изменения.</value>
+  </data>
+  <data name="Warning_StashEntryStays" xml:space="preserve">
+    <value>Возврат записи не убирает её из списка. Отбросьте её отдельно, когда она больше не нужна.</value>
+  </data>
+  <data name="Warning_StashApplyMayConflict" xml:space="preserve">
+    <value>Даже в чистом рабочем каталоге возможен конфликт, если репозиторий ушёл вперёд с момента создания записи. Разрешать его придётся вам.</value>
+  </data>
+  <data name="Warning_StashDropIsPermanent" xml:space="preserve">
+    <value>Отброшенная запись исчезает из списка, и git со временем её удаляет. GitVault сначала сохраняет её коммит резервной ссылкой — только благодаря этому действие обратимо.</value>
+  </data>
+  <data name="Warning_StashUntrackedFilesMove" xml:space="preserve">
+    <value>Неотслеживаемые файлы переносятся в запись, а не копируются. Они исчезнут из рабочего каталога до возврата записи.</value>
+  </data>
+  <data name="Warning_StashBranchChecksOutAndDrops" xml:space="preserve">
+    <value>Это создаёт ветку, переключается на неё и, в случае успеха, отбрасывает запись — больше, чем следует из названия.</value>
+  </data>
+  <data name="Nav_Submodules" xml:space="preserve">
+    <value>Подмодули</value>
+  </data>
+  <data name="Submodules_Title" xml:space="preserve">
+    <value>Подмодули</value>
+  </data>
+  <data name="Submodules_Subtitle" xml:space="preserve">
+    <value>Другие репозитории, положение в которых записывает этот.</value>
+  </data>
+  <data name="Submodules_Empty" xml:space="preserve">
+    <value>Этот репозиторий не содержит подмодулей.</value>
+  </data>
+  <data name="Submodules_Column_Path" xml:space="preserve">
+    <value>Путь</value>
+  </data>
+  <data name="Submodules_Column_Url" xml:space="preserve">
+    <value>Источник</value>
+  </data>
+  <data name="Submodules_Column_Branch" xml:space="preserve">
+    <value>Ветка</value>
+  </data>
+  <data name="Submodules_Column_State" xml:space="preserve">
+    <value>Состояние</value>
+  </data>
+  <data name="Submodules_State_NotInitialized" xml:space="preserve">
+    <value>здесь не извлечён</value>
+  </data>
+  <data name="Submodules_State_UpToDate" xml:space="preserve">
+    <value>на записанном коммите</value>
+  </data>
+  <data name="Submodules_State_Moved" xml:space="preserve">
+    <value>на другом коммите</value>
+  </data>
+  <data name="Submodules_State_Conflicted" xml:space="preserve">
+    <value>конфликт</value>
+  </data>
+  <data name="Submodules_Edit" xml:space="preserve">
+    <value>Изменить…</value>
+  </data>
+  <data name="Submodules_Sync" xml:space="preserve">
+    <value>Применить к этой копии…</value>
+  </data>
+  <data name="Submodules_Deinit" xml:space="preserve">
+    <value>Удалить рабочую копию…</value>
+  </data>
+  <data name="Submodules_Editor_Title" xml:space="preserve">
+    <value>Изменение подмодуля</value>
+  </data>
+  <data name="Submodules_Field_Url" xml:space="preserve">
+    <value>Источник</value>
+  </data>
+  <data name="Submodules_Field_Branch" xml:space="preserve">
+    <value>Отслеживаемая ветка</value>
+  </data>
+  <data name="Submodules_NoNetworkNote" xml:space="preserve">
+    <value>GitVault не обращается к сети, поэтому не будет ни забирать, ни извлекать подмодуль. Он правит то, что этот репозиторий о них записывает, — прежде всего адрес, который и ломается при переезде репозитория или при входе по SSH вместо HTTPS. Команду git submodule update выполните сами.</value>
+  </data>
+  <data name="Status_SubmoduleSaved" xml:space="preserve">
+    <value>Запись о подмодуле обновлена</value>
+  </data>
+  <data name="Status_SubmoduleSynced" xml:space="preserve">
+    <value>Записанный адрес применён к этой копии</value>
+  </data>
+  <data name="Status_SubmoduleDeinited" xml:space="preserve">
+    <value>Рабочая копия удалена</value>
+  </data>
+  <data name="Blocker_SubmoduleNotFound" xml:space="preserve">
+    <value>Этот репозиторий не содержит такого подмодуля.</value>
+  </data>
+  <data name="Blocker_SubmoduleNotInitialized" xml:space="preserve">
+    <value>Здесь нет рабочей копии, которую можно удалить.</value>
+  </data>
+  <data name="Warning_SubmoduleSyncNeeded" xml:space="preserve">
+    <value>Правка записанного адреса ничего не меняет в дальнейшем поведении git. Затем примените её к этой копии — это отдельный шаг, сообщающий локальной конфигурации.</value>
+  </data>
+  <data name="Warning_SubmoduleFileIsCommitted" xml:space="preserve">
+    <value>Файл .gitmodules находится под версионным контролем, поэтому изменение дойдёт до остальных после коммита.</value>
+  </data>
+  <data name="Warning_SubmoduleDeinitNeedsNetwork" xml:space="preserve">
+    <value>Возврат рабочей копии требует обращения к сети, которого GitVault не делает. Когда она снова понадобится, выполните git submodule update --init сами.</value>
+  </data>
 </root>

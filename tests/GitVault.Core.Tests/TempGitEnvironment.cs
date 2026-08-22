@@ -93,6 +93,15 @@ internal sealed class TempGitEnvironment : IDisposable
         environment.Git(home, "config", "--global", "user.email", "harness@example.invalid");
         environment.Git(home, "config", "--global", "init.defaultBranch", "main");
 
+        // Line endings are pinned in the throwaway global configuration rather than left to the
+        // machine. The harness runs git with GIT_CONFIG_NOSYSTEM, but the services under test
+        // deliberately do not — a user's system configuration is part of their git and ignoring it
+        // would make GitVault behave unlike the git they use. Without this, a Windows installation
+        // with core.autocrlf=true makes the two disagree about what a checked-out file contains,
+        // and tests fail for a reason that has nothing to do with what they are testing.
+        environment.Git(home, "config", "--global", "core.autocrlf", "false");
+        environment.Git(home, "config", "--global", "core.eol", "lf");
+
         return environment;
     }
 

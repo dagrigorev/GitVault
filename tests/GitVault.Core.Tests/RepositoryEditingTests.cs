@@ -383,6 +383,9 @@ public sealed class RepositoryEditingTests(ITestOutputHelper output)
         RefBackupService? backups = null)
     {
         var runner = await BuildRunnerAsync(environment);
-        return new GitObjectEditor(runner, new RepositoryInspector(runner), backups ?? new RefBackupService(runner));
+        return new GitObjectEditor(
+            runner,
+            new RepositoryInspector(runner),
+            new RepositoryPlanApplier(runner, backups ?? new RefBackupService(runner)));
     }
 }

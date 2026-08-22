@@ -2349,6 +2349,300 @@ public static class Keys
     /// <summary>English: {0:N0}</summary>
     public const string Hooks_SizeFormat = "Hooks_SizeFormat";
 
+    /// <summary>English: Working trees</summary>
+    public const string Nav_Worktrees = "Nav_Worktrees";
+
+    /// <summary>English: Working trees</summary>
+    public const string Worktrees_Title = "Worktrees_Title";
+
+    /// <summary>English: Other directories with a checkout of this repository.</summary>
+    public const string Worktrees_Subtitle = "Worktrees_Subtitle";
+
+    /// <summary>English: Select a repository to see its working trees.</summary>
+    public const string Worktrees_Empty = "Worktrees_Empty";
+
+    /// <summary>English: Directory</summary>
+    public const string Worktrees_Column_Path = "Worktrees_Column_Path";
+
+    /// <summary>English: Branch</summary>
+    public const string Worktrees_Column_Branch = "Worktrees_Column_Branch";
+
+    /// <summary>English: Commit</summary>
+    public const string Worktrees_Column_Head = "Worktrees_Column_Head";
+
+    /// <summary>English: State</summary>
+    public const string Worktrees_Column_State = "Worktrees_Column_State";
+
+    /// <summary>English: main</summary>
+    public const string Worktrees_State_Main = "Worktrees_State_Main";
+
+    /// <summary>English: detached</summary>
+    public const string Worktrees_State_Detached = "Worktrees_State_Detached";
+
+    /// <summary>English: locked</summary>
+    public const string Worktrees_State_Locked = "Worktrees_State_Locked";
+
+    /// <summary>English: directory is gone</summary>
+    public const string Worktrees_State_Missing = "Worktrees_State_Missing";
+
+    /// <summary>English: Add…</summary>
+    public const string Worktrees_Add = "Worktrees_Add";
+
+    /// <summary>English: Remove…</summary>
+    public const string Worktrees_Remove = "Worktrees_Remove";
+
+    /// <summary>English: Lock…</summary>
+    public const string Worktrees_Lock = "Worktrees_Lock";
+
+    /// <summary>English: Unlock…</summary>
+    public const string Worktrees_Unlock = "Worktrees_Unlock";
+
+    /// <summary>English: Forget missing…</summary>
+    public const string Worktrees_Prune = "Worktrees_Prune";
+
+    /// <summary>English: Add a working tree</summary>
+    public const string Worktrees_Editor_Title = "Worktrees_Editor_Title";
+
+    /// <summary>English: Directory</summary>
+    public const string Worktrees_Field_Directory = "Worktrees_Field_Directory";
+
+    /// <summary>English: Check out</summary>
+    public const string Worktrees_Field_StartPoint = "Worktrees_Field_StartPoint";
+
+    /// <summary>English: Create branch</summary>
+    public const string Worktrees_Field_NewBranch = "Worktrees_Field_NewBranch";
+
+    /// <summary>English: A working tree is a second directory with its own checkout of the same repository. The history is shared; only the checked-out files are separate. A branch cannot be checked out in two working trees at once.</summary>
+    public const string Worktrees_Editor_Note = "Worktrees_Editor_Note";
+
+    /// <summary>English: Lock a working tree</summary>
+    public const string Worktrees_Lock_Title = "Worktrees_Lock_Title";
+
+    /// <summary>English: Reason</summary>
+    public const string Worktrees_Field_Reason = "Worktrees_Field_Reason";
+
+    /// <summary>English: A locked working tree is one git will not prune or remove — for a directory on a disk that is not always mounted, say. The reason is shown back to you later.</summary>
+    public const string Worktrees_Lock_Note = "Worktrees_Lock_Note";
+
+    /// <summary>English: Working tree added</summary>
+    public const string Status_WorktreeAdded = "Status_WorktreeAdded";
+
+    /// <summary>English: Working tree removed</summary>
+    public const string Status_WorktreeRemoved = "Status_WorktreeRemoved";
+
+    /// <summary>English: Working tree locked</summary>
+    public const string Status_WorktreeLocked = "Status_WorktreeLocked";
+
+    /// <summary>English: Working tree unlocked</summary>
+    public const string Status_WorktreeUnlocked = "Status_WorktreeUnlocked";
+
+    /// <summary>English: Missing working trees forgotten</summary>
+    public const string Status_WorktreePruned = "Status_WorktreePruned";
+
+    /// <summary>English: A working tree needs a directory.</summary>
+    public const string Blocker_WorktreePathRequired = "Blocker_WorktreePathRequired";
+
+    /// <summary>English: That directory already holds something.</summary>
+    public const string Blocker_WorktreeDirectoryNotEmpty = "Blocker_WorktreeDirectoryNotEmpty";
+
+    /// <summary>English: No working tree of this repository sits at that path.</summary>
+    public const string Blocker_WorktreeNotFound = "Blocker_WorktreeNotFound";
+
+    /// <summary>English: That is the repository&apos;s own working tree, not one attached to it.</summary>
+    public const string Blocker_WorktreeCannotRemoveMain = "Blocker_WorktreeCannotRemoveMain";
+
+    /// <summary>English: The repository&apos;s own working tree cannot be locked.</summary>
+    public const string Blocker_WorktreeCannotLockMain = "Blocker_WorktreeCannotLockMain";
+
+    /// <summary>English: This working tree is locked. Unlock it first.</summary>
+    public const string Blocker_WorktreeLocked = "Blocker_WorktreeLocked";
+
+    /// <summary>English: No working tree&apos;s directory is missing.</summary>
+    public const string Blocker_WorktreeNothingToPrune = "Blocker_WorktreeNothingToPrune";
+
+    /// <summary>English: That is not a branch, so the new working tree will not be on one. Commits made there belong to no branch until you make one.</summary>
+    public const string Warning_WorktreeWillBeDetached = "Warning_WorktreeWillBeDetached";
+
+    /// <summary>English: Only the checkout goes. The branch and its commits stay exactly where they are.</summary>
+    public const string Warning_WorktreeBranchSurvives = "Warning_WorktreeBranchSurvives";
+
+    /// <summary>English: Stashes</summary>
+    public const string Nav_Stashes = "Nav_Stashes";
+
+    /// <summary>English: Stashes</summary>
+    public const string Stashes_Title = "Stashes_Title";
+
+    /// <summary>English: Changes set aside without committing them.</summary>
+    public const string Stashes_Subtitle = "Stashes_Subtitle";
+
+    /// <summary>English: Nothing has been set aside.</summary>
+    public const string Stashes_Empty = "Stashes_Empty";
+
+    /// <summary>English: Entry</summary>
+    public const string Stashes_Column_Reference = "Stashes_Column_Reference";
+
+    /// <summary>English: Message</summary>
+    public const string Stashes_Column_Message = "Stashes_Column_Message";
+
+    /// <summary>English: Branch</summary>
+    public const string Stashes_Column_Branch = "Stashes_Column_Branch";
+
+    /// <summary>English: Made</summary>
+    public const string Stashes_Column_Date = "Stashes_Column_Date";
+
+    /// <summary>English: Set aside…</summary>
+    public const string Stashes_Push = "Stashes_Push";
+
+    /// <summary>English: Put back…</summary>
+    public const string Stashes_Apply = "Stashes_Apply";
+
+    /// <summary>English: Discard…</summary>
+    public const string Stashes_Drop = "Stashes_Drop";
+
+    /// <summary>English: Make a branch…</summary>
+    public const string Stashes_Branch = "Stashes_Branch";
+
+    /// <summary>English: Files in this entry</summary>
+    public const string Stashes_Files = "Stashes_Files";
+
+    /// <summary>English: Set changes aside</summary>
+    public const string Stashes_Push_Title = "Stashes_Push_Title";
+
+    /// <summary>English: Message</summary>
+    public const string Stashes_Field_Message = "Stashes_Field_Message";
+
+    /// <summary>English: Include files git is not tracking yet</summary>
+    public const string Stashes_Field_Untracked = "Stashes_Field_Untracked";
+
+    /// <summary>English: The changes leave the working tree and are kept as an entry you can put back later. This does not commit anything.</summary>
+    public const string Stashes_Push_Note = "Stashes_Push_Note";
+
+    /// <summary>English: Make a branch from an entry</summary>
+    public const string Stashes_Branch_Title = "Stashes_Branch_Title";
+
+    /// <summary>English: Branch name</summary>
+    public const string Stashes_Field_Branch = "Stashes_Field_Branch";
+
+    /// <summary>English: GitVault offers putting an entry back and discarding it as separate actions. Git&apos;s combined &quot;pop&quot; does both at once, and when putting back runs into a conflict it leaves you working out what happened to the entry.</summary>
+    public const string Stashes_NoPopNote = "Stashes_NoPopNote";
+
+    /// <summary>English: Changes set aside</summary>
+    public const string Status_StashPushed = "Status_StashPushed";
+
+    /// <summary>English: Changes put back</summary>
+    public const string Status_StashApplied = "Status_StashApplied";
+
+    /// <summary>English: Entry discarded</summary>
+    public const string Status_StashDropped = "Status_StashDropped";
+
+    /// <summary>English: Branch made from the entry</summary>
+    public const string Status_StashBranched = "Status_StashBranched";
+
+    /// <summary>English: The working tree has no changes to set aside.</summary>
+    public const string Blocker_StashNothingToStash = "Blocker_StashNothingToStash";
+
+    /// <summary>English: There is no such entry.</summary>
+    public const string Blocker_StashNotFound = "Blocker_StashNotFound";
+
+    /// <summary>English: The working tree has changes of its own. Putting an entry back on top of them can leave conflict markers in a file you are in the middle of editing, so commit or set aside your current changes first.</summary>
+    public const string Blocker_StashWorkingTreeDirty = "Blocker_StashWorkingTreeDirty";
+
+    /// <summary>English: Putting an entry back leaves it in the list. Discard it separately when you no longer need it.</summary>
+    public const string Warning_StashEntryStays = "Warning_StashEntryStays";
+
+    /// <summary>English: Even into a clean working tree this can conflict, if the repository has moved on since the entry was made. Resolving that is yours to do.</summary>
+    public const string Warning_StashApplyMayConflict = "Warning_StashApplyMayConflict";
+
+    /// <summary>English: A discarded entry is no longer listed and git removes it in its own time. GitVault preserves its commit as a backup ref first, which is what makes this recoverable at all.</summary>
+    public const string Warning_StashDropIsPermanent = "Warning_StashDropIsPermanent";
+
+    /// <summary>English: Files git is not tracking are moved into the entry, not copied. They disappear from the working tree until you put the entry back.</summary>
+    public const string Warning_StashUntrackedFilesMove = "Warning_StashUntrackedFilesMove";
+
+    /// <summary>English: This creates the branch, checks it out, and discards the entry once it succeeds — more than the name suggests.</summary>
+    public const string Warning_StashBranchChecksOutAndDrops = "Warning_StashBranchChecksOutAndDrops";
+
+    /// <summary>English: Submodules</summary>
+    public const string Nav_Submodules = "Nav_Submodules";
+
+    /// <summary>English: Submodules</summary>
+    public const string Submodules_Title = "Submodules_Title";
+
+    /// <summary>English: Other repositories this one records a position in.</summary>
+    public const string Submodules_Subtitle = "Submodules_Subtitle";
+
+    /// <summary>English: This repository records no submodules.</summary>
+    public const string Submodules_Empty = "Submodules_Empty";
+
+    /// <summary>English: Path</summary>
+    public const string Submodules_Column_Path = "Submodules_Column_Path";
+
+    /// <summary>English: Comes from</summary>
+    public const string Submodules_Column_Url = "Submodules_Column_Url";
+
+    /// <summary>English: Branch</summary>
+    public const string Submodules_Column_Branch = "Submodules_Column_Branch";
+
+    /// <summary>English: State</summary>
+    public const string Submodules_Column_State = "Submodules_Column_State";
+
+    /// <summary>English: not checked out here</summary>
+    public const string Submodules_State_NotInitialized = "Submodules_State_NotInitialized";
+
+    /// <summary>English: at the recorded commit</summary>
+    public const string Submodules_State_UpToDate = "Submodules_State_UpToDate";
+
+    /// <summary>English: at a different commit</summary>
+    public const string Submodules_State_Moved = "Submodules_State_Moved";
+
+    /// <summary>English: conflicted</summary>
+    public const string Submodules_State_Conflicted = "Submodules_State_Conflicted";
+
+    /// <summary>English: Edit…</summary>
+    public const string Submodules_Edit = "Submodules_Edit";
+
+    /// <summary>English: Apply to this clone…</summary>
+    public const string Submodules_Sync = "Submodules_Sync";
+
+    /// <summary>English: Remove working copy…</summary>
+    public const string Submodules_Deinit = "Submodules_Deinit";
+
+    /// <summary>English: Edit a submodule</summary>
+    public const string Submodules_Editor_Title = "Submodules_Editor_Title";
+
+    /// <summary>English: Comes from</summary>
+    public const string Submodules_Field_Url = "Submodules_Field_Url";
+
+    /// <summary>English: Branch to track</summary>
+    public const string Submodules_Field_Branch = "Submodules_Field_Branch";
+
+    /// <summary>English: GitVault makes no network calls, so it will not fetch or check out a submodule. What it edits is what this repository records about them — most usefully the address, which is what breaks when a repository moves or when you authenticate over SSH rather than HTTPS. Run git submodule update yourself afterwards.</summary>
+    public const string Submodules_NoNetworkNote = "Submodules_NoNetworkNote";
+
+    /// <summary>English: Submodule record updated</summary>
+    public const string Status_SubmoduleSaved = "Status_SubmoduleSaved";
+
+    /// <summary>English: Recorded address applied to this clone</summary>
+    public const string Status_SubmoduleSynced = "Status_SubmoduleSynced";
+
+    /// <summary>English: Working copy removed</summary>
+    public const string Status_SubmoduleDeinited = "Status_SubmoduleDeinited";
+
+    /// <summary>English: This repository records no such submodule.</summary>
+    public const string Blocker_SubmoduleNotFound = "Blocker_SubmoduleNotFound";
+
+    /// <summary>English: There is no working copy here to remove.</summary>
+    public const string Blocker_SubmoduleNotInitialized = "Blocker_SubmoduleNotInitialized";
+
+    /// <summary>English: Editing the recorded address changes nothing about what git does next. Apply it to this clone afterwards, which is the separate step that tells the local configuration.</summary>
+    public const string Warning_SubmoduleSyncNeeded = "Warning_SubmoduleSyncNeeded";
+
+    /// <summary>English: The .gitmodules file is committed, so this change reaches everyone else once you commit it.</summary>
+    public const string Warning_SubmoduleFileIsCommitted = "Warning_SubmoduleFileIsCommitted";
+
+    /// <summary>English: Putting the working copy back needs a fetch, which GitVault will not make. Run git submodule update --init yourself when you want it again.</summary>
+    public const string Warning_SubmoduleDeinitNeedsNetwork = "Warning_SubmoduleDeinitNeedsNetwork";
+
     /// <summary>All keys, in declaration order.</summary>
     public static IReadOnlyList<string> All { get; } =
     [
@@ -3133,5 +3427,103 @@ public static class Keys
         Blocker_HookNotEditableText,
         Blocker_HookNotFound,
         Hooks_SizeFormat,
+        Nav_Worktrees,
+        Worktrees_Title,
+        Worktrees_Subtitle,
+        Worktrees_Empty,
+        Worktrees_Column_Path,
+        Worktrees_Column_Branch,
+        Worktrees_Column_Head,
+        Worktrees_Column_State,
+        Worktrees_State_Main,
+        Worktrees_State_Detached,
+        Worktrees_State_Locked,
+        Worktrees_State_Missing,
+        Worktrees_Add,
+        Worktrees_Remove,
+        Worktrees_Lock,
+        Worktrees_Unlock,
+        Worktrees_Prune,
+        Worktrees_Editor_Title,
+        Worktrees_Field_Directory,
+        Worktrees_Field_StartPoint,
+        Worktrees_Field_NewBranch,
+        Worktrees_Editor_Note,
+        Worktrees_Lock_Title,
+        Worktrees_Field_Reason,
+        Worktrees_Lock_Note,
+        Status_WorktreeAdded,
+        Status_WorktreeRemoved,
+        Status_WorktreeLocked,
+        Status_WorktreeUnlocked,
+        Status_WorktreePruned,
+        Blocker_WorktreePathRequired,
+        Blocker_WorktreeDirectoryNotEmpty,
+        Blocker_WorktreeNotFound,
+        Blocker_WorktreeCannotRemoveMain,
+        Blocker_WorktreeCannotLockMain,
+        Blocker_WorktreeLocked,
+        Blocker_WorktreeNothingToPrune,
+        Warning_WorktreeWillBeDetached,
+        Warning_WorktreeBranchSurvives,
+        Nav_Stashes,
+        Stashes_Title,
+        Stashes_Subtitle,
+        Stashes_Empty,
+        Stashes_Column_Reference,
+        Stashes_Column_Message,
+        Stashes_Column_Branch,
+        Stashes_Column_Date,
+        Stashes_Push,
+        Stashes_Apply,
+        Stashes_Drop,
+        Stashes_Branch,
+        Stashes_Files,
+        Stashes_Push_Title,
+        Stashes_Field_Message,
+        Stashes_Field_Untracked,
+        Stashes_Push_Note,
+        Stashes_Branch_Title,
+        Stashes_Field_Branch,
+        Stashes_NoPopNote,
+        Status_StashPushed,
+        Status_StashApplied,
+        Status_StashDropped,
+        Status_StashBranched,
+        Blocker_StashNothingToStash,
+        Blocker_StashNotFound,
+        Blocker_StashWorkingTreeDirty,
+        Warning_StashEntryStays,
+        Warning_StashApplyMayConflict,
+        Warning_StashDropIsPermanent,
+        Warning_StashUntrackedFilesMove,
+        Warning_StashBranchChecksOutAndDrops,
+        Nav_Submodules,
+        Submodules_Title,
+        Submodules_Subtitle,
+        Submodules_Empty,
+        Submodules_Column_Path,
+        Submodules_Column_Url,
+        Submodules_Column_Branch,
+        Submodules_Column_State,
+        Submodules_State_NotInitialized,
+        Submodules_State_UpToDate,
+        Submodules_State_Moved,
+        Submodules_State_Conflicted,
+        Submodules_Edit,
+        Submodules_Sync,
+        Submodules_Deinit,
+        Submodules_Editor_Title,
+        Submodules_Field_Url,
+        Submodules_Field_Branch,
+        Submodules_NoNetworkNote,
+        Status_SubmoduleSaved,
+        Status_SubmoduleSynced,
+        Status_SubmoduleDeinited,
+        Blocker_SubmoduleNotFound,
+        Blocker_SubmoduleNotInitialized,
+        Warning_SubmoduleSyncNeeded,
+        Warning_SubmoduleFileIsCommitted,
+        Warning_SubmoduleDeinitNeedsNetwork,
     ];
 }

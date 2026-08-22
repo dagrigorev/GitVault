@@ -1,0 +1,68 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:loc="using:GitVault.App.Markup"
+             x:Class="GitVault.App.Views.StashesView">
+  <DockPanel>
+
+    <Border DockPanel.Dock="Top" Classes="note" Margin="0,0,0,6"
+            IsVisible="{Binding !HasRepository}">
+      <TextBlock TextWrapping="Wrap" Text="{Binding NoRepositoryCaption}" />
+    </Border>
+
+    <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Spacing="5" Margin="0,0,0,6"
+                IsVisible="{Binding HasRepository}">
+      <Button Name="PushStashButton" Command="{Binding PushCommand}"
+              Content="{loc:Tr Stashes_Push}" />
+      <Button Name="ApplyStashButton" Command="{Binding ApplyEntryCommand}"
+              IsEnabled="{Binding HasSelectedStash}" Content="{loc:Tr Stashes_Apply}" />
+      <Button Name="DropStashButton" Command="{Binding DropCommand}"
+              IsEnabled="{Binding HasSelectedStash}" Content="{loc:Tr Stashes_Drop}" />
+      <Button Name="BranchStashButton" Command="{Binding BranchCommand}"
+              IsEnabled="{Binding HasSelectedStash}" Content="{loc:Tr Stashes_Branch}" />
+    </StackPanel>
+
+    <!--
+      Said out loud rather than left as an absence: the missing button is a decision, not an
+      oversight.
+    -->
+    <Border DockPanel.Dock="Bottom" Classes="note" Margin="0,7,0,0">
+      <TextBlock TextWrapping="Wrap" Text="{Binding NoPopCaption}" />
+    </Border>
+
+    <Border DockPanel.Dock="Bottom" Classes="group" MaxHeight="200"
+            IsVisible="{Binding HasSelectedStash}">
+      <DockPanel>
+        <TextBlock DockPanel.Dock="Top" Classes="groupTitle" Margin="0,-16,0,4"
+                   Text="{loc:Tr Stashes_Files}" />
+        <Border Classes="panelWhite">
+          <DataGrid ItemsSource="{Binding Files}" BorderThickness="0" MaxHeight="150"
+                    CanUserSortColumns="False">
+            <DataGrid.Columns>
+              <DataGridTextColumn Header="{loc:Tr Keys_Column_Path}" Binding="{Binding Path}"
+                                  Width="*" MinWidth="260" />
+              <DataGridTextColumn Header="{loc:Tr Commits_Column_Lines}" Binding="{Binding Lines}"
+                                  Width="Auto" MinWidth="110" />
+            </DataGrid.Columns>
+          </DataGrid>
+        </Border>
+      </DockPanel>
+    </Border>
+
+    <DataGrid Name="StashesGrid"
+              ItemsSource="{Binding Rows}"
+              SelectedItem="{Binding SelectedRow, Mode=TwoWay}"
+              CanUserSortColumns="False">
+      <DataGrid.Columns>
+        <DataGridTextColumn Header="{loc:Tr Stashes_Column_Reference}" Binding="{Binding Reference}"
+                            Width="Auto" MinWidth="110" />
+        <DataGridTextColumn Header="{loc:Tr Stashes_Column_Message}" Binding="{Binding Message}"
+                            Width="2*" MinWidth="260" />
+        <DataGridTextColumn Header="{loc:Tr Stashes_Column_Branch}" Binding="{Binding Branch}"
+                            Width="*" MinWidth="140" />
+        <DataGridTextColumn Header="{loc:Tr Stashes_Column_Date}" Binding="{Binding Created}"
+                            Width="Auto" MinWidth="130" />
+      </DataGrid.Columns>
+    </DataGrid>
+
+  </DockPanel>
+</UserControl>
