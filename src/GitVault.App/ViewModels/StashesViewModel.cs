@@ -54,6 +54,9 @@ internal sealed partial class StashesViewModel : ListPageViewModel
     [ObservableProperty]
     private StashRow? _selectedRow;
 
+    /// <summary>Counts file reads, so only the newest one is allowed to fill the list.</summary>
+    private int _fileGeneration;
+
     public StashesViewModel(
         Localizer localizer,
         IStashEditor stashes,
@@ -264,8 +267,18 @@ internal sealed partial class StashesViewModel : ListPageViewModel
         _ = LoadFilesAsync(value);
     }
 
+    /// <summary>
+    /// Reads the files an entry holds, and ignores its own answer if the selection moved on.
+    /// </summary>
+    /// <remarks>
+    /// The same race as the history page: a selection can change more than once before the first
+    /// read comes back, and without this every answer is appended to a list a later call already
+    /// cleared.
+    /// </remarks>
     private async Task LoadFilesAsync(StashRow? row)
     {
+        var generation = ++_fileGeneration;
+
         Files.Clear();
 
         if (row is null || _repository.CurrentPath is not { Length: > 0 } path)
@@ -276,6 +289,11 @@ internal sealed partial class StashesViewModel : ListPageViewModel
         var changes = await _stashes
             .ReadChangesAsync(path, row.Reference, CancellationToken.None)
             .ConfigureAwait(true);
+
+        if (generation != _fileGeneration)
+        {
+            return;
+        }
 
         foreach (var change in changes)
         {

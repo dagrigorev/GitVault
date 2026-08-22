@@ -134,6 +134,9 @@ internal sealed partial class CommitsViewModel : ListPageViewModel
     /// </remarks>
     private readonly List<ConflictResolution> _resolutions = [];
 
+    /// <summary>Counts file reads, so only the newest one is allowed to fill the list.</summary>
+    private int _fileGeneration;
+
     [ObservableProperty]
     private CommitRow? _selectedRow;
 
@@ -602,8 +605,20 @@ internal sealed partial class CommitsViewModel : ListPageViewModel
         _ = ReloadAsync(CancellationToken.None);
     }
 
+    /// <summary>
+    /// Reads the files a commit touched, and ignores its own answer if the selection moved on.
+    /// </summary>
+    /// <remarks>
+    /// Selecting a row can raise the change more than once — a grid pushes a null selection back
+    /// while it is attaching, and the guard above restores it — so several reads can be in flight
+    /// at once. Each clears the list before its own await and appends after it, which means the
+    /// later clears happen first and every answer is appended: the same file appeared two or three
+    /// times over. The generation counter is what makes only the newest read allowed to write.
+    /// </remarks>
     private async Task LoadFilesAsync(CommitRow? row)
     {
+        var generation = ++_fileGeneration;
+
         SelectedFile = null;
         Files.Clear();
 
@@ -615,6 +630,11 @@ internal sealed partial class CommitsViewModel : ListPageViewModel
         var changes = await _commits
             .ReadChangesAsync(path, row.Commit.Sha, CancellationToken.None)
             .ConfigureAwait(true);
+
+        if (generation != _fileGeneration)
+        {
+            return;
+        }
 
         foreach (var change in changes)
         {

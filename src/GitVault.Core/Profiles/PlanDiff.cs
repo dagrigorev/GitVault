@@ -75,13 +75,28 @@ public static class PlanDiff
             }
         }
 
-        if (blockers.Count > 0)
+        builder.Append(RenderBlockers(blockers));
+
+        return builder.ToString();
+    }
+
+    /// <summary>Renders the reasons a plan cannot be applied.</summary>
+    /// <param name="blockers">Reasons, as identifiers the view turns into text.</param>
+    /// <returns>The lines, or an empty string when there are none.</returns>
+    public static string RenderBlockers(IReadOnlyList<string> blockers)
+    {
+        ArgumentNullException.ThrowIfNull(blockers);
+
+        if (blockers.Count == 0)
         {
-            builder.Append('\n');
-            foreach (var blocker in blockers)
-            {
-                builder.Append("! ").Append(blocker).Append('\n');
-            }
+            return string.Empty;
+        }
+
+        var builder = new StringBuilder("\n");
+
+        foreach (var blocker in blockers)
+        {
+            builder.Append("! ").Append(blocker).Append('\n');
         }
 
         return builder.ToString();

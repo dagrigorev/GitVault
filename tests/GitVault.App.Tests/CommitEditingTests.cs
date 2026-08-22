@@ -341,6 +341,27 @@ public sealed class CommitEditingTests
     }
 
     [AvaloniaFact]
+    public async Task Changing_the_selection_quickly_lists_each_file_once()
+    {
+        using var provider = Build(out _);
+        var page = await OpenAsync(provider);
+
+        // A grid pushes a null selection back while it attaches and the page restores it, so
+        // several file reads are in flight at once. Each clears the list before its own await; if
+        // they all append afterwards the same file is listed two or three times.
+        for (var i = 0; i < 4; i++)
+        {
+            page.SelectedRow = page.Rows[i % page.Rows.Count];
+        }
+
+        await Task.Yield();
+        Avalonia.Threading.Dispatcher.UIThread.RunJobs();
+
+        page.Files.Select(f => f.Change.Path).Should().OnlyHaveUniqueItems(
+            "only the newest read is allowed to fill the list");
+    }
+
+    [AvaloniaFact]
     public void An_edit_that_changes_nothing_is_not_an_edit()
     {
         using var provider = Build(out _);

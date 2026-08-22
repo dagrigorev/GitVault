@@ -23,7 +23,7 @@ internal static class Program
     {
         try
         {
-            _services = BuildServices();
+            _services = BuildServices(DataRootFrom(args));
             _services.InitializeGitVaultAsync(CancellationToken.None).GetAwaiter().GetResult();
 
             ConfigureLogging(_services);
@@ -60,8 +60,36 @@ internal static class Program
 
     /// <summary>Builds the service provider.</summary>
     /// <returns>The composition root.</returns>
-    internal static ServiceProvider BuildServices() =>
-        new ServiceCollection().AddGitVault().BuildServiceProvider();
+    internal static ServiceProvider BuildServices(string? dataRoot = null) =>
+        new ServiceCollection().AddGitVault(dataRoot).BuildServiceProvider();
+
+    /// <summary>
+    /// Reads <c>--data-root &lt;path&gt;</c>, which moves everything GitVault reads and writes.
+    /// </summary>
+    /// <remarks>
+    /// Two jobs need this and neither has another way to get it. Screenshots for documentation
+    /// have to contain nobody's real identity, keys or repository paths. And the manual test plan
+    /// asks a person to exercise operations that rewrite history and delete refs, which on Windows
+    /// they cannot sandbox by redirecting the environment — the profile and application-data
+    /// folders come from the operating system, not from variables.
+    ///
+    /// It is a switch rather than a setting on purpose: something that changes where the
+    /// application's own settings live cannot be read from those settings.
+    /// </remarks>
+    /// <param name="args">Command line arguments.</param>
+    /// <returns>The requested root, or null to use the real one.</returns>
+    private static string? DataRootFrom(string[] args)
+    {
+        for (var i = 0; i < args.Length - 1; i++)
+        {
+            if (string.Equals(args[i], "--data-root", StringComparison.Ordinal))
+            {
+                return args[i + 1];
+            }
+        }
+
+        return null;
+    }
 
     /// <summary>
     /// Registers the same services as <see cref="BuildServices"/> without building the provider,

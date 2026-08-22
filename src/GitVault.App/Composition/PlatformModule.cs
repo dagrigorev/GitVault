@@ -7,6 +7,7 @@ using GitVault.Platform.Linux;
 using GitVault.Platform.MacOS;
 using GitVault.Platform.Windows;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace GitVault.App.Composition;
 
@@ -18,14 +19,34 @@ internal static class PlatformModule
 {
     /// <summary>Registers the platform-specific service implementations for the current OS.</summary>
     /// <param name="services">Service collection to add to.</param>
+    /// <param name="dataRoot">
+    /// Directory to treat as the user's home, or null to use the real one. Everything GitVault
+    /// reads and writes moves with it, which is what makes a demonstration or a destructive test
+    /// run reach nothing of the user's own.
+    /// </param>
     /// <returns>The same collection, for chaining.</returns>
-    internal static IServiceCollection AddPlatformServices(this IServiceCollection services)
+    internal static IServiceCollection AddPlatformServices(
+        this IServiceCollection services,
+        string? dataRoot = null)
     {
         ArgumentNullException.ThrowIfNull(services);
 
+        if (dataRoot is { Length: > 0 })
+        {
+            // Registered first so it wins: the platform's own paths are still added below for the
+            // answers that are genuinely platform-shaped, and this is what everything resolves.
+            services.AddSingleton<PlatformPathsBase>(new RelocatedPlatformPaths(dataRoot));
+        }
+
+        // An operating system vault is not addressed by a path, so a relocated root does not move
+        // it. Leaving it registered would mean a run that claims to be self-contained still reads
+        // the machine's real saved passwords — which is exactly what the switch exists to avoid,
+        // whether it is being used for a screenshot or for a destructive test.
+        var isolated = dataRoot is { Length: > 0 };
+
         if (OperatingSystem.IsWindows())
         {
-            services.AddSingleton<PlatformPathsBase, WindowsPlatformPaths>();
+            services.TryAddSingleton<PlatformPathsBase, WindowsPlatformPaths>();
             services.AddSingleton<IPlatformInfo, WindowsPlatformInfo>();
             services.AddSingleton<IShellLauncher, WindowsShellLauncher>();
             services.AddSingleton<IGitInstallHints, WindowsGitInstallHints>();
@@ -33,30 +54,46 @@ internal static class PlatformModule
             services.AddSingleton<IFilePermissionService, WindowsFilePermissionService>();
             services.AddSingleton<IAgentEndpointProvider, WindowsAgentEndpointProvider>();
             services.AddSingleton<ISshAgentTransportFactory, WindowsAgentTransportFactory>();
-            services.AddSingleton<ICredentialVault, WindowsCredentialManagerVault>();
-            services.AddSingleton<ICredentialVault, GcmDpapiStoreVault>();
+            if (!isolated)
+            {
+                services.AddSingleton<ICredentialVault, WindowsCredentialManagerVault>();
+            }
+
+            if (!isolated)
+            {
+                services.AddSingleton<ICredentialVault, GcmDpapiStoreVault>();
+            }
+
         }
         else if (OperatingSystem.IsMacOS())
         {
-            services.AddSingleton<PlatformPathsBase, MacPlatformPaths>();
+            services.TryAddSingleton<PlatformPathsBase, MacPlatformPaths>();
             services.AddSingleton<IPlatformInfo, MacPlatformInfo>();
             services.AddSingleton<IShellLauncher, MacShellLauncher>();
             services.AddSingleton<IGitInstallHints, MacGitInstallHints>();
             services.AddSingleton<ISshToolHints, MacSshToolHints>();
             services.AddSingleton<IFilePermissionService, MacFilePermissionService>();
             services.AddSingleton<IAgentEndpointProvider, MacAgentEndpointProvider>();
-            services.AddSingleton<ICredentialVault, MacKeychainVault>();
+            if (!isolated)
+            {
+                services.AddSingleton<ICredentialVault, MacKeychainVault>();
+            }
+
         }
         else if (OperatingSystem.IsLinux())
         {
-            services.AddSingleton<PlatformPathsBase, LinuxPlatformPaths>();
+            services.TryAddSingleton<PlatformPathsBase, LinuxPlatformPaths>();
             services.AddSingleton<IPlatformInfo, LinuxPlatformInfo>();
             services.AddSingleton<IShellLauncher, LinuxShellLauncher>();
             services.AddSingleton<IGitInstallHints, LinuxGitInstallHints>();
             services.AddSingleton<ISshToolHints, LinuxSshToolHints>();
             services.AddSingleton<IFilePermissionService, LinuxFilePermissionService>();
             services.AddSingleton<IAgentEndpointProvider, LinuxAgentEndpointProvider>();
-            services.AddSingleton<ICredentialVault, SecretServiceVault>();
+            if (!isolated)
+            {
+                services.AddSingleton<ICredentialVault, SecretServiceVault>();
+            }
+
         }
         else
         {

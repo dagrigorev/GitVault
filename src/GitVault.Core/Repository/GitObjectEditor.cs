@@ -109,16 +109,39 @@ public sealed record RepositoryPlan(string OperationId, string RepositoryPath)
     /// <summary>True when the plan can be applied.</summary>
     public bool CanApply => Blockers.Count == 0 && Changes.Count > 0;
 
-    /// <summary>Renders the plan as the preview the user has to approve.</summary>
+    /// <summary>
+    /// Renders the plan as the preview the user has to approve.
+    /// </summary>
+    /// <remarks>
+    /// The command shown is the one that will run, assembled from the very arguments the applier
+    /// passes to git. An earlier version borrowed the configuration renderer, so deleting a branch
+    /// announced itself as <c>git config --unset</c> — a preview that names a different command
+    /// from the one it is about to run is worse than no preview, because it is believed.
+    /// </remarks>
     /// <returns>The preview text.</returns>
-    public string ToDiff() => PlanDiff.Render(
-        [.. Changes.Select(c => new PlannedChange(
-            c.Kind.ToString(),
-            c.After is null ? ChangeKind.GitConfigUnset : ChangeKind.GitConfigSet,
-            c.Target,
-            c.Before,
-            c.After))],
-        Blockers);
+    public string ToDiff()
+    {
+        var builder = new System.Text.StringBuilder();
+
+        foreach (var change in Changes)
+        {
+            builder.Append("git ").Append(string.Join(' ', change.Arguments)).Append('\n');
+
+            if (change.Before is { Length: > 0 } before)
+            {
+                builder.Append("  - ").Append(before).Append('\n');
+            }
+
+            if (change.After is { Length: > 0 } after)
+            {
+                builder.Append("  + ").Append(after).Append('\n');
+            }
+        }
+
+        builder.Append(PlanDiff.RenderBlockers(Blockers));
+
+        return builder.ToString();
+    }
 }
 
 /// <summary>Outcome of applying a <see cref="RepositoryPlan"/>.</summary>

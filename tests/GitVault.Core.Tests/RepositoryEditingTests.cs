@@ -369,6 +369,36 @@ public sealed class RepositoryEditingTests(ITestOutputHelper output)
             "a half-finished merge is not a state to start deleting branches in");
     }
 
+    [Fact]
+    public async Task The_preview_names_the_command_that_will_actually_run()
+    {
+        using var environment = TempGitEnvironment.TryCreate();
+        if (environment is null)
+        {
+            output.WriteLine("git is not on PATH; skipping.");
+            return;
+        }
+
+        // A preview that names a different command from the one it is about to run is worse than
+        // no preview, because it is believed. This borrowed the configuration renderer once, and
+        // deleting a branch announced itself as "git config --unset".
+        var repository = environment.CreateRepository("preview");
+        environment.Git(repository, "branch", "work");
+
+        var editor = await BuildEditorAsync(environment);
+        var plan = await editor.PlanDeleteBranchAsync(repository, "work", CancellationToken.None);
+
+        var diff = plan.ToDiff();
+
+        diff.Should().Contain("git branch", "the preview shows the command the applier will run");
+        diff.Should().Contain("work");
+        diff.Should().NotContain("git config", "which is a different command entirely");
+
+        // And the arguments in the plan are the ones rendered, rather than a second description
+        // of them that could drift.
+        diff.Should().Contain(string.Join(' ', plan.Changes[0].Arguments));
+    }
+
     private static async Task<GitCommandRunner> BuildRunnerAsync(TempGitEnvironment environment)
     {
         var config = await environment.BuildConfigServiceAsync();

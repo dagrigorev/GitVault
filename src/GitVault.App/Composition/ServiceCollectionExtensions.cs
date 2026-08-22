@@ -25,11 +25,11 @@ internal static class ServiceCollectionExtensions
     /// <summary>Registers core services, localization and the view models.</summary>
     /// <param name="services">Service collection to add to.</param>
     /// <returns>The same collection, for chaining.</returns>
-    internal static IServiceCollection AddGitVault(this IServiceCollection services)
+    internal static IServiceCollection AddGitVault(this IServiceCollection services, string? dataRoot = null)
     {
         ArgumentNullException.ThrowIfNull(services);
 
-        services.AddPlatformServices();
+        services.AddPlatformServices(dataRoot);
 
         services.AddSingleton<ISecretRedactor, SecretRedactor>();
         services.AddSingleton<ISettingsService, SettingsService>();
@@ -56,7 +56,13 @@ internal static class ServiceCollectionExtensions
         services.AddSingleton<IProbe, SshKeyProbe>();
         services.AddSingleton<IProbe, SshAgentProbe>();
         services.AddSingleton<IProbe, CredentialProbe>();
-        services.AddClientProbes();
+        if (dataRoot is not { Length: > 0 })
+        {
+            // A third-party client is discovered through the machine's own registry and profile
+            // directories, and some of them record the user's key paths there. A relocated run is
+            // meant to read nothing outside its root, so it does not look for them at all.
+            services.AddClientProbes();
+        }
 
         services.AddSingleton<IProfileStore, ProfileStore>();
         services.AddSingleton<ISnapshotService, SnapshotService>();
