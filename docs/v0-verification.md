@@ -82,24 +82,37 @@ Fixed with a minimum width per column, so the grid overflows into its own horizo
 rather than crushing its contents. Applied to the identities, keys, repositories and snapshots
 grids too, which have the same shape and would fail the same way in a narrower window.
 
-### V0-4 — The system-scope target has the same class of mismatch · Low · open
+### V0-4 — The system-scope target has the same class of mismatch · Low · fixed in V7
 
 `SystemGitConfigCandidates` is a list of likely paths; `git config --system` writes wherever git
 was built to look. On an unusual installation these can differ, and the plan would then name the
 wrong file.
 
-Left open deliberately. Severity is low — a system write almost always fails on permissions before
-it can do anything, and GitVault refuses to elevate — and the honest fix is to ask git for the
-origin rather than guess, which belongs with the configuration editor in V1. Recorded here so it
-is not rediscovered as a surprise.
+**Fixed.** The service now asks git for the origin of its system configuration during
+initialisation, and the candidate list is only a fallback. `SystemConfigTargetTests` redirects the
+system scope with `GIT_CONFIG_SYSTEM` to a path no candidate list would ever name and asserts the
+answer still comes back as that path — which it can only do by having been obtained rather than
+assumed.
 
-### V0-5 — Language switching not confirmed by hand · Low · open
+Git reports an origin per entry, so an empty system configuration tells it nothing to pass on. In
+that case the candidate list is used, and where there is no candidate either the path cannot be
+named at all — at which point the configuration editor blocks the plan, because a write GitVault
+cannot snapshot is a write it cannot undo. That path is asserted too.
+
+---
+
+### V0-5 — Language switching not confirmed by hand · Low · closed in V7
 
 Synthetic clicks on the language combo box did not register during the live pass, so the switch
-was not exercised through the real control. The view-model path is covered by automated tests that
-assert against rendered controls in three cultures, including a search box watermark, so the
-binding chain is verified — but the pointer path through that particular control is not. Worth one
-minute of a human's attention rather than more automation.
+was not exercised through the real control.
+
+**Closed, with one honest reservation.** `LanguageSwitchTests` renders a real window, finds the
+combo box by the list it is showing, focuses it, sends it a key, and changes *the control's own*
+selection — then asserts the language service followed and that text already on screen re-read
+itself. What is still not exercised is a pointer landing on an item in the dropped-down list, which
+the headless surface does not open; the test says so rather than implying otherwise. The half that
+was actually at risk — control to view model to language service to rendered caption — now runs on
+every build, which is worth more than the minute of attention this item originally asked for.
 
 ---
 

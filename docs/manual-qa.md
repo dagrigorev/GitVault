@@ -1,6 +1,6 @@
 # GitVault manual QA
 
-Manual test plan for a release candidate. The automated suite (480 tests, 79 % line coverage in
+Manual test plan for a release candidate. The automated suite (740 tests, 81 % line coverage in
 `GitVault.Core`) already covers parsing, planning and round-tripping. This plan covers what it
 cannot: real machines, real key stores, real fonts, real permissions, and whether the thing is
 usable.
@@ -785,24 +785,342 @@ Get-CimInstance Win32_Process | Where-Object { $_.CommandLine -match 'credential
 
 ---
 
-## 22. Known gaps
+## 22. Repository configuration and project settings
+
+**Every case here writes to disk. Fixtures only.** Before starting, in the fixture repository run
+`git config --local --list > /tmp/qa-local-before.txt` and keep it.
+
+#### RC-01 — The scope shown is the scope written (P1)
+Open a repository, go to **Configuration**. Set `user.email` at **Local** scope to
+`qa-local@example.invalid`.
+
+**Expect:** the preview's `-` line shows what the *local* file holds, not the effective value
+inherited from global. If your global `user.email` appears as the "before" value, that is a P1
+defect — it once caused a deactivation to write a global identity into a repository.
+
+#### RC-02 — The preview is not the apply (P1)
+Close the preview with the window's X rather than confirming.
+
+**Expect:** `git config --local --list` is byte-identical to the capture.
+
+#### RC-03 — Rollback puts the file back (P1)
+Confirm a change, then go to **Snapshots & rollback**, select the newest entry, roll it back.
+
+**Expect:** `git config --local --list` matches the capture again.
+
+#### RC-04 — Project settings live beside the repository (P2)
+On **Project settings**, set a note and a key path. Confirm.
+
+**Expect:** `git config --local --get-regexp '^gitvault\.'` lists them. Move the whole repository
+directory elsewhere and reopen it: the settings are still there.
+
+#### RC-05 — Clearing a field removes the key (P2)
+Clear the note and confirm.
+
+**Expect:** `gitvault.note` is gone from the output rather than present and empty. With every field
+cleared, `git config --local --get-regexp '^gitvault\.'` prints nothing.
+
+---
+
+## 23. Remotes, branches and tags
+
+#### RB-01 — A ref backup is taken before a deletion (P1)
+Create a throwaway branch with a commit on it that exists nowhere else. Delete it through
+**Branches**.
+
+**Expect:** the preview warns that the branch has commits on no other branch. After applying,
+`git for-each-ref refs/gitvault/backup` lists an entry, and `git log <that ref>` still shows the
+commit.
+
+#### RB-02 — Garbage collection does not eat the backup (P1)
+After RB-01, run `git gc --prune=now` in the repository.
+
+**Expect:** the commit is still reachable through the backup ref. This is the whole reason backups
+are refs rather than file copies.
+
+#### RB-03 — The checked-out branch cannot be deleted (P2)
+Try to delete the branch you are on.
+
+**Expect:** blocked with a reason, and the confirming button never becomes available.
+
+#### RB-04 — A signed tag says what cannot be restored (P2)
+If a fixture has a signed tag, delete it.
+
+**Expect:** a warning that the signature cannot be recreated. Confirm, then restore the backup:
+the tag points where it did, and is unsigned.
+
+---
+
+## 24. Commit history and editing
+
+**These cases rewrite history. Fixture repository only. Never run them against work you have.**
+
+#### CE-01 — The history page reads without touching anything (P1)
+Open **Commits**. Change the filters, select several commits.
+
+**Expect:** `git rev-parse HEAD` is unchanged throughout, and `git status --porcelain` stays empty.
+
+#### CE-02 — An edit is collected, not applied (P1)
+Select a commit two or three back, **Edit…**, change the message, confirm the dialog.
+
+**Expect:** the row is marked as edited and a count appears. `git log -1 --format=%s <that commit>`
+is unchanged: nothing has been written.
+
+#### CE-03 — Confirming requires typing the branch name (P1)
+Click **Apply…**. In the review, try the confirming button without typing anything, then type the
+branch name incorrectly, then correctly.
+
+**Expect:** the button is unavailable until the branch name matches exactly. This is the strictest
+gate in the application; if it can be passed any other way, that is a P1 defect.
+
+#### CE-04 — The preview says how far the change reaches (P1)
+Read the review dialog for CE-03.
+
+**Expect:** it names both counts — commits edited, and commits that get a new identifier only
+because they come after one that changed. The second number should be greater than zero when you
+edited a commit that is not the tip.
+
+#### CE-05 — The rewrite is one ref away from being undone (P1)
+Apply the rewrite. Note the new `git rev-parse HEAD`. Go to **Snapshots & rollback** and restore
+the backup the operation recorded.
+
+**Expect:** `git rev-parse HEAD` is the value it had before, and `git log -1 --format=%s` shows the
+original message.
+
+#### CE-06 — A dirty working tree blocks a rewrite (P1)
+Make an uncommitted change. Try to apply an edit.
+
+**Expect:** blocked with a reason, not attempted.
+
+#### CE-07 — A date without an offset is refused (P2)
+In the commit editor, set the author date to `2024-03-01 09:15:00` with no offset.
+
+**Expect:** the confirming button is unavailable. Add `+03:00` and it becomes available. Apply and
+check `git log -1 --format=%ai`: the offset you typed is what was written, not this machine's.
+
+#### CE-08 — Editing file content carries forward (P1)
+Select a commit that introduced a file no later commit touched. **Edit file…**, change a line,
+confirm, apply.
+
+**Expect:** the preview reports commits whose content changes. Afterwards
+`git show HEAD:<that file>` shows your change, and `git show <the edited commit>:<file>` does too.
+
+#### CE-09 — A conflict is a question, not a failure (P1)
+Edit the same lines of a file that a later commit also changed. Apply.
+
+**Expect:** a dialog appears with git's merged text and conflict markers, *before* any preview.
+Close it: `git status --porcelain` is empty and `git rev-parse HEAD` is unchanged — the repository
+was never put into a conflicted state.
+
+#### CE-10 — A marker cannot be committed (P1)
+Reach the conflict dialog again and try to confirm with the markers still in the text.
+
+**Expect:** the confirming button is unavailable until every `<<<<<<<` and `>>>>>>>` is gone.
+
+#### CE-11 — A binary file is refused (P2)
+Select a commit holding a binary file and try **Edit file…** on it.
+
+**Expect:** a message saying it cannot be edited here, and no editor opens.
+
+---
+
+## 25. History tools — purge, move, re-attribute
+
+**These rewrite the whole branch. Fixture repository only.**
+
+#### HT-01 — The purge warning is unmissable (P1)
+Open **History tools** and read the removal section before typing anything.
+
+**Expect:** a prominent warning saying that removing a file does not undo the fact that it was
+committed, and that a key, token or password has to be revoked. If this is absent or below the
+fold, that is a P1 defect: the feature's whole risk lives in that sentence.
+
+#### HT-02 — A purged file is gone from the branch (P1)
+Purge a fixture file that several commits held.
+
+**Expect:** `git log --name-only --format= HEAD` no longer mentions it, and every other file is
+unchanged.
+
+#### HT-03 — And still reachable through the backup (P1)
+After HT-02, run `git log --all --name-only --format= | grep <the file>`.
+
+**Expect:** it is still there, via the backup ref. This is the honest half of the warning: verify
+the interface said so before you did it.
+
+#### HT-04 — Commits that only touched it survive (P2)
+If a fixture commit changed only the purged file, count commits before and after with
+`git rev-list --count HEAD`.
+
+**Expect:** the same count. GitVault keeps them rather than dropping them, and warns that it will.
+
+#### HT-05 — A move keeps the blob (P2)
+Move a file to a new path across history. Compare `git rev-parse HEAD:<new path>` with the object
+name you noted from `git rev-parse HEAD:<old path>` beforehand.
+
+**Expect:** identical. A move moves the entry rather than rewriting content.
+
+#### HT-06 — A move onto an occupied path is refused (P2)
+Try to move a file onto a path another file already occupies.
+
+**Expect:** blocked, with a reason naming the collision.
+
+#### HT-07 — Someone else's authorship is left alone (P1)
+In a fixture with commits by two identities, replace one address.
+
+**Expect:** the count of edited commits matches only the commits carrying that address, and
+`git log --format='%an %ae'` shows the other person untouched.
+
+---
+
+## 26. Ignore, attributes, mailmap
+
+#### RF-01 — The page says who a change reaches (P2)
+Open **Ignore & attributes** and select each of the four files in turn.
+
+**Expect:** `.gitignore`, `.gitattributes` and `.mailmap` say the change reaches everyone once
+committed; `.git/info/exclude` says it never leaves this clone.
+
+#### RF-02 — The preview is a difference, not the whole file (P2)
+Open a `.gitignore` with twenty or more lines, change one line, save.
+
+**Expect:** the preview shows the changed line with a little context and a marker for the rest —
+not the entire file twice over.
+
+#### RF-03 — Line endings survive (P2)
+On a fixture file written with CRLF, make an edit and save. Check with
+`file` or `git diff --stat`.
+
+**Expect:** the file still uses CRLF and the diff shows one changed line, not every line.
+
+#### RF-04 — Writing is not committing (P2)
+After RF-02, run `git status --porcelain`.
+
+**Expect:** the file shows as modified. GitVault wrote it and stopped there, and said so.
+
+---
+
+## 27. Hooks
+
+**A hook is a program git runs. Fixture repository only, and read anything you paste.**
+
+#### HK-01 — The warning is unconditional (P1)
+Open **Hooks**.
+
+**Expect:** a prominent warning saying a hook is a program git runs by itself with your
+privileges, present every time the page is opened rather than dismissible.
+
+#### HK-02 — The directory shown is the one git uses (P1)
+Set `git config core.hooksPath tools/hooks` in the fixture and reopen the page.
+
+**Expect:** the directory shown is `tools/hooks`, with a note that it has been redirected. Write a
+hook and confirm it lands there and *not* in `.git/hooks`.
+
+#### HK-03 — An enabled hook is the one git runs (P1)
+Write a `pre-commit` containing `#!/bin/sh` and `exit 1`, enabled. Then try to commit anything.
+
+**Expect:** git refuses the commit. This is the only end-to-end proof the feature works.
+
+#### HK-04 — Disabling leaves nothing runnable (P1)
+Uncheck "let git run this hook" and save. Then try to commit again.
+
+**Expect:** the commit succeeds, `.git/hooks/pre-commit` is gone, and `pre-commit.sample` is
+present. A live copy left behind is a P1 defect.
+
+#### HK-05 — Nothing runs a hook to check it (P1)
+Write a hook whose body is `touch /tmp/gitvault-should-not-exist`. Save it. Do not commit.
+
+**Expect:** the file does not exist. GitVault never runs a hook, not even to validate it.
+
+#### HK-06 — A skipped hook is named (P2)
+On POSIX, `chmod -x .git/hooks/pre-commit` and refresh.
+
+**Expect:** the state says the hook is enabled but not executable, and a note explains git will
+skip it silently.
+
+---
+
+## 28. Working trees, stashes, submodules
+
+#### WT-01 — A dirty working tree is not removed (P1)
+Add a working tree, make an uncommitted change inside it, remove it through the page.
+
+**Expect:** the operation fails with git's own message and the directory still exists with your
+change in it. `--force` must never be passed.
+
+#### WT-02 — Removing a checkout is not deleting the work (P2)
+Remove a clean working tree.
+
+**Expect:** the directory is gone and `git branch --list <its branch>` still lists the branch. The
+preview warned that only the checkout goes.
+
+#### WT-03 — A locked working tree is refused (P2)
+Lock a working tree with a reason, then try to remove it.
+
+**Expect:** blocked, and the reason you typed is shown back on the page.
+
+#### ST-01 — There is no "pop" (P2)
+Look at the stashes page.
+
+**Expect:** separate "put back" and "discard" buttons, and a note explaining why the combined
+operation is not offered.
+
+#### ST-02 — Putting back keeps the entry (P1)
+Set changes aside, then put them back.
+
+**Expect:** the changes are in the working tree *and* the entry is still listed.
+
+#### ST-03 — Putting back into dirty work is refused (P1)
+With an entry in the list, make an unrelated uncommitted change, then try to put the entry back.
+
+**Expect:** blocked with a reason. Merging into work in progress can leave markers in a file you
+are editing.
+
+#### ST-04 — A discarded entry is recoverable (P1)
+Note `git rev-parse stash@{0}`, then discard it.
+
+**Expect:** the list no longer shows it, and `git cat-file -t <that object>` still says `commit`.
+`git show <object>:<file>` shows the work.
+
+#### SM-01 — The page refuses the network out loud (P1)
+Open **Submodules** on a fixture with a `.gitmodules`.
+
+**Expect:** a statement, before the buttons, that GitVault will not fetch or check anything out and
+that `git submodule update` is yours to run. No button offers to do it.
+
+#### SM-02 — An address correction needs a second step (P2)
+Change a submodule's address and confirm.
+
+**Expect:** `.gitmodules` holds the new address, a warning said the local configuration has not
+been told, and `git config --get submodule.<name>.url` still holds the old one until you use
+**Apply to this clone**.
+
+---
+
+## 29. Known gaps
 
 Confirm these still behave as described; do not file them as new defects.
 
+Three gaps listed here in earlier revisions are closed: scan roots and key folders now have
+editors under Options, profiles have a real editor, and the scope selector follows the profile's
+stored scope. A tester meeting any of those again is meeting a regression, not a known gap.
+
 | Gap | Behaviour |
 |---|---|
-| No UI for scan roots / custom key folders | must be edited in `settings.json`; the Repositories empty state points at Settings anyway |
-| No profile editor | profiles must be hand-authored in `profiles.json` |
-| Scope dropdown ignores the profile's stored scope | defaults to Global; see PR-02 |
 | Passphrase prompt is not `char[]`-backed | documented in `docs/security.md` |
 | A revealed secret is briefly a `string` | same |
 | Windows ACLs are not read | the permissions field is blank on Windows |
 | No `bcrypt_pbkdf` | passphrase-protected operations are delegated to `ssh-keygen` |
 | Encrypted PPK v2 MAC unverified | v3 is verified |
+| Content edits cannot follow a rename | editing a file a later commit renames is refused, not tracked through the rename |
+| Non-UTF-8 files cannot be edited | refused rather than re-encoded |
+| A purge does not prune the object database | the content stays reachable through the backup ref; see HT-03 |
+| Submodules cannot be initialised or updated | both need the network, which this program does not use; see SM-01 |
+| Restoring a dropped stash restores the commit, not the list entry | the work is recoverable, the position in the list is not; see ST-04 |
+| A hook's content is never checked | GitVault writes whatever it is given; see HK-05 |
 
 ---
 
-## 23. Teardown checklist
+## 30. Teardown checklist
 
 Run this after every session, and verify each line rather than assuming.
 
@@ -819,7 +1137,7 @@ Run this after every session, and verify each line rather than assuming.
 
 ---
 
-## 24. Results template
+## 31. Results template
 
 | Case | Env | Result | Build | Notes |
 |---|---|---|---|---|

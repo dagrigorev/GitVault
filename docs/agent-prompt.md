@@ -10,8 +10,16 @@ identities, SSH keys, SSH agents, credential-store entries, and the per-client c
 third-party Git GUIs — and activates or deactivates an identity globally, system-wide, or per
 repository.
 
+It also edits the repositories themselves: configuration and a `[gitvault]` section of its own,
+remotes, branches and tags, commit metadata and file content through a history rewrite, path-wide
+operations (purge a file from all of history, move one, replace an identity everywhere), the
+plain-text control files (`.gitignore`, `.gitattributes`, `.mailmap`, `.git/info/exclude`), hook
+scripts, working trees, stashes and what the parent records about submodules.
+
 **Stack.** .NET 8 (`net8.0` everywhere, including the Windows platform project so the solution
-builds on Linux/macOS), Avalonia 11.2.3, FluentAvaloniaUI, CommunityToolkit.Mvvm source generators,
+builds on Linux/macOS), Avalonia 11.2.3 with its own FluentTheme (FluentAvaloniaUI was removed: its
+Symbols font cannot load headless, which broke the UI tests), CommunityToolkit.Mvvm source
+generators,
 Microsoft.Extensions.DependencyInjection, Serilog, BouncyCastle, System.Text.Json source-generated
 contexts. Tests: xUnit + FluentAssertions 6.12.2 + NSubstitute + Avalonia.Headless.
 
@@ -48,7 +56,20 @@ implementations over clever ones.
    GPL linkage. (This is why FluentAssertions is pinned to 6.12.2, and why the icon set is the
    public-domain Tango library.)
 10. No user-visible string in XAML or C#. Add a key to `build/loc/strings.json` and regenerate;
-    `NoHardCodedStringsTests` enforces it.
+    `NoHardCodedStringsTests` enforces it, and `UnusedLocalizationKeysTests` fails on a string
+    nothing can reach — a stale wording is worse than a missing one, because the next person wires
+    it up by mistake.
+11. **Ask git; never deduce what git decided.** The first real defect in this codebase was a
+    snapshot and a write addressing different files because the global config path was guessed
+    rather than resolved. The same rule now covers the system config path, the hooks directory
+    (`core.hooksPath`), and every ref a plan touches. If the answer is knowable by asking git, ask.
+12. **Never pass `--force`.** Git refuses to remove a working tree holding uncommitted work, to
+    deinitialise a submodule with changes inside it, to delete a branch that would orphan commits.
+    Those refusals are the safety net; they reach the user as a failed step with git's own message.
+13. **Never leave the repository in a state nobody chose.** No operation stops half-way holding a
+    conflicted working tree. Where a merge is needed it is *computed* rather than performed — a
+    content edit merges three ways through `git merge-file` on temporary files outside the
+    repository, so conflicts are found while planning and a closed preview leaves no trace.
 
 **Conventions.** `TreatWarningsAsErrors=true` and `CA1416` is an error — builds must stay at zero
 warnings. Public members carry XML docs. No `NotImplementedException`, no `// TODO` placeholders.
@@ -70,13 +91,24 @@ dotnet run --project src/GitVault.App/GitVault.App.csproj
 pwsh build/check-coverage.ps1          # gate: 75% line coverage in GitVault.Core
 ```
 
-**State.** Milestones M1–M8 complete. 480 tests pass; `GitVault.Core` at 79 % line coverage.
+**Writes.** Every one of them takes the same route, and adding a new one means joining it rather
+than inventing a shorter one: build a plan (which writes nothing), render it as a preview the user
+reads, preserve what it will change, then apply. Ordinary files are preserved with a snapshot;
+anything ref-shaped is preserved as a ref under `refs/gitvault/backup/`, because that keeps
+orphaned commits reachable across `git gc --prune=now` and a file copy does not. A blocker is
+something the user *cannot* do; a warning is something they may not *want* to — folding the second
+into the first makes the program refuse work that is legitimately theirs. Rewriting history is the
+one operation whose confirmation is typing the branch name.
+
+**State.** Milestones M1–M8 and V0–V7 complete. 740 tests pass; `GitVault.Core` at 81 % line
+coverage.
 `docs/security.md` states plainly which of the ten security requirements are met and which are not.
 `docs/manual-qa.md` is the pre-release manual plan; `build/qa-fixtures.ps1` builds throwaway keys,
 repos and a sample profile for it. Known gaps are listed in both documents — read them before
 assuming something is missing by accident.
 
-**Interface.** A classic Windows desktop utility: menu bar, toolbar, navigation tree, dense grids,
+**Interface.** A classic Windows desktop utility: menu bar, toolbar, navigation tree with a
+subtree of pages under each repository, dense grids,
 a shared properties pane, group boxes, modal dialogs and a status bar. Styles live in
 `src/GitVault.App/Styles/` and override Avalonia's Fluent templates rather than replacing them.
 Two rules the UI enforces rather than documents: a profile opens with the scope it was saved with,

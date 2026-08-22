@@ -8,14 +8,41 @@
     enforce a minimum, so the gate lives here. Only the projects named below are gated: a
     threshold on UI or platform code would be a number chased for its own sake, whereas
     GitVault.Core is where the parsing and the file mutation live.
+
+    The script collects the coverage itself rather than reading whatever happens to be lying in
+    the results directory. It did the latter once, and the consequence was worse than no gate:
+    every run reported the same figure from a report weeks old, so the number looked stable while
+    it was simply not being measured. A gate that cannot fail is not a gate.
+
+    Pass -SkipTests to measure an existing report deliberately — for a second opinion on a run you
+    just did, not as the normal path.
 #>
 [CmdletBinding()]
 param(
     [string] $ResultsDirectory = (Join-Path $PSScriptRoot '../artifacts/coverage'),
-    [hashtable] $Thresholds = @{ 'GitVault.Core' = 75.0 }
+    [hashtable] $Thresholds = @{ 'GitVault.Core' = 75.0 },
+    [switch] $SkipTests
 )
 
 $ErrorActionPreference = 'Stop'
+
+if (-not $SkipTests) {
+    # Cleared first: the measurement below takes the best figure seen for each package across every
+    # report present, so one stale report is enough to hide a real fall.
+    if (Test-Path -LiteralPath $ResultsDirectory) {
+        Remove-Item -LiteralPath $ResultsDirectory -Recurse -Force
+    }
+
+    $solution = Join-Path $PSScriptRoot '../GitVault.sln'
+
+    Write-Host 'Running the tests with coverage collection...'
+    & dotnet test $solution --configuration Release --nologo --verbosity quiet `
+        --collect:"XPlat Code Coverage" --results-directory $ResultsDirectory
+
+    if ($LASTEXITCODE -ne 0) {
+        throw "The test run failed ($LASTEXITCODE); coverage was not measured."
+    }
+}
 
 $reports = Get-ChildItem -Path $ResultsDirectory -Recurse -Filter 'coverage.cobertura.xml' -ErrorAction SilentlyContinue
 if (-not $reports) {

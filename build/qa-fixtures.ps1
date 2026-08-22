@@ -15,6 +15,9 @@
 
     What it creates under -Workspace:
       repos/alpha, repos/beta   two git repositories, safe to activate profiles against
+      repos/gamma               history, a committed "secret", two identities, a submodule
+                                record, a CRLF ignore file, an unmerged branch and a tag —
+                                everything the editing and rewriting cases need
       keys/                     throwaway SSH keys in several formats, one deliberately unhealthy
       credentials/              a fake git-credentials file, NOT the real one
       README.txt                what everything is, and how to remove it
@@ -93,6 +96,71 @@ foreach ($name in 'alpha', 'beta') {
 # beta carries a local identity, so "which identity is active here" has something to resolve.
 & $git -C (Join-Path $repos 'beta') config --local user.name 'QA Beta'
 & $git -C (Join-Path $repos 'beta') config --local user.email 'qa-beta@example.invalid'
+
+# --------------------------------------------------------------------------- history fixture
+# gamma is the repository the editing cases work on. Everything they need is committed here so a
+# tester never has to build history by hand — and never has to reach for a repository of their own,
+# which is the one thing the destructive cases must not touch.
+$gamma = Join-Path $repos 'gamma'
+New-Item -ItemType Directory -Force -Path $gamma | Out-Null
+
+& $git -C $gamma init --quiet
+& $git -C $gamma config --local user.name 'QA Author'
+& $git -C $gamma config --local user.email 'qa-author@example.invalid'
+& $git -C $gamma config --local core.autocrlf false
+
+function New-GammaCommit {
+    param([string] $Path, [string] $Content, [string] $Subject)
+
+    $full = Join-Path $gamma $Path
+    New-Item -ItemType Directory -Force -Path (Split-Path -Parent $full) | Out-Null
+    [System.IO.File]::WriteAllText($full, $Content)
+
+    & $git -C $gamma add -- $Path
+    & $git -C $gamma commit --quiet -m $Subject
+}
+
+# A file no later commit touches: content edits carry into every following commit with no merge.
+New-GammaCommit 'notes.txt' "alpha`nbeta`ngamma`n" 'Add notes'
+
+# A file several commits change: this is where a content edit meets a real conflict.
+New-GammaCommit 'shared.txt' "one`ntwo`nthree`nfour`nfive`n" 'Add a shared file'
+New-GammaCommit 'shared.txt' "one`ntwo`nTHREE`nfour`nfive`n" 'Change the middle of the shared file'
+New-GammaCommit 'shared.txt' "one`ntwo`nTHREE`nfour`nFIVE`n" 'Change the end of the shared file'
+
+# Committed by accident, and the whole point of the purge exercise. Not a real key: a file that
+# looks like one, so nobody is tempted to treat the fixture as sensitive.
+New-GammaCommit 'config/secret.key' "NOT-A-REAL-KEY-0000000000000000`n" 'Add a key by accident'
+New-GammaCommit 'config/secret.key' "NOT-A-REAL-KEY-1111111111111111`n" 'Rotate the key that should not be here'
+
+# A commit by somebody else, so re-attribution has a case where it must leave a person alone.
+& $git -C $gamma config --local user.name 'QA Colleague'
+& $git -C $gamma config --local user.email 'qa-colleague@example.invalid'
+New-GammaCommit 'colleague.txt' "theirs`n" 'A commit by somebody else'
+
+& $git -C $gamma config --local user.name 'QA Author'
+& $git -C $gamma config --local user.email 'qa-author@example.invalid'
+
+# An ignore file with CRLF, for the case that checks line endings survive an edit.
+[System.IO.File]::WriteAllText((Join-Path $gamma '.gitignore'), "bin/`r`nobj/`r`n*.user`r`n")
+& $git -C $gamma add -- '.gitignore'
+& $git -C $gamma commit --quiet -m 'Add an ignore file with CRLF'
+
+# A submodule the parent records and has never checked out. Written by hand on purpose: adding one
+# with git would clone over the network, which neither GitVault nor its fixtures do.
+[System.IO.File]::WriteAllText(
+    (Join-Path $gamma '.gitmodules'),
+    "[submodule `"vendor-lib`"]`n`tpath = vendor/lib`n`turl = https://git.example.invalid/lib.git`n`tbranch = main`n")
+& $git -C $gamma add -- '.gitmodules'
+& $git -C $gamma commit --quiet -m 'Record a submodule'
+
+# A branch with a commit of its own, so deleting it has something to warn about and back up.
+& $git -C $gamma branch qa-unmerged
+& $git -C $gamma checkout --quiet qa-unmerged
+New-GammaCommit 'only-here.txt' "exists on no other branch`n" 'A commit on no other branch'
+& $git -C $gamma checkout --quiet -
+
+& $git -C $gamma tag qa-tag
 
 # --------------------------------------------------------------------------- credentials
 # A plaintext store in the shape git's `store` helper writes. It is NOT ~/.git-credentials:
@@ -189,7 +257,7 @@ Removing it
 
 Write-Host "created $Workspace"
 Write-Host "  keys        $((Get-ChildItem $keys -File).Count) files"
-Write-Host "  repos       alpha, beta"
+Write-Host "  repos       alpha, beta, gamma (gamma carries the history the editing cases need)"
 Write-Host "  credentials plaintext store (fake)"
 Write-Host ''
 Write-Host 'Read README.txt in that directory before starting: it says how to point GitVault at it.'

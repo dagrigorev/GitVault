@@ -18,6 +18,7 @@ public sealed class GitConfigService : IGitConfigService
     private readonly GitConfigParser _parser;
     private readonly GitConfigWriter _writer;
     private GitBinaryInfo? _binary;
+    private string? _systemConfigPath;
 
     /// <summary>Creates the service.</summary>
     /// <param name="runner">Process runner.</param>
@@ -54,6 +55,59 @@ public sealed class GitConfigService : IGitConfigService
     public async Task InitializeAsync(CancellationToken cancellationToken)
     {
         _binary ??= await _locator.LocateAsync(cancellationToken).ConfigureAwait(false);
+        _systemConfigPath ??= await AskGitForSystemConfigAsync(cancellationToken).ConfigureAwait(false);
+    }
+
+    /// <summary>
+    /// Asks git which file its system scope actually is, rather than guessing from a list.
+    /// </summary>
+    /// <remarks>
+    /// The candidate list is a good guess and a guess is not good enough here: the file GitVault
+    /// copies into a snapshot and the file git writes have to be the same one, or a rollback
+    /// restores something that was never changed. Git knows where its system configuration lives,
+    /// because it was built with the answer, so it is asked.
+    ///
+    /// It can only answer when the file holds something — an origin is reported per entry, and an
+    /// empty or absent system configuration reports nothing. In that case the candidate list is
+    /// used, which is the case where the guess costs least: there is no existing content to
+    /// preserve, and a snapshot of a file that does not exist restores by deleting whatever was
+    /// created.
+    /// </remarks>
+    private async Task<string?> AskGitForSystemConfigAsync(CancellationToken cancellationToken)
+    {
+        if (_binary is null)
+        {
+            return null;
+        }
+
+        var result = await _runner
+            .RunAsync(
+                _binary.Path,
+                ["config", "--system", "--list", "--show-origin", "-z"],
+                GitEnvironment(),
+                null,
+                CommandTimeout,
+                cancellationToken)
+            .ConfigureAwait(false);
+
+        if (!result.IsSuccess)
+        {
+            return null;
+        }
+
+        // Each record is "<origin>\n<key>\n<value>", and a file origin is spelled "file:<path>".
+        foreach (var record in result.StandardOutput.Split('\0', StringSplitOptions.RemoveEmptyEntries))
+        {
+            var newline = record.IndexOf('\n', StringComparison.Ordinal);
+            var origin = newline < 0 ? record : record[..newline];
+
+            if (origin.StartsWith("file:", StringComparison.Ordinal))
+            {
+                return origin["file:".Length..];
+            }
+        }
+
+        return null;
     }
 
     /// <inheritdoc/>
@@ -186,7 +240,9 @@ public sealed class GitConfigService : IGitConfigService
     public string? ResolveConfigFilePath(GitConfigScope scope, string? repositoryPath) => scope switch
     {
         GitConfigScope.Global => _paths.GlobalGitConfigPath,
-        GitConfigScope.System => _paths.SystemGitConfigCandidates.FirstOrDefault(File.Exists)
+        // What git said, when it said anything; otherwise the platform's best guess.
+        GitConfigScope.System => _systemConfigPath
+                                 ?? _paths.SystemGitConfigCandidates.FirstOrDefault(File.Exists)
                                  ?? _paths.SystemGitConfigCandidates.FirstOrDefault(),
         GitConfigScope.Local => repositoryPath is null ? null : Path.Combine(GitDirectoryOf(repositoryPath), "config"),
         GitConfigScope.Worktree => repositoryPath is null

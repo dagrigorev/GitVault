@@ -125,15 +125,6 @@
   <data name="Common_Working" xml:space="preserve">
     <value>Выполняется…</value>
   </data>
-  <data name="Common_NoData" xml:space="preserve">
-    <value>Нет данных</value>
-  </data>
-  <data name="Common_Details" xml:space="preserve">
-    <value>Подробности</value>
-  </data>
-  <data name="Common_WhatDoesThisMean" xml:space="preserve">
-    <value>Что это значит?</value>
-  </data>
   <data name="Common_Yes" xml:space="preserve">
     <value>Да</value>
   </data>
@@ -167,41 +158,14 @@
   <data name="Dashboard_Card_Clients" xml:space="preserve">
     <value>Клиенты</value>
   </data>
-  <data name="Dashboard_ActiveIdentity" xml:space="preserve">
-    <value>Активная глобальная идентичность</value>
-  </data>
   <data name="Dashboard_NoScanYet" xml:space="preserve">
     <value>Сканирование ещё не выполнялось</value>
-  </data>
-  <data name="Dashboard_FixAllSafe" xml:space="preserve">
-    <value>Исправить всё, что безопасно</value>
-  </data>
-  <data name="Dashboard_Warnings" xml:space="preserve">
-    <value>Предупреждения</value>
   </data>
   <data name="Dashboard_ScanDuration" xml:space="preserve">
     <value>Сканирование завершено за {0} мс</value>
   </data>
-  <data name="Dashboard_ProbeMatrix" xml:space="preserve">
-    <value>Состояние проверок</value>
-  </data>
-  <data name="Dashboard_Env_Os" xml:space="preserve">
-    <value>Операционная система</value>
-  </data>
-  <data name="Dashboard_Env_Cpu" xml:space="preserve">
-    <value>Архитектура</value>
-  </data>
-  <data name="Dashboard_Env_AppData" xml:space="preserve">
-    <value>Папка данных GitVault</value>
-  </data>
-  <data name="Dashboard_Env_Git" xml:space="preserve">
-    <value>Исполняемый файл Git</value>
-  </data>
   <data name="Dashboard_Env_GitPathAndVersion" xml:space="preserve">
     <value>{0} (версия {1})</value>
-  </data>
-  <data name="Dashboard_Scanning" xml:space="preserve">
-    <value>Идёт сканирование…</value>
   </data>
   <data name="Identities_Title" xml:space="preserve">
     <value>Идентичности</value>
@@ -217,9 +181,6 @@
   </data>
   <data name="Identities_Column_Hosts" xml:space="preserve">
     <value>Узлы</value>
-  </data>
-  <data name="Identities_Column_Scope" xml:space="preserve">
-    <value>Область</value>
   </data>
   <data name="Identities_Column_Confidence" xml:space="preserve">
     <value>Достоверность</value>
@@ -380,17 +341,11 @@
   <data name="Agents_Title" xml:space="preserve">
     <value>Агенты SSH</value>
   </data>
-  <data name="Agents_Endpoint" xml:space="preserve">
-    <value>Точка подключения</value>
-  </data>
   <data name="Agents_Running" xml:space="preserve">
     <value>Запущен</value>
   </data>
   <data name="Agents_Stopped" xml:space="preserve">
     <value>Не запущен</value>
-  </data>
-  <data name="Agents_Locked" xml:space="preserve">
-    <value>Заблокирован</value>
   </data>
   <data name="Agents_LoadedKeys" xml:space="preserve">
     <value>Загруженные ключи</value>
@@ -413,26 +368,11 @@
   <data name="Agents_Column_Comment" xml:space="preserve">
     <value>Комментарий</value>
   </data>
-  <data name="Agents_RemoveKey" xml:space="preserve">
-    <value>Убрать из агента</value>
-  </data>
   <data name="Agents_RemoveAll" xml:space="preserve">
     <value>Убрать все ключи</value>
   </data>
   <data name="Agents_RemoveAllConfirm" xml:space="preserve">
     <value>Нажмите ещё раз, чтобы убрать все ключи</value>
-  </data>
-  <data name="Agents_Lock" xml:space="preserve">
-    <value>Заблокировать</value>
-  </data>
-  <data name="Agents_Unlock" xml:space="preserve">
-    <value>Разблокировать</value>
-  </data>
-  <data name="Agents_AddKey" xml:space="preserve">
-    <value>Загрузить ключ…</value>
-  </data>
-  <data name="Agents_AddKey_NeedsPassphrase" xml:space="preserve">
-    <value>Этот ключ защищён парольной фразой. Загрузите его командой ssh-add в терминале: GitVault не передаёт вашу парольную фразу другой программе.</value>
   </data>
   <data name="Agents_CopySnippet" xml:space="preserve">
     <value>Копировать фрагмент</value>
@@ -491,9 +431,6 @@
   <data name="Credentials_Empty" xml:space="preserve">
     <value>Учётные данные не найдены</value>
   </data>
-  <data name="Credentials_Column_Target" xml:space="preserve">
-    <value>Цель</value>
-  </data>
   <data name="Credentials_ShowAll" xml:space="preserve">
     <value>Показывать записи, не связанные с Git</value>
   </data>
@@ -514,9 +451,6 @@
   </data>
   <data name="Credentials_PlaintextBadge" xml:space="preserve">
     <value>Хранится в открытом виде</value>
-  </data>
-  <data name="Credentials_TestWithGit" xml:space="preserve">
-    <value>Проверить через git credential fill</value>
   </data>
   <data name="Vault_WindowsCredentialManager" xml:space="preserve">
     <value>Диспетчер учётных данных Windows</value>
@@ -554,9 +488,6 @@
   <data name="Clients_Title" xml:space="preserve">
     <value>Клиенты Git</value>
   </data>
-  <data name="Clients_Version" xml:space="preserve">
-    <value>Версия</value>
-  </data>
   <data name="Clients_InstallPath" xml:space="preserve">
     <value>Путь установки</value>
   </data>
@@ -581,9 +512,6 @@
   <data name="Clients_OpenConfigFolder" xml:space="preserve">
     <value>Открыть папку конфигурации</value>
   </data>
-  <data name="Clients_CredentialsCount" xml:space="preserve">
-    <value>Записей учётных данных</value>
-  </data>
   <data name="Warning_TortoiseGitMissingKey_Title" xml:space="preserve">
     <value>Удалённый репозиторий ссылается на отсутствующий файл ключа</value>
   </data>
@@ -599,12 +527,6 @@
   <data name="Profiles_Title" xml:space="preserve">
     <value>Профили</value>
   </data>
-  <data name="Profiles_Activate_Button" xml:space="preserve">
-    <value>Активировать</value>
-  </data>
-  <data name="Profiles_Deactivate_Button" xml:space="preserve">
-    <value>Деактивировать</value>
-  </data>
   <data name="Profiles_Scope_Global" xml:space="preserve">
     <value>Глобально (текущий пользователь)</value>
   </data>
@@ -614,20 +536,11 @@
   <data name="Profiles_Scope_Repository" xml:space="preserve">
     <value>Этот репозиторий</value>
   </data>
-  <data name="Profiles_DryRun" xml:space="preserve">
-    <value>Пробный запуск — показать изменения, ничего не применяя</value>
-  </data>
   <data name="Profiles_Rollback" xml:space="preserve">
     <value>Откатить</value>
   </data>
-  <data name="Profiles_RecentActivations" xml:space="preserve">
-    <value>Недавние активации</value>
-  </data>
   <data name="Profiles_Empty" xml:space="preserve">
     <value>Профилей пока нет</value>
-  </data>
-  <data name="Profiles_Preview" xml:space="preserve">
-    <value>Показать изменения</value>
   </data>
   <data name="Profiles_PlannedChanges" xml:space="preserve">
     <value>Планируемые изменения</value>
@@ -638,15 +551,6 @@
   <data name="Profiles_ApplyDryRunFirst" xml:space="preserve">
     <value>Просмотрите изменения перед применением.</value>
   </data>
-  <data name="Profiles_Applied" xml:space="preserve">
-    <value>Применено. Перед этим создан снимок, поэтому изменения можно откатить.</value>
-  </data>
-  <data name="Profiles_Blocked" xml:space="preserve">
-    <value>Пока это применить нельзя</value>
-  </data>
-  <data name="Profiles_BlockedWithReasons" xml:space="preserve">
-    <value>Пока это применить нельзя: {0}</value>
-  </data>
   <data name="Profiles_Column_Name" xml:space="preserve">
     <value>Профиль</value>
   </data>
@@ -655,9 +559,6 @@
   </data>
   <data name="Profiles_Column_Helper" xml:space="preserve">
     <value>Помощник учётных данных</value>
-  </data>
-  <data name="Profiles_IsActive" xml:space="preserve">
-    <value>Активен здесь</value>
   </data>
   <data name="Repositories_Scan" xml:space="preserve">
     <value>Найти репозитории</value>
@@ -676,9 +577,6 @@
   </data>
   <data name="Repositories_Title" xml:space="preserve">
     <value>Репозитории</value>
-  </data>
-  <data name="Repositories_AddRoot" xml:space="preserve">
-    <value>Добавить папку…</value>
   </data>
   <data name="Repositories_Column_Path" xml:space="preserve">
     <value>Путь</value>
@@ -716,17 +614,8 @@
   <data name="Settings_WatchForChanges" xml:space="preserve">
     <value>Пересканировать при изменении файлов</value>
   </data>
-  <data name="Settings_LogLevel" xml:space="preserve">
-    <value>Уровень журналирования</value>
-  </data>
   <data name="Settings_OpenLogsFolder" xml:space="preserve">
     <value>Открыть папку журналов</value>
-  </data>
-  <data name="Settings_ScanRoots" xml:space="preserve">
-    <value>Папки для поиска репозиториев</value>
-  </data>
-  <data name="Settings_CustomKeyFolders" xml:space="preserve">
-    <value>Дополнительные папки с ключами</value>
   </data>
   <data name="Settings_RevealPolicy" xml:space="preserve">
     <value>Политика показа секретов</value>
@@ -752,9 +641,6 @@
   <data name="Settings_DiagnosticsSaved" xml:space="preserve">
     <value>Сохранено в {0}</value>
   </data>
-  <data name="Settings_Telemetry" xml:space="preserve">
-    <value>Телеметрия</value>
-  </data>
   <data name="Settings_TelemetryNone" xml:space="preserve">
     <value>GitVault ничего не собирает и не обращается к сети.</value>
   </data>
@@ -766,9 +652,6 @@
   </data>
   <data name="Logs_Clear" xml:space="preserve">
     <value>Очистить вид</value>
-  </data>
-  <data name="Logs_Column_Timestamp" xml:space="preserve">
-    <value>Время</value>
   </data>
   <data name="Logs_Column_Level" xml:space="preserve">
     <value>Уровень</value>
@@ -1295,12 +1178,6 @@
   <data name="Options_ScanThisFolder" xml:space="preserve">
     <value>Искать в этой папке</value>
   </data>
-  <data name="Options_State_Enabled" xml:space="preserve">
-    <value>Включено</value>
-  </data>
-  <data name="Options_State_Disabled" xml:space="preserve">
-    <value>Отключено</value>
-  </data>
   <data name="Options_SettingsOnlyNote" xml:space="preserve">
     <value>Изменение этих списков затрагивает только настройки GitVault. Репозитории, ключи и учётные данные не меняются.</value>
   </data>
@@ -1324,12 +1201,6 @@
   </data>
   <data name="Options_RemoveKeyFolder_Message" xml:space="preserve">
     <value>Прекратить поиск ключей SSH в {0}?</value>
-  </data>
-  <data name="Options_NoScanRoots" xml:space="preserve">
-    <value>Корни поиска не заданы.</value>
-  </data>
-  <data name="Options_NoKeyFolders" xml:space="preserve">
-    <value>Дополнительные папки ключей не заданы. Стандартные расположения проверяются всегда.</value>
   </data>
   <data name="Profiles_Editor" xml:space="preserve">
     <value>Редактор профиля</value>
@@ -1489,9 +1360,6 @@
   </data>
   <data name="Agents_Column_State" xml:space="preserve">
     <value>Состояние</value>
-  </data>
-  <data name="Agents_Column_Source" xml:space="preserve">
-    <value>Источник</value>
   </data>
   <data name="Clients_Column_Client" xml:space="preserve">
     <value>Клиент</value>

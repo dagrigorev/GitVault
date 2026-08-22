@@ -125,15 +125,6 @@
   <data name="Common_Working" xml:space="preserve">
     <value>处理中…</value>
   </data>
-  <data name="Common_NoData" xml:space="preserve">
-    <value>暂无数据</value>
-  </data>
-  <data name="Common_Details" xml:space="preserve">
-    <value>详情</value>
-  </data>
-  <data name="Common_WhatDoesThisMean" xml:space="preserve">
-    <value>这是什么意思？</value>
-  </data>
   <data name="Common_Yes" xml:space="preserve">
     <value>是</value>
   </data>
@@ -167,41 +158,14 @@
   <data name="Dashboard_Card_Clients" xml:space="preserve">
     <value>客户端</value>
   </data>
-  <data name="Dashboard_ActiveIdentity" xml:space="preserve">
-    <value>当前全局身份</value>
-  </data>
   <data name="Dashboard_NoScanYet" xml:space="preserve">
     <value>尚未执行扫描</value>
-  </data>
-  <data name="Dashboard_FixAllSafe" xml:space="preserve">
-    <value>修复所有可安全处理的问题</value>
-  </data>
-  <data name="Dashboard_Warnings" xml:space="preserve">
-    <value>健康检查警告</value>
   </data>
   <data name="Dashboard_ScanDuration" xml:space="preserve">
     <value>扫描在 {0} 毫秒内完成</value>
   </data>
-  <data name="Dashboard_ProbeMatrix" xml:space="preserve">
-    <value>探测状态</value>
-  </data>
-  <data name="Dashboard_Env_Os" xml:space="preserve">
-    <value>操作系统</value>
-  </data>
-  <data name="Dashboard_Env_Cpu" xml:space="preserve">
-    <value>架构</value>
-  </data>
-  <data name="Dashboard_Env_AppData" xml:space="preserve">
-    <value>GitVault 数据目录</value>
-  </data>
-  <data name="Dashboard_Env_Git" xml:space="preserve">
-    <value>Git 可执行文件</value>
-  </data>
   <data name="Dashboard_Env_GitPathAndVersion" xml:space="preserve">
     <value>{0}（版本 {1}）</value>
-  </data>
-  <data name="Dashboard_Scanning" xml:space="preserve">
-    <value>正在扫描…</value>
   </data>
   <data name="Identities_Title" xml:space="preserve">
     <value>身份</value>
@@ -217,9 +181,6 @@
   </data>
   <data name="Identities_Column_Hosts" xml:space="preserve">
     <value>主机</value>
-  </data>
-  <data name="Identities_Column_Scope" xml:space="preserve">
-    <value>作用域</value>
   </data>
   <data name="Identities_Column_Confidence" xml:space="preserve">
     <value>可信度</value>
@@ -380,17 +341,11 @@
   <data name="Agents_Title" xml:space="preserve">
     <value>SSH 代理</value>
   </data>
-  <data name="Agents_Endpoint" xml:space="preserve">
-    <value>端点</value>
-  </data>
   <data name="Agents_Running" xml:space="preserve">
     <value>运行中</value>
   </data>
   <data name="Agents_Stopped" xml:space="preserve">
     <value>未运行</value>
-  </data>
-  <data name="Agents_Locked" xml:space="preserve">
-    <value>已锁定</value>
   </data>
   <data name="Agents_LoadedKeys" xml:space="preserve">
     <value>已加载的密钥</value>
@@ -413,26 +368,11 @@
   <data name="Agents_Column_Comment" xml:space="preserve">
     <value>备注</value>
   </data>
-  <data name="Agents_RemoveKey" xml:space="preserve">
-    <value>从代理中移除</value>
-  </data>
   <data name="Agents_RemoveAll" xml:space="preserve">
     <value>移除所有密钥</value>
   </data>
   <data name="Agents_RemoveAllConfirm" xml:space="preserve">
     <value>再次点击以移除全部密钥</value>
-  </data>
-  <data name="Agents_Lock" xml:space="preserve">
-    <value>锁定</value>
-  </data>
-  <data name="Agents_Unlock" xml:space="preserve">
-    <value>解锁</value>
-  </data>
-  <data name="Agents_AddKey" xml:space="preserve">
-    <value>加载密钥…</value>
-  </data>
-  <data name="Agents_AddKey_NeedsPassphrase" xml:space="preserve">
-    <value>该密钥受口令保护。请在终端中使用 ssh-add 加载；GitVault 不会将你的口令转交给其他程序。</value>
   </data>
   <data name="Agents_CopySnippet" xml:space="preserve">
     <value>复制代码片段</value>
@@ -491,9 +431,6 @@
   <data name="Credentials_Empty" xml:space="preserve">
     <value>未找到凭据</value>
   </data>
-  <data name="Credentials_Column_Target" xml:space="preserve">
-    <value>目标</value>
-  </data>
   <data name="Credentials_ShowAll" xml:space="preserve">
     <value>显示与 Git 无关的条目</value>
   </data>
@@ -514,9 +451,6 @@
   </data>
   <data name="Credentials_PlaintextBadge" xml:space="preserve">
     <value>以明文存储</value>
-  </data>
-  <data name="Credentials_TestWithGit" xml:space="preserve">
-    <value>使用 git credential fill 测试</value>
   </data>
   <data name="Vault_WindowsCredentialManager" xml:space="preserve">
     <value>Windows 凭据管理器</value>
@@ -554,9 +488,6 @@
   <data name="Clients_Title" xml:space="preserve">
     <value>Git 客户端</value>
   </data>
-  <data name="Clients_Version" xml:space="preserve">
-    <value>版本</value>
-  </data>
   <data name="Clients_InstallPath" xml:space="preserve">
     <value>安装路径</value>
   </data>
@@ -581,9 +512,6 @@
   <data name="Clients_OpenConfigFolder" xml:space="preserve">
     <value>打开配置目录</value>
   </data>
-  <data name="Clients_CredentialsCount" xml:space="preserve">
-    <value>凭据条目</value>
-  </data>
   <data name="Warning_TortoiseGitMissingKey_Title" xml:space="preserve">
     <value>远程仓库指向的密钥文件已不存在</value>
   </data>
@@ -599,12 +527,6 @@
   <data name="Profiles_Title" xml:space="preserve">
     <value>身份配置</value>
   </data>
-  <data name="Profiles_Activate_Button" xml:space="preserve">
-    <value>启用</value>
-  </data>
-  <data name="Profiles_Deactivate_Button" xml:space="preserve">
-    <value>停用</value>
-  </data>
   <data name="Profiles_Scope_Global" xml:space="preserve">
     <value>全局（当前用户）</value>
   </data>
@@ -614,20 +536,11 @@
   <data name="Profiles_Scope_Repository" xml:space="preserve">
     <value>当前仓库</value>
   </data>
-  <data name="Profiles_DryRun" xml:space="preserve">
-    <value>试运行——仅显示更改，不实际应用</value>
-  </data>
   <data name="Profiles_Rollback" xml:space="preserve">
     <value>回滚</value>
   </data>
-  <data name="Profiles_RecentActivations" xml:space="preserve">
-    <value>最近的启用记录</value>
-  </data>
   <data name="Profiles_Empty" xml:space="preserve">
     <value>尚无身份配置</value>
-  </data>
-  <data name="Profiles_Preview" xml:space="preserve">
-    <value>预览更改</value>
   </data>
   <data name="Profiles_PlannedChanges" xml:space="preserve">
     <value>计划的更改</value>
@@ -638,15 +551,6 @@
   <data name="Profiles_ApplyDryRunFirst" xml:space="preserve">
     <value>请先预览更改，然后再应用。</value>
   </data>
-  <data name="Profiles_Applied" xml:space="preserve">
-    <value>已应用。操作前已创建快照，因此可以回滚。</value>
-  </data>
-  <data name="Profiles_Blocked" xml:space="preserve">
-    <value>当前无法应用</value>
-  </data>
-  <data name="Profiles_BlockedWithReasons" xml:space="preserve">
-    <value>当前无法应用：{0}</value>
-  </data>
   <data name="Profiles_Column_Name" xml:space="preserve">
     <value>配置</value>
   </data>
@@ -655,9 +559,6 @@
   </data>
   <data name="Profiles_Column_Helper" xml:space="preserve">
     <value>凭据助手</value>
-  </data>
-  <data name="Profiles_IsActive" xml:space="preserve">
-    <value>在此处生效</value>
   </data>
   <data name="Repositories_Scan" xml:space="preserve">
     <value>扫描仓库</value>
@@ -676,9 +577,6 @@
   </data>
   <data name="Repositories_Title" xml:space="preserve">
     <value>仓库</value>
-  </data>
-  <data name="Repositories_AddRoot" xml:space="preserve">
-    <value>添加目录…</value>
   </data>
   <data name="Repositories_Column_Path" xml:space="preserve">
     <value>路径</value>
@@ -716,17 +614,8 @@
   <data name="Settings_WatchForChanges" xml:space="preserve">
     <value>文件变化时重新扫描</value>
   </data>
-  <data name="Settings_LogLevel" xml:space="preserve">
-    <value>日志级别</value>
-  </data>
   <data name="Settings_OpenLogsFolder" xml:space="preserve">
     <value>打开日志目录</value>
-  </data>
-  <data name="Settings_ScanRoots" xml:space="preserve">
-    <value>仓库扫描目录</value>
-  </data>
-  <data name="Settings_CustomKeyFolders" xml:space="preserve">
-    <value>额外的密钥目录</value>
   </data>
   <data name="Settings_RevealPolicy" xml:space="preserve">
     <value>密钥内容显示策略</value>
@@ -752,9 +641,6 @@
   <data name="Settings_DiagnosticsSaved" xml:space="preserve">
     <value>已保存到 {0}</value>
   </data>
-  <data name="Settings_Telemetry" xml:space="preserve">
-    <value>遥测</value>
-  </data>
   <data name="Settings_TelemetryNone" xml:space="preserve">
     <value>GitVault 不收集任何数据，也不进行网络请求。</value>
   </data>
@@ -766,9 +652,6 @@
   </data>
   <data name="Logs_Clear" xml:space="preserve">
     <value>清空视图</value>
-  </data>
-  <data name="Logs_Column_Timestamp" xml:space="preserve">
-    <value>时间</value>
   </data>
   <data name="Logs_Column_Level" xml:space="preserve">
     <value>级别</value>
@@ -1295,12 +1178,6 @@
   <data name="Options_ScanThisFolder" xml:space="preserve">
     <value>扫描此文件夹</value>
   </data>
-  <data name="Options_State_Enabled" xml:space="preserve">
-    <value>已启用</value>
-  </data>
-  <data name="Options_State_Disabled" xml:space="preserve">
-    <value>已禁用</value>
-  </data>
   <data name="Options_SettingsOnlyNote" xml:space="preserve">
     <value>编辑这些列表只会更改 GitVault 自身的设置。不会修改任何仓库、密钥或凭据。</value>
   </data>
@@ -1324,12 +1201,6 @@
   </data>
   <data name="Options_RemoveKeyFolder_Message" xml:space="preserve">
     <value>停止在 {0} 中搜索 SSH 密钥？</value>
-  </data>
-  <data name="Options_NoScanRoots" xml:space="preserve">
-    <value>尚未配置扫描根目录。</value>
-  </data>
-  <data name="Options_NoKeyFolders" xml:space="preserve">
-    <value>未配置额外的密钥文件夹。默认位置始终会被搜索。</value>
   </data>
   <data name="Profiles_Editor" xml:space="preserve">
     <value>身份配置编辑器</value>
@@ -1489,9 +1360,6 @@
   </data>
   <data name="Agents_Column_State" xml:space="preserve">
     <value>状态</value>
-  </data>
-  <data name="Agents_Column_Source" xml:space="preserve">
-    <value>来源</value>
   </data>
   <data name="Clients_Column_Client" xml:space="preserve">
     <value>客户端</value>

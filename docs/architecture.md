@@ -237,6 +237,81 @@ Profiles hold *references* — a key path, a helper name, a host alias — never
 passphrase or a token. That is what makes export safe to share; the export carries a header
 saying so, and importing assigns fresh identifiers so it can never silently replace a profile.
 
+## Editing repositories
+
+Roughly half the code answers a different question from discovery: not "what is on this machine"
+but "change this repository, and be able to put it back". Everything in that half is arranged
+around one route, and joining it is cheaper than inventing a shorter one.
+
+**Plan, preview, preserve, apply.** A planning call returns a plan and writes nothing. The plan is
+rendered as the preview the user reads. Applying takes the plan object the user was shown — not a
+freshly computed one — so what runs is what was approved. There are two plan types, distinguished
+by what they preserve rather than by what they do: `GitOperationPlan` names files and is preserved
+with a snapshot, `RepositoryPlan` names refs and is preserved as refs.
+
+**Refs are backed up as refs.** A file copy of `.git/refs/heads/main` preserves an implementation
+detail — a ref may live in a loose file, in `packed-refs`, or in both — while a ref under
+`refs/gitvault/backup/<id>/` preserves the fact worth preserving *and* keeps the orphaned commits
+reachable, so `git gc --prune=now` cannot discard them. `RepositoryEditingTests` runs exactly that
+command after a branch deletion and asserts the commit survives.
+
+**One applier.** `RepositoryPlanApplier` is the only place a `RepositoryPlan` turns into git
+commands: preserve the refs it names, run its commands in order, stop at the first failure. Six
+editors share it rather than each keeping a copy that could quietly lose the backup.
+
+**Blockers and warnings are different things.** A blocker is something the user cannot do —
+deleting the checked-out branch, rewriting with a dirty working tree, a name git would reject. A
+warning is something they may not want to — deleting a branch whose commits exist nowhere else,
+rewriting a signed commit, purging a file that has already been pushed. Folding the second group
+into the first would make GitVault refuse work that is legitimately someone's to do; the ref backup
+is what turns those into decisions rather than losses.
+
+### Rewriting history
+
+`HistoryRewriter` rebuilds the commit chain with `git commit-tree`, walked from the oldest affected
+commit to the tip, each commit rebuilt against its already-rebuilt parents. For a metadata edit the
+tree is the one the commit always had, so the operation cannot conflict and a commit whose inputs
+did not change rebuilds to the same object name. Identities and dates go through `GIT_AUTHOR_*` and
+`GIT_COMMITTER_*`; the message goes over stdin. Nothing is ever handed to a shell.
+
+Everything after the earliest edit gets a new identifier whether or not the user meant to touch it.
+That is inherent to git rather than a choice, so the plan counts those commits separately and the
+preview says so — it is the part people are surprised by.
+
+The branch is moved once, at the end, with a compare-and-swap against the tip the plan was built
+from, so a rewrite that raced with another process fails instead of overwriting. Confirming
+requires typing the branch name: every other write is confirmed by acknowledging a plan, and this
+one reaches every clone of the repository.
+
+### Changing file content without conflicting the repository
+
+Editing what a file contained at an old commit is the part that can genuinely disagree with itself,
+because later commits may have changed the same file. The obvious tool is `git rebase`, and it is
+deliberately not used: a rebase resolves conflicts by *stopping*, leaving the working tree
+conflicted and the repository in the user's hands mid-operation.
+
+`ContentMerger` computes the merge instead of performing it. For each commit after the edited one
+the file is merged three ways — base is what the parent held, "ours" is what that commit made of
+it, "theirs" is the content carried down. A commit that did not touch the file has ours equal to
+base, so the carried content applies exactly and no merge is needed; that is the ordinary case and
+it stays deterministic. A commit that did touch it gets a real three-way merge from
+`git merge-file`, run on temporary files *outside* the repository. Nothing is written, so conflicts
+are found while planning and a preview the user closes leaves no trace — asserted by counting loose
+objects and checking the index timestamp across a full plan.
+
+Applying writes blobs with `hash-object -w --stdin`, deliberately without `--path` so the
+repository's clean filters do not re-filter content that came out of a blob already in stored form,
+and builds trees through a temporary `GIT_INDEX_FILE` so the repository's own index is never
+opened.
+
+### What is refused rather than guessed
+
+Text has to survive a round trip: a file whose decoded form re-encodes to a different length is not
+UTF-8, and rewriting it would change its encoding as a side effect of editing one line. Working-tree
+files keep the line ending they already use. A path a later commit deletes or renames, a symlink, a
+submodule pointer, a file over the size limit, and a content edit on a merge commit are each
+refused with a reason rather than handled approximately.
+
 ## Localization
 
 `ILocalizationService` owns the current culture and resolves keys. `Localizer` is the bindable

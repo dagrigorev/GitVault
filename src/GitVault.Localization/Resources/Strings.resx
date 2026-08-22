@@ -125,15 +125,6 @@
   <data name="Common_Working" xml:space="preserve">
     <value>Working…</value>
   </data>
-  <data name="Common_NoData" xml:space="preserve">
-    <value>Nothing to show</value>
-  </data>
-  <data name="Common_Details" xml:space="preserve">
-    <value>Details</value>
-  </data>
-  <data name="Common_WhatDoesThisMean" xml:space="preserve">
-    <value>What does this mean?</value>
-  </data>
   <data name="Common_Yes" xml:space="preserve">
     <value>Yes</value>
   </data>
@@ -167,41 +158,14 @@
   <data name="Dashboard_Card_Clients" xml:space="preserve">
     <value>Clients</value>
   </data>
-  <data name="Dashboard_ActiveIdentity" xml:space="preserve">
-    <value>Active global identity</value>
-  </data>
   <data name="Dashboard_NoScanYet" xml:space="preserve">
     <value>No scan has run yet</value>
-  </data>
-  <data name="Dashboard_FixAllSafe" xml:space="preserve">
-    <value>Fix all safe issues</value>
-  </data>
-  <data name="Dashboard_Warnings" xml:space="preserve">
-    <value>Health warnings</value>
   </data>
   <data name="Dashboard_ScanDuration" xml:space="preserve">
     <value>Scan finished in {0} ms</value>
   </data>
-  <data name="Dashboard_ProbeMatrix" xml:space="preserve">
-    <value>Probe status</value>
-  </data>
-  <data name="Dashboard_Env_Os" xml:space="preserve">
-    <value>Operating system</value>
-  </data>
-  <data name="Dashboard_Env_Cpu" xml:space="preserve">
-    <value>Architecture</value>
-  </data>
-  <data name="Dashboard_Env_AppData" xml:space="preserve">
-    <value>GitVault data folder</value>
-  </data>
-  <data name="Dashboard_Env_Git" xml:space="preserve">
-    <value>Git executable</value>
-  </data>
   <data name="Dashboard_Env_GitPathAndVersion" xml:space="preserve">
     <value>{0} (version {1})</value>
-  </data>
-  <data name="Dashboard_Scanning" xml:space="preserve">
-    <value>Scanning…</value>
   </data>
   <data name="Identities_Title" xml:space="preserve">
     <value>Identities</value>
@@ -217,9 +181,6 @@
   </data>
   <data name="Identities_Column_Hosts" xml:space="preserve">
     <value>Hosts</value>
-  </data>
-  <data name="Identities_Column_Scope" xml:space="preserve">
-    <value>Scope</value>
   </data>
   <data name="Identities_Column_Confidence" xml:space="preserve">
     <value>Confidence</value>
@@ -380,17 +341,11 @@
   <data name="Agents_Title" xml:space="preserve">
     <value>SSH agents</value>
   </data>
-  <data name="Agents_Endpoint" xml:space="preserve">
-    <value>Endpoint</value>
-  </data>
   <data name="Agents_Running" xml:space="preserve">
     <value>Running</value>
   </data>
   <data name="Agents_Stopped" xml:space="preserve">
     <value>Not running</value>
-  </data>
-  <data name="Agents_Locked" xml:space="preserve">
-    <value>Locked</value>
   </data>
   <data name="Agents_LoadedKeys" xml:space="preserve">
     <value>Loaded keys</value>
@@ -413,26 +368,11 @@
   <data name="Agents_Column_Comment" xml:space="preserve">
     <value>Comment</value>
   </data>
-  <data name="Agents_RemoveKey" xml:space="preserve">
-    <value>Remove from agent</value>
-  </data>
   <data name="Agents_RemoveAll" xml:space="preserve">
     <value>Remove all keys</value>
   </data>
   <data name="Agents_RemoveAllConfirm" xml:space="preserve">
     <value>Click again to remove every key</value>
-  </data>
-  <data name="Agents_Lock" xml:space="preserve">
-    <value>Lock</value>
-  </data>
-  <data name="Agents_Unlock" xml:space="preserve">
-    <value>Unlock</value>
-  </data>
-  <data name="Agents_AddKey" xml:space="preserve">
-    <value>Load a key…</value>
-  </data>
-  <data name="Agents_AddKey_NeedsPassphrase" xml:space="preserve">
-    <value>That key is passphrase protected. Load it with ssh-add from a terminal; GitVault will not carry your passphrase into another program.</value>
   </data>
   <data name="Agents_CopySnippet" xml:space="preserve">
     <value>Copy snippet</value>
@@ -491,9 +431,6 @@
   <data name="Credentials_Empty" xml:space="preserve">
     <value>No credentials found</value>
   </data>
-  <data name="Credentials_Column_Target" xml:space="preserve">
-    <value>Target</value>
-  </data>
   <data name="Credentials_ShowAll" xml:space="preserve">
     <value>Show entries unrelated to Git</value>
   </data>
@@ -514,9 +451,6 @@
   </data>
   <data name="Credentials_PlaintextBadge" xml:space="preserve">
     <value>Stored in plain text</value>
-  </data>
-  <data name="Credentials_TestWithGit" xml:space="preserve">
-    <value>Test with git credential fill</value>
   </data>
   <data name="Vault_WindowsCredentialManager" xml:space="preserve">
     <value>Windows Credential Manager</value>
@@ -554,9 +488,6 @@
   <data name="Clients_Title" xml:space="preserve">
     <value>Git clients</value>
   </data>
-  <data name="Clients_Version" xml:space="preserve">
-    <value>Version</value>
-  </data>
   <data name="Clients_InstallPath" xml:space="preserve">
     <value>Install path</value>
   </data>
@@ -581,9 +512,6 @@
   <data name="Clients_OpenConfigFolder" xml:space="preserve">
     <value>Open configuration folder</value>
   </data>
-  <data name="Clients_CredentialsCount" xml:space="preserve">
-    <value>Credential entries</value>
-  </data>
   <data name="Warning_TortoiseGitMissingKey_Title" xml:space="preserve">
     <value>A remote points at a key file that is gone</value>
   </data>
@@ -599,12 +527,6 @@
   <data name="Profiles_Title" xml:space="preserve">
     <value>Profiles</value>
   </data>
-  <data name="Profiles_Activate_Button" xml:space="preserve">
-    <value>Activate</value>
-  </data>
-  <data name="Profiles_Deactivate_Button" xml:space="preserve">
-    <value>Deactivate</value>
-  </data>
   <data name="Profiles_Scope_Global" xml:space="preserve">
     <value>Global (this user)</value>
   </data>
@@ -614,20 +536,11 @@
   <data name="Profiles_Scope_Repository" xml:space="preserve">
     <value>This repository</value>
   </data>
-  <data name="Profiles_DryRun" xml:space="preserve">
-    <value>Dry run — show changes without applying them</value>
-  </data>
   <data name="Profiles_Rollback" xml:space="preserve">
     <value>Roll back</value>
   </data>
-  <data name="Profiles_RecentActivations" xml:space="preserve">
-    <value>Recent activations</value>
-  </data>
   <data name="Profiles_Empty" xml:space="preserve">
     <value>No profiles yet</value>
-  </data>
-  <data name="Profiles_Preview" xml:space="preserve">
-    <value>Preview changes</value>
   </data>
   <data name="Profiles_PlannedChanges" xml:space="preserve">
     <value>Planned changes</value>
@@ -638,15 +551,6 @@
   <data name="Profiles_ApplyDryRunFirst" xml:space="preserve">
     <value>Preview the changes before applying them.</value>
   </data>
-  <data name="Profiles_Applied" xml:space="preserve">
-    <value>Applied. A snapshot was taken first, so this can be rolled back.</value>
-  </data>
-  <data name="Profiles_Blocked" xml:space="preserve">
-    <value>This cannot be applied yet</value>
-  </data>
-  <data name="Profiles_BlockedWithReasons" xml:space="preserve">
-    <value>This cannot be applied yet: {0}</value>
-  </data>
   <data name="Profiles_Column_Name" xml:space="preserve">
     <value>Profile</value>
   </data>
@@ -655,9 +559,6 @@
   </data>
   <data name="Profiles_Column_Helper" xml:space="preserve">
     <value>Credential helper</value>
-  </data>
-  <data name="Profiles_IsActive" xml:space="preserve">
-    <value>Active here</value>
   </data>
   <data name="Repositories_Scan" xml:space="preserve">
     <value>Scan for repositories</value>
@@ -676,9 +577,6 @@
   </data>
   <data name="Repositories_Title" xml:space="preserve">
     <value>Repositories</value>
-  </data>
-  <data name="Repositories_AddRoot" xml:space="preserve">
-    <value>Add folder…</value>
   </data>
   <data name="Repositories_Column_Path" xml:space="preserve">
     <value>Path</value>
@@ -716,17 +614,8 @@
   <data name="Settings_WatchForChanges" xml:space="preserve">
     <value>Rescan when files change</value>
   </data>
-  <data name="Settings_LogLevel" xml:space="preserve">
-    <value>Log level</value>
-  </data>
   <data name="Settings_OpenLogsFolder" xml:space="preserve">
     <value>Open logs folder</value>
-  </data>
-  <data name="Settings_ScanRoots" xml:space="preserve">
-    <value>Repository scan folders</value>
-  </data>
-  <data name="Settings_CustomKeyFolders" xml:space="preserve">
-    <value>Extra key folders</value>
   </data>
   <data name="Settings_RevealPolicy" xml:space="preserve">
     <value>Secret reveal policy</value>
@@ -752,9 +641,6 @@
   <data name="Settings_DiagnosticsSaved" xml:space="preserve">
     <value>Saved to {0}</value>
   </data>
-  <data name="Settings_Telemetry" xml:space="preserve">
-    <value>Telemetry</value>
-  </data>
   <data name="Settings_TelemetryNone" xml:space="preserve">
     <value>GitVault collects nothing and makes no network calls.</value>
   </data>
@@ -766,9 +652,6 @@
   </data>
   <data name="Logs_Clear" xml:space="preserve">
     <value>Clear view</value>
-  </data>
-  <data name="Logs_Column_Timestamp" xml:space="preserve">
-    <value>Time</value>
   </data>
   <data name="Logs_Column_Level" xml:space="preserve">
     <value>Level</value>
@@ -1295,12 +1178,6 @@
   <data name="Options_ScanThisFolder" xml:space="preserve">
     <value>Scan this folder</value>
   </data>
-  <data name="Options_State_Enabled" xml:space="preserve">
-    <value>Enabled</value>
-  </data>
-  <data name="Options_State_Disabled" xml:space="preserve">
-    <value>Disabled</value>
-  </data>
   <data name="Options_SettingsOnlyNote" xml:space="preserve">
     <value>Editing these lists changes GitVault&apos;s own settings only. No repository, key or credential is modified.</value>
   </data>
@@ -1324,12 +1201,6 @@
   </data>
   <data name="Options_RemoveKeyFolder_Message" xml:space="preserve">
     <value>Stop searching {0} for SSH keys?</value>
-  </data>
-  <data name="Options_NoScanRoots" xml:space="preserve">
-    <value>No scan roots configured.</value>
-  </data>
-  <data name="Options_NoKeyFolders" xml:space="preserve">
-    <value>No extra key folders configured. The default locations are always searched.</value>
   </data>
   <data name="Profiles_Editor" xml:space="preserve">
     <value>Profile editor</value>
@@ -1489,9 +1360,6 @@
   </data>
   <data name="Agents_Column_State" xml:space="preserve">
     <value>State</value>
-  </data>
-  <data name="Agents_Column_Source" xml:space="preserve">
-    <value>Source</value>
   </data>
   <data name="Clients_Column_Client" xml:space="preserve">
     <value>Client</value>

@@ -69,15 +69,6 @@ public static class Keys
     /// <summary>English: Working…</summary>
     public const string Common_Working = "Common_Working";
 
-    /// <summary>English: Nothing to show</summary>
-    public const string Common_NoData = "Common_NoData";
-
-    /// <summary>English: Details</summary>
-    public const string Common_Details = "Common_Details";
-
-    /// <summary>English: What does this mean?</summary>
-    public const string Common_WhatDoesThisMean = "Common_WhatDoesThisMean";
-
     /// <summary>English: Yes</summary>
     public const string Common_Yes = "Common_Yes";
 
@@ -111,41 +102,14 @@ public static class Keys
     /// <summary>English: Clients</summary>
     public const string Dashboard_Card_Clients = "Dashboard_Card_Clients";
 
-    /// <summary>English: Active global identity</summary>
-    public const string Dashboard_ActiveIdentity = "Dashboard_ActiveIdentity";
-
     /// <summary>English: No scan has run yet</summary>
     public const string Dashboard_NoScanYet = "Dashboard_NoScanYet";
-
-    /// <summary>English: Fix all safe issues</summary>
-    public const string Dashboard_FixAllSafe = "Dashboard_FixAllSafe";
-
-    /// <summary>English: Health warnings</summary>
-    public const string Dashboard_Warnings = "Dashboard_Warnings";
 
     /// <summary>English: Scan finished in {0} ms</summary>
     public const string Dashboard_ScanDuration = "Dashboard_ScanDuration";
 
-    /// <summary>English: Probe status</summary>
-    public const string Dashboard_ProbeMatrix = "Dashboard_ProbeMatrix";
-
-    /// <summary>English: Operating system</summary>
-    public const string Dashboard_Env_Os = "Dashboard_Env_Os";
-
-    /// <summary>English: Architecture</summary>
-    public const string Dashboard_Env_Cpu = "Dashboard_Env_Cpu";
-
-    /// <summary>English: GitVault data folder</summary>
-    public const string Dashboard_Env_AppData = "Dashboard_Env_AppData";
-
-    /// <summary>English: Git executable</summary>
-    public const string Dashboard_Env_Git = "Dashboard_Env_Git";
-
     /// <summary>English: {0} (version {1})</summary>
     public const string Dashboard_Env_GitPathAndVersion = "Dashboard_Env_GitPathAndVersion";
-
-    /// <summary>English: Scanning…</summary>
-    public const string Dashboard_Scanning = "Dashboard_Scanning";
 
     /// <summary>English: Identities</summary>
     public const string Identities_Title = "Identities_Title";
@@ -161,9 +125,6 @@ public static class Keys
 
     /// <summary>English: Hosts</summary>
     public const string Identities_Column_Hosts = "Identities_Column_Hosts";
-
-    /// <summary>English: Scope</summary>
-    public const string Identities_Column_Scope = "Identities_Column_Scope";
 
     /// <summary>English: Confidence</summary>
     public const string Identities_Column_Confidence = "Identities_Column_Confidence";
@@ -324,17 +285,11 @@ public static class Keys
     /// <summary>English: SSH agents</summary>
     public const string Agents_Title = "Agents_Title";
 
-    /// <summary>English: Endpoint</summary>
-    public const string Agents_Endpoint = "Agents_Endpoint";
-
     /// <summary>English: Running</summary>
     public const string Agents_Running = "Agents_Running";
 
     /// <summary>English: Not running</summary>
     public const string Agents_Stopped = "Agents_Stopped";
-
-    /// <summary>English: Locked</summary>
-    public const string Agents_Locked = "Agents_Locked";
 
     /// <summary>English: Loaded keys</summary>
     public const string Agents_LoadedKeys = "Agents_LoadedKeys";
@@ -357,26 +312,11 @@ public static class Keys
     /// <summary>English: Comment</summary>
     public const string Agents_Column_Comment = "Agents_Column_Comment";
 
-    /// <summary>English: Remove from agent</summary>
-    public const string Agents_RemoveKey = "Agents_RemoveKey";
-
     /// <summary>English: Remove all keys</summary>
     public const string Agents_RemoveAll = "Agents_RemoveAll";
 
     /// <summary>English: Click again to remove every key</summary>
     public const string Agents_RemoveAllConfirm = "Agents_RemoveAllConfirm";
-
-    /// <summary>English: Lock</summary>
-    public const string Agents_Lock = "Agents_Lock";
-
-    /// <summary>English: Unlock</summary>
-    public const string Agents_Unlock = "Agents_Unlock";
-
-    /// <summary>English: Load a key…</summary>
-    public const string Agents_AddKey = "Agents_AddKey";
-
-    /// <summary>English: That key is passphrase protected. Load it with ssh-add from a terminal; GitVault will not carry your passphrase into another program.</summary>
-    public const string Agents_AddKey_NeedsPassphrase = "Agents_AddKey_NeedsPassphrase";
 
     /// <summary>English: Copy snippet</summary>
     public const string Agents_CopySnippet = "Agents_CopySnippet";
@@ -435,9 +375,6 @@ public static class Keys
     /// <summary>English: No credentials found</summary>
     public const string Credentials_Empty = "Credentials_Empty";
 
-    /// <summary>English: Target</summary>
-    public const string Credentials_Column_Target = "Credentials_Column_Target";
-
     /// <summary>English: Show entries unrelated to Git</summary>
     public const string Credentials_ShowAll = "Credentials_ShowAll";
 
@@ -458,9 +395,6 @@ public static class Keys
 
     /// <summary>English: Stored in plain text</summary>
     public const string Credentials_PlaintextBadge = "Credentials_PlaintextBadge";
-
-    /// <summary>English: Test with git credential fill</summary>
-    public const string Credentials_TestWithGit = "Credentials_TestWithGit";
 
     /// <summary>English: Windows Credential Manager</summary>
     public const string Vault_WindowsCredentialManager = "Vault_WindowsCredentialManager";
@@ -498,9 +432,6 @@ public static class Keys
     /// <summary>English: Git clients</summary>
     public const string Clients_Title = "Clients_Title";
 
-    /// <summary>English: Version</summary>
-    public const string Clients_Version = "Clients_Version";
-
     /// <summary>English: Install path</summary>
     public const string Clients_InstallPath = "Clients_InstallPath";
 
@@ -525,9 +456,6 @@ public static class Keys
     /// <summary>English: Open configuration folder</summary>
     public const string Clients_OpenConfigFolder = "Clients_OpenConfigFolder";
 
-    /// <summary>English: Credential entries</summary>
-    public const string Clients_CredentialsCount = "Clients_CredentialsCount";
-
     /// <summary>English: A remote points at a key file that is gone</summary>
     public const string Warning_TortoiseGitMissingKey_Title = "Warning_TortoiseGitMissingKey_Title";
 
@@ -543,12 +471,6 @@ public static class Keys
     /// <summary>English: Profiles</summary>
     public const string Profiles_Title = "Profiles_Title";
 
-    /// <summary>English: Activate</summary>
-    public const string Profiles_Activate_Button = "Profiles_Activate_Button";
-
-    /// <summary>English: Deactivate</summary>
-    public const string Profiles_Deactivate_Button = "Profiles_Deactivate_Button";
-
     /// <summary>English: Global (this user)</summary>
     public const string Profiles_Scope_Global = "Profiles_Scope_Global";
 
@@ -558,20 +480,11 @@ public static class Keys
     /// <summary>English: This repository</summary>
     public const string Profiles_Scope_Repository = "Profiles_Scope_Repository";
 
-    /// <summary>English: Dry run — show changes without applying them</summary>
-    public const string Profiles_DryRun = "Profiles_DryRun";
-
     /// <summary>English: Roll back</summary>
     public const string Profiles_Rollback = "Profiles_Rollback";
 
-    /// <summary>English: Recent activations</summary>
-    public const string Profiles_RecentActivations = "Profiles_RecentActivations";
-
     /// <summary>English: No profiles yet</summary>
     public const string Profiles_Empty = "Profiles_Empty";
-
-    /// <summary>English: Preview changes</summary>
-    public const string Profiles_Preview = "Profiles_Preview";
 
     /// <summary>English: Planned changes</summary>
     public const string Profiles_PlannedChanges = "Profiles_PlannedChanges";
@@ -582,15 +495,6 @@ public static class Keys
     /// <summary>English: Preview the changes before applying them.</summary>
     public const string Profiles_ApplyDryRunFirst = "Profiles_ApplyDryRunFirst";
 
-    /// <summary>English: Applied. A snapshot was taken first, so this can be rolled back.</summary>
-    public const string Profiles_Applied = "Profiles_Applied";
-
-    /// <summary>English: This cannot be applied yet</summary>
-    public const string Profiles_Blocked = "Profiles_Blocked";
-
-    /// <summary>English: This cannot be applied yet: {0}</summary>
-    public const string Profiles_BlockedWithReasons = "Profiles_BlockedWithReasons";
-
     /// <summary>English: Profile</summary>
     public const string Profiles_Column_Name = "Profiles_Column_Name";
 
@@ -599,9 +503,6 @@ public static class Keys
 
     /// <summary>English: Credential helper</summary>
     public const string Profiles_Column_Helper = "Profiles_Column_Helper";
-
-    /// <summary>English: Active here</summary>
-    public const string Profiles_IsActive = "Profiles_IsActive";
 
     /// <summary>English: Scan for repositories</summary>
     public const string Repositories_Scan = "Repositories_Scan";
@@ -620,9 +521,6 @@ public static class Keys
 
     /// <summary>English: Repositories</summary>
     public const string Repositories_Title = "Repositories_Title";
-
-    /// <summary>English: Add folder…</summary>
-    public const string Repositories_AddRoot = "Repositories_AddRoot";
 
     /// <summary>English: Path</summary>
     public const string Repositories_Column_Path = "Repositories_Column_Path";
@@ -660,17 +558,8 @@ public static class Keys
     /// <summary>English: Rescan when files change</summary>
     public const string Settings_WatchForChanges = "Settings_WatchForChanges";
 
-    /// <summary>English: Log level</summary>
-    public const string Settings_LogLevel = "Settings_LogLevel";
-
     /// <summary>English: Open logs folder</summary>
     public const string Settings_OpenLogsFolder = "Settings_OpenLogsFolder";
-
-    /// <summary>English: Repository scan folders</summary>
-    public const string Settings_ScanRoots = "Settings_ScanRoots";
-
-    /// <summary>English: Extra key folders</summary>
-    public const string Settings_CustomKeyFolders = "Settings_CustomKeyFolders";
 
     /// <summary>English: Secret reveal policy</summary>
     public const string Settings_RevealPolicy = "Settings_RevealPolicy";
@@ -696,9 +585,6 @@ public static class Keys
     /// <summary>English: Saved to {0}</summary>
     public const string Settings_DiagnosticsSaved = "Settings_DiagnosticsSaved";
 
-    /// <summary>English: Telemetry</summary>
-    public const string Settings_Telemetry = "Settings_Telemetry";
-
     /// <summary>English: GitVault collects nothing and makes no network calls.</summary>
     public const string Settings_TelemetryNone = "Settings_TelemetryNone";
 
@@ -710,9 +596,6 @@ public static class Keys
 
     /// <summary>English: Clear view</summary>
     public const string Logs_Clear = "Logs_Clear";
-
-    /// <summary>English: Time</summary>
-    public const string Logs_Column_Timestamp = "Logs_Column_Timestamp";
 
     /// <summary>English: Level</summary>
     public const string Logs_Column_Level = "Logs_Column_Level";
@@ -1239,12 +1122,6 @@ public static class Keys
     /// <summary>English: Scan this folder</summary>
     public const string Options_ScanThisFolder = "Options_ScanThisFolder";
 
-    /// <summary>English: Enabled</summary>
-    public const string Options_State_Enabled = "Options_State_Enabled";
-
-    /// <summary>English: Disabled</summary>
-    public const string Options_State_Disabled = "Options_State_Disabled";
-
     /// <summary>English: Editing these lists changes GitVault&apos;s own settings only. No repository, key or credential is modified.</summary>
     public const string Options_SettingsOnlyNote = "Options_SettingsOnlyNote";
 
@@ -1268,12 +1145,6 @@ public static class Keys
 
     /// <summary>English: Stop searching {0} for SSH keys?</summary>
     public const string Options_RemoveKeyFolder_Message = "Options_RemoveKeyFolder_Message";
-
-    /// <summary>English: No scan roots configured.</summary>
-    public const string Options_NoScanRoots = "Options_NoScanRoots";
-
-    /// <summary>English: No extra key folders configured. The default locations are always searched.</summary>
-    public const string Options_NoKeyFolders = "Options_NoKeyFolders";
 
     /// <summary>English: Profile editor</summary>
     public const string Profiles_Editor = "Profiles_Editor";
@@ -1433,9 +1304,6 @@ public static class Keys
 
     /// <summary>English: State</summary>
     public const string Agents_Column_State = "Agents_Column_State";
-
-    /// <summary>English: Source</summary>
-    public const string Agents_Column_Source = "Agents_Column_Source";
 
     /// <summary>English: Client</summary>
     public const string Clients_Column_Client = "Clients_Column_Client";
@@ -2667,9 +2535,6 @@ public static class Keys
         Common_Copy,
         Common_Apply,
         Common_Working,
-        Common_NoData,
-        Common_Details,
-        Common_WhatDoesThisMean,
         Common_Yes,
         Common_No,
         Common_Never,
@@ -2681,24 +2546,14 @@ public static class Keys
         Dashboard_Card_Agents,
         Dashboard_Card_Credentials,
         Dashboard_Card_Clients,
-        Dashboard_ActiveIdentity,
         Dashboard_NoScanYet,
-        Dashboard_FixAllSafe,
-        Dashboard_Warnings,
         Dashboard_ScanDuration,
-        Dashboard_ProbeMatrix,
-        Dashboard_Env_Os,
-        Dashboard_Env_Cpu,
-        Dashboard_Env_AppData,
-        Dashboard_Env_Git,
         Dashboard_Env_GitPathAndVersion,
-        Dashboard_Scanning,
         Identities_Title,
         Identities_Column_Name,
         Identities_Column_Email,
         Identities_Column_Source,
         Identities_Column_Hosts,
-        Identities_Column_Scope,
         Identities_Column_Confidence,
         Identities_Column_SigningKey,
         Identities_Empty,
@@ -2752,10 +2607,8 @@ public static class Keys
         Format_PublicOnly,
         Format_Unknown,
         Agents_Title,
-        Agents_Endpoint,
         Agents_Running,
         Agents_Stopped,
-        Agents_Locked,
         Agents_LoadedKeys,
         Agents_ReadOnly,
         Agents_ShellSnippet,
@@ -2763,13 +2616,8 @@ public static class Keys
         Agents_Column_Algorithm,
         Agents_Column_Fingerprint,
         Agents_Column_Comment,
-        Agents_RemoveKey,
         Agents_RemoveAll,
         Agents_RemoveAllConfirm,
-        Agents_Lock,
-        Agents_Unlock,
-        Agents_AddKey,
-        Agents_AddKey_NeedsPassphrase,
         Agents_CopySnippet,
         Agents_Shell,
         AgentKind_OpenSshUnix,
@@ -2789,7 +2637,6 @@ public static class Keys
         Credentials_Column_LastWrite,
         Credentials_Reveal,
         Credentials_Empty,
-        Credentials_Column_Target,
         Credentials_ShowAll,
         Credentials_RevealConfirm,
         Credentials_Hide,
@@ -2797,7 +2644,6 @@ public static class Keys
         Credentials_HidingIn,
         Credentials_ClipboardNote,
         Credentials_PlaintextBadge,
-        Credentials_TestWithGit,
         Vault_WindowsCredentialManager,
         Vault_MacKeychain,
         Vault_SecretService,
@@ -2810,7 +2656,6 @@ public static class Keys
         Vault_GitCredentialCache,
         Vault_Unknown,
         Clients_Title,
-        Clients_Version,
         Clients_InstallPath,
         Clients_ConfigRoots,
         Clients_Opaque,
@@ -2819,39 +2664,28 @@ public static class Keys
         Clients_BoundKeys,
         Clients_SshCommand,
         Clients_OpenConfigFolder,
-        Clients_CredentialsCount,
         Warning_TortoiseGitMissingKey_Title,
         Warning_TortoiseGitMissingKey_Body,
         Warning_WslSeparateKeys_Title,
         Warning_WslSeparateKeys_Body,
         Profiles_Title,
-        Profiles_Activate_Button,
-        Profiles_Deactivate_Button,
         Profiles_Scope_Global,
         Profiles_Scope_System,
         Profiles_Scope_Repository,
-        Profiles_DryRun,
         Profiles_Rollback,
-        Profiles_RecentActivations,
         Profiles_Empty,
-        Profiles_Preview,
         Profiles_PlannedChanges,
         Profiles_NothingToDo,
         Profiles_ApplyDryRunFirst,
-        Profiles_Applied,
-        Profiles_Blocked,
-        Profiles_BlockedWithReasons,
         Profiles_Column_Name,
         Profiles_Column_Identity,
         Profiles_Column_Helper,
-        Profiles_IsActive,
         Repositories_Scan,
         Repositories_Scanning,
         Repositories_NoRoots,
         Repositories_Column_Name,
         Identities_NameAndEmail,
         Repositories_Title,
-        Repositories_AddRoot,
         Repositories_Column_Path,
         Repositories_Column_EffectiveIdentity,
         Repositories_Column_Remote,
@@ -2864,10 +2698,7 @@ public static class Keys
         Settings_Theme_Dark,
         Settings_DryRunDefault,
         Settings_WatchForChanges,
-        Settings_LogLevel,
         Settings_OpenLogsFolder,
-        Settings_ScanRoots,
-        Settings_CustomKeyFolders,
         Settings_RevealPolicy,
         Settings_AutoHideSeconds,
         Settings_ClipboardClearSeconds,
@@ -2876,12 +2707,10 @@ public static class Keys
         Settings_SaveDiagnostics,
         Settings_DiagnosticsNote,
         Settings_DiagnosticsSaved,
-        Settings_Telemetry,
         Settings_TelemetryNone,
         Logs_Title,
         Logs_Filter,
         Logs_Clear,
-        Logs_Column_Timestamp,
         Logs_Column_Level,
         Logs_Column_Message,
         Status_Ok,
@@ -3057,8 +2886,6 @@ public static class Keys
         Options_Mode_PublicOnly,
         Options_ScanThisRoot,
         Options_ScanThisFolder,
-        Options_State_Enabled,
-        Options_State_Disabled,
         Options_SettingsOnlyNote,
         Options_KeysReadOnlyNote,
         Options_PickScanRoot,
@@ -3067,8 +2894,6 @@ public static class Keys
         Options_RemoveScanRoot_Message,
         Options_RemoveKeyFolder_Title,
         Options_RemoveKeyFolder_Message,
-        Options_NoScanRoots,
-        Options_NoKeyFolders,
         Profiles_Editor,
         Profiles_Activation,
         Profiles_Field_Name,
@@ -3122,7 +2947,6 @@ public static class Keys
         Agents_WritableBadge,
         Agents_Column_Agent,
         Agents_Column_State,
-        Agents_Column_Source,
         Clients_Column_Client,
         Clients_Column_Version,
         Clients_Column_Storage,
