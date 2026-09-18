@@ -172,6 +172,24 @@ public sealed class SnapshotServiceTests : IDisposable
     }
 
     [Fact]
+    public async Task Capturing_leaves_the_calling_thread_before_it_copies()
+    {
+        // Copying has no asynchronous form, so a capture that stayed on the caller's thread would
+        // run every copy inline and stop the window painting for the length of the slowest one.
+        // A cancelled token shows where the work lives without depending on timing.
+        var path = WriteFile("config", "original");
+
+        using var cancelled = new CancellationTokenSource();
+        cancelled.Cancel();
+
+        Task<Snapshot>? capture = null;
+        Action start = () => { capture = _snapshots.CaptureAsync([path], SnapshotMetadata.Unknown, cancelled.Token); };
+
+        start.Should().NotThrow();
+        await capture!.Awaiting(t => t).Should().ThrowAsync<OperationCanceledException>();
+    }
+
+    [Fact]
     public async Task Captures_and_restores_a_file()
     {
         var path = WriteFile("config", "original");

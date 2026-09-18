@@ -165,7 +165,14 @@ public sealed class SnapshotService : ISnapshotService
     }
 
     /// <inheritdoc/>
-    public async Task<Snapshot> CaptureAsync(
+    /// <remarks>
+    /// Everything here is file copying, and copying has no asynchronous form worth the name: the
+    /// loop below, the sequence it starts from and the prune it ends with are all synchronous.
+    /// Left on the caller's thread that work runs inline, and the caller is the thread that
+    /// paints the window — a snapshot of a large file, or of one on a slow share, would stop it
+    /// painting for as long as the copy took. It runs on the thread pool instead.
+    /// </remarks>
+    public Task<Snapshot> CaptureAsync(
         IReadOnlyList<string> filePaths,
         SnapshotMetadata metadata,
         CancellationToken cancellationToken)
@@ -173,6 +180,14 @@ public sealed class SnapshotService : ISnapshotService
         ArgumentNullException.ThrowIfNull(filePaths);
         ArgumentNullException.ThrowIfNull(metadata);
 
+        return Task.Run(() => CaptureCoreAsync(filePaths, metadata, cancellationToken), cancellationToken);
+    }
+
+    private async Task<Snapshot> CaptureCoreAsync(
+        IReadOnlyList<string> filePaths,
+        SnapshotMetadata metadata,
+        CancellationToken cancellationToken)
+    {
         var takenUtc = DateTimeOffset.UtcNow;
         var sequence = PeekNextSequence();
         var directory = Path.Combine(
@@ -235,10 +250,19 @@ public sealed class SnapshotService : ISnapshotService
     }
 
     /// <inheritdoc/>
-    public async Task<IReadOnlyList<string>> RestoreAsync(string snapshotPath, CancellationToken cancellationToken)
+    /// <remarks>Copies files back, so it stays off the caller's thread for the same reason
+    /// <see cref="CaptureAsync"/> does.</remarks>
+    public Task<IReadOnlyList<string>> RestoreAsync(string snapshotPath, CancellationToken cancellationToken)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(snapshotPath);
 
+        return Task.Run(() => RestoreCoreAsync(snapshotPath, cancellationToken), cancellationToken);
+    }
+
+    private static async Task<IReadOnlyList<string>> RestoreCoreAsync(
+        string snapshotPath,
+        CancellationToken cancellationToken)
+    {
         var manifestPath = Path.Combine(snapshotPath, ManifestFileName);
         if (!File.Exists(manifestPath))
         {
@@ -314,12 +338,21 @@ public sealed class SnapshotService : ISnapshotService
     public IReadOnlyList<SnapshotInfo> ListSnapshotsDetailed() => [.. ListSnapshots().Select(Describe)];
 
     /// <inheritdoc/>
-    public async Task<IReadOnlyList<SnapshotFileState>> DescribeAsync(
+    /// <remarks>Reads every snapshotted file whole to compare it, so it stays off the caller's
+    /// thread for the same reason <see cref="CaptureAsync"/> does.</remarks>
+    public Task<IReadOnlyList<SnapshotFileState>> DescribeAsync(
         string snapshotPath,
         CancellationToken cancellationToken)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(snapshotPath);
 
+        return Task.Run(() => DescribeCoreAsync(snapshotPath, cancellationToken), cancellationToken);
+    }
+
+    private static async Task<IReadOnlyList<SnapshotFileState>> DescribeCoreAsync(
+        string snapshotPath,
+        CancellationToken cancellationToken)
+    {
         var manifestPath = Path.Combine(snapshotPath, ManifestFileName);
         if (!File.Exists(manifestPath))
         {
