@@ -6,6 +6,15 @@ on:
   pull_request:
   workflow_dispatch:
 
+# Read-only by default. The release job, and only the release job, asks for more.
+permissions:
+  contents: read
+
+# One run per ref: a second push makes the first run's answer worthless before it arrives.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 env:
   DOTNET_NOLOGO: true
   DOTNET_CLI_TELEMETRY_OPTOUT: true
@@ -41,6 +50,7 @@ jobs:
       - name: Restore
         run: dotnet restore GitVault.sln
 
+      # Warnings are errors repo-wide, from Directory.Build.props, so this needs no flag.
       - name: Build
         run: dotnet build GitVault.sln --configuration Release --no-restore
 
@@ -86,34 +96,40 @@ jobs:
         with:
           dotnet-version: 8.0.x
 
-      - name: Publish self-contained single file
-        run: >
-          dotnet publish src/GitVault.App/GitVault.App.csproj
-          --configuration Release
-          --runtime ${{ matrix.rid }}
-          --self-contained true
-          -p:PublishSingleFile=true
-          -p:IncludeNativeLibrariesForSelfExtract=true
-          -p:PublishTrimmed=false
-          -p:InvariantGlobalization=false
-          --output ./artifacts/${{ matrix.rid }}
+      - name: Read the version
+        id: version
+        shell: bash
+        run: |
+          version=$(grep -o '<Version>[^<]*' Directory.Build.props | head -1 | cut -d'>' -f2)
+          test -n "$version"
+          echo "version=$version" >> "$GITHUB_OUTPUT"
 
+      # The pack scripts report a missing packager and carry on rather than installing it, which
+      # is right on a machine somebody owns and wrong on a runner: it would quietly ship a release
+      # with no Windows installer in it.
+      - name: Install Inno Setup
+        if: startsWith(matrix.rid, 'win-')
+        shell: pwsh
+        run: choco install innosetup --no-progress --yes
+
+      # Each pack script publishes before it packages, so publishing separately here would build
+      # the whole application twice.
       - name: Package (Windows)
         if: startsWith(matrix.rid, 'win-')
         shell: pwsh
-        run: ./build/windows/pack.ps1 -Runtime ${{ matrix.rid }}
+        run: ./build/windows/pack.ps1 -Runtime ${{ matrix.rid }} -Version ${{ steps.version.outputs.version }}
 
       - name: Package (macOS)
         if: startsWith(matrix.rid, 'osx-')
         run: |
           chmod +x ./build/macos/pack.sh
-          ./build/macos/pack.sh ${{ matrix.rid }}
+          ./build/macos/pack.sh ${{ matrix.rid }} ${{ steps.version.outputs.version }}
 
       - name: Package (Linux)
         if: startsWith(matrix.rid, 'linux-')
         run: |
           chmod +x ./build/linux/pack.sh
-          ./build/linux/pack.sh ${{ matrix.rid }}
+          ./build/linux/pack.sh ${{ matrix.rid }} ${{ steps.version.outputs.version }}
 
       - name: Upload build
         uses: actions/upload-artifact@v4
@@ -127,5 +143,69 @@ jobs:
         with:
           name: gitvault-installers-${{ matrix.rid }}
           path: ./artifacts/installers
-          # Signing does not run in CI, so some platforms produce only an archive.
-          if-no-files-found: warn
+          if-no-files-found: error
+
+  release:
+    name: release
+    needs: [build, publish]
+    # Only a landed change is releasable. A pull request builds and stops there.
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+
+    # The gate: this environment carries a required reviewer, so the job waits for a person
+    # before anything is published.
+    environment: release
+
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Work out the tag
+        id: tag
+        run: |
+          version=$(grep -o '<Version>[^<]*' Directory.Build.props | head -1 | cut -d'>' -f2)
+          test -n "$version"
+          echo "tag=v${version}.${{ github.run_number }}" >> "$GITHUB_OUTPUT"
+
+      - name: Download the packaged builds
+        uses: actions/download-artifact@v4
+        with:
+          pattern: gitvault-installers-*
+          path: ./downloaded
+
+      - name: Name the assets after the release
+        run: |
+          set -euo pipefail
+          mkdir -p ./release
+          tag='${{ steps.tag.outputs.tag }}'
+
+          shopt -s nullglob
+          for directory in ./downloaded/gitvault-installers-*; do
+            platform="${directory##*/gitvault-installers-}"
+            for file in "$directory"/*; do
+              name="$(basename "$file")"
+              case "$name" in
+                *.tar.gz) extension="tar.gz" ;;
+                *)        extension="${name##*.}" ;;
+              esac
+              cp "$file" "./release/gitvault-${tag}-${platform}.${extension}"
+            done
+          done
+
+          if [ -z "$(ls -A ./release)" ]; then
+            echo "No packaged builds were downloaded; refusing to publish an empty release." >&2
+            exit 1
+          fi
+          ls -l ./release
+
+      - name: Publish the release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: >
+          gh release create '${{ steps.tag.outputs.tag }}'
+          --target '${{ github.sha }}'
+          --title '${{ steps.tag.outputs.tag }}'
+          --generate-notes
+          ./release/*
