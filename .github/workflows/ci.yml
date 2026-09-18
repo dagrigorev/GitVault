@@ -119,6 +119,19 @@ jobs:
         shell: pwsh
         run: ./build/windows/pack.ps1 -Runtime ${{ matrix.rid }} -Version ${{ steps.version.outputs.version }}
 
+      # hdiutil writes the whole image and its scratch copy to the same disk, and the runner
+      # arrives with the NuGet cache and two SDKs already on it. osx-x64 ran out mid-image.
+      - name: Make room for the disk image
+        if: startsWith(matrix.rid, 'osx-')
+        run: |
+          df -h /
+          # Simulator runtimes and the spare Xcodes are tens of gigabytes that nothing here needs.
+          # The NuGet cache is deliberately left alone: the pack script publishes before it builds
+          # the image, and clearing it would only buy space by downloading everything again.
+          sudo rm -rf ~/Library/Developer/CoreSimulator/Caches ~/Library/Developer/CoreSimulator/Devices || true
+          sudo rm -rf /Applications/Xcode_1*.app || true
+          df -h /
+
       - name: Package (macOS)
         if: startsWith(matrix.rid, 'osx-')
         run: |
