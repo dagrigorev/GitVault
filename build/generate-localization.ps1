@@ -102,6 +102,14 @@ $header = @'
   </resheader>
 '@
 
+# AppendLine writes whatever the platform calls a line ending, so a generator run on Windows and
+# one on Linux produced files that differed everywhere and matched nowhere. The repository stores
+# LF, so that is what is written, whoever runs this.
+function ConvertTo-Lf {
+    param([Parameter(Mandatory)] [string] $Text)
+    return $Text.Replace("`r`n", "`n")
+}
+
 function Write-Resx {
     param(
         [Parameter(Mandatory)] [string] $Path,
@@ -120,7 +128,7 @@ function Write-Resx {
     [void]$builder.AppendLine('</root>')
 
     $utf8NoBom = [System.Text.UTF8Encoding]::new($false)
-    [System.IO.File]::WriteAllText($Path, $builder.ToString(), $utf8NoBom)
+    [System.IO.File]::WriteAllText($Path, (ConvertTo-Lf $builder.ToString()), $utf8NoBom)
     Write-Host "wrote $Path ($($entries.Count) keys)"
 }
 
@@ -155,5 +163,5 @@ foreach ($entry in $entries) {
 [void]$keys.AppendLine('}')
 
 $utf8NoBom = [System.Text.UTF8Encoding]::new($false)
-[System.IO.File]::WriteAllText($KeysFile, $keys.ToString(), $utf8NoBom)
+[System.IO.File]::WriteAllText($KeysFile, (ConvertTo-Lf $keys.ToString()), $utf8NoBom)
 Write-Host "wrote $KeysFile"

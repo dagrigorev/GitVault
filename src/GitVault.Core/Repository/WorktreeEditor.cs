@@ -410,15 +410,19 @@ public sealed class WorktreeEditor : IWorktreeEditor
     /// <remarks>
     /// git reports paths with forward slashes whatever the platform, and the interface hands back
     /// whatever the picker produced, so the two have to be normalised before they can be compared.
+    ///
+    /// Normalising is not enough on its own, because git resolves symbolic links before it records
+    /// a working tree and a folder picker does not. On macOS every temporary directory is reached
+    /// through the <c>/var</c> link, so git says <c>/private/var/…</c> where the picker said
+    /// <c>/var/…</c>; a Linux home under a symlinked mount and a Windows junction do the same
+    /// thing. Comparing the unresolved strings made GitVault report that a working tree plainly
+    /// present could not be found.
     /// </remarks>
     private static bool PathsMatch(string left, string right)
     {
         try
         {
-            return string.Equals(
-                Path.GetFullPath(left).TrimEnd(Path.DirectorySeparatorChar),
-                Path.GetFullPath(right).TrimEnd(Path.DirectorySeparatorChar),
-                OperatingSystem.IsWindows() ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal);
+            return Platform.RealPath.AreSame(left, right);
         }
         catch (ArgumentException)
         {

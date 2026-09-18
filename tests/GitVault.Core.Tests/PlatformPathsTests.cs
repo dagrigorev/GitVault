@@ -8,6 +8,87 @@ namespace GitVault.Core.Tests;
 /// Exercises the OS-independent half of <see cref="PlatformPathsBase"/> through a test double,
 /// so the expansion rules are verified on every CI platform rather than only on Windows.
 /// </summary>
+/// <summary>
+/// Resolving one directory's several names to the one the system stores it under.
+/// </summary>
+/// <remarks>
+/// git resolves symbolic links before it records a path; a folder picker does not. Everything
+/// that compares a path GitVault was given against a path git printed depends on the two being
+/// brought to the same form first.
+/// </remarks>
+public sealed class RealPathTests : IDisposable
+{
+    private readonly string _root =
+        Path.Combine(Path.GetTempPath(), "gitvault-realpath", Guid.NewGuid().ToString("N")[..12]);
+
+    public RealPathTests() => Directory.CreateDirectory(_root);
+
+    [Fact]
+    public void A_path_with_no_links_in_it_is_its_own_resolution()
+    {
+        var directory = Path.Combine(_root, "plain");
+        Directory.CreateDirectory(directory);
+
+        RealPath.Resolve(directory).Should().Be(RealPath.Resolve(Path.GetFullPath(directory)));
+        RealPath.AreSame(directory, directory + Path.DirectorySeparatorChar).Should().BeTrue();
+    }
+
+    [Fact]
+    public void A_link_and_its_target_are_the_same_directory()
+    {
+        var target = Path.Combine(_root, "target");
+        var link = Path.Combine(_root, "link");
+        Directory.CreateDirectory(target);
+
+        try
+        {
+            Directory.CreateSymbolicLink(link, target);
+        }
+        catch (IOException)
+        {
+            // Creating a link is a privileged operation on Windows unless developer mode is on.
+            // The behaviour is still worth asserting wherever it can be.
+            return;
+        }
+        catch (UnauthorizedAccessException)
+        {
+            return;
+        }
+
+        RealPath.Resolve(Path.Combine(link, "inside"))
+            .Should().Be(Path.Combine(RealPath.Resolve(target), "inside"));
+
+        RealPath.AreSame(link, target).Should().BeTrue();
+    }
+
+    [Fact]
+    public void A_path_that_does_not_exist_still_comes_back_absolute()
+    {
+        var missing = Path.Combine(_root, "nowhere", "at", "all");
+
+        // The parts that exist are resolved and the parts that do not are kept as written. Being
+        // resolvable is not a precondition for naming a path.
+        RealPath.Resolve(missing)
+            .Should().Be(Path.Combine(RealPath.Resolve(_root), "nowhere", "at", "all"));
+    }
+
+    [Fact]
+    public void Nothing_in_gives_nothing_out() =>
+        RealPath.Resolve(null).Should().BeEmpty();
+
+    public void Dispose()
+    {
+        try
+        {
+            Directory.Delete(_root, recursive: true);
+        }
+        catch (IOException)
+        {
+            // A temporary directory that outlives the test is not a failure.
+        }
+    }
+}
+
 public sealed class PlatformPathsTests
 {
     private sealed class TestPaths : PlatformPathsBase
@@ -35,7 +116,13 @@ public sealed class PlatformPathsTests
     {
         var expanded = _paths.Expand("~work/keys");
 
-        expanded.Should().NotStartWith(_paths.HomeDirectory + Path.DirectorySeparatorChar + "work");
+        // What matters is that "~work" was not read as the home directory. The earlier form of
+        // this assertion said the result must not begin with home plus "work", which on a machine
+        // whose home is /Users/runner and whose checkout is under /Users/runner/work was true of
+        // every relative path the test could produce — it failed for where the build happened to
+        // run rather than for anything about expansion.
+        expanded.Should().NotBe(Path.GetFullPath(Path.Combine(_paths.HomeDirectory, "work", "keys")));
+        expanded.Should().Contain("~work");
     }
 
     [Fact]
