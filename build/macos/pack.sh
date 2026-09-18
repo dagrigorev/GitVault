@@ -94,8 +94,19 @@ fi
 DMG_PATH="${INSTALLER_DIR}/GitVault-${VERSION}-${RUNTIME}.dmg"
 rm -f "${DMG_PATH}"
 
+# The image is sized here rather than left to hdiutil. Asked to size a folder itself, it reports
+#
+#     hdiutil: create failed - No space left on device
+#
+# on a disk with ninety gigabytes free, because its estimate does not cover a bundle whose payload
+# is one very large self-extracting executable. The bundle's own size plus a fixed margin is an
+# estimate that cannot be wrong in that direction, and UDZO compresses the slack away afterwards.
+BUNDLE_KB="$(du -sk "${REPO_ROOT}/artifacts/bundle" | cut -f1)"
+IMAGE_MB=$(( BUNDLE_KB / 1024 + 250 ))
+
 hdiutil create -volname "GitVault" \
     -srcfolder "${REPO_ROOT}/artifacts/bundle" \
+    -size "${IMAGE_MB}m" \
     -ov -format UDZO "${DMG_PATH}"
 
 echo "wrote ${DMG_PATH}"
