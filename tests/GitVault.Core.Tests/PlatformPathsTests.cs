@@ -66,7 +66,10 @@ public sealed class RealPathTests : IDisposable
     {
         var missing = Path.Combine(_root, "nowhere", "at", "all");
 
-        RealPath.Resolve(missing).Should().Be(Path.GetFullPath(missing));
+        // The parts that exist are resolved and the parts that do not are kept as written. Being
+        // resolvable is not a precondition for naming a path.
+        RealPath.Resolve(missing)
+            .Should().Be(Path.Combine(RealPath.Resolve(_root), "nowhere", "at", "all"));
     }
 
     [Fact]

@@ -22,10 +22,19 @@ namespace GitVault.Core.Platform;
 /// </remarks>
 public static class RealPath
 {
+    /// <summary>How many links deep to follow before giving up.</summary>
+    /// <remarks>
+    /// A link's target may itself run through further links, and two links can be made to point
+    /// at each other. The limit is what keeps a cycle from becoming a hang.
+    /// </remarks>
+    private const int MaxHops = 40;
+
     /// <summary>Resolves a path through any symbolic links in it.</summary>
     /// <param name="path">Path to resolve. May be relative.</param>
     /// <returns>The resolved absolute path, or the absolute path when resolution is not possible.</returns>
-    public static string Resolve(string? path)
+    public static string Resolve(string? path) => Resolve(path, MaxHops);
+
+    private static string Resolve(string? path, int hopsLeft)
     {
         if (string.IsNullOrWhiteSpace(path))
         {
@@ -63,7 +72,15 @@ public static class RealPath
         foreach (var segment in remainder)
         {
             current = Path.Combine(current, segment);
-            current = FollowLink(current);
+
+            var followed = FollowLink(current);
+            if (!string.Equals(followed, current, StringComparison.Ordinal))
+            {
+                // A link records whatever target was written when it was made, and that target may
+                // run through links of its own: on macOS a link created against /var/… names
+                // /var/…, and returning it verbatim would undo the resolution already done.
+                current = hopsLeft > 0 ? Resolve(followed, hopsLeft - 1) : followed;
+            }
         }
 
         return current.Length == 0 ? full : current;
