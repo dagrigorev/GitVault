@@ -48,7 +48,7 @@ internal sealed partial class ScanCoordinator : ObservableObject, IDisposable
             _inFlight?.Cancel();
             _inFlight?.Dispose();
             _inFlight = source = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
-            OnUiThread(() => IsScanning = true);
+            await OnUiThreadAsync(() => IsScanning = true).ConfigureAwait(false);
         }
         finally
         {
@@ -59,11 +59,11 @@ internal sealed partial class ScanCoordinator : ObservableObject, IDisposable
         {
             var report = await _orchestrator.ScanAsync(source.Token).ConfigureAwait(false);
 
-            OnUiThread(() =>
+            await OnUiThreadAsync(() =>
             {
                 Report = report;
                 OnPropertyChanged(nameof(HasScanned));
-            });
+            }).ConfigureAwait(false);
 
             ScanCompleted?.Invoke(this, report);
 
@@ -89,7 +89,7 @@ internal sealed partial class ScanCoordinator : ObservableObject, IDisposable
         }
         finally
         {
-            OnUiThread(() => IsScanning = false);
+            await OnUiThreadAsync(() => IsScanning = false).ConfigureAwait(false);
         }
     }
 
@@ -103,15 +103,18 @@ internal sealed partial class ScanCoordinator : ObservableObject, IDisposable
     /// marshals its own work — but the observable properties cannot.
     /// </remarks>
     /// <param name="action">The assignment.</param>
-    private static void OnUiThread(Action action)
+    /// <returns>A task that completes once the assignment has been made.</returns>
+    private static Task OnUiThreadAsync(Action action)
     {
         if (Dispatcher.UIThread.CheckAccess())
         {
             action();
-            return;
+            return Task.CompletedTask;
         }
 
-        Dispatcher.UIThread.Post(action);
+        // Awaited rather than posted: a caller that awaits a scan is entitled to see the state
+        // the scan ended in, and posting would leave the flag set until the next frame.
+        return Dispatcher.UIThread.InvokeAsync(action).GetTask();
     }
 
     public void Dispose()

@@ -25,6 +25,7 @@ internal sealed class NavigationNode : ObservableObject
     private readonly Localizer _localizer;
     private readonly string? _captionKey;
     private readonly string? _literalCaption;
+    private bool _isExpanded;
 
     private NavigationNode(
         Localizer localizer,
@@ -42,6 +43,10 @@ internal sealed class NavigationNode : ObservableObject
         IconKey = iconKey;
         Page = page;
         RepositoryPath = repositoryPath;
+
+        // Only a repository starts closed. Everything above one is a heading, and a heading that
+        // started closed would hide the tree.
+        _isExpanded = page is not null || repositoryPath is null;
     }
 
     /// <summary>Creates the root node.</summary>
@@ -94,6 +99,25 @@ internal sealed class NavigationNode : ObservableObject
 
     /// <summary>Child nodes.</summary>
     public ObservableCollection<NavigationNode> Children { get; } = [];
+
+    /// <summary>
+    /// Whether the tree shows this node's children. Bound two-way, so it is both what the tree
+    /// does when the user clicks the expander and what the shell sets to close a node.
+    /// </summary>
+    /// <remarks>
+    /// A repository starts closed. A machine with a few dozen repositories, each holding twelve
+    /// pages, otherwise opens to several hundred rows that the user has to scroll past to reach
+    /// the one they came for. Headings start open, because closing them hides the whole
+    /// application.
+    /// </remarks>
+    public bool IsExpanded
+    {
+        get => _isExpanded;
+        set => SetProperty(ref _isExpanded, value);
+    }
+
+    /// <summary>True when this node stands for a repository rather than a page or a heading.</summary>
+    public bool IsRepository => Page is null && RepositoryPath is not null;
 
     /// <summary>Caption: localized for a page, verbatim for a repository name.</summary>
     public string Caption => _literalCaption ?? _localizer[_captionKey!];

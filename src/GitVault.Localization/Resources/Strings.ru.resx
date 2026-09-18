@@ -821,6 +821,9 @@
   <data name="Nav_ThisComputer" xml:space="preserve">
     <value>Этот компьютер</value>
   </data>
+  <data name="Nav_ResizePane" xml:space="preserve">
+    <value>Изменить ширину панели навигации</value>
+  </data>
   <data name="Nav_Snapshots" xml:space="preserve">
     <value>Снимки и откат</value>
   </data>

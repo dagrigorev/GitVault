@@ -765,6 +765,9 @@ public static class Keys
     /// <summary>English: This computer</summary>
     public const string Nav_ThisComputer = "Nav_ThisComputer";
 
+    /// <summary>English: Resize the navigation pane</summary>
+    public const string Nav_ResizePane = "Nav_ResizePane";
+
     /// <summary>English: Snapshots &amp; rollback</summary>
     public const string Nav_Snapshots = "Nav_Snapshots";
 
@@ -2767,6 +2770,7 @@ public static class Keys
         Plural_Warnings_Many,
         Plural_Warnings_Other,
         Nav_ThisComputer,
+        Nav_ResizePane,
         Nav_Snapshots,
         Menu_File,
         Menu_File_Rescan,

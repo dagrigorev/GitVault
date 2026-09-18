@@ -252,6 +252,7 @@
   { "key": "Plural_Warnings_Many", "en": "{0} warnings", "ru": "{0} предупреждений", "zh": "{0} 条警告" },
   { "key": "Plural_Warnings_Other", "en": "{0} warnings", "ru": "{0} предупреждения", "zh": "{0} 条警告" },
   { "key": "Nav_ThisComputer", "en": "This computer", "ru": "Этот компьютер", "zh": "此计算机" },
+  { "key": "Nav_ResizePane", "en": "Resize the navigation pane", "ru": "Изменить ширину панели навигации", "zh": "调整导航窗格宽度" },
   { "key": "Nav_Snapshots", "en": "Snapshots & rollback", "ru": "Снимки и откат", "zh": "快照与回滚" },
   { "key": "Menu_File", "en": "_File", "ru": "_Файл", "zh": "文件(_F)" },
   { "key": "Menu_File_Rescan", "en": "Rescan computer", "ru": "Пересканировать компьютер", "zh": "重新扫描计算机" },

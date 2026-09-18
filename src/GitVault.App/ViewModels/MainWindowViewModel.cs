@@ -163,10 +163,16 @@ internal sealed partial class MainWindowViewModel : ViewModelBase
 
         var selectedPath = SelectedNode?.RepositoryPath;
 
+        foreach (var previous in parent.Children)
+        {
+            previous.PropertyChanged -= OnRepositoryNodePropertyChanged;
+        }
+
         parent.Children.Clear();
         foreach (var row in _repositories.Rows)
         {
             var node = NavigationNode.ForRepository(L, row.Name, row.Path);
+            node.PropertyChanged += OnRepositoryNodePropertyChanged;
 
             node.Children.Add(NavigationNode.ForRepositoryPage(L, _commits, row.Path));
             node.Children.Add(NavigationNode.ForRepositoryPage(L, _remotes, row.Path));
@@ -193,7 +199,54 @@ internal sealed partial class MainWindowViewModel : ViewModelBase
 
             if (again is not null)
             {
+                // Reopen the repository the user was inside; a rebuild must not fold it away.
+                var owner = parent.Children.FirstOrDefault(n => n.RepositoryPath == selectedPath);
+                if (owner is not null)
+                {
+                    owner.IsExpanded = true;
+                }
+
                 SelectedNode = again;
+            }
+        }
+    }
+
+    /// <summary>
+    /// Closes the other repositories when one opens.
+    /// </summary>
+    /// <remarks>
+    /// Twelve pages hang under every repository, so several open at once push the one the user
+    /// wants off the bottom of the pane. One open at a time keeps the tree the height of a list of
+    /// repositories plus the pages of the one being worked on. Closing a repository closes nothing
+    /// else: only opening is exclusive.
+    /// </remarks>
+    /// <param name="sender">The repository node whose state changed.</param>
+    /// <param name="e">Which property changed.</param>
+    private void OnRepositoryNodePropertyChanged(
+        object? sender,
+        System.ComponentModel.PropertyChangedEventArgs e)
+    {
+        if (e.PropertyName is not nameof(NavigationNode.IsExpanded)
+            || sender is not NavigationNode opened
+            || !opened.IsExpanded)
+        {
+            return;
+        }
+
+        var parent = RootNodes
+            .SelectMany(r => r.Children)
+            .FirstOrDefault(n => n.Page is RepositoriesViewModel);
+
+        if (parent is null)
+        {
+            return;
+        }
+
+        foreach (var sibling in parent.Children)
+        {
+            if (!ReferenceEquals(sibling, opened))
+            {
+                sibling.IsExpanded = false;
             }
         }
     }

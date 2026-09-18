@@ -821,6 +821,9 @@
   <data name="Nav_ThisComputer" xml:space="preserve">
     <value>此计算机</value>
   </data>
+  <data name="Nav_ResizePane" xml:space="preserve">
+    <value>调整导航窗格宽度</value>
+  </data>
   <data name="Nav_Snapshots" xml:space="preserve">
     <value>快照与回滚</value>
   </data>

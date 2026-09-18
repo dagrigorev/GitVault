@@ -55,6 +55,83 @@ public sealed class RepositoryContextTests
     }
 
     [AvaloniaFact]
+    public void Opening_one_repository_closes_the_others()
+    {
+        using var provider = TestServices.Build();
+        var shell = provider.GetRequiredService<MainWindowViewModel>();
+        var repositories = provider.GetRequiredService<RepositoriesViewModel>();
+
+        repositories.Rows.Add(Row(provider, "alpha", "/src/alpha"));
+        repositories.Rows.Add(Row(provider, "beta", "/src/beta"));
+        repositories.Rows.Add(Row(provider, "gamma", "/src/gamma"));
+
+        shell.RebuildRepositoryNodes();
+
+        var parent = shell.RootNodes[0].Children.Single(n => n.Page is RepositoriesViewModel);
+
+        parent.Children.Should().AllSatisfy(n => n.IsExpanded.Should().BeFalse());
+
+        parent.Children[0].IsExpanded = true;
+        parent.Children[2].IsExpanded = true;
+
+        parent.Children.Select(n => n.IsExpanded).Should().Equal(false, false, true);
+    }
+
+    [AvaloniaFact]
+    public void Closing_a_repository_leaves_the_rest_alone()
+    {
+        using var provider = TestServices.Build();
+        var shell = provider.GetRequiredService<MainWindowViewModel>();
+        var repositories = provider.GetRequiredService<RepositoriesViewModel>();
+
+        repositories.Rows.Add(Row(provider, "alpha", "/src/alpha"));
+        repositories.Rows.Add(Row(provider, "beta", "/src/beta"));
+
+        shell.RebuildRepositoryNodes();
+
+        var parent = shell.RootNodes[0].Children.Single(n => n.Page is RepositoriesViewModel);
+
+        parent.Children[1].IsExpanded = true;
+        parent.Children[1].IsExpanded = false;
+
+        parent.Children.Select(n => n.IsExpanded).Should().Equal(false, false);
+    }
+
+    [AvaloniaFact]
+    public void The_headings_above_the_repositories_start_open()
+    {
+        using var provider = TestServices.Build();
+        var shell = provider.GetRequiredService<MainWindowViewModel>();
+
+        shell.RootNodes[0].IsExpanded.Should().BeTrue();
+        shell.RootNodes[0].Children.Single(n => n.Page is RepositoriesViewModel)
+            .IsExpanded.Should().BeTrue();
+    }
+
+    [AvaloniaFact]
+    public void A_rebuild_keeps_the_repository_the_user_is_inside_open()
+    {
+        using var provider = TestServices.Build();
+        var shell = provider.GetRequiredService<MainWindowViewModel>();
+        var repositories = provider.GetRequiredService<RepositoriesViewModel>();
+
+        repositories.Rows.Add(Row(provider, "alpha", "/src/alpha"));
+        repositories.Rows.Add(Row(provider, "beta", "/src/beta"));
+
+        shell.RebuildRepositoryNodes();
+
+        var parent = shell.RootNodes[0].Children.Single(n => n.Page is RepositoriesViewModel);
+        parent.Children[1].IsExpanded = true;
+        shell.SelectedNode = parent.Children[1].Children.First(n => n.Page is CommitsViewModel);
+
+        shell.RebuildRepositoryNodes();
+
+        parent = shell.RootNodes[0].Children.Single(n => n.Page is RepositoriesViewModel);
+        parent.Children.Single(n => n.RepositoryPath == "/src/beta").IsExpanded.Should().BeTrue();
+        parent.Children.Single(n => n.RepositoryPath == "/src/alpha").IsExpanded.Should().BeFalse();
+    }
+
+    [AvaloniaFact]
     public void A_repository_name_is_shown_verbatim_rather_than_translated()
     {
         using var provider = TestServices.Build();

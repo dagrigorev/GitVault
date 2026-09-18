@@ -821,6 +821,9 @@
   <data name="Nav_ThisComputer" xml:space="preserve">
     <value>This computer</value>
   </data>
+  <data name="Nav_ResizePane" xml:space="preserve">
+    <value>Resize the navigation pane</value>
+  </data>
   <data name="Nav_Snapshots" xml:space="preserve">
     <value>Snapshots &amp; rollback</value>
   </data>

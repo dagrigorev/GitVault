@@ -205,7 +205,16 @@
     </Border>
 
     <!-- ============================================================ content -->
-    <Grid ColumnDefinitions="220,*">
+    <!--
+      The navigation pane is dragged rather than fixed: repository names are data and some of them
+      are long. The bounds stop a drag from hiding the pane or squeezing the page beside it.
+    -->
+    <Grid>
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="220" MinWidth="150" MaxWidth="520" />
+        <ColumnDefinition Width="Auto" />
+        <ColumnDefinition Width="*" MinWidth="420" />
+      </Grid.ColumnDefinitions>
 
       <!-- Navigation tree -->
       <Border Grid.Column="0" Classes="sidebar">
@@ -226,6 +235,12 @@
                     ItemsSource="{Binding RootNodes}"
                     SelectedItem="{Binding SelectedNode, Mode=TwoWay}"
                     AutomationProperties.Name="{loc:Tr Nav_ThisComputer}">
+            <TreeView.Styles>
+              <!-- The node owns whether it is open, so the shell can close the others. -->
+              <Style Selector="TreeViewItem">
+                <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
+              </Style>
+            </TreeView.Styles>
             <TreeView.ItemTemplate>
               <TreeDataTemplate ItemsSource="{Binding Children}">
                 <StackPanel Orientation="Horizontal" Spacing="5" Height="20">
@@ -241,8 +256,13 @@
         </DockPanel>
       </Border>
 
+      <GridSplitter Grid.Column="1"
+                    ResizeDirection="Columns"
+                    ResizeBehavior="PreviousAndNext"
+                    AutomationProperties.Name="{loc:Tr Nav_ResizePane}" />
+
       <!-- Workspace: tab strip, page, properties pane -->
-      <DockPanel Grid.Column="1" Background="{StaticResource ClassicWindowBrush}">
+      <DockPanel Grid.Column="2" Background="{StaticResource ClassicWindowBrush}">
 
         <Border DockPanel.Dock="Top" Classes="tabBar">
           <StackPanel Orientation="Horizontal">
