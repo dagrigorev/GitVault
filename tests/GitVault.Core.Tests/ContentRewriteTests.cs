@@ -363,6 +363,20 @@ public sealed class ContentRewriteTests(ITestOutputHelper output)
         var repository = environment.CreateRepository("mode");
         Write(environment, repository, "run.sh", "#!/bin/sh\necho one\n", "Add a script");
         environment.Git(repository, "update-index", "--chmod=+x", "run.sh");
+
+        // update-index writes the mode into the index and leaves the file alone. Where the
+        // filesystem carries the bit, that difference is an uncommitted change, and the rewrite
+        // refuses to move a branch out from under one — so the test would be blocked by its own
+        // setup rather than by anything it means to exercise.
+        if (!OperatingSystem.IsWindows())
+        {
+            var script = Path.Combine(repository, "run.sh");
+            File.SetUnixFileMode(
+                script,
+                File.GetUnixFileMode(script)
+                | UnixFileMode.UserExecute | UnixFileMode.GroupExecute | UnixFileMode.OtherExecute);
+        }
+
         environment.Git(repository, "commit", "--quiet", "-m", "Make it executable");
         Write(environment, repository, "after.txt", "later\n", "Add a later commit");
 

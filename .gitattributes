@@ -1,0 +1,25 @@
+# Text is stored and checked out with one line ending on every platform.
+#
+# Without this, a Windows checkout with core.autocrlf rewrites source files on the way out of the
+# repository. The tests that assert on file content then measure the checkout rather than the
+# code: a block editor that preserves a file's existing line endings faithfully reproduced CRLF
+# and was told it had produced a string one byte too long, on CI only, for a reason nothing in
+# the test mentioned.
+* text=auto eol=lf
+
+# Shell scripts must keep LF wherever they are checked out: a CR at the end of the shebang makes
+# the kernel look for an interpreter that does not exist.
+*.sh text eol=lf
+
+# Windows tooling that is happier with CRLF.
+*.sln text eol=crlf
+*.iss text eol=crlf
+
+# Left exactly as committed.
+*.png binary
+*.ico binary
+*.icns binary
+*.dmg binary
+*.zip binary
+*.gz binary
+*.ppk binary

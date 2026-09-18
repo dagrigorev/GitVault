@@ -85,6 +85,12 @@ internal sealed class TempGitEnvironment : IDisposable
         var home = Path.Combine(Path.GetTempPath(), "gitvault-e2e", Guid.NewGuid().ToString("N")[..12]);
         Directory.CreateDirectory(home);
 
+        // Resolved, because git resolves. The temporary directory is reached through /var on
+        // macOS, which is a link to /private/var, so a harness that kept the unresolved name
+        // would compare its own paths against git's and find them different — a failure about
+        // the temporary directory rather than about anything under test.
+        home = RealPath.Resolve(home);
+
         var environment = new TempGitEnvironment(home, git);
 
         // A minimal identity, so committing works at all. Tests that care about identity
