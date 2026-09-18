@@ -1,0 +1,4 @@
+This fixture is a tree with no client in it, which is the point: the probes must
+report "not installed" rather than throw. Git tracks files and not directories,
+so without this placeholder the tree exists only on the machine that made it and
+every fresh checkout fails before the first assertion.
