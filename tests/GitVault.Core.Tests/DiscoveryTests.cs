@@ -72,6 +72,47 @@ public sealed class DiscoveryOrchestratorTests
     }
 
     [Fact]
+    public async Task A_probe_that_blocks_its_thread_times_out_like_any_other()
+    {
+        using var released = new ManualResetEventSlim(false);
+        var blocking = new FakeProbe("blocking", _ =>
+        {
+            // No await anywhere: a probe that is synchronous throughout and cannot see the token.
+            released.Wait(TimeSpan.FromSeconds(30));
+            return Task.FromResult(ProbeResult<ProbePayload>.Ok("blocking", ProbePayload.Empty));
+        })
+        { Timeout = TimeSpan.FromMilliseconds(50) };
+
+        try
+        {
+            var report = await new DiscoveryOrchestrator([blocking]).ScanAsync(CancellationToken.None);
+
+            report.ProbeStatuses.Single().Status.Should().Be(ProbeStatus.Timeout);
+        }
+        finally
+        {
+            released.Set();
+        }
+    }
+
+    [Fact]
+    public async Task A_synchronous_probe_does_not_run_on_the_calling_thread()
+    {
+        var callingThread = Environment.CurrentManagedThreadId;
+        var ranOn = 0;
+
+        var probe = new FakeProbe("sync", _ =>
+        {
+            ranOn = Environment.CurrentManagedThreadId;
+            return Task.FromResult(ProbeResult<ProbePayload>.Ok("sync", ProbePayload.Empty));
+        });
+
+        await new DiscoveryOrchestrator([probe]).ScanAsync(CancellationToken.None);
+
+        ranOn.Should().NotBe(callingThread);
+    }
+
+    [Fact]
     public async Task An_unsupported_probe_reports_not_applicable_without_running()
     {
         var ran = false;

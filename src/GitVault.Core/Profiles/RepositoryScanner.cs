@@ -45,6 +45,13 @@ public sealed class RepositoryScanner : IRepositoryScanner
     ];
 
     /// <inheritdoc/>
+    /// <remarks>
+    /// The walk runs on the thread pool rather than on the caller's thread. It is directory
+    /// enumeration and nothing else — there is no asynchronous form of it to await — so returning
+    /// a completed task would run the whole of it inline, which on the interface thread means the
+    /// window stops painting for as long as the disk takes. A root on a slow or disconnected
+    /// network share makes that minutes rather than milliseconds.
+    /// </remarks>
     public Task<IReadOnlyList<DiscoveredRepository>> ScanAsync(
         IReadOnlyList<string> roots,
         int maxDepth,
@@ -52,23 +59,27 @@ public sealed class RepositoryScanner : IRepositoryScanner
     {
         ArgumentNullException.ThrowIfNull(roots);
 
-        var found = new List<DiscoveredRepository>();
-        var seen = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-
-        foreach (var root in roots)
-        {
-            cancellationToken.ThrowIfCancellationRequested();
-
-            if (string.IsNullOrWhiteSpace(root) || !Directory.Exists(root))
+        return Task.Run<IReadOnlyList<DiscoveredRepository>>(
+            () =>
             {
-                continue;
-            }
+                var found = new List<DiscoveredRepository>();
+                var seen = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 
-            Walk(root, 0, maxDepth, found, seen, cancellationToken);
-        }
+                foreach (var root in roots)
+                {
+                    cancellationToken.ThrowIfCancellationRequested();
 
-        return Task.FromResult<IReadOnlyList<DiscoveredRepository>>(
-            [.. found.OrderBy(r => r.Path, StringComparer.OrdinalIgnoreCase)]);
+                    if (string.IsNullOrWhiteSpace(root) || !Directory.Exists(root))
+                    {
+                        continue;
+                    }
+
+                    Walk(root, 0, maxDepth, found, seen, cancellationToken);
+                }
+
+                return found.OrderBy(r => r.Path, StringComparer.OrdinalIgnoreCase).ToArray();
+            },
+            cancellationToken);
     }
 
     /// <summary>Reads the first remote URL out of a repository's config.</summary>

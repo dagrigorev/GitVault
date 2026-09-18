@@ -184,8 +184,35 @@ public sealed class DiscoveryOrchestrator : IDiscoveryOrchestrator
 
         try
         {
-            var result = await probe.ProbeAsync(timeout.Token).ConfigureAwait(false);
+            // Task.Run, and then a wait with its own deadline, for two reasons.
+            //
+            // Several probes are synchronous throughout — a registry read, a credential
+            // enumeration, a walk of a configuration directory. Awaiting one of those runs all of
+            // it on the calling thread before the first await ever yields, which serialises the
+            // scan and, when the caller is the interface thread, stops the window painting.
+            //
+            // And a synchronous probe cannot observe the cancellation token while it is blocked
+            // inside a Win32 call or a read from a dead network share. Without the deadline here
+            // its time budget means nothing: one hung probe holds the whole scan, and every page
+            // waits for a report that never arrives. The probe's thread is left to finish on its
+            // own — there is no safe way to abandon it — but the scan is not.
+            var work = Task.Run(() => probe.ProbeAsync(timeout.Token), timeout.Token);
+
+            // An abandoned probe that throws later must not resurface as an unobserved task
+            // exception; its outcome has already been recorded as a timeout.
+            _ = work.ContinueWith(
+                static t => _ = t.Exception,
+                CancellationToken.None,
+                TaskContinuationOptions.OnlyOnFaulted | TaskContinuationOptions.ExecuteSynchronously,
+                TaskScheduler.Default);
+
+            var result = await work.WaitAsync(probe.Timeout, cancellationToken).ConfigureAwait(false);
             return (probe, result);
+        }
+        catch (TimeoutException)
+        {
+            return (probe, ProbeResult<ProbePayload>.Fail(
+                probe.ProbeId, ProbeStatus.Timeout, null, stopwatch.Elapsed));
         }
         catch (OperationCanceledException) when (!cancellationToken.IsCancellationRequested)
         {

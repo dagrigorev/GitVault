@@ -1,3 +1,4 @@
+using Avalonia.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
 using GitVault.Core.Abstractions;
 using GitVault.Core.Models;
@@ -47,7 +48,7 @@ internal sealed partial class ScanCoordinator : ObservableObject, IDisposable
             _inFlight?.Cancel();
             _inFlight?.Dispose();
             _inFlight = source = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
-            IsScanning = true;
+            OnUiThread(() => IsScanning = true);
         }
         finally
         {
@@ -58,8 +59,12 @@ internal sealed partial class ScanCoordinator : ObservableObject, IDisposable
         {
             var report = await _orchestrator.ScanAsync(source.Token).ConfigureAwait(false);
 
-            Report = report;
-            OnPropertyChanged(nameof(HasScanned));
+            OnUiThread(() =>
+            {
+                Report = report;
+                OnPropertyChanged(nameof(HasScanned));
+            });
+
             ScanCompleted?.Invoke(this, report);
 
             Log.Information(
@@ -84,8 +89,29 @@ internal sealed partial class ScanCoordinator : ObservableObject, IDisposable
         }
         finally
         {
-            IsScanning = false;
+            OnUiThread(() => IsScanning = false);
         }
+    }
+
+    /// <summary>
+    /// Runs a property assignment where the bindings can hear it.
+    /// </summary>
+    /// <remarks>
+    /// The scan itself runs on the thread pool, so a property changed from where it finishes
+    /// would reach a binding off the interface thread. <see cref="ScanCompleted"/> keeps its
+    /// documented contract of being raised on the scanning thread — every subscriber already
+    /// marshals its own work — but the observable properties cannot.
+    /// </remarks>
+    /// <param name="action">The assignment.</param>
+    private static void OnUiThread(Action action)
+    {
+        if (Dispatcher.UIThread.CheckAccess())
+        {
+            action();
+            return;
+        }
+
+        Dispatcher.UIThread.Post(action);
     }
 
     public void Dispose()

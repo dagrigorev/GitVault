@@ -473,6 +473,30 @@ public sealed class RepositoryScannerTests : IDisposable
     }
 
     [Fact]
+    public async Task The_walk_leaves_the_calling_thread_immediately()
+    {
+        // The walk has no asynchronous form, so returning a completed task would run all of it
+        // inline — on the interface thread that means the window stops painting until the disk is
+        // done, which on a large or disconnected root is the whole application hanging.
+        //
+        // A cancelled token makes that observable without timing: a walk running inline reaches
+        // its first check and throws out of the call itself, while one that was handed to the
+        // thread pool can only ever report through the task it returned.
+        Directory.CreateDirectory(Path.Combine(_root, "repo", ".git"));
+
+        using var cancelled = new CancellationTokenSource();
+        cancelled.Cancel();
+
+        var scanner = new RepositoryScanner();
+        Task<IReadOnlyList<DiscoveredRepository>>? scan = null;
+
+        Action start = () => { scan = scanner.ScanAsync([_root], 5, cancelled.Token); };
+
+        start.Should().NotThrow();
+        await scan!.Awaiting(t => t).Should().ThrowAsync<OperationCanceledException>();
+    }
+
+    [Fact]
     public async Task Finds_repositories_under_a_root()
     {
         MakeRepository("alpha");
